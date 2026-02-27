@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'pdf-to-word-backend',
-      script: 'dist/main.js',
+      script: 'dist/src/main.js',
       cwd: './backend',
       instances: 1,
       exec_mode: 'cluster',
@@ -23,7 +23,7 @@ module.exports = {
     },
     {
       name: 'pdf-to-word-frontend',
-      script: 'node_modules/.bin/next',  // ✅ 修正1：正确的 Next.js 可执行文件路径
+      script: 'npm',  // ✅ 修正1：正确的 Next.js 可执行文件路径
       args: 'start -p 3000',             // ✅ 修正2：修改端口避免与后端冲突
       cwd: './frontend',
       instances: 1,
