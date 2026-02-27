@@ -23,7 +23,7 @@
     },
     {
       "name": "pdf-to-word-frontend",
-      "script": "node_modules/next/dist/bin/next",
+      "script": ".next/dist/bin/next",
       "args": "start -p 3000",
       "cwd": "./frontend",
       "instances": 1,
