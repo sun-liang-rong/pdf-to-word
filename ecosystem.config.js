@@ -7,7 +7,8 @@ module.exports = {
       instances: 1,
       exec_mode: 'cluster',
       env: {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
+        PORT: 3333
       },
       error_file: './logs/backend-error.log',
       out_file: './logs/backend-out.log',
@@ -23,7 +24,7 @@ module.exports = {
     },
     {
       name: 'pdf-to-word-frontend',
-      script: 'npm',  // ✅ 修正1：正确的 Next.js 可执行文件路径
+      script: './node_modules/next/dist/bin/next',  // ✅ 修正1：正确的 Next.js 可执行文件路径
       args: 'start -p 3000',             // ✅ 修正2：修改端口避免与后端冲突
       cwd: './frontend',
       instances: 1,
