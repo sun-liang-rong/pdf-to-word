@@ -17,7 +17,7 @@ export class TaskController {
       throw new NotFoundException('任务不存在');
     }
 
-    const apiUrl = this.configService.get('API_URL') || 'http://localhost:3001';
+    const apiUrl = this.configService.get('API_URL') || '';
     
     const response: any = {
       id: task.id,
