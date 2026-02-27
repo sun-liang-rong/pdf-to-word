@@ -24,13 +24,13 @@ module.exports = {
     {
       name: 'pdf-to-word-frontend',
       script: 'node_modules/.bin/next',  // ✅ 修正1：正确的 Next.js 可执行文件路径
-      args: 'start -p 3001',             // ✅ 修正2：修改端口避免与后端冲突
+      args: 'start -p 3000',             // ✅ 修正2：修改端口避免与后端冲突
       cwd: './frontend',
       instances: 1,
       exec_mode: 'fork',                  // ✅ 修正3：Next.js 推荐使用 fork 模式
       env: {
         NODE_ENV: 'production',
-        PORT: '3001'                      // ✅ 修正4：明确指定端口
+        PORT: '3000'                      // ✅ 修正4：明确指定端口
       },
       error_file: './logs/frontend-error.log',
       out_file: './logs/frontend-out.log',
