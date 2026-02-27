@@ -1,0 +1,5 @@
+# robots.txt for PDF Converter
+User-agent: *
+Allow: /
+
+Sitemap: https://your-domain.com/sitemap.xml
