@@ -42,8 +42,12 @@ export class UploadService {
         return `${baseName}.zip`;
       case 'jpg-to-pdf':
         return `${baseName}.pdf`;
+      case 'split-pages':
+        return `${baseName}_split.zip`;
+      case 'rearrange-pages':
+        return `${baseName}_rearranged.pdf`;
       default:
-        return `${baseName}.converted`;
+        return `${baseName}.pdf`;
     }
   }
 

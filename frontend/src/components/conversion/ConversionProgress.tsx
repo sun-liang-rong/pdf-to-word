@@ -17,6 +17,12 @@ interface TaskStatus {
   error?: string;
 }
 
+const steps = [
+  { id: "upload", label: "上传文件", icon: "📤" },
+  { id: "process", label: "转换中", icon: "⚙️" },
+  { id: "complete", label: "完成", icon: "✅" },
+];
+
 export default function ConversionProgress({
   taskId,
   onComplete,
@@ -42,10 +48,12 @@ export default function ConversionProgress({
 
   if (isLoading || !data) {
     return (
-      <div className="w-full p-6 bg-gray-50 rounded-xl">
-        <div className="flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-          <span className="ml-3 text-gray-600">正在查询任务状态...</span>
+      <div className="w-full p-8 bg-gray-50 rounded-2xl">
+        <div className="flex flex-col items-center justify-center">
+          <div className="relative">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-100 border-t-primary-600"></div>
+          </div>
+          <span className="mt-4 text-gray-600 font-medium">正在初始化...</span>
         </div>
       </div>
     );
@@ -62,55 +70,159 @@ export default function ConversionProgress({
     setTimeout(() => onError(data.error || "转换失败"), 0);
   }
 
-  const getStatusText = () => {
+  const getCurrentStep = () => {
     switch (status) {
       case "waiting":
-        return "等待处理...";
+        return 0;
       case "processing":
-        return "正在转换...";
+        return 1;
       case "completed":
-        return "转换完成!";
-      case "failed":
-        return "转换失败";
+        return 2;
       default:
-        return "未知状态";
+        return 0;
     }
   };
 
-  const getStatusColor = () => {
+  const currentStep = getCurrentStep();
+
+  const getStatusText = () => {
     switch (status) {
       case "waiting":
-        return "bg-yellow-500";
+        return "正在排队等待处理...";
       case "processing":
-        return "bg-primary-500";
+        return "正在转换文件中...";
       case "completed":
-        return "bg-green-500";
+        return "转换完成！";
       case "failed":
-        return "bg-red-500";
+        return "转换失败";
       default:
-        return "bg-gray-500";
+        return "处理中...";
+    }
+  };
+
+  const getStatusDescription = () => {
+    switch (status) {
+      case "waiting":
+        return "系统正在准备处理您的文件";
+      case "processing":
+        return "请稍候，正在努力转换中";
+      case "completed":
+        return "文件已成功转换，正在准备下载";
+      case "failed":
+        return "转换过程中出现错误";
+      default:
+        return "";
     }
   };
 
   return (
-    <div className="w-full p-6 bg-gray-50 rounded-xl">
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-gray-700 font-medium">{getStatusText()}</span>
-        <span className="text-gray-500 text-sm">{progress}%</span>
+    <div className="w-full">
+      {/* Step Indicator */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between relative">
+          {/* Progress Line */}
+          <div className="absolute left-0 right-0 top-1/2 h-1 bg-gray-200 -translate-y-1/2 rounded-full">
+            <div 
+              className="h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full transition-all duration-500"
+              style={{ width: `${Math.min(((currentStep) / (steps.length - 1)) * 100 + (status === "processing" ? (progress / steps.length) : 0), 100)}%` }}
+            />
+          </div>
+
+          {/* Steps */}
+          {steps.map((step, index) => {
+            const isActive = index <= currentStep;
+            const isCurrent = index === currentStep;
+
+            return (
+              <div key={step.id} className="relative flex flex-col items-center z-10">
+                <div
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl transition-all duration-300 ${
+                    isCurrent
+                      ? "bg-primary-600 text-white shadow-lg scale-110"
+                      : isActive
+                      ? "bg-primary-100 text-primary-600"
+                      : "bg-gray-100 text-gray-400"
+                  }`}
+                >
+                  {isCurrent && status === "processing" ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+                  ) : (
+                    step.icon
+                  )}
+                </div>
+                <span
+                  className={`mt-2 text-sm font-medium transition-colors ${
+                    isActive ? "text-gray-900" : "text-gray-400"
+                  }`}
+                >
+                  {step.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-        <div
-          className={`h-full rounded-full transition-all duration-300 ${getStatusColor()}`}
-          style={{ width: `${progress}%` }}
-        />
-      </div>
+      {/* Progress Card */}
+      <div className="bg-gradient-to-br from-gray-50 to-white border border-gray-100 rounded-2xl p-8">
+        {/* Status Header */}
+        <div className="text-center mb-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-2">{getStatusText()}</h3>
+          <p className="text-gray-500">{getStatusDescription()}</p>
+        </div>
 
-      {status === "processing" && (
-        <p className="mt-4 text-sm text-gray-500 text-center">
-          请稍候，文件正在转换中...
-        </p>
-      )}
+        {/* Progress Bar */}
+        <div className="relative">
+          <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-500 ease-out relative"
+              style={{
+                width: `${progress}%`,
+                background: "linear-gradient(90deg, #3b82f6 0%, #2563eb 50%, #3b82f6 100%)",
+                backgroundSize: "200% 100%",
+                animation: status === "processing" ? "shimmer 2s linear infinite" : "none",
+              }}
+            >
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            </div>
+          </div>
+
+          {/* Progress Percentage */}
+          <div className="flex justify-between items-center mt-3">
+            <span className="text-sm text-gray-500">转换进度</span>
+            <span className="text-2xl font-bold text-primary-600">{progress}%</span>
+          </div>
+        </div>
+
+        {/* Processing Animation */}
+        {status === "processing" && (
+          <div className="mt-6 flex items-center justify-center space-x-2">
+            <div className="flex space-x-1">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 bg-primary-500 rounded-full animate-bounce"
+                  style={{ animationDelay: `${i * 0.15}s` }}
+                />
+              ))}
+            </div>
+            <span className="text-sm text-gray-500">正在处理中...</span>
+          </div>
+        )}
+
+        {/* Tips */}
+        <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
+          <div className="flex items-start space-x-3">
+            <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p className="text-sm text-blue-700">
+              转换时间取决于文件大小和页数，请耐心等待，不要关闭页面
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
