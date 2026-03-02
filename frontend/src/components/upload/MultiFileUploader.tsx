@@ -8,6 +8,7 @@ import {
   closestCenter,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   DragEndEvent,
@@ -65,18 +66,20 @@ function SortableItem({ fileItem, index, onRemove }: SortableItemProps) {
       ref={setNodeRef}
       style={style}
       className={clsx(
-        "flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg transition-all",
+        "flex items-center justify-between p-4 card-dark border border-primary/20 rounded-xl transition-all touch-none",
         isDragging
-          ? "shadow-lg border-primary-400 bg-primary-50"
-          : "hover:border-primary-300"
+          ? "border-primary-400/50 bg-primary/20 shadow-glow"
+          : "hover:border-primary/40"
       )}
     >
       <div className="flex items-center space-x-3 flex-1 min-w-0">
-        <span
+        <button
+          type="button"
           {...attributes}
           {...listeners}
-          className="text-gray-400 cursor-move hover:text-primary-600 transition-colors select-none"
+          className="text-foreground-muted cursor-grab hover:text-primary-400 transition-colors select-none touch-none p-2 -m-2 active:cursor-grabbing"
           title="拖拽排序"
+          aria-label="拖拽排序"
         >
           <svg
             className="w-5 h-5"
@@ -91,24 +94,25 @@ function SortableItem({ fileItem, index, onRemove }: SortableItemProps) {
               d="M4 8h16M4 16h16"
             />
           </svg>
-        </span>
-        <span className="flex items-center justify-center w-8 h-8 bg-primary-100 text-primary-600 rounded-full text-sm font-medium">
+        </button>
+        <span className="flex items-center justify-center w-8 h-8 bg-primary/20 text-primary-300 rounded-lg text-sm font-medium border border-primary/30 flex-shrink-0">
           {index + 1}
         </span>
         <span
-          className="text-gray-700 truncate flex-1"
+          className="text-white truncate flex-1 min-w-0"
           title={fileItem.file.name}
         >
           {fileItem.file.name}
         </span>
-        <span className="text-sm text-gray-500 whitespace-nowrap">
+        <span className="text-sm text-foreground-muted whitespace-nowrap flex-shrink-0">
           ({(fileItem.file.size / 1024 / 1024).toFixed(2)} MB)
         </span>
       </div>
       <button
         onClick={() => onRemove(fileItem.id)}
-        className="text-red-500 hover:text-red-700 p-2 transition-colors ml-2"
+        className="text-red-400 hover:text-red-300 p-2 transition-colors ml-2 hover:bg-red-500/10 rounded-lg flex-shrink-0"
         title="删除文件"
+        aria-label="删除文件"
       >
         <svg
           className="w-5 h-5"
@@ -143,6 +147,12 @@ export default function MultiFileUploader({
         distance: 8,
       },
     }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 0,
+        tolerance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
@@ -175,7 +185,7 @@ export default function MultiFileUploader({
           `文件大小超过限制 (最大 ${Math.round(maxSize / 1024 / 1024)}MB)`
         );
       } else if (error?.code === "file-invalid-type") {
-        setError("只支持PDF文件");
+        setError("只支持 PDF 文件");
       } else {
         setError("文件上传失败，请重试");
       }
@@ -222,56 +232,85 @@ export default function MultiFileUploader({
         <div
           {...getRootProps()}
           className={clsx(
-            "border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all relative min-h-[300px]",
+            "border-2 border-dashed rounded-2xl sm:rounded-3xl p-8 sm:p-10 text-center cursor-pointer transition-all relative min-h-[280px] upload-zone",
             isDragActive
-              ? "border-primary-500 bg-primary-50"
-              : "border-gray-300 hover:border-primary-400 hover:bg-gray-50",
+              ? "border-primary-500/50 bg-primary-500/10"
+              : "border-primary/30 hover:border-primary/50 hover:bg-white/5",
             isUploading && "opacity-60 cursor-not-allowed"
           )}
         >
           <input {...getInputProps()} disabled={isUploading} multiple />
 
           {isUploading && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-90 rounded-xl">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mb-4"></div>
-              <p className="text-primary-600 font-medium">正在合并PDF文件...</p>
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/95 backdrop-blur-sm rounded-2xl">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary/20 border-t-primary-500 mb-4"></div>
+              <p className="text-primary-300 font-medium text-base sm:text-lg">正在处理 PDF 文件...</p>
             </div>
           )}
 
-          <div className={clsx("flex flex-col", isUploading && "invisible")}>
-            <svg
-              className="w-16 h-16 text-gray-400 mb-4 mx-auto"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-              />
-            </svg>
+          <div className={clsx("flex flex-col items-center", isUploading && "invisible")}>
+            <div className={clsx(
+              "w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-all duration-300",
+              isDragActive ? "bg-primary/20 scale-110" : "bg-white/5 border border-primary/20"
+            )}>
+              <svg
+                className="w-8 h-8 sm:w-10 sm:h-10 text-foreground-muted"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
+              </svg>
+            </div>
             {isDragActive ? (
-              <p className="text-lg text-primary-600 font-medium">
+              <p className="text-lg text-primary-300 font-medium mb-2">
                 释放文件以上传
               </p>
             ) : (
               <>
-                <p className="text-lg text-gray-700 font-medium mb-2">
-                  拖拽多个PDF文件到此处，或点击选择文件
+                <p className="text-lg sm:text-xl font-semibold text-white mb-2">
+                  上传多个 PDF 文件
                 </p>
-                <p className="text-sm text-gray-500">
-                  最大文件大小: {Math.round(maxSize / 1024 / 1024)}MB
+                <p className="text-sm sm:text-base text-foreground-muted mb-4">
+                  拖拽多个 PDF 文件到此处，或点击选择文件
                 </p>
               </>
             )}
+            <div className="flex items-center justify-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-foreground-muted">
+              <span className="flex items-center">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                最大 {Math.round(maxSize / 1024 / 1024)}MB
+              </span>
+              <span className="w-0.5 h-3 sm:w-1 sm:h-1 bg-primary/30 rounded-full hidden sm:inline-block"></span>
+              <span>支持批量上传</span>
+            </div>
           </div>
         </div>
 
         {error && (
-          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-            {error}
+          <div className="mt-4 error-container flex items-start space-x-3 animate-slide-down">
+            <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm sm:text-base text-red-400 font-medium">{error}</p>
+              <p className="text-xs sm:text-sm text-red-400/70 mt-1">请检查文件格式和大小后重试</p>
+            </div>
+            <button 
+              onClick={() => setError(null)}
+              className="text-red-400/50 hover:text-red-400 transition-colors flex-shrink-0"
+            >
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
         )}
       </div>
@@ -280,14 +319,14 @@ export default function MultiFileUploader({
 
   return (
     <div className="w-full">
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
         <div className="flex-1">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-base sm:text-lg font-semibold text-white">
               已选择 {files.length} 个文件
             </h3>
-            <p className="text-sm text-gray-600">
-              总大小: {(totalSize / 1024 / 1024).toFixed(2)} MB
+            <p className="text-sm text-foreground-muted">
+              总大小：{(totalSize / 1024 / 1024).toFixed(2)} MB
             </p>
           </div>
 
@@ -313,9 +352,9 @@ export default function MultiFileUploader({
             </SortableContext>
           </DndContext>
 
-          <p className="mt-3 text-sm text-gray-500 flex items-center">
+          <p className="mt-3 text-xs sm:text-sm text-foreground-muted flex items-center">
             <svg
-              className="w-4 h-4 mr-1"
+              className="w-4 h-4 mr-1 text-primary-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -331,7 +370,7 @@ export default function MultiFileUploader({
           </p>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 sm:gap-3">
           <input
             ref={fileInputRef}
             type="file"
@@ -344,13 +383,13 @@ export default function MultiFileUploader({
           <div
             onClick={handleAddClick}
             className={clsx(
-              "border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all w-40 h-40 flex flex-col items-center justify-center",
-              "border-gray-300 hover:border-primary-400 hover:bg-gray-50",
+              "border-2 border-dashed rounded-xl p-4 sm:p-6 text-center cursor-pointer transition-all w-full sm:w-40 h-40 flex flex-col items-center justify-center",
+              "border-primary/30 hover:border-primary/50 hover:bg-white/5",
               isUploading && "opacity-60 cursor-not-allowed"
             )}
           >
             <svg
-              className="w-10 h-10 text-gray-400 mb-2"
+              className="w-8 h-8 sm:w-10 sm:h-10 text-foreground-muted mb-2"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -362,7 +401,7 @@ export default function MultiFileUploader({
                 d="M12 4v16m8-8H4"
               />
             </svg>
-            <p className="text-sm text-gray-600">添加文件</p>
+            <p className="text-xs sm:text-sm text-foreground-muted">添加文件</p>
           </div>
 
           <button
@@ -370,7 +409,7 @@ export default function MultiFileUploader({
               setFiles([]);
               onFilesChange([]);
             }}
-            className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors text-sm"
+            className="px-3 sm:px-4 py-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors text-xs sm:text-sm"
           >
             清空全部
           </button>
@@ -378,8 +417,22 @@ export default function MultiFileUploader({
       </div>
 
       {error && (
-        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-          {error}
+        <div className="mt-4 error-container flex items-start space-x-3 animate-slide-down">
+          <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm sm:text-base text-red-400 font-medium">{error}</p>
+            <p className="text-xs sm:text-sm text-red-400/70 mt-1">请检查文件格式和大小后重试</p>
+          </div>
+          <button 
+            onClick={() => setError(null)}
+            className="text-red-400/50 hover:text-red-400 transition-colors flex-shrink-0"
+          >
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       )}
     </div>

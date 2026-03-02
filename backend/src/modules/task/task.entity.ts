@@ -53,7 +53,7 @@ export enum ConversionType {
  * 根据转换类型确定输出文件的扩展名
  */
 export const OUTPUT_EXTENSIONS: Record<ConversionType, string> = {
-  [ConversionType.PDF_TO_WORD]: '.docx',
+  [ConversionType.PDF_TO_WORD]: '.doc',
   [ConversionType.WORD_TO_PDF]: '.pdf',
   [ConversionType.PDF_TO_JPG]: '.zip',  // PDF 转图片可能有多页，打包为 zip
   [ConversionType.JPG_TO_PDF]: '.pdf',

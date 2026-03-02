@@ -106,39 +106,34 @@ export default function PdfToWordClient() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
+    <div className="min-h-screen bg-background">
+      <section className="relative overflow-hidden hero-gradient">
+        <div className="absolute inset-0 tech-grid opacity-20" />
         
         <div className="relative container mx-auto px-4 py-16">
-          {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
-            <a href="/" className="hover:text-primary-600 transition-colors">首页</a>
+          <nav className="flex items-center space-x-2 text-sm text-foreground-muted mb-8">
+            <a href="/" className="hover:text-primary-400 transition-colors">首页</a>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-            <span className="text-gray-900 font-medium">PDF转Word</span>
+            <span className="text-white font-medium">PDF转Word</span>
           </nav>
 
           <div className="max-w-3xl mx-auto">
-            {/* Header */}
             <div className="text-center mb-10">
-              <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+              <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full text-sm font-medium mb-4">
                 <span className="mr-2">📄</span>
-                格式转换
+                <span className="text-primary-300">格式转换</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 PDF转Word在线转换器
               </h1>
-              <p className="text-lg text-gray-600">
-                免费将PDF文件转换为可编辑的Word文档(.docx)，保留原有格式和排版
+              <p className="text-lg text-foreground-muted">
+                免费将 PDF 文件转换为可编辑的 Word 文档 (.doc)，保留原有格式和排版
               </p>
             </div>
 
-            {/* Converter Card */}
-            <div className="bg-white rounded-3xl shadow-soft border border-gray-100 overflow-hidden">
-              {/* Card Header */}
+            <div className="card-dark rounded-3xl overflow-hidden border border-primary/20">
               <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-8 py-6">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
@@ -146,12 +141,11 @@ export default function PdfToWordClient() {
                   </div>
                   <div>
                     <h2 className="text-white font-bold text-lg">开始转换</h2>
-                    <p className="text-primary-100 text-sm">支持 PDF 转 Word (.docx)</p>
+                    <p className="text-primary-200 text-sm">支持 PDF 转 Word (.doc)</p>
                   </div>
                 </div>
               </div>
 
-              {/* Card Body */}
               <div className="p-8">
                 {!taskId && !downloadUrl && (
                   <div className="space-y-6">
@@ -165,25 +159,25 @@ export default function PdfToWordClient() {
                     />
 
                     {selectedFile && !taskId && (
-                      <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center space-x-3 animate-fade-in">
-                        <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="p-4 bg-white/5 rounded-xl border border-primary/20 flex items-center space-x-3 animate-fade-in">
+                        <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                           </svg>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
+                          <p className="text-sm font-medium text-white truncate">
                             {selectedFile.name}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-foreground-muted">
                             {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                           </p>
                         </div>
                         <button
                           onClick={() => setSelectedFile(null)}
-                          className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
+                          className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                         >
-                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 text-foreground-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         </button>
@@ -203,25 +197,25 @@ export default function PdfToWordClient() {
                 {downloadUrl && (
                   <DownloadButton
                     downloadUrl={downloadUrl}
-                    fileName={selectedFile?.name.replace(".pdf", ".docx") || "converted.docx"}
+                    fileName={selectedFile?.name.replace(".pdf", ".doc") || "converted.doc"}
                     onReset={handleReset}
                   />
                 )}
 
                 {error && (
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start space-x-3 animate-slide-down">
-                    <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="error-container flex items-start space-x-3 animate-slide-down">
+                    <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div className="flex-1">
-                      <p className="text-red-700 font-medium">转换失败</p>
-                      <p className="text-red-600/70 text-sm mt-1">{error}</p>
+                      <p className="text-red-400 font-medium">转换失败</p>
+                      <p className="text-red-400/70 text-sm mt-1">{error}</p>
                     </div>
                     <button
                       onClick={() => setError(null)}
-                      className="p-1 hover:bg-red-100 rounded transition-colors"
+                      className="p-1 hover:bg-red-500/20 rounded transition-colors"
                     >
-                      <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
@@ -230,17 +224,16 @@ export default function PdfToWordClient() {
               </div>
             </div>
 
-            {/* Features */}
             <div className="mt-8 grid grid-cols-3 gap-4">
               {[
                 { icon: "⚡", label: "极速转换", desc: "15秒内完成" },
                 { icon: "🔒", label: "安全保障", desc: "30分钟删除" },
                 { icon: "🎯", label: "精准还原", desc: "保留原格式" },
               ].map((feature, index) => (
-                <div key={index} className="text-center p-4">
+                <div key={index} className="text-center p-4 card-dark rounded-xl border border-primary/10">
                   <div className="text-2xl mb-2">{feature.icon}</div>
-                  <div className="font-medium text-gray-900 text-sm">{feature.label}</div>
-                  <div className="text-xs text-gray-500">{feature.desc}</div>
+                  <div className="font-medium text-white text-sm">{feature.label}</div>
+                  <div className="text-xs text-foreground-muted">{feature.desc}</div>
                 </div>
               ))}
             </div>
@@ -248,31 +241,29 @@ export default function PdfToWordClient() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20 bg-white">
+      <section className="py-20 section-gradient">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               如何将PDF转换为Word
             </h2>
-            <p className="text-gray-600">简单三步，轻松完成转换</p>
+            <p className="text-foreground-muted">简单三步，轻松完成转换</p>
           </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-              {/* Connection Lines */}
-              <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary-200 via-primary-300 to-primary-200" />
+              <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary/30 via-primary/50 to-primary/30" />
 
               {steps.map((item, index) => (
                 <div key={index} className="relative text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary-50 to-primary-100 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm relative z-10">
+                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-primary-dark/20 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6 border border-primary/20 relative z-10">
                     {item.icon}
                   </div>
-                  <div className="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4 shadow-glow">
                     {item.step}
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-gray-500 text-sm">{item.description}</p>
+                  <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-foreground-muted text-sm">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -280,7 +271,6 @@ export default function PdfToWordClient() {
         </div>
       </section>
 
-      {/* FAQ Section */}
       <FAQ items={faqItems} />
     </div>
   );

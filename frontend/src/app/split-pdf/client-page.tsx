@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useDropzone } from "react-dropzone";
-import clsx from "clsx";
+import FileUploader from "@/components/upload/FileUploader";
 import FAQ from "@/components/seo/FAQ";
 import axios from "axios";
 import { getPDFPageCount } from "@/lib/pdf-utils";
@@ -30,21 +29,9 @@ const faqItems = [
 ];
 
 const steps = [
-  {
-    step: 1,
-    title: "上传 PDF 文件",
-    description: "拖拽或点击上传需要处理的 PDF 文件",
-  },
-  {
-    step: 2,
-    title: "设置拆分范围",
-    description: "选择自定义或固定模式，设置拆分范围",
-  },
-  {
-    step: 3,
-    title: "下载拆分文件",
-    description: "点击拆分按钮，下载生成的独立 PDF 文件",
-  },
+  { step: 1, title: "上传 PDF 文件", description: "拖拽或点击上传需要处理的 PDF 文件", icon: "📤" },
+  { step: 2, title: "设置拆分范围", description: "选择自定义或固定模式，设置拆分范围", icon: "📑" },
+  { step: 3, title: "下载拆分文件", description: "点击拆分按钮，下载生成的独立 PDF 文件", icon: "📥" },
 ];
 
 interface Range {
@@ -58,7 +45,7 @@ interface PreviewPDF {
   rangeIndex: number;
   pages: number[];
   canvasRefs: HTMLCanvasElement[];
-  aspectRatio: number; // PDF宽高比
+  aspectRatio: number;
 }
 
 export default function SplitPdfClient() {
@@ -67,72 +54,45 @@ export default function SplitPdfClient() {
   const [ranges, setRanges] = useState<Range[]>([{ id: 'range-1', start: 1, end: 1 }]);
   const [mode, setMode] = useState<'custom' | 'fixed'>('custom');
   const [mergeAll, setMergeAll] = useState(false);
-  const [taskId, setTaskId] = useState<string | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [pageThumbnails, setPageThumbnails] = useState<HTMLCanvasElement[]>([]);
   const [previewPDFs, setPreviewPDFs] = useState<PreviewPDF[]>([]);
-  const [customRanges, setCustomRanges] = useState<Range[]>([{ id: 'range-1', start: 1, end: 1 }]);
   const [selectedRangeId, setSelectedRangeId] = useState<string | null>(null);
   const rangeRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
-  // 使用 useEffect 处理模式切换时的预览更新
   useEffect(() => {
     if (mode === 'fixed' && pageCount > 0) {
       const fixedRanges: Range[] = [];
       for (let i = 1; i <= pageCount; i++) {
-        fixedRanges.push({
-          id: `fixed-${i}`,
-          start: i,
-          end: i,
-        });
+        fixedRanges.push({ id: `fixed-${i}`, start: i, end: i });
       }
       setRanges(fixedRanges);
       updatePreviewPDFs(pageThumbnails, fixedRanges);
     } else if (mode === 'custom') {
-      setRanges(customRanges);
-      updatePreviewPDFs(pageThumbnails, customRanges);
+      setRanges([{ id: 'range-1', start: 1, end: 1 }]);
+      updatePreviewPDFs(pageThumbnails, [{ id: 'range-1', start: 1, end: 1 }]);
     }
   }, [mode, pageCount]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: async (acceptedFiles) => {
-      if (acceptedFiles.length > 0) {
-        const selectedFile = acceptedFiles[0];
-        setFile(selectedFile);
-        setError(null);
-        setTaskId(null);
-        setDownloadUrl(null);
-        setRanges([{ id: 'range-1', start: 1, end: 1 }]);
-        setMergeAll(false);
-        setSelectedRangeId(null);
-        
-        try {
-          const pages = await getPDFPageCount(selectedFile);
-          setPageCount(pages);
-          await renderThumbnails(selectedFile, pages);
-        } catch (err: any) {
-          setError("无法读取 PDF 文件，请检查文件是否损坏");
-          setPageCount(0);
-        }
-      }
-    },
-    accept: { "application/pdf": [".pdf"] },
-    maxSize: 20 * 1024 * 1024,
-    multiple: false,
-    disabled: isProcessing,
-    onDropRejected: (rejections) => {
-      const err = rejections[0]?.errors[0];
-      if (err?.code === "file-too-large") {
-        setError("文件大小超过限制 (最大 20MB)");
-      } else if (err?.code === "file-invalid-type") {
-        setError("只支持 PDF 文件");
-      } else {
-        setError("文件上传失败，请重试");
-      }
-    },
-  });
+  const handleFileSelect = async (selectedFile: File) => {
+    setFile(selectedFile);
+    setError(null);
+    setDownloadUrl(null);
+    setRanges([{ id: 'range-1', start: 1, end: 1 }]);
+    setMergeAll(false);
+    setSelectedRangeId(null);
+    
+    try {
+      const pages = await getPDFPageCount(selectedFile);
+      setPageCount(pages);
+      await renderThumbnails(selectedFile, pages);
+    } catch {
+      setError("无法读取 PDF 文件，请检查文件是否损坏");
+      setPageCount(0);
+    }
+  };
 
   const renderThumbnails = async (pdfFile: File, pages: number) => {
     const canvases: HTMLCanvasElement[] = [];
@@ -150,21 +110,16 @@ export default function SplitPdfClient() {
       
       const context = canvas.getContext('2d');
       if (context) {
-        await page.render({
-          canvasContext: context,
-          viewport,
-        }).promise;
+        await page.render({ canvasContext: context, viewport }).promise;
       }
-      
       canvases.push(canvas);
     }
     
     setPageThumbnails(canvases);
-    updatePreviewPDFs(canvases, ranges);
+    updatePreviewPDFs(canvases, [{ id: 'range-1', start: 1, end: 1 }]);
   };
 
   const updatePreviewPDFs = (canvases: HTMLCanvasElement[], currentRanges: Range[]) => {
-    // 计算PDF的宽高比（使用第一页作为参考）
     const aspectRatio = canvases.length > 0 ? canvases[0].width / canvases[0].height : 1;
     
     const previews: PreviewPDF[] = currentRanges.map((range, index) => {
@@ -178,13 +133,7 @@ export default function SplitPdfClient() {
         }
       }
       
-      return {
-        rangeId: range.id,
-        rangeIndex: index,
-        pages,
-        canvasRefs: rangeCanvases,
-        aspectRatio,
-      };
+      return { rangeId: range.id, rangeIndex: index, pages, canvasRefs: rangeCanvases, aspectRatio };
     });
     
     setPreviewPDFs(previews);
@@ -201,8 +150,6 @@ export default function SplitPdfClient() {
     const updatedRanges = [...ranges, newRange];
     setRanges(updatedRanges);
     updatePreviewPDFs(pageThumbnails, updatedRanges);
-    
-    // 自动选中新添加的范围
     setTimeout(() => {
       setSelectedRangeId(newRange.id);
       scrollToRange(newRange.id);
@@ -214,21 +161,15 @@ export default function SplitPdfClient() {
     const updatedRanges = ranges.filter((r) => r.id !== id);
     setRanges(updatedRanges);
     updatePreviewPDFs(pageThumbnails, updatedRanges);
-    if (selectedRangeId === id) {
-      setSelectedRangeId(null);
-    }
+    if (selectedRangeId === id) setSelectedRangeId(null);
   };
 
   const updateRange = (id: string, field: 'start' | 'end', value: number) => {
     const updatedRanges = ranges.map((r) => {
       if (r.id === id) {
         const updated = { ...r, [field]: Math.max(1, Math.min(value, pageCount)) };
-        if (field === 'start' && updated.start > updated.end) {
-          updated.end = updated.start;
-        }
-        if (field === 'end' && updated.end < updated.start) {
-          updated.start = updated.end;
-        }
+        if (field === 'start' && updated.start > updated.end) updated.end = updated.start;
+        if (field === 'end' && updated.end < updated.start) updated.start = updated.end;
         return updated;
       }
       return r;
@@ -241,11 +182,7 @@ export default function SplitPdfClient() {
     if (mode === 'fixed') {
       const fixedRanges: Range[] = [];
       for (let i = 1; i <= pageCount; i++) {
-        fixedRanges.push({
-          id: `fixed-${i}`,
-          start: i,
-          end: i,
-        });
+        fixedRanges.push({ id: `fixed-${i}`, start: i, end: i });
       }
       return fixedRanges;
     }
@@ -254,57 +191,32 @@ export default function SplitPdfClient() {
 
   const generatePageNumbers = (): string => {
     const rangesToUse = getPageRanges();
-    const parts = rangesToUse.map((range) => {
-      if (range.start === range.end) {
-        return `${range.start}`;
-      }
-      return `${range.start}-${range.end}`;
-    });
+    const parts = rangesToUse.map((range) => range.start === range.end ? `${range.start}` : `${range.start}-${range.end}`);
     return parts.join(",");
   };
 
   const handleSplit = async () => {
-    if (!file) {
-      setError("请先上传 PDF 文件");
-      return;
-    }
-
+    if (!file) { setError("请先上传 PDF 文件"); return; }
     const pageNumbers = generatePageNumbers();
-    if (!pageNumbers) {
-      setError("请设置拆分范围");
-      return;
-    }
+    if (!pageNumbers) { setError("请设置拆分范围"); return; }
 
     setIsProcessing(true);
     setError(null);
-    setTaskId(null);
-    setDownloadUrl(null);
 
     try {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("pageNumbers", pageNumbers);
       formData.append("mergeAll", String(mergeAll));
-
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/convert/split-pages`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      setTaskId(response.data.taskId);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/convert/split-pages`, formData, { headers: { "Content-Type": "multipart/form-data" } });
       setDownloadUrl(`/api/download/${response.data.taskId}`);
-    } catch (err: any) {
-      if (err.response?.status === 429) {
-        setError(err.response?.data?.message || "今日拆分次数已用完，请明日再来");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err) && err.response?.status === 429) {
+        setError(err.response?.data?.message || "今日次数已用完");
+      } else if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || "拆分页面失败");
       } else {
-        setError(
-          err.response?.data?.message || "拆分页面失败，请检查文件后重试"
-        );
+        setError("拆分页面失败");
       }
     } finally {
       setIsProcessing(false);
@@ -317,7 +229,6 @@ export default function SplitPdfClient() {
     setRanges([{ id: 'range-1', start: 1, end: 1 }]);
     setMode('custom');
     setMergeAll(false);
-    setTaskId(null);
     setDownloadUrl(null);
     setError(null);
     setPageThumbnails([]);
@@ -325,419 +236,211 @@ export default function SplitPdfClient() {
     setSelectedRangeId(null);
   };
 
-  // 点击左侧预览框时选中右侧对应的范围
   const handlePreviewClick = (rangeId: string) => {
     setSelectedRangeId(rangeId);
     scrollToRange(rangeId);
   };
 
-  // 滚动到对应的范围输入框
   const scrollToRange = (rangeId: string) => {
     const element = rangeRefs.current.get(rangeId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // 添加高亮动画效果
       element.classList.add('ring-2', 'ring-primary-500', 'ring-offset-2');
-      setTimeout(() => {
-        element.classList.remove('ring-2', 'ring-primary-500', 'ring-offset-2');
-      }, 1500);
+      setTimeout(() => element.classList.remove('ring-2', 'ring-primary-500', 'ring-offset-2'), 1500);
     }
   };
 
   const currentRanges = getPageRanges();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section className="bg-gradient-to-b from-blue-50 to-white py-12">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
-            PDF 页面拆分
-          </h1>
-          <p className="text-lg text-gray-600 text-center max-w-2xl mx-auto mb-8">
-            免费在线拆分 PDF 页面，将指定页面生成为独立的 PDF 文件
-          </p>
+    <div className="min-h-screen bg-background">
+      <section className="relative overflow-hidden hero-gradient">
+        <div className="absolute inset-0 tech-grid opacity-20" />
+        
+        <div className="relative container mx-auto px-4 py-16">
+          <nav className="flex items-center space-x-2 text-sm text-foreground-muted mb-8">
+            <a href="/" className="hover:text-primary-400 transition-colors">首页</a>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            <span className="text-white font-medium">PDF 页面拆分</span>
+          </nav>
 
-          <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-8">
-            {!taskId && !downloadUrl && (
-              <>
-                {!file ? (
-                  <div
-                    {...getRootProps()}
-                    className={clsx(
-                      "border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all relative min-h-[200px] flex flex-col items-center justify-center",
-                      isDragActive
-                        ? "border-primary-500 bg-primary-50"
-                        : "border-gray-300 hover:border-primary-400 hover:bg-gray-50",
-                      isProcessing && "opacity-60 cursor-not-allowed"
-                    )}
-                  >
-                    <input {...getInputProps()} disabled={isProcessing} />
-                    <svg
-                      className="w-16 h-16 text-gray-400 mb-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      />
-                    </svg>
-                    {isDragActive ? (
-                      <p className="text-lg text-primary-600 font-medium">释放文件以上传</p>
-                    ) : (
-                      <>
-                        <p className="text-lg text-gray-700 font-medium mb-2">
-                          拖拽 PDF 文件到此处，或点击选择文件
-                        </p>
-                        <p className="text-sm text-gray-500">最大文件大小：20MB</p>
-                      </>
-                    )}
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full text-sm font-medium mb-4">
+                <span className="mr-2">📂</span><span className="text-primary-300">PDF 工具</span>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">PDF 页面拆分在线工具</h1>
+              <p className="text-lg text-foreground-muted">免费在线拆分 PDF 页面，将指定页面生成为独立的 PDF 文件</p>
+            </div>
+
+            <div className="card-dark rounded-3xl overflow-hidden border border-primary/20">
+              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-8 py-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
+                    📂
                   </div>
-                ) : (
-                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                    {/* 左侧：预览区域 - 占据更多空间 */}
-                    <div className="lg:col-span-3">
-                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50">
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className="font-semibold text-gray-900">预览</h3>
-                          <button
-                            onClick={handleReset}
-                            className="text-sm text-red-500 hover:text-red-700"
-                          >
-                            重新上传
+                  <div>
+                    <h2 className="text-white font-bold text-lg">开始拆分</h2>
+                    <p className="text-primary-200 text-sm">自定义拆分范围</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-8">
+                {!downloadUrl ? (
+                  <>
+                    {!file ? (
+                      <FileUploader
+                        accept={{ "application/pdf": [".pdf"] }}
+                        maxSize={20 * 1024 * 1024}
+                        onFileSelect={handleFileSelect}
+                        isUploading={isProcessing}
+                      />
+                    ) : (
+                      <div className="space-y-6">
+                        <div className="p-4 bg-white/5 rounded-xl border border-primary/20 flex items-center space-x-3 animate-fade-in">
+                          <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-white truncate">{file.name}</p>
+                            <p className="text-xs text-foreground-muted">{(file.size / 1024 / 1024).toFixed(2)} MB · {pageCount} 页</p>
+                          </div>
+                          <button onClick={handleReset} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                            <svg className="w-4 h-4 text-foreground-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
                           </button>
                         </div>
-                        
-                        {/* 动态预览区域：根据范围数量展示对应的 PDF 预览 */}
-                          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 max-h-[700px] overflow-y-auto">
+
+                        {pageThumbnails.length > 0 && (
+                          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto">
                             {previewPDFs.map((preview) => {
-                              const pageCount = preview.pages.length;
-                              
-                              // 判断布局方式：1-2页横向排列，3页及以上使用省略模式
-                              const isHorizontalLayout = pageCount <= 2;
-                              const shouldShowEllipsis = pageCount >= 3;
+                              const pageCountInner = preview.pages.length;
+                              const isHorizontalLayout = pageCountInner <= 2;
                               const isSelected = selectedRangeId === preview.rangeId;
-                              
-                              // 构建显示的页面列表
                               let displayItems: (HTMLCanvasElement | null)[] = [];
-                              let displayPageNumbers: (number | null)[] = [];
-                              
-                              if (isHorizontalLayout) {
-                                // 1-2页：全部显示，横向排列
-                                displayItems = preview.canvasRefs;
-                                displayPageNumbers = preview.pages;
-                              } else {
-                                // 3页及以上：只显示首尾页，中间用...省略
-                                displayItems = [
-                                  preview.canvasRefs[0], 
-                                  null, 
-                                  preview.canvasRefs[preview.canvasRefs.length - 1]
-                                ];
-                                displayPageNumbers = [
-                                  preview.pages[0], 
-                                  null, 
-                                  preview.pages[preview.pages.length - 1]
-                                ];
-                              }
-                              
-                              // 根据PDF宽高比计算容器高度
-                              const containerHeight = isHorizontalLayout ? 'auto' : '200px';
-                              
+                              if (isHorizontalLayout) { displayItems = preview.canvasRefs; }
+                              else { displayItems = [preview.canvasRefs[0], null, preview.canvasRefs[preview.canvasRefs.length - 1]]; }
                               return (
-                                <div
-                                  key={preview.rangeId}
-                                  onClick={() => handlePreviewClick(preview.rangeId)}
-                                  className={clsx(
-                                    "border-2 rounded-lg p-4 bg-white cursor-pointer transition-all duration-200 hover:shadow-md",
-                                    isSelected 
-                                      ? "border-primary-500 ring-2 ring-primary-200" 
-                                      : "border-blue-400 hover:border-primary-400"
-                                  )}
-                                >
-                                  <div className="mb-3">
-                                    <span className="text-sm font-semibold text-gray-700">
-                                      范围 {preview.rangeIndex + 1}
-                                    </span>
-                                    <span className="text-xs text-gray-500 ml-2">
-                                      (第 {preview.pages[0]}-{preview.pages[preview.pages.length - 1]} 页，共 {preview.pages.length} 页)
-                                    </span>
-                                  </div>
-                                  
-                                  {/* 页面预览区域 - 根据PDF比例动态调整 */}
-                                  <div 
-                                    className={clsx(
-                                      "flex items-center justify-center",
-                                      isHorizontalLayout ? 'flex-row gap-3' : 'flex-row gap-4'
-                                    )}
-                                    style={{ minHeight: containerHeight }}
-                                  >
-                                    {displayItems.map((canvas, idx) => (
-                                      canvas ? (
-                                        <div 
-                                          key={idx} 
-                                          className={clsx(
-                                            "border border-gray-200 rounded overflow-hidden flex-shrink-0",
-                                            isHorizontalLayout ? 'flex-1' : ''
-                                          )}
-                                          style={{
-                                            width: isHorizontalLayout ? '48%' : '40%',
-                                            aspectRatio: `${preview.aspectRatio}`,
-                                            maxHeight: '250px'
-                                          }}
-                                        >
-                                          <canvas
-                                            ref={(el) => {
-                                              if (el && canvas) {
-                                                const ctx = el.getContext('2d');
-                                                if (ctx) {
-                                                  el.width = canvas.width;
-                                                  el.height = canvas.height;
-                                                  ctx.drawImage(canvas, 0, 0);
-                                                }
-                                              }
-                                            }}
-                                            className="w-full h-full object-contain"
-                                          />
-                                        </div>
-                                      ) : (
-                                        <div 
-                                          key={`ellipsis-${idx}`} 
-                                          className="flex-shrink-0 flex items-center justify-center"
-                                        >
-                                          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                                            <span className="text-gray-400 text-xl font-bold">...</span>
-                                          </div>
-                                        </div>
-                                      )
-                                    ))}
-                                  </div>
-                                  
-                                  {/* 页面标签 */}
-                                  <div className={clsx(
-                                    "flex mt-2 text-xs text-gray-500",
-                                    isHorizontalLayout ? 'justify-around' : 'justify-center gap-16'
-                                  )}>
-                                    {displayPageNumbers.map((pageNum, idx) => (
-                                      pageNum !== null && (
-                                        <span key={idx} className="text-center w-16">
-                                          第 {pageNum} 页
-                                        </span>
-                                      )
+                                <div key={preview.rangeId} onClick={() => handlePreviewClick(preview.rangeId)} className={`border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 ${isSelected ? "border-primary-500 ring-2 ring-primary-500/50 bg-primary/10" : "border-primary/20 hover:border-primary/50 bg-white/5"}`}>
+                                  <div className="mb-3"><span className="text-sm font-semibold text-white">范围 {preview.rangeIndex + 1}</span><span className="text-xs text-foreground-muted ml-2">(第 {preview.pages[0]}-{preview.pages[preview.pages.length - 1]} 页，共 {preview.pages.length} 页)</span></div>
+                                  <div className={`flex items-center justify-center ${isHorizontalLayout ? 'flex-row gap-3' : 'flex-row gap-4'}`}>
+                                    {displayItems.map((canvas, idx) => canvas ? (
+                                      <div key={idx} className={`border border-primary/20 rounded overflow-hidden flex-shrink-0 ${isHorizontalLayout ? 'flex-1' : ''}`} style={{ width: isHorizontalLayout ? '48%' : '40%', aspectRatio: `${preview.aspectRatio}`, maxHeight: '150px' }}>
+                                        <canvas ref={(el) => { if (el && canvas) { const ctx = el.getContext('2d'); if (ctx) { el.width = canvas.width; el.height = canvas.height; ctx.drawImage(canvas, 0, 0); } } }} className="w-full h-full object-contain" />
+                                      </div>
+                                    ) : (
+                                      <div key={`ellipsis-${idx}`} className="flex-shrink-0 flex items-center justify-center"><div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center"><span className="text-primary-400 text-lg font-bold">...</span></div></div>
                                     ))}
                                   </div>
                                 </div>
                               );
                             })}
                           </div>
-                        
-                        {previewPDFs.length === 0 && (
-                          <div className="text-center py-12 text-gray-500">
-                            <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <p>暂无预览</p>
-                            <p className="text-sm mt-2">请在右侧设置拆分范围</p>
-                          </div>
                         )}
-                      </div>
-                    </div>
 
-                    {/* 右侧：设置面板 - 占据更少空间 */}
-                    <div className="lg:col-span-2 space-y-4">
-                      {/* 范围模式选择 */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          范围模式
-                        </label>
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => setMode('custom')}
-                            className={clsx(
-                              "flex-1 px-4 py-2 rounded-lg font-medium transition-colors border-2",
-                              mode === 'custom'
-                                ? "border-red-500 bg-red-50 text-red-600"
-                                : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300"
-                            )}
-                          >
-                            自定义
-                          </button>
-                          <button
-                            onClick={() => setMode('fixed')}
-                            className={clsx(
-                              "flex-1 px-4 py-2 rounded-lg font-medium transition-colors border-2",
-                              mode === 'fixed'
-                                ? "border-red-500 bg-red-50 text-red-600"
-                                : "border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300"
-                            )}
-                          >
-                            固定
+                        <div className="space-y-4 pt-4 border-t border-primary/20">
+                          <div><label className="block text-sm font-medium text-white mb-2">范围模式</label>
+                            <div className="flex gap-2">
+                              <button onClick={() => setMode('custom')} className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors border-2 ${mode === 'custom' ? "border-primary-500 bg-primary-500/20 text-primary-400" : "border-primary/20 bg-white/5 text-foreground-muted hover:border-primary/40"}`}>自定义</button>
+                              <button onClick={() => setMode('fixed')} className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors border-2 ${mode === 'fixed' ? "border-primary-500 bg-primary-500/20 text-primary-400" : "border-primary/20 bg-white/5 text-foreground-muted hover:border-primary/40"}`}>固定</button>
+                            </div>
+                          </div>
+                          <div className="space-y-3 max-h-[250px] overflow-y-auto pr-1">
+                            {currentRanges.map((range, index) => (
+                              <div key={range.id} ref={(el) => { if (el) rangeRefs.current.set(range.id, el); }} className={`p-3 rounded-xl border-2 transition-all duration-200 ${selectedRangeId === range.id ? "border-primary-500 bg-primary/10 ring-2 ring-primary-500/50" : index === currentRanges.length - 1 ? "border-primary-500/50 bg-primary-500/10" : "border-primary/20 bg-white/5"}`}>
+                                <div className="flex items-center gap-2 mb-2">
+                                  <svg className="w-4 h-4 text-foreground-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                                  <span className="text-sm font-medium text-white">范围 {index + 1}</span>
+                                  {mode === 'custom' && ranges.length > 1 && <button onClick={() => removeRange(range.id)} className="ml-auto text-red-400 hover:text-red-300 p-1 hover:bg-red-500/10 rounded transition-colors"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg></button>}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <label className="text-xs text-foreground-muted whitespace-nowrap">从页面</label>
+                                  <input type="number" min={1} max={pageCount} value={range.start} onChange={(e) => updateRange(range.id, 'start', parseInt(e.target.value) || 1)} className="w-16 px-2 py-1 bg-white/5 border border-primary/20 rounded text-center text-sm text-white focus:border-primary" disabled={mode === 'fixed'} />
+                                  <label className="text-xs text-foreground-muted whitespace-nowrap">至</label>
+                                  <input type="number" min={1} max={pageCount} value={range.end} onChange={(e) => updateRange(range.id, 'end', parseInt(e.target.value) || 1)} className="w-16 px-2 py-1 bg-white/5 border border-primary/20 rounded text-center text-sm text-white focus:border-primary" disabled={mode === 'fixed'} />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          {mode === 'custom' && <button onClick={addRange} className="flex items-center justify-center gap-2 w-full py-2 border-2 border-primary-500/50 text-primary-400 rounded-lg hover:bg-primary-500/10 font-medium transition-colors"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>添加范围</button>}
+                          <div className="flex items-center gap-2 pt-4 border-t border-primary/20">
+                            <input type="checkbox" id="mergeAll" checked={mergeAll} onChange={(e) => setMergeAll(e.target.checked)} className="w-4 h-4 rounded border-primary/30 bg-white/10 text-primary focus:ring-primary/50" />
+                            <label htmlFor="mergeAll" className="text-sm text-foreground-muted">合并所有范围到一个 PDF 文件</label>
+                          </div>
+                          <button onClick={handleSplit} disabled={isProcessing} className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 disabled:from-gray-500 disabled:to-gray-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2">
+                            {isProcessing ? <><div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" /><span>正在处理...</span></> : <><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg><span>拆分 PDF</span></>}
                           </button>
                         </div>
                       </div>
-
-                      {/* 范围设置 */}
-                      <div className="space-y-3 max-h-[450px] overflow-y-auto pr-1">
-                        {currentRanges.map((range, index) => (
-                          <div
-                            key={range.id}
-                            ref={(el) => {
-                              if (el) rangeRefs.current.set(range.id, el);
-                            }}
-                            className={clsx(
-                              "p-3 rounded-lg border-2 transition-all duration-200",
-                              selectedRangeId === range.id
-                                ? "border-primary-500 bg-primary-50 ring-2 ring-primary-200"
-                                : index === currentRanges.length - 1
-                                ? "border-blue-400 bg-blue-50"
-                                : "border-gray-200 bg-gray-50"
-                            )}
-                          >
-                            <div className="flex items-center gap-2 mb-2">
-                              <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                              </svg>
-                              <span className="text-sm font-medium text-gray-700">
-                                范围 {index + 1}
-                              </span>
-                              {mode === 'custom' && ranges.length > 1 && (
-                                <button
-                                  onClick={() => removeRange(range.id)}
-                                  className="ml-auto text-red-500 hover:text-red-700 p-1 hover:bg-red-50 rounded transition-colors"
-                                >
-                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                  </svg>
-                                </button>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <label className="text-xs text-gray-600 whitespace-nowrap">从页面</label>
-                              <input
-                                type="number"
-                                min={1}
-                                max={pageCount}
-                                value={range.start}
-                                onChange={(e) => updateRange(range.id, 'start', parseInt(e.target.value) || 1)}
-                                className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                disabled={mode === 'fixed'}
-                              />
-                              <label className="text-xs text-gray-600 whitespace-nowrap">至</label>
-                              <input
-                                type="number"
-                                min={1}
-                                max={pageCount}
-                                value={range.end}
-                                onChange={(e) => updateRange(range.id, 'end', parseInt(e.target.value) || 1)}
-                                className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                disabled={mode === 'fixed'}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* 添加范围按钮 */}
-                      {mode === 'custom' && (
-                        <button
-                          onClick={addRange}
-                          className="flex items-center justify-center gap-2 w-full py-2 border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-50 font-medium transition-colors"
-                        >
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                          </svg>
-                          添加范围
-                        </button>
-                      )}
-
-                      {/* 合并选项 */}
-                      <div className="flex items-center gap-2 pt-4 border-t">
-                        <input
-                          type="checkbox"
-                          id="mergeAll"
-                          checked={mergeAll}
-                          onChange={(e) => setMergeAll(e.target.checked)}
-                          className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
-                        />
-                        <label htmlFor="mergeAll" className="text-sm text-gray-700">
-                          合并所有范围到一个 PDF 文件
-                        </label>
-                      </div>
-
-                      {/* 拆分按钮 */}
-                      <button
-                        onClick={handleSplit}
-                        disabled={isProcessing}
-                        className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                      >
-                        <span>拆分 PDF</span>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-center space-y-6">
+                    <div className="p-6 bg-accent-emerald/10 border border-accent-emerald/30 rounded-xl">
+                      <svg className="w-16 h-16 text-accent-emerald mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <h3 className="text-xl font-bold text-white mb-2">拆分完成！</h3>
+                      <p className="text-foreground-muted mb-4">您的 PDF 文件已成功拆分</p>
+                      <a href={downloadUrl} className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white py-3 px-6 rounded-xl font-medium transition-all shadow-lg hover:shadow-xl">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
-                      </button>
+                        下载拆分文件
+                      </a>
                     </div>
+                    <button onClick={handleReset} className="text-primary-400 hover:text-primary-300 font-medium">拆分另一个文件</button>
                   </div>
                 )}
-              </>
-            )}
 
-            {downloadUrl && (
-              <div className="text-center space-y-6">
-                <div className="p-6 bg-green-50 border border-green-200 rounded-lg">
-                  <svg className="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">拆分完成！</h3>
-                  <p className="text-gray-600 mb-4">您的 PDF 文件已成功拆分</p>
-                  
-                  <a
-                    href={downloadUrl}
-                    className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white py-3 px-6 rounded-lg font-medium transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                {error && (
+                  <div className="error-container flex items-start space-x-3 animate-slide-down mt-6">
+                    <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    下载拆分文件
-                  </a>
+                    <div className="flex-1">
+                      <p className="text-red-400 font-medium">拆分失败</p>
+                      <p className="text-red-400/70 text-sm mt-1">{error}</p>
+                    </div>
+                    <button onClick={() => setError(null)} className="p-1 hover:bg-red-500/20 rounded transition-colors">
+                      <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-8 grid grid-cols-3 gap-4">
+              {[{ icon: "📂", label: "灵活拆分", desc: "自定义范围" }, { icon: "⚡", label: "快速处理", desc: "即时预览" }, { icon: "🔒", label: "安全保障", desc: "30 分钟删除" }].map((feature, index) => (
+                <div key={index} className="text-center p-4 card-dark rounded-xl border border-primary/10">
+                  <div className="text-2xl mb-2">{feature.icon}</div><div className="font-medium text-white text-sm">{feature.label}</div><div className="text-xs text-foreground-muted">{feature.desc}</div>
                 </div>
-
-                <button
-                  onClick={handleReset}
-                  className="text-gray-600 hover:text-gray-800 font-medium"
-                >
-                  拆分另一个文件
-                </button>
-              </div>
-            )}
-
-            {error && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-                {error}
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-12 bg-white">
+      <section className="py-20 section-gradient">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
-            如何拆分 PDF 页面
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {steps.map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                  {item.step}
+          <div className="text-center mb-16"><h2 className="text-3xl font-bold text-white mb-4">如何拆分 PDF 页面</h2><p className="text-foreground-muted">简单三步，轻松完成</p></div>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+              <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary/30 via-primary/50 to-primary/30" />
+              {steps.map((item, index) => (
+                <div key={index} className="relative text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-primary/20 to-primary-dark/20 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6 border border-primary/20 relative z-10">{item.icon}</div>
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4 shadow-glow">{item.step}</div>
+                  <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3><p className="text-foreground-muted text-sm">{item.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

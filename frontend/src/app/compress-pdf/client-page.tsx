@@ -1,25 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { useDropzone } from "react-dropzone";
-import clsx from "clsx";
-import CompressOptions from "@/components/compress/CompressOptions";
+import FileUploader from "@/components/upload/FileUploader";
 import DownloadButton from "@/components/conversion/DownloadButton";
 import FAQ from "@/components/seo/FAQ";
 import axios from "axios";
 
 const faqItems = [
   {
-    question: "PDF压缩后会损失质量吗？",
-    answer: "压缩程度取决于您选择的优化等级。级别1-2几乎不损失质量，级别3-4可能会有轻微质量损失，但文件大小会显著减小。",
+    question: "PDF 压缩后会损失质量吗？",
+    answer: "压缩程度取决于您选择的优化等级。级别 1-2 几乎不损失质量，级别 3-4 可能会有轻微质量损失，但文件大小会显著减小。",
   },
   {
-    question: "什么是线性化PDF？",
-    answer: "线性化（Fast Web View）是一种PDF优化技术，使PDF文件可以在网页中边下载边显示，无需等待整个文件下载完成，适合网页快速预览。",
+    question: "什么是线性化 PDF？",
+    answer: "线性化（Fast Web View）是一种 PDF 优化技术，使 PDF 文件可以在网页中边下载边显示，无需等待整个文件下载完成，适合网页快速预览。",
   },
   {
     question: "高对比度线稿转换有什么用途？",
-    answer: "线稿转换可以将PDF中的图像转换为高对比度的线条图，适合用于打印、复印或需要清晰线条的场景，如建筑图纸、工程图等。",
+    answer: "线稿转换可以将 PDF 中的图像转换为高对比度的线条图，适合用于打印、复印或需要清晰线条的场景，如建筑图纸、工程图等。",
   },
   {
     question: "期望输出大小一定能达到吗？",
@@ -30,18 +28,21 @@ const faqItems = [
 const steps = [
   {
     step: 1,
-    title: "上传PDF文件",
-    description: "拖拽或点击上传需要压缩的PDF文件",
+    title: "上传 PDF 文件",
+    description: "拖拽或点击上传需要压缩的 PDF 文件",
+    icon: "📤",
   },
   {
     step: 2,
     title: "配置压缩选项",
     description: "选择优化等级和其他压缩参数",
+    icon: "⚙️",
   },
   {
     step: 3,
     title: "下载压缩文件",
-    description: "点击压缩按钮，下载压缩后的PDF",
+    description: "点击压缩按钮，下载压缩后的 PDF",
+    icon: "📥",
   },
 ];
 
@@ -60,34 +61,16 @@ export default function CompressPdfClient() {
   const [error, setError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      if (acceptedFiles.length > 0) {
-        setFile(acceptedFiles[0]);
-        setError(null);
-        setTaskId(null);
-        setDownloadUrl(null);
-      }
-    },
-    accept: { "application/pdf": [".pdf"] },
-    maxSize: 20 * 1024 * 1024,
-    multiple: false,
-    disabled: isUploading,
-    onDropRejected: (rejections) => {
-      const err = rejections[0]?.errors[0];
-      if (err?.code === "file-too-large") {
-        setError("文件大小超过限制 (最大 20MB)");
-      } else if (err?.code === "file-invalid-type") {
-        setError("只支持PDF文件");
-      } else {
-        setError("文件上传失败，请重试");
-      }
-    },
-  });
+  const handleFileSelect = (selectedFile: File) => {
+    setFile(selectedFile);
+    setError(null);
+    setTaskId(null);
+    setDownloadUrl(null);
+  };
 
   const handleCompress = async () => {
     if (!file) {
-      setError("请先上传PDF文件");
+      setError("请先上传 PDF 文件");
       return;
     }
 
@@ -143,180 +126,236 @@ export default function CompressPdfClient() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section className="bg-gradient-to-b from-blue-50 to-white py-12">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
-            PDF压缩在线工具
-          </h1>
-          <p className="text-lg text-gray-600 text-center max-w-2xl mx-auto mb-8">
-            免费压缩PDF文件，支持多种压缩选项，减小文件大小便于分享和存储
-          </p>
+    <div className="min-h-screen bg-background">
+      <section className="relative overflow-hidden hero-gradient">
+        <div className="absolute inset-0 tech-grid opacity-20" />
+        
+        <div className="relative container mx-auto px-4 py-16">
+          <nav className="flex items-center space-x-2 text-sm text-foreground-muted mb-8">
+            <a href="/" className="hover:text-primary-400 transition-colors">首页</a>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-white font-medium">PDF 压缩</span>
+          </nav>
 
-          <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8">
-            {!taskId && !downloadUrl && (
-              <>
-                {/* 文件上传区域 */}
-                {!file ? (
-                  <div
-                    {...getRootProps()}
-                    className={clsx(
-                      "border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all relative min-h-[200px] flex flex-col items-center justify-center",
-                      isDragActive
-                        ? "border-primary-500 bg-primary-50"
-                        : "border-gray-300 hover:border-primary-400 hover:bg-gray-50",
-                      isUploading && "opacity-60 cursor-not-allowed"
-                    )}
-                  >
-                    <input {...getInputProps()} disabled={isUploading} />
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full text-sm font-medium mb-4">
+                <span className="mr-2">📦</span>
+                <span className="text-primary-300">PDF 工具</span>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                PDF 压缩在线工具
+              </h1>
+              <p className="text-lg text-foreground-muted">
+                免费压缩 PDF 文件，支持多种压缩选项，减小文件大小便于分享和存储
+              </p>
+            </div>
 
-                    {isUploading && (
-                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-90 rounded-xl">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mb-4"></div>
-                        <p className="text-primary-600 font-medium">正在压缩PDF文件...</p>
-                      </div>
-                    )}
-
-                    <svg
-                      className="w-16 h-16 text-gray-400 mb-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      />
-                    </svg>
-                    {isDragActive ? (
-                      <p className="text-lg text-primary-600 font-medium">
-                        释放文件以上传
-                      </p>
-                    ) : (
-                      <>
-                        <p className="text-lg text-gray-700 font-medium mb-2">
-                          拖拽PDF文件到此处，或点击选择文件
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          最大文件大小: 20MB
-                        </p>
-                      </>
-                    )}
+            <div className="card-dark rounded-3xl overflow-hidden border border-primary/20">
+              <div className="bg-gradient-to-r from-teal-500 to-accent-cyan px-8 py-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl">
+                    📦
                   </div>
-                ) : (
-                  <div className="mb-6">
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <svg
-                          className="w-8 h-8 text-red-500"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zm-3 9v6h2v-4h1a2 2 0 000-4h-3zm2 2v-1h1v1h-1z" />
-                        </svg>
-                        <div>
-                          <p className="font-medium text-gray-900">{file.name}</p>
-                          <p className="text-sm text-gray-500">
-                            {(file.size / 1024 / 1024).toFixed(2)} MB
-                          </p>
+                  <div>
+                    <h2 className="text-white font-bold text-lg">开始压缩</h2>
+                    <p className="text-teal-100 text-sm">多种压缩级别可选</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-8">
+                {!downloadUrl ? (
+                  <>
+                    {!file ? (
+                      <FileUploader
+                        accept={{ "application/pdf": [".pdf"] }}
+                        maxSize={20 * 1024 * 1024}
+                        onFileSelect={handleFileSelect}
+                        isUploading={isUploading}
+                      />
+                    ) : (
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-primary/20">
+                          <div className="flex items-center space-x-3">
+                            <svg
+                              className="w-8 h-8 text-teal-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <div>
+                              <p className="font-medium text-white">{file.name}</p>
+                              <p className="text-sm text-foreground-muted">
+                                {(file.size / 1024 / 1024).toFixed(2)} MB
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => setFile(null)}
+                            className="text-red-400 hover:text-red-300 p-2 hover:bg-red-500/10 rounded-lg transition-colors"
+                          >
+                            <svg
+                              className="w-5 h-5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
                         </div>
                       </div>
-                      <button
-                        onClick={() => setFile(null)}
-                        className="text-red-500 hover:text-red-700 p-2"
-                      >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                )}
+                    )}
 
-                {/* 压缩选项 */}
-                {file && (
-                  <CompressOptions
-                    optimizeLevel={optimizeLevel}
-                    expectedOutputSize={expectedOutputSize}
-                    linearize={linearize}
-                    normalize={normalize}
-                    grayscale={grayscale}
-                    lineArt={lineArt}
-                    lineArtThreshold={lineArtThreshold}
-                    lineArtEdgeLevel={lineArtEdgeLevel}
-                    onOptimizeLevelChange={setOptimizeLevel}
-                    onExpectedOutputSizeChange={setExpectedOutputSize}
-                    onLinearizeChange={setLinearize}
-                    onNormalizeChange={setNormalize}
-                    onGrayscaleChange={setGrayscale}
-                    onLineArtChange={setLineArt}
-                    onLineArtThresholdChange={setLineArtThreshold}
-                    onLineArtEdgeLevelChange={setLineArtEdgeLevel}
+                    {file && (
+                      <div className="space-y-4">
+                        <div className="p-4 bg-white/5 rounded-xl border border-primary/20">
+                          <h3 className="text-sm font-semibold text-white mb-3">压缩选项</h3>
+                          <div className="space-y-4">
+                            <div>
+                              <label className="text-sm text-foreground-muted mb-2 block">优化等级：{optimizeLevel}</label>
+                              <input
+                                type="range"
+                                min="1"
+                                max="4"
+                                value={optimizeLevel}
+                                onChange={(e) => setOptimizeLevel(Number(e.target.value))}
+                                className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary"
+                              />
+                              <div className="flex justify-between text-xs text-foreground-muted mt-1">
+                                <span>低压缩</span>
+                                <span>高压缩</span>
+                              </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 gap-3">
+                              <label className="flex items-center space-x-2 cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  checked={linearize}
+                                  onChange={(e) => setLinearize(e.target.checked)}
+                                  className="w-4 h-4 rounded border-primary/30 bg-white/10 text-primary focus:ring-primary/50"
+                                />
+                                <span className="text-sm text-foreground-muted">线性化</span>
+                              </label>
+                              <label className="flex items-center space-x-2 cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  checked={normalize}
+                                  onChange={(e) => setNormalize(e.target.checked)}
+                                  className="w-4 h-4 rounded border-primary/30 bg-white/10 text-primary focus:ring-primary/50"
+                                />
+                                <span className="text-sm text-foreground-muted">标准化</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={handleCompress}
+                          disabled={isUploading}
+                          className="w-full bg-gradient-to-r from-teal-500 to-accent-cyan hover:from-teal-400 hover:to-accent-cyan/80 disabled:from-gray-500 disabled:to-gray-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                        >
+                          {isUploading ? (
+                            <>
+                              <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+                              <span>正在压缩...</span>
+                            </>
+                          ) : (
+                            <>
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                              </svg>
+                              <span>压缩 PDF 文件</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <DownloadButton
+                    downloadUrl={downloadUrl}
+                    fileName={file?.name?.replace(/\.pdf$/i, "_compressed.pdf") || "compressed.pdf"}
+                    onReset={handleReset}
                   />
                 )}
 
-                {/* 压缩按钮 */}
-                {file && (
-                  <button
-                    onClick={handleCompress}
-                    disabled={isUploading}
-                    className="mt-6 w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-6 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isUploading ? "正在压缩..." : "压缩PDF文件"}
-                  </button>
+                {error && (
+                  <div className="mt-4 error-container flex items-start space-x-3 animate-slide-down">
+                    <svg className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="flex-1">
+                      <p className="text-red-400 font-medium">压缩失败</p>
+                      <p className="text-red-400/70 text-sm mt-1">{error}</p>
+                    </div>
+                    <button
+                      onClick={() => setError(null)}
+                      className="p-1 hover:bg-red-500/20 rounded transition-colors"
+                    >
+                      <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
                 )}
-              </>
-            )}
-
-            {/* 下载按钮 */}
-            {downloadUrl && (
-              <DownloadButton
-                downloadUrl={downloadUrl}
-                fileName={file?.name?.replace(/\.pdf$/i, "_compressed.pdf") || "compressed.pdf"}
-                onReset={handleReset}
-              />
-            )}
-
-            {/* 错误提示 */}
-            {error && (
-              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-                {error}
               </div>
-            )}
+            </div>
+
+            <div className="mt-8 grid grid-cols-3 gap-4">
+              {[
+                { icon: "📦", label: "智能压缩", desc: "多种级别" },
+                { icon: "⚡", label: "快速处理", desc: "本地优化" },
+                { icon: "🔒", label: "安全保障", desc: "30 分钟删除" },
+              ].map((feature, index) => (
+                <div key={index} className="text-center p-4 card-dark rounded-xl border border-primary/10">
+                  <div className="text-2xl mb-2">{feature.icon}</div>
+                  <div className="font-medium text-white text-sm">{feature.label}</div>
+                  <div className="text-xs text-foreground-muted">{feature.desc}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 使用步骤 */}
-      <section className="py-12 bg-white">
+      <section className="py-20 section-gradient">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
-            如何压缩PDF文件
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {steps.map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                  {item.step}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              如何压缩 PDF 文件
+            </h2>
+            <p className="text-foreground-muted">简单三步，轻松完成压缩</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+              <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary/30 via-primary/50 to-primary/30" />
+
+              {steps.map((item, index) => (
+                <div key={index} className="relative text-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-teal-500/20 to-accent-cyan/20 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6 border border-teal-500/20 relative z-10">
+                    {item.icon}
+                  </div>
+                  <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-accent-cyan text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4 shadow-lg">
+                    {item.step}
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-foreground-muted text-sm">{item.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
