@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   description: "免费在线PDF转换工具，支持PDF转Word、Word转PDF、PDF转JPG、JPG转PDF等多种格式转换，快速、安全、无需注册。",
 };
 
-const tools = [
+// PDF 工具
+const pdfTools = [
   {
     title: "PDF转Word",
     description: "将PDF文件转换为可编辑的Word文档，保留原有格式和排版",
     href: "/pdf-to-word",
     icon: "📄",
     gradient: "from-primary-500 to-primary-600",
-    popular: true,
   },
   {
     title: "Word转PDF",
@@ -22,7 +22,6 @@ const tools = [
     href: "/word-to-pdf",
     icon: "📝",
     gradient: "from-accent-emerald to-teal-500",
-    popular: true,
   },
   {
     title: "PDF转JPG",
@@ -30,7 +29,6 @@ const tools = [
     href: "/pdf-to-jpg",
     icon: "🖼️",
     gradient: "from-accent-pink to-accent-cyan",
-    popular: false,
   },
   {
     title: "JPG转PDF",
@@ -38,7 +36,6 @@ const tools = [
     href: "/jpg-to-pdf",
     icon: "📷",
     gradient: "from-orange-500 to-amber-500",
-    popular: false,
   },
   {
     title: "PDF合并",
@@ -46,7 +43,6 @@ const tools = [
     href: "/merge-pdf",
     icon: "📑",
     gradient: "from-red-500 to-pink-500",
-    popular: false,
   },
   {
     title: "PDF压缩",
@@ -54,7 +50,6 @@ const tools = [
     href: "/compress-pdf",
     icon: "📦",
     gradient: "from-teal-500 to-accent-cyan",
-    popular: true,
   },
   {
     title: "PDF删除页面",
@@ -62,7 +57,6 @@ const tools = [
     href: "/remove-pages",
     icon: "✂️",
     gradient: "from-pink-500 to-rose-500",
-    popular: false,
   },
   {
     title: "PDF排序",
@@ -70,7 +64,60 @@ const tools = [
     href: "/rearrange-pdf",
     icon: "🔀",
     gradient: "from-indigo-500 to-primary-500",
-    popular: false,
+  },
+];
+
+// 图片工具
+const imageTools = [
+  {
+    title: "图片压缩",
+    description: "智能压缩图片大小，支持JPG、PNG、WebP格式",
+    href: "/image-compress",
+    icon: "🖼️",
+    gradient: "from-emerald-500 to-teal-600",
+  },
+  {
+    title: "图片加水印",
+    description: "为图片添加文字水印，支持自定义样式和位置",
+    href: "/image-watermark",
+    icon: "💧",
+    gradient: "from-blue-500 to-indigo-600",
+  },
+];
+
+// 热门工具
+const popularTools = [
+  {
+    title: "PDF转Word",
+    description: "最热门的PDF转换工具",
+    href: "/pdf-to-word",
+    icon: "📄",
+    gradient: "from-primary-500 to-primary-600",
+    rank: 1,
+  },
+  {
+    title: "PDF压缩",
+    description: "减小PDF文件大小",
+    href: "/compress-pdf",
+    icon: "📦",
+    gradient: "from-teal-500 to-accent-emerald",
+    rank: 2,
+  },
+  {
+    title: "PDF合并",
+    description: "合并多个PDF文件",
+    href: "/merge-pdf",
+    icon: "📑",
+    gradient: "from-red-500 to-pink-500",
+    rank: 3,
+  },
+  {
+    title: "图片压缩",
+    description: "压缩图片文件",
+    href: "/image-compress",
+    icon: "🖼️",
+    gradient: "from-emerald-500 to-teal-600",
+    rank: 4,
   },
 ];
 
@@ -195,49 +242,127 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="tools" className="py-20 section-gradient">
+      {/* 热门工具 */}
+      <section className="py-16 section-gradient">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              选择转换工具
+          <div className="flex items-center mb-10">
+            <div className="w-1 h-8 bg-gradient-to-b from-primary-500 to-accent-pink rounded-full mr-4"></div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              🔥 热门工具
             </h2>
-            <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
-              我们提供多种PDF处理工具，满足您的各种需求
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {tools.map((tool, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {popularTools.map((tool, index) => (
               <div key={tool.href} className="relative" style={{ animationDelay: `${index * 0.05}s` }}>
-                {tool.popular && (
-                  <div className="absolute -top-2 left-4 z-20">
-                    <span className="bg-gradient-to-r from-primary-500 to-accent-pink text-white text-xs font-semibold px-3 py-1 rounded-full shadow-glow whitespace-nowrap">
-                      热门
-                    </span>
-                  </div>
-                )}
+                <div className="absolute -top-2 -left-2 z-20">
+                  <span className="bg-gradient-to-r from-primary-500 to-accent-pink text-white text-xs font-bold w-7 h-7 rounded-full shadow-glow flex items-center justify-center">
+                    {tool.rank}
+                  </span>
+                </div>
                 <Link
                   href={tool.href}
                   className="tool-card group h-full block"
                 >
+                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                    {tool.icon}
+                  </div>
 
-                <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                  {tool.icon}
-                </div>
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
+                    {tool.title}
+                  </h3>
+                  <p className="text-foreground-muted text-sm leading-relaxed">
+                    {tool.description}
+                  </p>
 
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                  {tool.title}
-                </h3>
-                <p className="text-foreground-muted text-sm leading-relaxed">
-                  {tool.description}
-                </p>
+                  <div className="mt-4 flex items-center text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span>开始使用</span>
+                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                <div className="mt-4 flex items-center text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span>开始使用</span>
-                  <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+      {/* PDF 工具 */}
+      <section id="tools" className="py-16 section-gradient">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center mb-10">
+            <div className="w-1 h-8 bg-gradient-to-b from-primary-500 to-accent-cyan rounded-full mr-4"></div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              📄 PDF 工具
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pdfTools.map((tool, index) => (
+              <div key={tool.href} style={{ animationDelay: `${index * 0.05}s` }}>
+                <Link
+                  href={tool.href}
+                  className="tool-card group h-full block"
+                >
+                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                    {tool.icon}
+                  </div>
+
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
+                    {tool.title}
+                  </h3>
+                  <p className="text-foreground-muted text-sm leading-relaxed">
+                    {tool.description}
+                  </p>
+
+                  <div className="mt-4 flex items-center text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span>开始使用</span>
+                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 图片工具 */}
+      <section className="py-16 section-gradient">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center mb-10">
+            <div className="w-1 h-8 bg-gradient-to-b from-emerald-500 to-teal-600 rounded-full mr-4"></div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              🖼️ 图片工具
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {imageTools.map((tool, index) => (
+              <div key={tool.href} style={{ animationDelay: `${index * 0.05}s` }}>
+                <Link
+                  href={tool.href}
+                  className="tool-card group h-full block"
+                >
+                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                    {tool.icon}
+                  </div>
+
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
+                    {tool.title}
+                  </h3>
+                  <p className="text-foreground-muted text-sm leading-relaxed">
+                    {tool.description}
+                  </p>
+
+                  <div className="mt-4 flex items-center text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span>开始使用</span>
+                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </Link>
               </div>
             ))}

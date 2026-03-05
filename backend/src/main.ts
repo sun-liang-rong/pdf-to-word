@@ -9,7 +9,6 @@ async function bootstrap() {
     origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
     credentials: true,
   });
-
   app.setGlobalPrefix('api');
   
   app.useGlobalPipes(

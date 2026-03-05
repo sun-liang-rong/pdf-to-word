@@ -20,27 +20,33 @@ interface ToolCategory {
 
 const allToolsDropdown: ToolCategory[] = [
   {
-    title: "转换为PDF",
+    title: "🔥 热门工具",
     items: [
-      { label: "Word转PDF", href: "/word-to-pdf", icon: "W", desc: "DOC/DOCX转PDF", gradient: "from-blue-500 to-cyan-500" },
-      { label: "JPG转PDF", href: "/jpg-to-pdf", icon: "J", desc: "图片合并为PDF", gradient: "from-orange-500 to-amber-500" },
+      { label: "PDF转Word", href: "/pdf-to-word", icon: "1", desc: "最热门的PDF转换", gradient: "from-primary-500 to-primary-600" },
+      { label: "PDF压缩", href: "/compress-pdf", icon: "2", desc: "减小PDF文件大小", gradient: "from-teal-500 to-accent-emerald" },
+      { label: "PDF合并", href: "/merge-pdf", icon: "3", desc: "合并多个PDF文件", gradient: "from-red-500 to-pink-500" },
+      { label: "图片压缩", href: "/image-compress", icon: "4", desc: "压缩图片文件", gradient: "from-emerald-500 to-teal-600" },
     ],
   },
   {
-    title: "从PDF转换",
+    title: "📄 PDF工具",
     items: [
       { label: "PDF转Word", href: "/pdf-to-word", icon: "W", desc: "PDF转可编辑Word", gradient: "from-primary-500 to-primary-600" },
+      { label: "Word转PDF", href: "/word-to-pdf", icon: "W", desc: "DOC/DOCX转PDF", gradient: "from-blue-500 to-cyan-500" },
       { label: "PDF转JPG", href: "/pdf-to-jpg", icon: "J", desc: "PDF页面转图片", gradient: "from-accent-pink to-accent-cyan" },
-    ],
-  },
-  {
-    title: "PDF工具",
-    items: [
+      { label: "JPG转PDF", href: "/jpg-to-pdf", icon: "J", desc: "图片合并为PDF", gradient: "from-orange-500 to-amber-500" },
       { label: "PDF合并", href: "/merge-pdf", icon: "📑", desc: "合并多个PDF", gradient: "from-red-500 to-pink-500" },
       { label: "PDF压缩", href: "/compress-pdf", icon: "📦", desc: "减小PDF大小", gradient: "from-teal-500 to-accent-emerald" },
       { label: "PDF排序", href: "/rearrange-pdf", icon: "🔀", desc: "调整页面顺序", gradient: "from-indigo-500 to-primary-500" },
       { label: "删除页面", href: "/remove-pages", icon: "✂️", desc: "删除指定页面", gradient: "from-pink-500 to-rose-500" },
       { label: "PDF拆分", href: "/split-pdf", icon: "📂", desc: "拆分为多个文件", gradient: "from-cyan-500 to-blue-500" },
+    ],
+  },
+  {
+    title: "🖼️ 图片工具",
+    items: [
+      { label: "图片压缩", href: "/image-compress", icon: "🖼️", desc: "压缩图片文件", gradient: "from-emerald-500 to-teal-600" },
+      { label: "图片加水印", href: "/image-watermark", icon: "💧", desc: "为图片添加水印", gradient: "from-blue-500 to-indigo-500" },
     ],
   },
 ];
@@ -49,6 +55,7 @@ const navItems = [
   { label: "首页", href: "/" },
   { label: "PDF转Word", href: "/pdf-to-word" },
   { label: "Word转PDF", href: "/word-to-pdf" },
+  { label: "图片压缩", href: "/image-compress" },
 ];
 
 export default function Header() {
@@ -101,7 +108,7 @@ export default function Header() {
                     : "text-foreground-muted hover:text-white hover:bg-white/5"
                 }`}
               >
-                <span>所有PDF工具</span>
+                <span>所有工具</span>
                 <svg
                   className={`w-4 h-4 transition-transform duration-200 ${
                     isAllToolsOpen ? "rotate-180" : ""
@@ -129,14 +136,14 @@ export default function Header() {
                       onMouseEnter={() => setIsAllToolsOpen(true)}
                       onMouseLeave={() => setIsAllToolsOpen(false)}
                     >
-                      <div className="grid grid-cols-4 gap-8">
+                      <div className="flex justify-center gap-6">
                         {allToolsDropdown.map((category) => (
-                          <div key={category.title}>
+                          <div key={category.title} className="w-56">
                             <h3 className="text-sm font-bold text-primary-300 uppercase tracking-wider mb-4 pb-2 border-b border-primary/20">
                               {category.title}
                             </h3>
                             
-                            <ul className="space-y-3">
+                            <ul className="space-y-2">
                               {category.items.map((tool) => (
                                 <li key={tool.href}>
                                   <Link
@@ -166,74 +173,6 @@ export default function Header() {
                             </ul>
                           </div>
                         ))}
-
-                        <div className="border-l border-primary/20 pl-8">
-                          <h3 className="text-sm font-bold text-primary-300 uppercase tracking-wider mb-4 pb-2 border-b border-primary/20">
-                            热门工具
-                          </h3>
-                          <ul className="space-y-3">
-                            <li>
-                              <Link
-                                href="/pdf-to-word"
-                                onClick={() => setIsAllToolsOpen(false)}
-                                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-all duration-200 group"
-                              >
-                                <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center text-white text-sm font-bold shadow-glow">
-                                  1
-                                </div>
-                                <div>
-                                  <div className="font-medium text-sm text-white group-hover:text-primary-300 transition-colors">PDF转Word</div>
-                                  <div className="text-xs text-foreground-muted">最常用转换</div>
-                                </div>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                href="/compress-pdf"
-                                onClick={() => setIsAllToolsOpen(false)}
-                                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-all duration-200 group"
-                              >
-                                <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-accent-emerald rounded-lg flex items-center justify-center text-white text-sm font-bold shadow-emerald">
-                                  2
-                                </div>
-                                <div>
-                                  <div className="font-medium text-sm text-white group-hover:text-primary-300 transition-colors">PDF压缩</div>
-                                  <div className="text-xs text-foreground-muted">减小文件大小</div>
-                                </div>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                href="/merge-pdf"
-                                onClick={() => setIsAllToolsOpen(false)}
-                                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-white/5 transition-all duration-200 group"
-                              >
-                                <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">
-                                  3
-                                </div>
-                                <div>
-                                  <div className="font-medium text-sm text-white group-hover:text-primary-300 transition-colors">PDF合并</div>
-                                  <div className="text-xs text-foreground-muted">合并多个文件</div>
-                                </div>
-                              </Link>
-                            </li>
-                          </ul>
-
-                          <div className="mt-6 p-4 bg-gradient-to-br from-primary/20 to-primary-dark/10 rounded-xl border border-primary/30">
-                            <p className="text-sm font-medium text-white mb-2">需要更多功能？</p>
-                            <p className="text-xs text-foreground-muted mb-3">所有工具完全免费使用</p>
-                            <Link
-                              href="/pdf-to-word"
-                              onClick={() => setIsAllToolsOpen(false)}
-                              className="inline-flex items-center text-sm font-medium text-primary-300 hover:text-primary-200 transition-colors"
-                            >
-                              立即开始
-                              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                              </svg>
-                            </Link>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>

@@ -46,6 +46,7 @@ export enum ConversionType {
   REMOVE_PAGES = 'remove-pages',
   SPLIT_PAGES = 'split-pages',
   REARRANGE_PAGES = 'rearrange-pages',
+  IMAGE_COMPRESS = 'image-compress',
 }
 
 /**
@@ -62,6 +63,7 @@ export const OUTPUT_EXTENSIONS: Record<ConversionType, string> = {
   [ConversionType.REMOVE_PAGES]: '.pdf',
   [ConversionType.SPLIT_PAGES]: '.zip',  // PDF 拆分页面可能生成多个文件，打包为 zip
   [ConversionType.REARRANGE_PAGES]: '.pdf',
+  [ConversionType.IMAGE_COMPRESS]: '.jpg',  // 图片压缩输出
 };
 
 /**

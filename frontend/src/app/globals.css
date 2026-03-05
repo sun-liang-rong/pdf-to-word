@@ -209,6 +209,77 @@ body {
   }
 }
 
+/* 自定义滑块样式 - 亮色模式优化 */
+
+/* Webkit 滑块轨道 */
+.slider-thumb::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Firefox 滑块轨道 */
+.slider-thumb::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 亮色模式 - 轨道背景 */
+.light .slider-thumb::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #7C3AED 0%, #7C3AED 50%, #D1D5DB 50%, #D1D5DB 100%);
+}
+
+.light .slider-thumb::-moz-range-track {
+  background: linear-gradient(to right, #7C3AED 0%, #7C3AED 50%, #D1D5DB 50%, #D1D5DB 100%);
+}
+
+/* 暗色模式 - 轨道背景 */
+.dark .slider-thumb::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #7C3AED 0%, #7C3AED 50%, rgba(124, 58, 237, 0.3) 50%, rgba(124, 58, 237, 0.3) 100%);
+}
+
+.dark .slider-thumb::-moz-range-track {
+  background: linear-gradient(to right, #7C3AED 0%, #7C3AED 50%, rgba(124, 58, 237, 0.3) 50%, rgba(124, 58, 237, 0.3) 100%);
+}
+
+.slider-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #7C3AED;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  margin-top: -6px;
+}
+
+.slider-thumb::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.6);
+}
+
+.slider-thumb::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #7C3AED;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.slider-thumb::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.6);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

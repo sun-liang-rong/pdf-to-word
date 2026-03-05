@@ -7,11 +7,19 @@ import { TaskModule } from './modules/task/task.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { RateLimitModule } from './modules/rate-limit/rate-limit.module';
 import { StirlingPdfModule } from './modules/stirling-pdf/stirling-pdf.module';
+import { ImageModule } from './modules/image/image.module';
+import { ImageWatermarkModule } from './modules/image-watermark/image-watermark.module';
 import { FileCleanupService } from './common/services/file-cleanup.service';
 import { ConversionTask } from './modules/task/task.entity';
-
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+console.log(join(process.cwd(), 'uploads/image'));
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads/image'),
+      serveRoot: '/uploads/image',
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -38,6 +46,8 @@ import { ConversionTask } from './modules/task/task.entity';
     UploadModule,
     RateLimitModule,
     StirlingPdfModule,
+    ImageModule,
+    ImageWatermarkModule,
   ],
   providers: [FileCleanupService],
 })
