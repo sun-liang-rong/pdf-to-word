@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "@/components/ui/ThemeToggle";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 interface ToolItem {
   label: string;
@@ -89,7 +89,7 @@ export default function Header() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive(item.href)
                     ? "text-primary-300 bg-primary/20"
-                    : "text-foreground-muted hover:text-white hover:bg-white/5"
+                    : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
                 }`}
               >
                 {item.label}
@@ -105,7 +105,7 @@ export default function Header() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-1 ${
                   isAllToolsOpen
                     ? "text-primary-300 bg-primary/20"
-                    : "text-foreground-muted hover:text-white hover:bg-white/5"
+                    : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
                 }`}
               >
                 <span>所有工具</span>
@@ -229,7 +229,7 @@ export default function Header() {
                 className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
                   isActive("/")
                     ? "text-primary-300 bg-primary/20"
-                    : "text-foreground-muted hover:text-white hover:bg-white/5"
+                    : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -248,7 +248,7 @@ export default function Header() {
                       className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                         isActive(tool.href)
                           ? "text-primary-300 bg-primary/20"
-                          : "text-foreground-muted hover:text-white hover:bg-white/5"
+                          : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
