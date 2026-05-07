@@ -1,0 +1,70 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="200" fill="#3b82f6" opacity="0.05"/>
+  <circle cx="1100" cy="530" r="250" fill="#8b5cf6" opacity="0.05"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.3"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accentGradient)"/>
+  
+  <!-- Category badge -->
+  <rect x="80" y="80" width="120" height="32" rx="16" fill="#3b82f6" opacity="0.2"/>
+  <text x="140" y="102" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#3b82f6" text-anchor="middle">AI 资讯</text>
+  
+  <!-- Date -->
+  <text x="80" y="150" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#64748b">2026年4月30日</text>
+  
+  <!-- Main title -->
+  <text x="80" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#f8fafc">
+    <tspan x="80" dy="0">Amazon AWS 云业务</tspan>
+    <tspan x="80" dy="60">强劲增长，AI 投资</tspan>
+    <tspan x="80" dy="60">持续加码</tspan>
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="80" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#94a3b8">
+    亚马逊云计算业务超预期增长，CEO 表示将继续加大 AI 基础设施投入
+  </text>
+  
+  <!-- Source -->
+  <text x="80" y="520" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#64748b">来源: TechCrunch</text>
+  
+  <!-- Logo/Brand -->
+  <rect x="1000" y="80" width="120" height="40" rx="8" fill="#3b82f6"/>
+  <text x="1060" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#ffffff" text-anchor="middle">PDF转换器</text>
+  
+  <!-- Decorative AI icon -->
+  <g transform="translate(950, 450)" opacity="0.1">
+    <rect x="0" y="0" width="160" height="120" rx="12" fill="#3b82f6"/>
+    <circle cx="40" cy="40" r="16" fill="#ffffff"/>
+    <circle cx="120" cy="40" r="16" fill="#ffffff"/>
+    <path d="M 40 80 Q 80 100 120 80" stroke="#ffffff" stroke-width="4" fill="none"/>
+  </g>
+</svg>

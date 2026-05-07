@@ -6,9 +6,10 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 interface ToolItem {
-  label: string;
+  key: string;
   href: string;
   icon: string;
+  title: string;
   desc: string;
   gradient: string;
 }
@@ -18,52 +19,51 @@ interface ToolCategory {
   items: ToolItem[];
 }
 
-const allToolsDropdown: ToolCategory[] = [
-  {
-    title: "🔥 热门工具",
-    items: [
-      { label: "PDF转Word", href: "/pdf-to-word", icon: "1", desc: "最热门的PDF转换", gradient: "from-primary-500 to-primary-600" },
-      { label: "PDF压缩", href: "/compress-pdf", icon: "2", desc: "减小PDF文件大小", gradient: "from-teal-500 to-accent-emerald" },
-      { label: "PDF合并", href: "/merge-pdf", icon: "3", desc: "合并多个PDF文件", gradient: "from-red-500 to-pink-500" },
-      { label: "图片压缩", href: "/image-compress", icon: "4", desc: "压缩图片文件", gradient: "from-emerald-500 to-teal-600" },
-    ],
-  },
-  {
-    title: "📄 PDF工具",
-    items: [
-      { label: "PDF转Word", href: "/pdf-to-word", icon: "W", desc: "PDF转可编辑Word", gradient: "from-primary-500 to-primary-600" },
-      { label: "Word转PDF", href: "/word-to-pdf", icon: "W", desc: "DOC/DOCX转PDF", gradient: "from-blue-500 to-cyan-500" },
-      { label: "PDF转JPG", href: "/pdf-to-jpg", icon: "J", desc: "PDF页面转图片", gradient: "from-accent-pink to-accent-cyan" },
-      { label: "JPG转PDF", href: "/jpg-to-pdf", icon: "J", desc: "图片合并为PDF", gradient: "from-orange-500 to-amber-500" },
-      { label: "PDF合并", href: "/merge-pdf", icon: "📑", desc: "合并多个PDF", gradient: "from-red-500 to-pink-500" },
-      { label: "PDF压缩", href: "/compress-pdf", icon: "📦", desc: "减小PDF大小", gradient: "from-teal-500 to-accent-emerald" },
-      { label: "PDF排序", href: "/rearrange-pdf", icon: "🔀", desc: "调整页面顺序", gradient: "from-indigo-500 to-primary-500" },
-      { label: "删除页面", href: "/remove-pages", icon: "✂️", desc: "删除指定页面", gradient: "from-pink-500 to-rose-500" },
-      { label: "PDF拆分", href: "/split-pdf", icon: "📂", desc: "拆分为多个文件", gradient: "from-cyan-500 to-blue-500" },
-    ],
-  },
-  {
-    title: "🖼️ 图片工具",
-    items: [
-      { label: "图片压缩", href: "/image-compress", icon: "🖼️", desc: "压缩图片文件", gradient: "from-emerald-500 to-teal-600" },
-      { label: "图片加水印", href: "/image-watermark", icon: "💧", desc: "为图片添加水印", gradient: "from-blue-500 to-indigo-500" },
-    ],
-  },
-];
-
-const navItems = [
-  { label: "首页", href: "/" },
-  { label: "PDF转Word", href: "/pdf-to-word" },
-  { label: "Word转PDF", href: "/word-to-pdf" },
-  { label: "图片压缩", href: "/image-compress" },
-];
-
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAllToolsOpen, setIsAllToolsOpen] = useState(false);
   const pathname = usePathname();
 
   const isActive = (href: string) => pathname === href;
+
+  const allToolsDropdown: ToolCategory[] = [
+    {
+      title: "热门工具",
+      items: [
+        { key: "pdfToWord", href: "/pdf-to-word", icon: "1", title: "PDF转Word", desc: "将PDF转换为可编辑Word", gradient: "from-primary-500 to-primary-600" },
+        { key: "compressPdf", href: "/compress-pdf", icon: "2", title: "PDF压缩", desc: "减小PDF文件大小", gradient: "from-teal-500 to-accent-emerald" },
+        { key: "mergePdf", href: "/merge-pdf", icon: "3", title: "PDF合并", desc: "合并多个PDF文件", gradient: "from-red-500 to-pink-500" },
+        { key: "imageCompress", href: "/image-compress", icon: "4", title: "图片压缩", desc: "压缩图片文件", gradient: "from-emerald-500 to-teal-600" },
+      ],
+    },
+    {
+      title: "PDF工具",
+      items: [
+        { key: "pdfToWord", href: "/pdf-to-word", icon: "W", title: "PDF转Word", desc: "PDF转可编辑Word", gradient: "from-primary-500 to-primary-600" },
+        { key: "wordToPdf", href: "/word-to-pdf", icon: "W", title: "Word转PDF", desc: "Word文档转PDF", gradient: "from-blue-500 to-cyan-500" },
+        { key: "pdfToJpg", href: "/pdf-to-jpg", icon: "J", title: "PDF转JPG", desc: "PDF页面转图片", gradient: "from-accent-pink to-accent-cyan" },
+        { key: "jpgToPdf", href: "/jpg-to-pdf", icon: "J", title: "JPG转PDF", desc: "图片合并为PDF", gradient: "from-orange-500 to-amber-500" },
+        { key: "mergePdf", href: "/merge-pdf", icon: "📑", title: "PDF合并", desc: "合并PDF文件", gradient: "from-red-500 to-pink-500" },
+        { key: "compressPdf", href: "/compress-pdf", icon: "📦", title: "PDF压缩", desc: "压缩PDF大小", gradient: "from-teal-500 to-accent-emerald" },
+        { key: "rearrangePdf", href: "/rearrange-pdf", icon: "🔀", title: "重新排列", desc: "调整页面顺序", gradient: "from-indigo-500 to-primary-500" },
+        { key: "removePages", href: "/remove-pages", icon: "✂️", title: "删除页面", desc: "删除PDF页面", gradient: "from-pink-500 to-rose-500" },
+        { key: "splitPdf", href: "/split-pdf", icon: "📂", title: "拆分PDF", desc: "拆分PDF文件", gradient: "from-cyan-500 to-blue-500" },
+      ],
+    },
+    {
+      title: "图片工具",
+      items: [
+        { key: "imageCompress", href: "/image-compress", icon: "🖼️", title: "图片压缩", desc: "压缩图片", gradient: "from-emerald-500 to-teal-600" },
+        { key: "imageWatermark", href: "/image-watermark", icon: "💧", title: "图片水印", desc: "添加水印", gradient: "from-blue-500 to-indigo-500" },
+      ],
+    },
+  ];
+
+  const navItems = [
+    { label: "首页", href: "/" },
+    { label: "工具", href: "/pdf-to-word" },
+    { label: "博客", href: "/blog" },
+  ];
 
   return (
     <header className="glass-strong sticky top-0 z-50 border-b border-primary/20">
@@ -74,9 +74,7 @@ export default function Header() {
               📄
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-white">
-                PDF转换器
-              </span>
+              <span className="text-lg font-bold text-white">PDF转换器</span>
               <span className="text-xs text-foreground-muted -mt-1">免费在线工具</span>
             </div>
           </Link>
@@ -108,7 +106,7 @@ export default function Header() {
                     : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
                 }`}
               >
-                <span>所有工具</span>
+                <span>全部工具</span>
                 <svg
                   className={`w-4 h-4 transition-transform duration-200 ${
                     isAllToolsOpen ? "rotate-180" : ""
@@ -117,21 +115,16 @@ export default function Header() {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
 
               {isAllToolsOpen && (
                 <>
                   <div className="absolute left-0 right-0 h-4 bg-transparent" />
-                  
-                  <div className="fixed left-0 right-0 top-16 dropdown-menu animate-slide-down">
-                    <div 
+
+                  <div className="fixed left-0 right-0 top-16 dropdown-menu animate-slide-down bg-surface/95 backdrop-blur-xl border-b border-primary/20 shadow-2xl">
+                    <div
                       className="container mx-auto px-4 py-8"
                       onMouseEnter={() => setIsAllToolsOpen(true)}
                       onMouseLeave={() => setIsAllToolsOpen(false)}
@@ -142,7 +135,7 @@ export default function Header() {
                             <h3 className="text-sm font-bold text-primary-300 uppercase tracking-wider mb-4 pb-2 border-b border-primary/20">
                               {category.title}
                             </h3>
-                            
+
                             <ul className="space-y-2">
                               {category.items.map((tool) => (
                                 <li key={tool.href}>
@@ -158,10 +151,10 @@ export default function Header() {
                                     <div className={`w-8 h-8 bg-gradient-to-br ${tool.gradient} rounded-lg flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-lg`}>
                                       {tool.icon}
                                     </div>
-                                    
+
                                     <div className="flex-1 min-w-0">
                                       <div className="font-medium text-sm truncate text-white group-hover:text-primary-300 transition-colors">
-                                        {tool.label}
+                                        {tool.title}
                                       </div>
                                       <div className="text-xs text-foreground-muted truncate">
                                         {tool.desc}
@@ -183,12 +176,12 @@ export default function Header() {
 
           <div className="hidden lg:flex items-center space-x-3">
             <ThemeToggle />
-            
+
             <Link
               href="/pdf-to-word"
               className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 shadow-primary hover:shadow-primary-lg hover:scale-105"
             >
-              开始转换
+              立即转换
             </Link>
           </div>
 
@@ -196,26 +189,11 @@ export default function Header() {
             className="lg:hidden p-2 rounded-lg hover:bg-white/5 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <svg
-              className="w-6 h-6 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
@@ -234,6 +212,18 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 首页
+              </Link>
+
+              <Link
+                href="/blog"
+                className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isActive("/blog")
+                    ? "text-primary-300 bg-primary/20"
+                    : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                博客
               </Link>
 
               {allToolsDropdown.map((category) => (
@@ -255,7 +245,7 @@ export default function Header() {
                       <div className={`w-8 h-8 bg-gradient-to-br ${tool.gradient} rounded-lg flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-lg`}>
                         {tool.icon}
                       </div>
-                      <span className="font-medium">{tool.label}</span>
+                      <span className="font-medium">{tool.title}</span>
                     </Link>
                   ))}
                 </div>
@@ -263,16 +253,16 @@ export default function Header() {
 
               <div className="mt-4 px-4 pb-4 space-y-3">
                 <div className="flex items-center justify-between p-3 bg-white/5 dark:bg-white/5 rounded-xl border border-primary/20">
-                  <span className="text-sm text-foreground-muted">主题模式</span>
+                  <span className="text-sm text-foreground-muted">主题</span>
                   <ThemeToggle />
                 </div>
-                
+
                 <Link
                   href="/pdf-to-word"
                   className="block w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white text-center px-5 py-3 rounded-xl font-medium shadow-primary"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  开始转换
+                  立即转换
                 </Link>
               </div>
             </div>

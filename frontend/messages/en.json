@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "title": "PDF Converter - Free Online PDF to Word, Word to PDF Tool",
+    "description": "Free online PDF conversion tool, supporting PDF to Word, Word to PDF, PDF to JPG, JPG to PDF and more. Fast, secure, no registration required.",
+    "keywords": "PDF converter,PDF to Word,Word to PDF,online PDF conversion,free PDF conversion"
+  },
+  "nav": {
+    "home": "Home",
+    "tools": "Tools",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "title": "Free Online PDF Conversion Tool",
+    "subtitle": "Support PDF and Word, image format conversion, fast, secure, no registration required",
+    "cta": "Get Started"
+  },
+  "tools": {
+    "title": "PDF Tools",
+    "subtitle": "Professional PDF processing tools to meet all your needs",
+    "popular": "🔥 Popular Tools",
+    "categories": {
+      "pdf": "📄 PDF Tools",
+      "image": "🖼️ Image Tools",
+      "edit": "PDF Editing"
+    },
+    "items": {
+      "pdfToWord": {
+        "title": "PDF to Word",
+        "description": "Convert PDF files to editable Word documents, preserving original formatting and layout"
+      },
+      "wordToPdf": {
+        "title": "Word to PDF",
+        "description": "Convert Word documents to PDF format, ensuring document formatting is not altered"
+      },
+      "pdfToJpg": {
+        "title": "PDF to JPG",
+        "description": "Convert each page of PDF files to high-definition JPG images"
+      },
+      "jpgToPdf": {
+        "title": "JPG to PDF",
+        "description": "Merge multiple JPG/PNG images into a single PDF file"
+      },
+      "mergePdf": {
+        "title": "Merge PDF",
+        "description": "Merge multiple PDF files into one, with drag-and-drop sorting"
+      },
+      "compressPdf": {
+        "title": "Compress PDF",
+        "description": "Intelligently compress PDF file size while maintaining clarity for easy sharing"
+      },
+      "removePages": {
+        "title": "Remove PDF Pages",
+        "description": "Visually delete specified pages from PDF, simple and intuitive operation"
+      },
+      "rearrangePdf": {
+        "title": "Rearrange PDF",
+        "description": "Drag to adjust PDF page order, preview adjustments in real-time"
+      },
+      "splitPdf": {
+        "title": "Split PDF",
+        "description": "Split PDF files into multiple independent files"
+      },
+      "imageCompress": {
+        "title": "Image Compress",
+        "description": "Intelligently compress image size, supporting JPG, PNG, WebP formats"
+      },
+      "imageWatermark": {
+        "title": "Image Watermark",
+        "description": "Add text or image watermarks to images, protect copyright"
+      }
+    }
+  },
+  "features": {
+    "title": "Why Choose Us",
+    "items": {
+      "free": {
+        "title": "Completely Free",
+        "description": "All features are free to use, no paid subscription required"
+      },
+      "security": {
+        "title": "Safe & Secure",
+        "description": "Files are processed locally and automatically deleted after upload, protecting privacy"
+      },
+      "fast": {
+        "title": "Fast & Efficient",
+        "description": "Using advanced technology, fast conversion speed, no waiting"
+      },
+      "easy": {
+        "title": "Simple & Easy",
+        "description": "Intuitive operation interface, complete conversion in three steps"
+      }
+    }
+  },
+  "upload": {
+    "title": "Upload File",
+    "dragDrop": "Drag and drop files here, or click to upload",
+    "supportedFormats": "Supported formats",
+    "maxSize": "Maximum file size",
+    "selectFile": "Select File",
+    "processing": "Processing...",
+    "converting": "Converting...",
+    "uploading": "Uploading..."
+  },
+  "common": {
+    "convert": "Convert",
+    "download": "Download",
+    "preview": "Preview",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "close": "Close",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "loading": "Loading...",
+    "empty": "No data",
+    "retry": "Retry",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact Us",
+    "toPdf": "Convert to PDF",
+    "fromPdf": "Convert from PDF",
+    "pdfTools": "PDF Tools"
+  },
+  "language": {
+    "title": "Language",
+    "zh": "中文",
+    "en": "English"
+  }
+}

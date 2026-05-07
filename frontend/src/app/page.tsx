@@ -1,399 +1,352 @@
+'use client';
+
 import Link from 'next/link';
-import { Metadata } from 'next';
-import { AccordionGroup } from '@/components/ui/Accordion';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
-export const metadata: Metadata = {
-  title: "PDF转换器 - 免费在线PDF转Word、Word转PDF工具",
-  description: "免费在线PDF转换工具，支持PDF转Word、Word转PDF、PDF转JPG、JPG转PDF等多种格式转换，快速、安全、无需注册。",
-};
+interface ToolItem {
+  key: string;
+  href: string;
+  icon: string;
+  gradient: string;
+  title: string;
+  description: string;
+}
 
-// PDF 工具
-const pdfTools = [
-  {
-    title: "PDF转Word",
-    description: "将PDF文件转换为可编辑的Word文档，保留原有格式和排版",
-    href: "/pdf-to-word",
-    icon: "📄",
-    gradient: "from-primary-500 to-primary-600",
-  },
-  {
-    title: "Word转PDF",
-    description: "将Word文档转换为PDF格式，确保文档格式不被篡改",
-    href: "/word-to-pdf",
-    icon: "📝",
-    gradient: "from-accent-emerald to-teal-500",
-  },
-  {
-    title: "PDF转JPG",
-    description: "将PDF文件的每一页转换为高清JPG图片",
-    href: "/pdf-to-jpg",
-    icon: "🖼️",
-    gradient: "from-accent-pink to-accent-cyan",
-  },
-  {
-    title: "JPG转PDF",
-    description: "将多张JPG/PNG图片合并转换为单个PDF文件",
-    href: "/jpg-to-pdf",
-    icon: "📷",
-    gradient: "from-orange-500 to-amber-500",
-  },
-  {
-    title: "PDF合并",
-    description: "将多个PDF文件合并为一个，支持拖拽排序",
-    href: "/merge-pdf",
-    icon: "📑",
-    gradient: "from-red-500 to-pink-500",
-  },
-  {
-    title: "PDF压缩",
-    description: "智能压缩PDF文件大小，保持清晰度便于分享",
-    href: "/compress-pdf",
-    icon: "📦",
-    gradient: "from-teal-500 to-accent-cyan",
-  },
-  {
-    title: "PDF删除页面",
-    description: "可视化删除PDF中的指定页面，操作简单直观",
-    href: "/remove-pages",
-    icon: "✂️",
-    gradient: "from-pink-500 to-rose-500",
-  },
-  {
-    title: "PDF排序",
-    description: "拖拽调整PDF页面顺序，实时预览调整结果",
-    href: "/rearrange-pdf",
-    icon: "🔀",
-    gradient: "from-indigo-500 to-primary-500",
-  },
-];
+interface FeatureItem {
+  key: string;
+  icon: string;
+  title: string;
+  description: string;
+}
 
-// 图片工具
-const imageTools = [
-  {
-    title: "图片压缩",
-    description: "智能压缩图片大小，支持JPG、PNG、WebP格式",
-    href: "/image-compress",
-    icon: "🖼️",
-    gradient: "from-emerald-500 to-teal-600",
-  },
-  {
-    title: "图片加水印",
-    description: "为图片添加文字水印，支持自定义样式和位置",
-    href: "/image-watermark",
-    icon: "💧",
-    gradient: "from-blue-500 to-indigo-600",
-  },
-];
+// 浮动装饰元素 - 使用 CSS 变量适配主题
+function FloatingIcon({ icon, className, delay }: { icon: string; className: string; delay: number }) {
+  return (
+    <div
+      className={`absolute ${className} floating-icon`}
+      style={{ animationDelay: `${delay}s` }}
+    >
+      <div className="w-full h-full rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-sm border border-primary/20 shadow-2xl flex items-center justify-center text-3xl md:text-4xl">
+        {icon}
+      </div>
+    </div>
+  );
+}
 
-// 热门工具
-const popularTools = [
-  {
-    title: "PDF转Word",
-    description: "最热门的PDF转换工具",
-    href: "/pdf-to-word",
-    icon: "📄",
-    gradient: "from-primary-500 to-primary-600",
-    rank: 1,
-  },
-  {
-    title: "PDF压缩",
-    description: "减小PDF文件大小",
-    href: "/compress-pdf",
-    icon: "📦",
-    gradient: "from-teal-500 to-accent-emerald",
-    rank: 2,
-  },
-  {
-    title: "PDF合并",
-    description: "合并多个PDF文件",
-    href: "/merge-pdf",
-    icon: "📑",
-    gradient: "from-red-500 to-pink-500",
-    rank: 3,
-  },
-  {
-    title: "图片压缩",
-    description: "压缩图片文件",
-    href: "/image-compress",
-    icon: "🖼️",
-    gradient: "from-emerald-500 to-teal-600",
-    rank: 4,
-  },
-];
+// 粒子背景组件
+function ParticleBackground() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-const features = [
-  {
-    title: "完全免费",
-    description: "所有转换功能完全免费使用，无需注册账号，无隐藏费用",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "极速转换",
-    description: "采用高性能转换引擎，10MB文件15秒内完成转换",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-  },
-  {
-    title: "安全可靠",
-    description: "文件30分钟后自动删除，采用SSL加密传输，不存储任何数据",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-  },
-  {
-    title: "简单易用",
-    description: "无需下载安装软件，拖拽上传即可转换，支持所有主流浏览器",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-  },
-];
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-const faqs = [
-  {
-    question: "PDF转换器支持哪些格式转换？",
-    answer: "目前支持PDF转Word、Word转PDF、PDF转JPG、JPG转PDF等常用格式转换，以及PDF合并、压缩、删除页面等编辑功能。",
-  },
-  {
-    question: "转换后的文件质量如何？",
-    answer: "我们使用专业的转换引擎，最大程度保留原文档的格式、图片和排版。对于扫描版PDF，还支持OCR文字识别。",
-  },
-  {
-    question: "上传的文件安全吗？",
-    answer: "您的文件安全是我们的首要任务。所有上传的文件会在30分钟后自动删除，采用SSL加密传输，我们不会存储或分享您的任何文件。",
-  },
-  {
-    question: "文件大小有限制吗？",
-    answer: "单个文件大小限制为20MB，足以满足大多数日常文档转换需求。如需处理更大文件，建议先进行PDF压缩。",
-  },
-];
+  if (!mounted) return null;
 
-export default function Home() {
+  const isDark = theme === 'dark';
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* 渐变背景 */}
+      <div className={`absolute inset-0 transition-opacity duration-500 ${
+        isDark 
+          ? 'bg-gradient-to-br from-primary-900/20 via-background to-background' 
+          : 'bg-gradient-to-br from-primary-50 via-white to-accent-cyan/5'
+      }`} />
+
+      {/* 网格背景 */}
+      <div 
+        className={`absolute inset-0 bg-[url('/grid.svg')] transition-opacity duration-500 ${
+          isDark ? 'opacity-20' : 'opacity-30'
+        }`} 
+      />
+
+      {/* 光晕效果 - 暗色模式更明显，亮色模式更柔和 */}
+      <div className={`absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[150px] transition-all duration-500 ${
+        isDark ? 'bg-primary-500/20' : 'bg-primary-400/10'
+      }`} />
+      <div className={`absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full blur-[120px] transition-all duration-500 ${
+        isDark ? 'bg-accent-cyan/10' : 'bg-accent-cyan/5'
+      }`} />
+
+      {/* 浮动图标 */}
+      <FloatingIcon icon="📄" className="top-[15%] left-[8%] w-16 h-16 md:w-20 md:h-20" delay={0} />
+      <FloatingIcon icon="📝" className="top-[20%] right-[12%] w-14 h-14 md:w-18 md:h-18" delay={0.5} />
+      <FloatingIcon icon="🖼️" className="top-[60%] left-[5%] w-12 h-12 md:w-16 md:h-16" delay={1} />
+      <FloatingIcon icon="📷" className="top-[65%] right-[8%] w-14 h-14 md:w-18 md:h-18" delay={1.5} />
+      <FloatingIcon icon="📑" className="top-[40%] left-[3%] w-10 h-10 md:w-14 md:h-14" delay={2} />
+      <FloatingIcon icon="📦" className="top-[50%] right-[5%] w-12 h-12 md:w-16 md:h-16" delay={2.5} />
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted ? theme === 'dark' : true;
+
+  const pdfTools: ToolItem[] = [
+    { key: "pdfToWord", href: "/pdf-to-word", icon: "📄", gradient: "from-primary-500 to-primary-600", title: "PDF转Word", description: "将PDF文件转换为可编辑的Word文档" },
+    { key: "wordToPdf", href: "/word-to-pdf", icon: "📝", gradient: "from-emerald-500 to-teal-500", title: "Word转PDF", description: "将Word文档转换为PDF格式" },
+    { key: "pdfToJpg", href: "/pdf-to-jpg", icon: "🖼️", gradient: "from-pink-500 to-cyan-500", title: "PDF转JPG", description: "将PDF页面转换为图片" },
+    { key: "jpgToPdf", href: "/jpg-to-pdf", icon: "📷", gradient: "from-orange-500 to-amber-500", title: "JPG转PDF", description: "将图片合并为PDF文件" },
+    { key: "mergePdf", href: "/merge-pdf", icon: "📑", gradient: "from-red-500 to-pink-500", title: "PDF合并", description: "将多个PDF文件合并为一个" },
+    { key: "compressPdf", href: "/compress-pdf", icon: "📦", gradient: "from-teal-500 to-cyan-500", title: "PDF压缩", description: "减小PDF文件大小" },
+    { key: "removePages", href: "/remove-pages", icon: "✂️", gradient: "from-pink-500 to-rose-500", title: "删除页面", description: "从PDF中删除指定页面" },
+    { key: "rearrangePdf", href: "/rearrange-pdf", icon: "🔀", gradient: "from-indigo-500 to-primary-500", title: "重新排列", description: "调整PDF页面顺序" },
+  ];
+
+  const imageTools: ToolItem[] = [
+    { key: "imageCompress", href: "/image-compress", icon: "🖼️", gradient: "from-emerald-500 to-teal-600", title: "图片压缩", description: "减小图片文件大小" },
+    { key: "imageWatermark", href: "/image-watermark", icon: "💧", gradient: "from-blue-500 to-indigo-600", title: "图片水印", description: "为图片添加水印" },
+  ];
+
+  const features: FeatureItem[] = [
+    { key: "free", icon: "🆓", title: "完全免费", description: "所有功能均可免费使用，无需注册" },
+    { key: "security", icon: "🔒", title: "安全可靠", description: "文件处理后在服务器上删除" },
+    { key: "fast", icon: "⚡", title: "极速转换", description: "高效的转换引擎，快速完成" },
+    { key: "easy", icon: "👆", title: "简单易用", description: "拖拽上传，一键转换" },
+  ];
+
   return (
     <div className="min-h-screen">
-      <section className="relative overflow-hidden hero-gradient">
-        <div className="absolute inset-0 tech-grid opacity-30" />
-        
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent-cyan/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-600/10 rounded-full blur-3xl" />
-        
-        <div className="relative container mx-auto px-4 py-20 lg:py-28">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mb-8 animate-fade-in backdrop-blur-sm">
-              <span className="flex h-2 w-2 rounded-full bg-accent-emerald mr-2 animate-pulse"></span>
-              <span className="text-sm text-foreground-muted">免费使用，无需注册</span>
+      {/* Hero Section - 专业 UI/UX 设计 */}
+      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+        <ParticleBackground />
+
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <div className="text-center max-w-5xl mx-auto">
+            {/* 徽章 - 适配双主题 */}
+            <div 
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-8 animate-fade-in-up border"
+              style={{ 
+                animationDelay: '0s',
+                backgroundColor: isDark ? 'rgba(124, 58, 237, 0.1)' : 'rgba(124, 58, 237, 0.05)',
+                borderColor: isDark ? 'rgba(124, 58, 237, 0.3)' : 'rgba(124, 58, 237, 0.2)'
+              }}
+            >
+              <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className={`text-sm font-medium ${isDark ? 'text-primary-300' : 'text-primary-600'}`}>
+                100% 免费 · 无需注册 · 安全可靠
+              </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-fade-in-up">
-              免费在线
-              <span className="gradient-text-hero"> PDF转换工具 </span>
+            {/* 主标题 - 双主题渐变 */}
+            <h1 
+              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1] animate-fade-in-up"
+              style={{ animationDelay: '0.1s' }}
+            >
+              <span className={`bg-clip-text text-transparent ${
+                isDark 
+                  ? 'bg-gradient-to-r from-white via-primary-200 to-primary-400'
+                  : 'bg-gradient-to-r from-gray-900 via-primary-700 to-primary-500'
+              }`}>
+                PDF转换
+              </span>
+              <br />
+              <span className={`bg-clip-text text-transparent ${
+                isDark
+                  ? 'bg-gradient-to-r from-primary-400 via-accent-cyan to-primary-300'
+                  : 'bg-gradient-to-r from-primary-500 via-cyan-600 to-primary-600'
+              }`}>
+                如此简单
+              </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-foreground-muted mb-10 max-w-2xl mx-auto animate-fade-in-up stagger-1">
-              快速、安全、免费的PDF转换服务。支持PDF与Word、图片等多种格式互转，
-              以及合并、压缩、编辑等多种功能。
+            {/* 副标题 - 双主题文字颜色 */}
+            <p 
+              className={`text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up ${
+                isDark ? 'text-gray-400' : 'text-gray-600'
+              }`}
+              style={{ animationDelay: '0.2s' }}
+            >
+              支持 <span className={`font-semibold ${isDark ? 'text-primary-400' : 'text-primary-600'}`}>PDF</span>、
+              <span className={`font-semibold ${isDark ? 'text-primary-400' : 'text-primary-600'}`}>Word</span>、
+              <span className={`font-semibold ${isDark ? 'text-primary-400' : 'text-primary-600'}`}>JPG</span> 等格式互转
+              <br className="hidden md:block" />
+              完全免费，无需注册，即开即用
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up stagger-2">
+            {/* CTA 按钮组 - 双主题样式 */}
+            <div 
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up"
+              style={{ animationDelay: '0.3s' }}
+            >
+              {/* 主按钮 */}
               <Link
                 href="/pdf-to-word"
-                className="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-primary hover:shadow-primary-lg hover:scale-105 flex items-center justify-center space-x-2"
+                className={`group relative w-full sm:w-auto px-10 py-5 rounded-2xl text-lg font-bold transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden ${
+                  isDark
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white shadow-lg shadow-primary-500/25'
+                    : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 text-white shadow-xl shadow-primary-500/20'
+                } hover:scale-105 hover:shadow-2xl`}
               >
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                 <span>立即开始转换</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
+
+              {/* 次要按钮 - 双主题 */}
               <Link
                 href="#tools"
-                className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 border border-white/10 hover:border-primary/30 flex items-center justify-center space-x-2 backdrop-blur-sm"
+                className={`w-full sm:w-auto px-10 py-5 rounded-2xl text-lg font-semibold border-2 transition-all duration-300 flex items-center justify-center gap-3 ${
+                  isDark
+                    ? 'border-primary/30 hover:border-primary/60 text-gray-300 hover:text-white hover:bg-primary/10'
+                    : 'border-primary/20 hover:border-primary/40 text-gray-700 hover:text-primary-700 hover:bg-primary/5'
+                }`}
               >
-                <span>查看所有工具</span>
+                <span>浏览全部工具</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
               </Link>
             </div>
 
-            <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto animate-fade-in-up stagger-3">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white">100%</div>
-                <div className="text-sm text-foreground-muted mt-1">免费使用</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white">20MB</div>
-                <div className="text-sm text-foreground-muted mt-1">单文件上限</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white">8+</div>
-                <div className="text-sm text-foreground-muted mt-1">转换工具</div>
-              </div>
+            {/* 信任指标 - 双主题 */}
+            <div 
+              className={`mt-16 flex flex-wrap items-center justify-center gap-6 md:gap-10 animate-fade-in-up ${
+                isDark ? 'text-gray-400' : 'text-gray-500'
+              }`}
+              style={{ animationDelay: '0.4s' }}
+            >
+              {[
+                { icon: '✓', text: '免费使用' },
+                { icon: '✓', text: '无需注册' },
+                { icon: '✓', text: '安全加密' },
+                { icon: '✓', text: '极速转换' },
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <span className={`flex items-center justify-center w-5 h-5 rounded-full text-xs ${
+                    isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-600'
+                  }`}>
+                    {item.icon}
+                  </span>
+                  <span className="text-sm font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 底部渐变过渡 - 双主题 */}
+        <div className={`absolute bottom-0 left-0 right-0 h-32 ${
+          isDark 
+            ? 'bg-gradient-to-t from-[#0B1120] to-transparent'
+            : 'bg-gradient-to-t from-white to-transparent'
+        }`} />
+      </section>
+
+      {/* Tools Section - 双主题卡片 */}
+      <section id="tools" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              工具箱
+            </h2>
+            <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+              我们提供的所有工具
+            </p>
+          </div>
+
+          {/* PDF Tools */}
+          <div className="mb-16">
+            <h3 className={`text-xl font-semibold mb-6 flex items-center ${isDark ? 'text-white' : 'text-gray-800'}`}>
+              <span className="mr-2">PDF工具</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {pdfTools.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className={`group relative rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1 ${
+                    isDark
+                      ? 'bg-[#1A1F35] border-primary/10 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10'
+                      : 'bg-white border-gray-200 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5'
+                  }`}
+                >
+                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    {tool.icon}
+                  </div>
+                  <h4 className={`text-lg font-semibold mb-2 group-hover:text-primary-500 transition-colors ${
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {tool.title}
+                  </h4>
+                  <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {tool.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Image Tools */}
+          <div>
+            <h3 className={`text-xl font-semibold mb-6 flex items-center ${isDark ? 'text-white' : 'text-gray-800'}`}>
+              <span className="mr-2">图片工具</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {imageTools.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className={`group relative rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1 ${
+                    isDark
+                      ? 'bg-[#1A1F35] border-primary/10 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10'
+                      : 'bg-white border-gray-200 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5'
+                  }`}
+                >
+                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-xl flex items-center justify-center text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    {tool.icon}
+                  </div>
+                  <h4 className={`text-lg font-semibold mb-2 group-hover:text-primary-500 transition-colors ${
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {tool.title}
+                  </h4>
+                  <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {tool.description}
+                  </p>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* 热门工具 */}
-      <section className="py-16 section-gradient">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center mb-10">
-            <div className="w-1 h-8 bg-gradient-to-b from-primary-500 to-accent-pink rounded-full mr-4"></div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              🔥 热门工具
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popularTools.map((tool, index) => (
-              <div key={tool.href} className="relative" style={{ animationDelay: `${index * 0.05}s` }}>
-                <div className="absolute -top-2 -left-2 z-20">
-                  <span className="bg-gradient-to-r from-primary-500 to-accent-pink text-white text-xs font-bold w-7 h-7 rounded-full shadow-glow flex items-center justify-center">
-                    {tool.rank}
-                  </span>
-                </div>
-                <Link
-                  href={tool.href}
-                  className="tool-card group h-full block"
-                >
-                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                    {tool.icon}
-                  </div>
-
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                    {tool.title}
-                  </h3>
-                  <p className="text-foreground-muted text-sm leading-relaxed">
-                    {tool.description}
-                  </p>
-
-                  <div className="mt-4 flex items-center text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span>开始使用</span>
-                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PDF 工具 */}
-      <section id="tools" className="py-16 section-gradient">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center mb-10">
-            <div className="w-1 h-8 bg-gradient-to-b from-primary-500 to-accent-cyan rounded-full mr-4"></div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              📄 PDF 工具
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pdfTools.map((tool, index) => (
-              <div key={tool.href} style={{ animationDelay: `${index * 0.05}s` }}>
-                <Link
-                  href={tool.href}
-                  className="tool-card group h-full block"
-                >
-                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                    {tool.icon}
-                  </div>
-
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                    {tool.title}
-                  </h3>
-                  <p className="text-foreground-muted text-sm leading-relaxed">
-                    {tool.description}
-                  </p>
-
-                  <div className="mt-4 flex items-center text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span>开始使用</span>
-                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 图片工具 */}
-      <section className="py-16 section-gradient">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center mb-10">
-            <div className="w-1 h-8 bg-gradient-to-b from-emerald-500 to-teal-600 rounded-full mr-4"></div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              🖼️ 图片工具
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {imageTools.map((tool, index) => (
-              <div key={tool.href} style={{ animationDelay: `${index * 0.05}s` }}>
-                <Link
-                  href={tool.href}
-                  className="tool-card group h-full block"
-                >
-                  <div className={`w-14 h-14 bg-gradient-to-br ${tool.gradient} rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                    {tool.icon}
-                  </div>
-
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                    {tool.title}
-                  </h3>
-                  <p className="text-foreground-muted text-sm leading-relaxed">
-                    {tool.description}
-                  </p>
-
-                  <div className="mt-4 flex items-center text-primary-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span>开始使用</span>
-                    <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-background">
+      {/* Features Section - 双主题 */}
+      <section className={`py-20 ${isDark ? 'bg-primary/5' : 'bg-gray-50'}`}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
               为什么选择我们
             </h2>
-            <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
-              我们致力于提供最优质的PDF转换体验
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="feature-card text-center"
+            {features.map((feature) => (
+              <div 
+                key={feature.key} 
+                className={`text-center p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+                  isDark
+                    ? 'bg-[#1A1F35] border-primary/10 hover:border-primary/30'
+                    : 'bg-white border-gray-200 hover:border-primary/30 hover:shadow-lg'
+                }`}
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary-dark/20 rounded-2xl flex items-center justify-center text-primary-400 mx-auto mb-5 border border-primary/20">
-                  {feature.icon}
-                </div>
-                <h3 className="text-lg font-bold text-white mb-3">
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   {feature.title}
                 </h3>
-                <p className="text-foreground-muted text-sm leading-relaxed">
+                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                   {feature.description}
                 </p>
               </div>
@@ -402,76 +355,37 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 section-gradient">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              简单三步，快速转换
+      {/* FAQ Section - 双主题 */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className={`text-3xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+              常见问题
             </h2>
-            <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
-              无需复杂操作，轻松完成PDF转换
-            </p>
           </div>
-
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-              <div className="hidden md:block absolute top-16 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary/30 via-primary/50 to-primary/30" />
-
-              {[
-                { step: 1, title: "上传文件", desc: "拖拽或点击上传您的PDF文件，支持最大20MB" },
-                { step: 2, title: "自动转换", desc: "系统自动识别并开始转换，无需额外操作" },
-                { step: 3, title: "下载文件", desc: "转换完成后，点击下载按钮获取转换后的文件" },
-              ].map((item, index) => (
-                <div key={index} className="relative text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-glow relative z-10">
-                    {item.step}
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                  <p className="text-foreground-muted">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">常见问题</h2>
-            <p className="text-lg text-foreground-muted">找不到答案？欢迎联系我们</p>
-          </div>
-
-          <AccordionGroup
-            items={faqs.map((faq) => ({
-              title: faq.question,
-              content: faq.answer,
-            }))}
-            size="md"
-          />
-        </div>
-      </section>
-
-      <section className="py-20 cta-section relative overflow-hidden">
-        <div className="absolute inset-0 tech-grid opacity-20" />
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              准备好开始转换了吗？
-            </h2>
-            <p className="text-xl text-foreground-muted mb-10">
-              立即体验免费、快速、安全的PDF转换服务
-            </p>
-            <Link
-              href="/pdf-to-word"
-              className="inline-flex items-center justify-center bg-white text-primary-600 px-10 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105 hover:bg-primary-50"
-            >
-              <span>免费开始使用</span>
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
+          <div className="space-y-4">
+            {[
+              { q: '使用PDF转换工具需要付费吗？', a: '完全免费！我们的所有PDF转换工具都可以免费使用，无需注册或订阅。' },
+              { q: '我的文件安全吗？', a: '绝对安全。所有文件处理都在加密连接下进行，转换完成后会立即从服务器删除，我们不会保留您的任何文件。' },
+              { q: '支持哪些文件格式？', a: '我们支持PDF、Word（DOC/DOCX）、JPG/PNG图片等多种格式之间的相互转换。' },
+              { q: '转换后的文件质量如何？', a: '我们使用先进的转换技术，确保转换后的文件保持原始格式和布局，尽可能减少失真。' },
+            ].map((faq, index) => (
+              <div 
+                key={index}
+                className={`rounded-xl border p-6 transition-all duration-300 ${
+                  isDark
+                    ? 'bg-[#1A1F35] border-primary/10 hover:border-primary/30'
+                    : 'bg-white border-gray-200 hover:border-primary/30 hover:shadow-md'
+                }`}
+              >
+                <h3 className={`text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  {faq.q}
+                </h3>
+                <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
+                  {faq.a}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

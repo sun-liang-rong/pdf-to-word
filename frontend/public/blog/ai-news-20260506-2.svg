@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#60a5fa"/>
+    </linearGradient>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg2)"/>
+  
+  <pattern id="grid2" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.3"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid2)"/>
+  
+  <circle cx="1100" cy="100" r="180" fill="#3b82f6" opacity="0.05"/>
+  <circle cx="100" cy="530" r="220" fill="#60a5fa" opacity="0.05"/>
+  
+  <g transform="translate(150, 200)" opacity="0.3">
+    <text x="0" y="0" font-family="monospace" font-size="120" fill="#3b82f6">{ }</text>
+  </g>
+  
+  <g transform="translate(900, 350)" filter="url(#glow2)">
+    <rect x="0" y="0" width="80" height="70" rx="12" fill="url(#accent2)" opacity="0.9"/>
+    <circle cx="25" cy="28" r="10" fill="#0f172a"/>
+    <circle cx="55" cy="28" r="10" fill="#0f172a"/>
+    <line x1="40" y1="0" x2="40" y2="-20" stroke="#3b82f6" stroke-width="3"/>
+    <circle cx="40" cy="-25" r="6" fill="#60a5fa"/>
+    <rect x="30" y="70" width="20" height="25" fill="#3b82f6" opacity="0.7"/>
+  </g>
+  
+  <g opacity="0.3">
+    <line x1="300" y1="450" x2="500" y2="350" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5"/>
+    <line x1="500" y1="350" x2="700" y2="400" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5"/>
+    <line x1="700" y1="400" x2="880" y2="380" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5"/>
+    <circle cx="300" cy="450" r="8" fill="#3b82f6"/>
+    <circle cx="500" cy="350" r="6" fill="#60a5fa"/>
+    <circle cx="700" cy="400" r="7" fill="#3b82f6"/>
+  </g>
+  
+  <text x="600" y="280" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="bold" fill="#f8fafc">
+    CopilotKit 融资 $27M
+  </text>
+  <text x="600" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#94a3b8">
+    助力开发者部署应用原生AI智能体
+  </text>
+  
+  <rect x="520" y="400" width="160" height="40" rx="20" fill="url(#accent2)" opacity="0.9"/>
+  <text x="600" y="427" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#0f172a">
+    AI NEWS • 20260506
+  </text>
+</svg>

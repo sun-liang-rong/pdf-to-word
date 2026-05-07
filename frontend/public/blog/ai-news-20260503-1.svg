@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e94560;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff6b6b;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow1">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad1)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="80" fill="#e94560" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="120" fill="#533483" opacity="0.15"/>
+  <circle cx="600" cy="315" r="200" fill="none" stroke="#e94560" stroke-width="1" opacity="0.2"/>
+  
+  <!-- AI/Neural network pattern -->
+  <g opacity="0.3">
+    <circle cx="200" cy="200" r="8" fill="#e94560"/>
+    <circle cx="300" cy="150" r="6" fill="#e94560"/>
+    <circle cx="400" cy="200" r="8" fill="#e94560"/>
+    <circle cx="300" cy="280" r="6" fill="#e94560"/>
+    <line x1="200" y1="200" x2="300" y2="150" stroke="#e94560" stroke-width="1"/>
+    <line x1="300" y1="150" x2="400" y2="200" stroke="#e94560" stroke-width="1"/>
+    <line x1="200" y1="200" x2="300" y2="280" stroke="#e94560" stroke-width="1"/>
+    <line x1="300" y1="280" x2="400" y2="200" stroke="#e94560" stroke-width="1"/>
+  </g>
+  
+  <!-- Film/Oscar trophy icon -->
+  <g transform="translate(900, 150)" opacity="0.8">
+    <ellipse cx="60" cy="80" rx="40" ry="50" fill="none" stroke="#ffd700" stroke-width="3"/>
+    <rect x="45" y="130" width="30" height="15" fill="#ffd700"/>
+    <rect x="35" y="145" width="50" height="8" fill="#ffd700"/>
+    <circle cx="60" cy="60" r="15" fill="none" stroke="#ffd700" stroke-width="2"/>
+  </g>
+  
+  <!-- Robot/AI face icon -->
+  <g transform="translate(150, 400)" opacity="0.6">
+    <rect x="0" y="0" width="80" height="100" rx="15" fill="none" stroke="#00d9ff" stroke-width="2"/>
+    <circle cx="25" cy="40" r="8" fill="#00d9ff"/>
+    <circle cx="55" cy="40" r="8" fill="#00d9ff"/>
+    <rect x="20" y="65" width="40" height="4" fill="#00d9ff"/>
+  </g>
+  
+  <!-- Title text -->
+  <text x="600" y="250" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#ffffff" filter="url(#glow1)">
+    AI生成内容
+  </text>
+  <text x="600" y="310" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" fill="#ffffff">
+    奥斯卡新规
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="380" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#a0a0a0">
+    AI生成的演员和剧本将失去奥斯卡参赛资格
+  </text>
+  
+  <!-- Date and source -->
+  <text x="600" y="500" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#666">
+    2026-05-03 · TechCrunch
+  </text>
+  
+  <!-- Category tag -->
+  <rect x="540" y="540" width="120" height="30" rx="15" fill="url(#accentGrad1)"/>
+  <text x="600" y="560" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#ffffff" font-weight="600">AI新闻</text>
+</svg>

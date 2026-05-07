@@ -1,0 +1,69 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient2)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="1100" cy="100" r="180" fill="#ec4899" opacity="0.05"/>
+  <circle cx="100" cy="550" r="220" fill="#f97316" opacity="0.05"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.3"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid2)"/>
+  
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accentGradient2)"/>
+  
+  <!-- Category badge -->
+  <rect x="80" y="80" width="120" height="32" rx="16" fill="#ec4899" opacity="0.2"/>
+  <text x="140" y="102" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ec4899" text-anchor="middle">AI 融资</text>
+  
+  <!-- Date -->
+  <text x="80" y="150" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#64748b">2026年4月30日</text>
+  
+  <!-- Main title -->
+  <text x="80" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#f8fafc">
+    <tspan x="80" dy="0">Anthropic 拟融资</tspan>
+    <tspan x="80" dy="60">500 亿美元</tspan>
+    <tspan x="80" dy="60">估值达 9000 亿</tspan>
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="80" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#94a3b8">
+    Claude 开发商获得多个 8500-9000 亿美元估值的主动投资要约
+  </text>
+  
+  <!-- Source -->
+  <text x="80" y="520" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#64748b">来源: TechCrunch</text>
+  
+  <!-- Logo/Brand -->
+  <rect x="1000" y="80" width="120" height="40" rx="8" fill="#ec4899"/>
+  <text x="1060" y="108" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#ffffff" text-anchor="middle">PDF转换器</text>
+  
+  <!-- Decorative AI icon -->
+  <g transform="translate(950, 450)" opacity="0.1">
+    <polygon points="80,0 160,80 80,160 0,80" fill="#ec4899"/>
+    <circle cx="80" cy="80" r="30" fill="#0f172a"/>
+    <circle cx="80" cy="80" r="15" fill="#ec4899"/>
+  </g>
+</svg>

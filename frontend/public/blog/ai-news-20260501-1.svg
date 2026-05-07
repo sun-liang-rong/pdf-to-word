@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow1">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg1)"/>
+  
+  <!-- Decorative grid -->
+  <pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid1)" opacity="0.5"/>
+  
+  <!-- Security shield icon -->
+  <g transform="translate(900, 180)" filter="url(#glow1)">
+    <path d="M 100 20 L 180 50 L 180 120 C 180 160 100 200 100 200 C 100 200 20 160 20 120 L 20 50 Z" 
+          fill="none" stroke="url(#accent1)" stroke-width="4"/>
+    <path d="M 100 60 L 100 140 M 70 100 L 100 140 L 130 100" 
+          fill="none" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Circuit lines -->
+    <circle cx="60" cy="40" r="4" fill="#10b981"/>
+    <circle cx="140" cy="40" r="4" fill="#10b981"/>
+    <circle cx="40" cy="100" r="4" fill="#10b981"/>
+    <circle cx="160" cy="100" r="4" fill="#10b981"/>
+    <line x1="60" y1="40" x2="100" y2="60" stroke="#10b981" stroke-width="2" opacity="0.6"/>
+    <line x1="140" y1="40" x2="100" y2="60" stroke="#10b981" stroke-width="2" opacity="0.6"/>
+  </g>
+  
+  <!-- Neural network decoration -->
+  <g opacity="0.3">
+    <circle cx="150" cy="100" r="8" fill="#10b981"/>
+    <circle cx="200" cy="150" r="8" fill="#10b981"/>
+    <circle cx="100" cy="200" r="8" fill="#10b981"/>
+    <circle cx="250" cy="100" r="8" fill="#10b981"/>
+    <line x1="150" y1="100" x2="200" y2="150" stroke="#10b981" stroke-width="2"/>
+    <line x1="200" y1="150" x2="100" y2="200" stroke="#10b981" stroke-width="2"/>
+    <line x1="150" y1="100" x2="250" y2="100" stroke="#10b981" stroke-width="2"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="80" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="bold" fill="#f8fafc">
+    OpenAI 强化 ChatGPT
+  </text>
+  <text x="80" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="bold" fill="#f8fafc">
+    账户安全防护
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="80" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#94a3b8">
+    与 Yubico 合作推出硬件密钥支持
+  </text>
+  
+  <!-- Date badge -->
+  <rect x="80" y="400" width="140" height="36" rx="18" fill="url(#accent1)"/>
+  <text x="150" y="424" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">
+    2026-05-01
+  </text>
+  
+  <!-- Category tag -->
+  <rect x="240" y="400" width="100" height="36" rx="18" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="290" y="424" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">
+    AI 安全
+  </text>
+</svg>

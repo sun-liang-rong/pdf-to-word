@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e1b4b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg2)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="200" cy="500" r="180" fill="#ef4444" opacity="0.08"/>
+  <circle cx="1000" cy="150" r="150" fill="#8b5cf6" opacity="0.08"/>
+  
+  <!-- Abstract search interface -->
+  <g transform="translate(600, 280)">
+    <!-- Search bar -->
+    <rect x="-300" y="-40" width="600" height="80" rx="40" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    
+    <!-- Search icon -->
+    <circle cx="-260" cy="0" r="15" fill="none" stroke="#94a3b8" stroke-width="3"/>
+    <line x1="-250" y1="10" x2="-242" y2="18" stroke="#94a3b8" stroke-width="3"/>
+    
+    <!-- AI sparkle effect -->
+    <g transform="translate(240, 0)">
+      <circle cx="0" cy="0" r="25" fill="url(#accent2)" opacity="0.9" filter="url(#glow2)"/>
+      <path d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" fill="#f1f5f9"/>
+    </g>
+    
+    <!-- Text in search bar -->
+    <text x="-220" y="8" font-family="Arial, sans-serif" font-size="20" fill="#94a3b8">AI-powered search...</text>
+  </g>
+  
+  <!-- Floating answer bubbles -->
+  <g opacity="0.7">
+    <rect x="350" y="380" width="200" height="50" rx="25" fill="#374151"/>
+    <text x="450" y="412" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e2e8f0">智能摘要</text>
+    
+    <rect x="650" y="380" width="200" height="50" rx="25" fill="#374151"/>
+    <text x="750" y="412" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#e2e8f0">引导式答案</text>
+  </g>
+  
+  <!-- YouTube logo style play button -->
+  <g transform="translate(150, 150)">
+    <rect x="0" y="0" width="120" height="85" rx="20" fill="#ef4444" opacity="0.9"/>
+    <polygon points="50,30 50,55 75,42.5" fill="white"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="#f1f5f9">YouTube测试AI搜索功能</text>
+  <text x="600" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#94a3b8">智能问答改变视频搜索体验</text>
+  
+  <!-- Date badge -->
+  <rect x="520" y="590" width="160" height="30" rx="15" fill="url(#accent2)" opacity="0.9"/>
+  <text x="600" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#f1f5f9" font-weight="bold">AI NEWS • 2026.04.29</text>
+</svg>

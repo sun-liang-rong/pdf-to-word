@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg2)"/>
+  
+  <!-- Decorative grid -->
+  <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid2)" opacity="0.5"/>
+  
+  <!-- Car + AI icon -->
+  <g transform="translate(850, 150)" filter="url(#glow2)">
+    <!-- Car body -->
+    <path d="M 20 80 L 40 50 L 120 50 L 140 80 L 160 80 L 160 120 L 140 120 L 140 110 L 20 110 L 20 120 L 0 120 L 0 80 Z" 
+          fill="none" stroke="url(#accent2)" stroke-width="4"/>
+    <!-- Wheels -->
+    <circle cx="40" cy="120" r="15" fill="none" stroke="#3b82f6" stroke-width="3"/>
+    <circle cx="120" cy="120" r="15" fill="none" stroke="#3b82f6" stroke-width="3"/>
+    <!-- AI brain -->
+    <circle cx="80" cy="30" r="25" fill="none" stroke="#3b82f6" stroke-width="3"/>
+    <path d="M 65 30 L 75 30 L 80 20 L 85 30 L 95 30" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="70" cy="25" r="3" fill="#3b82f6"/>
+    <circle cx="90" cy="25" r="3" fill="#3b82f6"/>
+    <!-- Connection lines -->
+    <line x1="80" y1="55" x2="80" y2="50" stroke="#3b82f6" stroke-width="2"/>
+    <!-- Voice waves -->
+    <path d="M 170 40 Q 190 30 190 50 Q 190 70 170 60" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.8"/>
+    <path d="M 180 35 Q 205 20 205 50 Q 205 80 180 65" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.6"/>
+  </g>
+  
+  <!-- Road lines -->
+  <g opacity="0.3">
+    <line x1="0" y1="500" x2="1200" y2="500" stroke="#3b82f6" stroke-width="2" stroke-dasharray="20,20"/>
+    <line x1="0" y1="550" x2="1200" y2="550" stroke="#3b82f6" stroke-width="2"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="80" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="bold" fill="#f8fafc">
+    Google Gemini AI
+  </text>
+  <text x="80" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="bold" fill="#f8fafc">
+    进军车载智能助手
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="80" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#94a3b8">
+    数百万辆汽车将配备 AI 助手
+  </text>
+  
+  <!-- Date badge -->
+  <rect x="80" y="400" width="140" height="36" rx="18" fill="url(#accent2)"/>
+  <text x="150" y="424" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">
+    2026-05-01
+  </text>
+  
+  <!-- Category tag -->
+  <rect x="240" y="400" width="100" height="36" rx="18" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="290" y="424" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">
+    AI 应用
+  </text>
+</svg>

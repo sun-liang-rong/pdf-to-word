@@ -1,5 +1,4 @@
-# robots.txt for PDF Converter
 User-agent: *
 Allow: /
 
-Sitemap: https://ai-tools.abrdns.com/sitemap.xml
+Sitemap: https://sunsunblog.top/sitemap.xml

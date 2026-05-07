@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow1">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg1)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="150" fill="#f97316" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="200" fill="#10b981" opacity="0.1"/>
+  
+  <!-- Grid pattern -->
+  <g stroke="#334155" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="472" x2="1200" y2="472"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+  
+  <!-- AWS Logo representation -->
+  <g transform="translate(150, 250)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#f97316" filter="url(#glow1)">AWS</text>
+    <text x="0" y="40" font-family="Arial, sans-serif" font-size="24" fill="#94a3b8">Amazon Web Services</text>
+  </g>
+  
+  <!-- Connection symbol -->
+  <g transform="translate(550, 315)">
+    <circle cx="0" cy="0" r="60" fill="none" stroke="url(#accent1)" stroke-width="4" opacity="0.8"/>
+    <circle cx="0" cy="0" r="40" fill="none" stroke="url(#accent1)" stroke-width="2" opacity="0.6"/>
+    <path d="M-20 0 L20 0 M0 -20 L0 20" stroke="url(#accent1)" stroke-width="4" opacity="0.8"/>
+  </g>
+  
+  <!-- OpenAI Logo representation -->
+  <g transform="translate(850, 250)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="70" font-weight="bold" fill="#10b981" filter="url(#glow1)">OpenAI</text>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="22" fill="#94a3b8">GPT-4 / GPT-4o</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="#f1f5f9">AWS与OpenAI达成战略合作</text>
+  <text x="600" y="520" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#94a3b8">企业级AI服务迎来新格局</text>
+  
+  <!-- Date badge -->
+  <rect x="520" y="550" width="160" height="35" rx="17" fill="url(#accent1)" opacity="0.9"/>
+  <text x="600" y="574" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#0f172a" font-weight="bold">AI NEWS • 2026.04.29</text>
+</svg>

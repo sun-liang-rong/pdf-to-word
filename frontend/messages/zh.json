@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "title": "PDF转换器 - 免费在线PDF转Word、Word转PDF工具",
+    "description": "免费在线PDF转换工具，支持PDF转Word、Word转PDF、PDF转JPG、JPG转PDF等多种格式转换，快速、安全、无需注册。",
+    "keywords": "PDF转换器,PDF转Word,Word转PDF,在线PDF转换,免费PDF转换"
+  },
+  "nav": {
+    "home": "首页",
+    "tools": "工具",
+    "blog": "博客",
+    "about": "关于",
+    "contact": "联系我们"
+  },
+  "hero": {
+    "title": "免费在线PDF转换工具",
+    "subtitle": "支持PDF与Word、图片等多种格式互转，快速、安全、无需注册",
+    "cta": "开始使用"
+  },
+  "tools": {
+    "title": "PDF工具",
+    "subtitle": "专业的PDF处理工具，满足您的各种需求",
+    "popular": "🔥 热门工具",
+    "categories": {
+      "pdf": "📄 PDF工具",
+      "image": "🖼️ 图片工具",
+      "edit": "PDF编辑"
+    },
+    "items": {
+      "pdfToWord": {
+        "title": "PDF转Word",
+        "description": "将PDF文件转换为可编辑的Word文档，保留原有格式和排版"
+      },
+      "wordToPdf": {
+        "title": "Word转PDF",
+        "description": "将Word文档转换为PDF格式，确保文档格式不被篡改"
+      },
+      "pdfToJpg": {
+        "title": "PDF转JPG",
+        "description": "将PDF文件的每一页转换为高清JPG图片"
+      },
+      "jpgToPdf": {
+        "title": "JPG转PDF",
+        "description": "将多张JPG/PNG图片合并转换为单个PDF文件"
+      },
+      "mergePdf": {
+        "title": "PDF合并",
+        "description": "将多个PDF文件合并为一个，支持拖拽排序"
+      },
+      "compressPdf": {
+        "title": "PDF压缩",
+        "description": "智能压缩PDF文件大小，保持清晰度便于分享"
+      },
+      "removePages": {
+        "title": "PDF删除页面",
+        "description": "可视化删除PDF中的指定页面，操作简单直观"
+      },
+      "rearrangePdf": {
+        "title": "PDF排序",
+        "description": "拖拽调整PDF页面顺序，实时预览调整结果"
+      },
+      "splitPdf": {
+        "title": "PDF拆分",
+        "description": "将PDF文件拆分为多个独立文件"
+      },
+      "imageCompress": {
+        "title": "图片压缩",
+        "description": "智能压缩图片大小，支持JPG、PNG、WebP格式"
+      },
+      "imageWatermark": {
+        "title": "图片水印",
+        "description": "为图片添加文字或图片水印，保护版权"
+      }
+    }
+  },
+  "features": {
+    "title": "为什么选择我们",
+    "items": {
+      "free": {
+        "title": "完全免费",
+        "description": "所有功能均可免费使用，无需付费订阅"
+      },
+      "security": {
+        "title": "安全可靠",
+        "description": "文件在本地处理，上传后自动删除，保护隐私"
+      },
+      "fast": {
+        "title": "快速高效",
+        "description": "采用先进技术，转换速度快，无需等待"
+      },
+      "easy": {
+        "title": "简单易用",
+        "description": "直观的操作界面，三步完成转换"
+      }
+    }
+  },
+  "upload": {
+    "title": "上传文件",
+    "dragDrop": "拖拽文件到这里，或点击上传",
+    "supportedFormats": "支持格式",
+    "maxSize": "最大文件大小",
+    "selectFile": "选择文件",
+    "processing": "处理中...",
+    "converting": "转换中...",
+    "uploading": "上传中..."
+  },
+  "common": {
+    "convert": "转换",
+    "download": "下载",
+    "preview": "预览",
+    "delete": "删除",
+    "cancel": "取消",
+    "confirm": "确认",
+    "back": "返回",
+    "next": "下一步",
+    "finish": "完成",
+    "close": "关闭",
+    "success": "成功",
+    "error": "错误",
+    "warning": "警告",
+    "info": "提示",
+    "loading": "加载中...",
+    "empty": "暂无数据",
+    "retry": "重试",
+    "copy": "复制",
+    "copied": "已复制"
+  },
+  "footer": {
+    "copyright": "保留所有权利.",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "contact": "联系我们",
+    "toPdf": "转换为 PDF",
+    "fromPdf": "从 PDF 转换",
+    "pdfTools": "PDF 工具"
+  },
+  "language": {
+    "title": "语言",
+    "zh": "中文",
+    "en": "English"
+  }
+}
