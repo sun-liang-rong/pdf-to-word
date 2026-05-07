@@ -43,7 +43,7 @@ export default function BlogPage() {
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-4 py-2 bg-primary/10 text-primary-300 rounded-full text-sm hover:bg-primary/20 transition-colors cursor-pointer"
+                    className="px-4 py-2 bg-primary/10 dark:text-primary-300 text-primary-700 rounded-full text-sm hover:bg-primary/20 transition-colors cursor-pointer"
                   >
                     {tag}
                   </span>
@@ -100,7 +100,7 @@ export default function BlogPage() {
                           {post.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-1 bg-primary/10 text-primary-300 text-xs rounded-md"
+                              className="px-2 py-1 bg-primary/10 dark:text-primary-300 text-primary-700 text-xs rounded-md"
                             >
                               {tag}
                             </span>

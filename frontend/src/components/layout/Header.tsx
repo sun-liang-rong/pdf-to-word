@@ -59,11 +59,7 @@ export default function Header() {
     },
   ];
 
-  const navItems = [
-    { label: "首页", href: "/" },
-    { label: "工具", href: "/pdf-to-word" },
-    { label: "博客", href: "/blog" },
-  ];
+
 
   return (
     <header className="glass-strong sticky top-0 z-50 border-b border-primary/20">
@@ -80,19 +76,17 @@ export default function Header() {
           </Link>
 
           <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive(item.href)
-                    ? "text-primary-300 bg-primary/20"
-                    : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+
+            <Link
+              href="/blog"
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                isActive("/blog")
+                  ? "text-primary-300 bg-primary/20"
+                  : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
+              }`}
+            >
+              博客
+            </Link>
 
             <div
               className="relative"
@@ -202,18 +196,6 @@ export default function Header() {
         {isMenuOpen && (
           <div className="lg:hidden border-t border-primary/20 mobile-menu animate-slide-down">
             <div className="max-h-[calc(100vh-64px)] overflow-y-auto py-4">
-              <Link
-                href="/"
-                className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
-                  isActive("/")
-                    ? "text-primary-300 bg-primary/20"
-                    : "text-foreground-muted hover:text-foreground hover:bg-primary/10"
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                首页
-              </Link>
-
               <Link
                 href="/blog"
                 className={`block px-4 py-3 rounded-lg font-medium transition-colors ${
