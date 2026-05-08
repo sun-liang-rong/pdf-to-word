@@ -27,18 +27,18 @@ export default function MergeOptions({
   onGenerateTocChange,
 }: MergeOptionsProps) {
   return (
-    <div className="bg-gray-50 rounded-xl p-6 space-y-4">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">合并选项</h3>
+    <div className="bg-surface rounded-xl p-6 space-y-4 border border-primary/10">
+      <h3 className="text-lg font-semibold text-foreground mb-4">合并选项</h3>
       
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground-muted mb-2">
             排序方式
           </label>
           <select
             value={sortType}
             onChange={(e) => onSortTypeChange(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white"
+            className="w-full px-4 py-2 border border-primary/20 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-background text-foreground"
           >
             {sortOptions.map((option) => (
               <option key={option.value} value={option.value}>

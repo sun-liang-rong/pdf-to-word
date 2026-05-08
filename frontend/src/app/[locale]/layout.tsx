@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Providers } from "../providers";
 import { getMessages, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -77,16 +76,40 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} className="light" suppressHydrationWarning>
+      <head>
+        {/* 主题防闪烁脚本 — 与根布局保持一致 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  var root = document.documentElement;
+                  var target = theme === 'dark' ? 'dark' : 'light';
+                  root.classList.remove('light', 'dark');
+                  root.classList.add(target);
+                  var obs = new MutationObserver(function() {
+                    if (!root.classList.contains(target)) {
+                      root.classList.remove('light', 'dark');
+                      root.classList.add(target);
+                    }
+                  });
+                  obs.observe(root, { attributes: true, attributeFilter: ['class'] });
+                  setTimeout(function() { obs.disconnect(); }, 2000);
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-background text-foreground`}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <ThemeProvider>
-            <Providers>
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </Providers>
-          </ThemeProvider>
+          <Providers>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -45,8 +45,8 @@ export default function CompressOptions({
   onLineArtEdgeLevelChange,
 }: CompressOptionsProps) {
   return (
-    <div className="bg-gray-50 rounded-xl p-6 space-y-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">压缩选项</h3>
+    <div className="bg-surface rounded-xl p-6 space-y-6 border border-primary/10">
+      <h3 className="text-lg font-semibold text-foreground mb-4">压缩选项</h3>
 
       {/* 优化等级 */}
       <div>

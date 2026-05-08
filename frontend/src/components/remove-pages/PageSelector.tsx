@@ -57,31 +57,31 @@ export default function PageSelector({
       <div className="flex flex-wrap gap-2">
         <button
           onClick={selectAll}
-          className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 text-foreground rounded-lg transition-colors"
         >
           全选
         </button>
         <button
           onClick={deselectAll}
-          className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 text-foreground rounded-lg transition-colors"
         >
           取消全选
         </button>
         <button
           onClick={invertSelection}
-          className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 text-foreground rounded-lg transition-colors"
         >
           反选
         </button>
         <button
           onClick={selectOdd}
-          className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 text-foreground rounded-lg transition-colors"
         >
           选择奇数页
         </button>
         <button
           onClick={selectEven}
-          className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 text-foreground rounded-lg transition-colors"
         >
           选择偶数页
         </button>
@@ -89,10 +89,10 @@ export default function PageSelector({
 
       {/* 选择统计 */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-600">
-          已选择 <span className="font-semibold text-primary-600">{selectedPages.length}</span> 页
+        <span className="text-foreground-muted">
+          已选择 <span className="font-semibold text-primary-400">{selectedPages.length}</span> 页
         </span>
-        <span className="text-gray-500">共 {pageCount} 页</span>
+        <span className="text-foreground-muted">共 {pageCount} 页</span>
       </div>
 
       {/* 页面缩略图网格 */}

@@ -1,32 +1,23 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div className="w-9 h-9 rounded-lg bg-white/10 animate-pulse" />
-    );
-  }
+  // 使用 resolvedTheme 避免 hydration 闪烁
+  const currentTheme = resolvedTheme || theme || "dark";
 
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
       className="p-2 rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center"
-      aria-label={theme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
-      title={theme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
+      aria-label={currentTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
+      title={currentTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
     >
-      {theme === "dark" ? (
+      {currentTheme === "dark" ? (
         <svg
-          className="w-5 h-5 text-yellow-400"
+          className="w-5 h-5 text-yellow-400 transition-colors duration-300"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -40,7 +31,7 @@ export function ThemeToggle() {
         </svg>
       ) : (
         <svg
-          className="w-5 h-5 text-primary-600"
+          className="w-5 h-5 text-primary transition-colors duration-300"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

@@ -36,20 +36,6 @@ export default function BlogPage() {
             <p className="text-xl text-foreground-muted mb-8">
               学习 PDF 处理技巧、格式转换教程和文档优化方法
             </p>
-            
-            {/* 标签云 */}
-            {tags.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-2">
-                {tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-4 py-2 bg-primary/10 dark:text-primary-300 text-primary-700 rounded-full text-sm hover:bg-primary/20 transition-colors cursor-pointer"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </section>
