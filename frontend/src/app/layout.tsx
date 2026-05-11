@@ -8,8 +8,8 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PDF Converter - Free Online PDF Tools",
-  description: "Free online PDF conversion tool",
+  title: "PDF转换器 - 免费在线PDF转换工具",
+  description: "免费在线PDF转换工具，支持PDF与Word、图片等多种格式互转。快速、安全、无需注册，让文档处理更简单。",
 };
 
 export default function RootLayout({

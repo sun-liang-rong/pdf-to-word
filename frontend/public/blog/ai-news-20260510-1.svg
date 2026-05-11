@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27"/>
+      <stop offset="50%" style="stop-color:#1a1040"/>
+      <stop offset="100%" style="stop-color:#0d2137"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.1"/>
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.06" stroke="#00d4ff" stroke-width="0.5">
+    <line x1="0" y1="0" x2="1200" y2="630"/>
+    <line x1="0" y1="63" x2="1200" y2="630"/>
+    <line x1="0" y1="126" x2="1200" y2="630"/>
+    <line x1="200" y1="0" x2="1200" y2="630"/>
+    <line x1="400" y1="0" x2="1200" y2="630"/>
+    <line x1="600" y1="0" x2="1200" y2="630"/>
+    <line x1="1200" y1="0" x2="0" y2="630"/>
+    <line x1="1000" y1="0" x2="0" y2="630"/>
+    <line x1="800" y1="0" x2="0" y2="630"/>
+    <line x1="600" y1="0" x2="0" y2="630"/>
+  </g>
+
+  <!-- Decorative network nodes -->
+  <g opacity="0.15">
+    <!-- Node cluster left -->
+    <circle cx="120" cy="180" r="4" fill="#00d4ff" filter="url(#blur1)"/>
+    <circle cx="120" cy="180" r="2" fill="#00d4ff"/>
+    <circle cx="180" cy="140" r="3" fill="#a855f7" filter="url(#blur1)"/>
+    <circle cx="180" cy="140" r="1.5" fill="#a855f7"/>
+    <circle cx="90" cy="250" r="3" fill="#00d4ff" filter="url(#blur1)"/>
+    <circle cx="90" cy="250" r="1.5" fill="#00d4ff"/>
+    <circle cx="200" cy="220" r="2.5" fill="#a855f7" filter="url(#blur1)"/>
+    <circle cx="200" cy="220" r="1.2" fill="#a855f7"/>
+    <line x1="120" y1="180" x2="180" y2="140" stroke="#00d4ff" stroke-width="0.6"/>
+    <line x1="120" y1="180" x2="90" y2="250" stroke="#a855f7" stroke-width="0.6"/>
+    <line x1="120" y1="180" x2="200" y2="220" stroke="#00d4ff" stroke-width="0.4"/>
+    <line x1="180" y1="140" x2="200" y2="220" stroke="#a855f7" stroke-width="0.4"/>
+  </g>
+
+  <g opacity="0.12">
+    <!-- Node cluster right -->
+    <circle cx="1050" cy="150" r="4" fill="#a855f7" filter="url(#blur1)"/>
+    <circle cx="1050" cy="150" r="2" fill="#a855f7"/>
+    <circle cx="1100" cy="200" r="3" fill="#00d4ff" filter="url(#blur1)"/>
+    <circle cx="1100" cy="200" r="1.5" fill="#00d4ff"/>
+    <circle cx="1020" cy="260" r="3.5" fill="#a855f7" filter="url(#blur1)"/>
+    <circle cx="1020" cy="260" r="1.8" fill="#a855f7"/>
+    <circle cx="1130" cy="130" r="2.5" fill="#00d4ff" filter="url(#blur1)"/>
+    <circle cx="1130" cy="130" r="1.2" fill="#00d4ff"/>
+    <line x1="1050" y1="150" x2="1100" y2="200" stroke="#a855f7" stroke-width="0.6"/>
+    <line x1="1050" y1="150" x2="1020" y2="260" stroke="#00d4ff" stroke-width="0.5"/>
+    <line x1="1050" y1="150" x2="1130" y2="130" stroke="#a855f7" stroke-width="0.4"/>
+    <line x1="1100" y1="200" x2="1020" y2="260" stroke="#00d4ff" stroke-width="0.4"/>
+  </g>
+
+  <!-- Decorative hexagons -->
+  <g opacity="0.08" fill="none" stroke="#00d4ff" stroke-width="0.8">
+    <polygon points="300,80 320,68 340,80 340,104 320,116 300,104"/>
+    <polygon points="860,450 880,438 900,450 900,474 880,486 860,474"/>
+    <polygon points="150,420 170,408 190,420 190,444 170,456 150,444"/>
+  </g>
+
+  <!-- Central glow area -->
+  <ellipse cx="600" cy="290" rx="420" ry="180" fill="url(#glow)" opacity="0.25"/>
+
+  <!-- Shield / Security icon -->
+  <g transform="translate(600, 120)" opacity="0.2">
+    <path d="M0,-40 L35,-20 L35,15 C35,30 0,45 0,45 C0,45 -35,30 -35,15 L-35,-20 Z" 
+          fill="none" stroke="#00d4ff" stroke-width="1.5" filter="url(#blur2)"/>
+    <path d="M0,-40 L35,-20 L35,15 C35,30 0,45 0,45 C0,45 -35,30 -35,15 L-35,-20 Z" 
+          fill="none" stroke="#00d4ff" stroke-width="1"/>
+    <text x="0" y="8" text-anchor="middle" font-family="monospace" font-size="18" fill="#00d4ff">✓</text>
+  </g>
+
+  <!-- Main title -->
+  <text x="600" y="280" text-anchor="middle" font-family="'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="42" font-weight="800" fill="white" letter-spacing="2">
+    AI Agent自主发现271个漏洞
+  </text>
+  <text x="600" y="335" text-anchor="middle" font-family="'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="600" fill="url(#accent)" letter-spacing="1">
+    Mozilla × Claude Mythos 智能安全审计深度解析
+  </text>
+
+  <!-- Decorative line -->
+  <line x1="350" y1="365" x2="850" y2="365" stroke="url(#accent)" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Subtitle keywords -->
+  <g font-family="'SF Pro Text', 'PingFang SC', sans-serif" font-size="15" fill="white" opacity="0.5">
+    <text x="380" y="395">Agentic AI</text>
+    <text x="490" y="395">•</text>
+    <text x="510" y="395">Claude Mythos</text>
+    <text x="640" y="395">•</text>
+    <text x="660" y="395">自动化漏洞挖掘</text>
+    <text x="790" y="395">•</text>
+    <text x="810" y="395">代码安全</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="580" width="1200" height="50" fill="#050816" opacity="0.6"/>
+  <text x="40" y="612" font-family="'SF Mono', monospace" font-size="14" fill="white" opacity="0.4">2026-05-10</text>
+  <text x="1160" y="612" text-anchor="end" font-family="'SF Mono', monospace" font-size="14" fill="white" opacity="0.4">#AgenticAI #ClaudeMythos #Mozilla #CodeSecurity</text>
+
+  <!-- Corner accents -->
+  <path d="M0,0 L60,0 L0,60 Z" fill="url(#accent)" opacity="0.1"/>
+  <path d="M1200,630 L1140,630 L1200,570 Z" fill="url(#accent)" opacity="0.1"/>
+
+  <!-- Scanline effect -->
+  <g opacity="0.03">
+    <line x1="0" y1="50" x2="1200" y2="50" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="150" x2="1200" y2="150" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="250" x2="1200" y2="250" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="350" x2="1200" y2="350" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="450" x2="1200" y2="450" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="500" x2="1200" y2="500" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="550" x2="1200" y2="550" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="600" x2="1200" y2="600" stroke="white" stroke-width="1"/>
+  </g>
+</svg>

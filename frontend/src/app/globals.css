@@ -3,21 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --primary: #7C3AED;
-  --primary-rgb: 124, 58, 237;
-  --primary-dark: #5B21B6;
-  --primary-dark-rgb: 91, 33, 182;
-  --primary-light: #A78BFA;
-  --primary-light-rgb: 167, 139, 250;
+  --primary: #1677FF;
+  --primary-rgb: 22, 119, 255;
+  --primary-dark: #0958D9;
+  --primary-dark-rgb: 9, 88, 217;
+  --primary-light: #4096FF;
+  --primary-light-rgb: 64, 150, 255;
   
-  --secondary: #5B21B6;
-  --secondary-rgb: 91, 33, 182;
+  --secondary: #0958D9;
+  --secondary-rgb: 9, 88, 217;
+  
+  --bg-gray: #F5F7FA;
   
   /* 亮色主题默认值（与 SSR class="light" 和 @property initial-value 一致） */
   --background: #FFFFFF;
   --background-rgb: 255, 255, 255;
-  --background-light: #F9FAFB;
-  --background-light-rgb: 249, 250, 251;
+  --background-light: #F5F7FA;
+  --background-light-rgb: 245, 247, 250;
   --background-card: #FFFFFF;
   --background-card-rgb: 255, 255, 255;
   
@@ -28,11 +30,11 @@
   
   /* @property 可过渡颜色变量 — 亮色默认 */
   --bg: #FFFFFF;
-  --bg-light: #F9FAFB;
+  --bg-light: #F5F7FA;
   --bg-card: #FFFFFF;
   --fg: #111827;
   --fg-muted: #6B7280;
-  --border-color: rgba(124, 58, 237, 0.3);
+  --border-color: rgba(22, 119, 255, 0.2);
   
   --accent-cyan: #0891B2;
   --accent-cyan-rgb: 8, 145, 178;
@@ -41,29 +43,29 @@
   --accent-emerald: #059669;
   --accent-emerald-rgb: 5, 150, 105;
   
-  --border: rgba(124, 58, 237, 0.3);
-  --border-light: rgba(0, 0, 0, 0.1);
+  --border: rgba(22, 119, 255, 0.2);
+  --border-light: rgba(0, 0, 0, 0.08);
   
-  --glow-primary: 0 0 40px rgba(124, 58, 237, 0.2);
-  --glow-secondary: 0 0 60px rgba(91, 33, 182, 0.15);
+  --glow-primary: 0 0 40px rgba(22, 119, 255, 0.2);
+  --glow-secondary: 0 0 60px rgba(9, 88, 217, 0.15);
   --glow-cyan: 0 0 40px rgba(6, 182, 212, 0.2);
 }
 
 .light {
-  --primary: #7C3AED;
-  --primary-rgb: 124, 58, 237;
-  --primary-dark: #5B21B6;
-  --primary-dark-rgb: 91, 33, 182;
-  --primary-light: #A78BFA;
-  --primary-light-rgb: 167, 139, 250;
+  --primary: #1677FF;
+  --primary-rgb: 22, 119, 255;
+  --primary-dark: #0958D9;
+  --primary-dark-rgb: 9, 88, 217;
+  --primary-light: #4096FF;
+  --primary-light-rgb: 64, 150, 255;
   
-  --secondary: #5B21B6;
-  --secondary-rgb: 91, 33, 182;
+  --secondary: #0958D9;
+  --secondary-rgb: 9, 88, 217;
   
   --background: #FFFFFF;
   --background-rgb: 255, 255, 255;
-  --background-light: #F9FAFB;
-  --background-light-rgb: 249, 250, 251;
+  --background-light: #F5F7FA;
+  --background-light-rgb: 245, 247, 250;
   --background-card: #FFFFFF;
   --background-card-rgb: 255, 255, 255;
   
@@ -74,11 +76,11 @@
   
   /* @property 可过渡颜色变量 — 浏览器会在暗色/亮色之间插值 */
   --bg: #FFFFFF;
-  --bg-light: #F9FAFB;
+  --bg-light: #F5F7FA;
   --bg-card: #FFFFFF;
   --fg: #111827;
   --fg-muted: #6B7280;
-  --border-color: rgba(124, 58, 237, 0.3);
+  --border-color: rgba(22, 119, 255, 0.2);
   
   --accent-cyan: #0891B2;
   --accent-cyan-rgb: 8, 145, 178;
@@ -87,11 +89,11 @@
   --accent-emerald: #059669;
   --accent-emerald-rgb: 5, 150, 105;
   
-  --border: rgba(124, 58, 237, 0.3);
-  --border-light: rgba(0, 0, 0, 0.1);
+  --border: rgba(22, 119, 255, 0.2);
+  --border-light: rgba(0, 0, 0, 0.08);
   
-  --glow-primary: 0 0 40px rgba(124, 58, 237, 0.2);
-  --glow-secondary: 0 0 60px rgba(91, 33, 182, 0.15);
+  --glow-primary: 0 0 40px rgba(22, 119, 255, 0.2);
+  --glow-secondary: 0 0 60px rgba(9, 88, 217, 0.15);
   --glow-cyan: 0 0 40px rgba(6, 182, 212, 0.2);
 }
 
@@ -102,17 +104,17 @@
   --bg-card: #1A1F35;
   --fg: #FFFFFF;
   --fg-muted: #9CA3AF;
-  --border-color: rgba(124, 58, 237, 0.2);
+  --border-color: rgba(22, 119, 255, 0.2);
 }
 
 .light {
   /* @property 可过渡颜色变量 — 亮色覆盖值（与 :root 一致，确保优先级） */
   --bg: #FFFFFF;
-  --bg-light: #F9FAFB;
+  --bg-light: #F5F7FA;
   --bg-card: #FFFFFF;
   --fg: #111827;
   --fg-muted: #6B7280;
-  --border-color: rgba(124, 58, 237, 0.3);
+  --border-color: rgba(22, 119, 255, 0.2);
 }
 
 * {
@@ -157,7 +159,7 @@
 @property --border-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: rgba(124, 58, 237, 0.3);
+  initial-value: rgba(22, 119, 255, 0.2);
 }
 
 html {

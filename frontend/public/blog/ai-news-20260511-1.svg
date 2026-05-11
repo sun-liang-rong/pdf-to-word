@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1040;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1b3e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#7b2fbe;stop-opacity:0.8" />
+    </linearGradient>
+    <linearGradient id="glow2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#f7c948;stop-opacity:0.6" />
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="40" />
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="2" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Ambient glow orbs -->
+  <ellipse cx="200" cy="150" rx="250" ry="180" fill="#1e0a5c" opacity="0.4" filter="url(#blur1)" />
+  <ellipse cx="900" cy="500" rx="300" ry="200" fill="#0a2a5c" opacity="0.35" filter="url(#blur1)" />
+  <ellipse cx="600" cy="100" rx="200" ry="150" fill="#2d1066" opacity="0.25" filter="url(#blur1)" />
+
+  <!-- Network grid lines -->
+  <g stroke="#00d4ff" stroke-opacity="0.08" stroke-width="1">
+    <line x1="0" y1="100" x2="1200" y2="100" />
+    <line x1="0" y1="200" x2="1200" y2="200" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="0" y1="500" x2="1200" y2="500" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+  </g>
+
+  <!-- Neural network nodes and connections -->
+  <g>
+    <!-- Connection lines -->
+    <line x1="120" y1="180" x2="280" y2="260" stroke="#00d4ff" stroke-opacity="0.15" stroke-width="1.5" />
+    <line x1="280" y1="260" x2="180" y2="400" stroke="#00d4ff" stroke-opacity="0.15" stroke-width="1.5" />
+    <line x1="280" y1="260" x2="420" y2="350" stroke="#7b2fbe" stroke-opacity="0.15" stroke-width="1.5" />
+    <line x1="420" y1="350" x2="560" y2="280" stroke="#00d4ff" stroke-opacity="0.12" stroke-width="1.5" />
+    <line x1="180" y1="400" x2="350" y2="480" stroke="#7b2fbe" stroke-opacity="0.12" stroke-width="1.5" />
+    <line x1="900" y1="160" x2="1050" y2="250" stroke="#00d4ff" stroke-opacity="0.15" stroke-width="1.5" />
+    <line x1="1050" y1="250" x2="950" y2="380" stroke="#00d4ff" stroke-opacity="0.15" stroke-width="1.5" />
+    <line x1="1050" y1="250" x2="1100" y2="400" stroke="#7b2fbe" stroke-opacity="0.15" stroke-width="1.5" />
+    <line x1="950" y1="380" x2="820" y2="460" stroke="#7b2fbe" stroke-opacity="0.12" stroke-width="1.5" />
+    <line x1="1100" y1="400" x2="1000" y2="520" stroke="#00d4ff" stroke-opacity="0.12" stroke-width="1.5" />
+    <line x1="600" y1="520" x2="720" y2="460" stroke="#00d4ff" stroke-opacity="0.1" stroke-width="1" />
+    <line x1="100" y1="550" x2="250" y2="500" stroke="#7b2fbe" stroke-opacity="0.1" stroke-width="1" />
+  </g>
+
+  <!-- Neural network nodes -->
+  <g>
+    <circle cx="120" cy="180" r="5" fill="#00d4ff" opacity="0.4" />
+    <circle cx="280" cy="260" r="6" fill="#00d4ff" opacity="0.35" />
+    <circle cx="180" cy="400" r="4" fill="#7b2fbe" opacity="0.35" />
+    <circle cx="420" cy="350" r="5" fill="#00d4ff" opacity="0.3" />
+    <circle cx="350" cy="480" r="4" fill="#7b2fbe" opacity="0.3" />
+    <circle cx="560" cy="280" r="5" fill="#00d4ff" opacity="0.25" />
+    <circle cx="900" cy="160" r="5" fill="#00d4ff" opacity="0.4" />
+    <circle cx="1050" cy="250" r="6" fill="#00d4ff" opacity="0.35" />
+    <circle cx="950" cy="380" r="5" fill="#7b2fbe" opacity="0.35" />
+    <circle cx="1100" cy="400" r="4" fill="#00d4ff" opacity="0.3" />
+    <circle cx="820" cy="460" r="4" fill="#7b2fbe" opacity="0.3" />
+    <circle cx="1000" cy="520" r="5" fill="#00d4ff" opacity="0.25" />
+    <circle cx="600" cy="520" r="3" fill="#00d4ff" opacity="0.2" />
+    <circle cx="720" cy="460" r="3" fill="#7b2fbe" opacity="0.2" />
+    <circle cx="100" cy="550" r="3" fill="#7b2fbe" opacity="0.2" />
+    <circle cx="250" cy="500" r="3" fill="#00d4ff" opacity="0.2" />
+  </g>
+
+  <!-- Geometric decorations -->
+  <!-- Hexagon top-left -->
+  <polygon points="60,60 90,42 120,60 120,90 90,108 60,90" fill="none" stroke="#00d4ff" stroke-opacity="0.15" stroke-width="1.5" />
+  <!-- Triangle top-right -->
+  <polygon points="1120,80 1160,140 1080,140" fill="none" stroke="#7b2fbe" stroke-opacity="0.15" stroke-width="1.5" />
+  <!-- Diamond bottom-left -->
+  <polygon points="80,520 110,500 140,520 110,540" fill="none" stroke="#00d4ff" stroke-opacity="0.12" stroke-width="1.5" />
+  <!-- Circle bottom-right -->
+  <circle cx="1120" cy="540" r="20" fill="none" stroke="#7b2fbe" stroke-opacity="0.12" stroke-width="1.5" />
+
+  <!-- Reasoning chain visual: connected thought bubbles -->
+  <g transform="translate(80, 220)">
+    <rect x="0" y="0" width="70" height="28" rx="14" fill="#00d4ff" opacity="0.1" stroke="#00d4ff" stroke-opacity="0.2" stroke-width="1" />
+    <rect x="85" y="0" width="70" height="28" rx="14" fill="#7b2fbe" opacity="0.1" stroke="#7b2fbe" stroke-opacity="0.2" stroke-width="1" />
+    <rect x="170" y="0" width="70" height="28" rx="14" fill="#00d4ff" opacity="0.1" stroke="#00d4ff" stroke-opacity="0.2" stroke-width="1" />
+    <line x1="70" y1="14" x2="85" y2="14" stroke="#00d4ff" stroke-opacity="0.3" stroke-width="1" marker-end="" />
+    <line x1="155" y1="14" x2="170" y2="14" stroke="#7b2fbe" stroke-opacity="0.3" stroke-width="1" />
+    <circle cx="35" cy="14" r="3" fill="#00d4ff" opacity="0.5" />
+    <circle cx="120" cy="14" r="3" fill="#7b2fbe" opacity="0.5" />
+    <circle cx="205" cy="14" r="3" fill="#00d4ff" opacity="0.5" />
+  </g>
+
+  <!-- Reasoning chain visual right side -->
+  <g transform="translate(880, 280)">
+    <rect x="0" y="0" width="70" height="28" rx="14" fill="#7b2fbe" opacity="0.1" stroke="#7b2fbe" stroke-opacity="0.2" stroke-width="1" />
+    <rect x="85" y="0" width="70" height="28" rx="14" fill="#00d4ff" opacity="0.1" stroke="#00d4ff" stroke-opacity="0.2" stroke-width="1" />
+    <rect x="170" y="0" width="70" height="28" rx="14" fill="#7b2fbe" opacity="0.1" stroke="#7b2fbe" stroke-opacity="0.2" stroke-width="1" />
+    <line x1="70" y1="14" x2="85" y2="14" stroke="#7b2fbe" stroke-opacity="0.3" stroke-width="1" />
+    <line x1="155" y1="14" x2="170" y2="14" stroke="#00d4ff" stroke-opacity="0.3" stroke-width="1" />
+    <circle cx="35" cy="14" r="3" fill="#7b2fbe" opacity="0.5" />
+    <circle cx="120" cy="14" r="3" fill="#00d4ff" opacity="0.5" />
+    <circle cx="205" cy="14" r="3" fill="#7b2fbe" opacity="0.5" />
+  </g>
+
+  <!-- "Brain" icon representation -->
+  <g transform="translate(570, 30)">
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#00d4ff" stroke-opacity="0.2" stroke-width="1.5" />
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#7b2fbe" stroke-opacity="0.25" stroke-width="1" />
+    <circle cx="0" cy="0" r="3" fill="#00d4ff" opacity="0.3" />
+  </g>
+
+  <!-- Decorative light streaks -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="url(#glow1)" stroke-opacity="0.06" stroke-width="2" />
+  <line x1="0" y1="320" x2="1200" y2="320" stroke="url(#glow2)" stroke-opacity="0.04" stroke-width="1" />
+
+  <!-- Title text -->
+  <text x="600" y="250" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif" font-weight="700" font-size="42" fill="#ffffff" letter-spacing="1">
+    推理时计算扩展：AI大模型的
+  </text>
+  <text x="600" y="310" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif" font-weight="700" font-size="42" fill="#ffffff" letter-spacing="1">
+    「第二条Scaling Law」
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="360" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#8892b0" letter-spacing="0.5">
+    Test-Time Compute · o3 · DeepSeek-R1 · Chain-of-Thought
+  </text>
+
+  <!-- Date and tags at bottom -->
+  <line x1="200" y1="530" x2="1000" y2="530" stroke="#00d4ff" stroke-opacity="0.1" stroke-width="1" />
+  <text x="600" y="570" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif" font-size="16" fill="#5a6785" letter-spacing="1">
+    2026年5月11日  |  推理模型  |  Scaling Law  |  Test-Time Compute
+  </text>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="626" width="1200" height="4" fill="url(#glow1)" opacity="0.4" />
+</svg>
