@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import clsx from "clsx";
+import { Upload, CheckCircle, XCircle, FileText } from "lucide-react";
 
 interface FileUploaderProps {
   accept: Record<string, string[]>;
@@ -59,11 +60,11 @@ export default function FileUploader({
   });
 
   const getBorderColor = () => {
-    if (isDragReject || error) return "border-red-400/50 bg-red-500/10";
-    if (isDragAccept) return "border-accent-emerald/50 bg-accent-emerald/10";
-    if (isDragActive) return "border-primary-400/50 bg-primary-500/10";
-    if (isFocused) return "border-primary-400/50";
-    return "border-primary/30 hover:border-primary/50 hover:bg-white/5";
+    if (isDragReject || error) return "border-red-400 bg-red-50 dark:bg-red-900/20";
+    if (isDragAccept) return "border-emerald-400 bg-emerald-50 dark:bg-emerald-900/20";
+    if (isDragActive) return "border-indigo-400 bg-indigo-50 dark:bg-indigo-900/20";
+    if (isFocused) return "border-indigo-400";
+    return "border-theme hover:border-indigo-400 hover:bg-theme-secondary";
   };
 
   const defaultTitle = multiple ? "上传多个文件" : "上传文件";
@@ -76,7 +77,7 @@ export default function FileUploader({
       <div
         {...getRootProps()}
         className={clsx(
-          "relative border-2 border-dashed rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-14 text-center cursor-pointer transition-all duration-300 min-h-[240px] sm:min-h-[280px] upload-zone",
+          "relative border-2 border-dashed rounded-3xl p-8 md:p-12 text-center cursor-pointer transition-all duration-300 min-h-[240px] md:min-h-[280px]",
           getBorderColor(),
           isUploading && "opacity-60 cursor-not-allowed"
         )}
@@ -86,86 +87,75 @@ export default function FileUploader({
         <input {...getInputProps()} disabled={isUploading} />
         
         {isUploading && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/95 backdrop-blur-sm rounded-2xl z-10">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-theme/95 backdrop-blur rounded-3xl z-10">
             <div className="relative">
-              <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-primary/20 border-t-primary-500"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-200 dark:border-indigo-900 border-t-indigo-500"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
+                <Upload className="w-6 h-6 text-indigo-500" />
               </div>
             </div>
-            <p className="mt-3 sm:mt-4 text-primary-300 font-semibold text-base sm:text-lg">正在上传文件...</p>
-            <p className="text-xs sm:text-sm text-foreground-muted mt-1">请稍候，正在处理您的文件</p>
+            <p className="mt-4 text-indigo-600 dark:text-indigo-400 font-semibold text-lg">正在上传文件...</p>
+            <p className="text-sm text-theme-muted mt-1">请稍候，正在处理您的文件</p>
           </div>
         )}
         
         <div className={clsx("flex flex-col items-center", isUploading && "invisible")}>
           <div className={clsx(
-            "w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-all duration-300",
-            isDragActive ? "bg-primary/20 scale-110" : "bg-white/5 border border-primary/20"
+            "w-20 h-20 rounded-3xl flex items-center justify-center mb-6 transition-all duration-300",
+            isDragAccept ? "bg-emerald-100 dark:bg-emerald-900/30 scale-110" :
+            isDragReject ? "bg-red-100 dark:bg-red-900/30 scale-110" :
+            isDragActive ? "bg-indigo-100 dark:bg-indigo-900/30 scale-110" :
+            "bg-theme-secondary border border-theme"
           )}>
             {isDragAccept ? (
-              <svg className="w-8 h-8 sm:w-10 sm:h-10 text-accent-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+              <CheckCircle className="w-10 h-10 text-emerald-500" />
             ) : isDragReject ? (
-              <svg className="w-8 h-8 sm:w-10 sm:h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <XCircle className="w-10 h-10 text-red-500" />
             ) : (
-              <svg className="w-8 h-8 sm:w-10 sm:h-10 text-foreground-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
+              <Upload className="w-10 h-10 text-theme-muted" />
             )}
           </div>
 
           {isDragActive ? (
-            <div className="space-y-1 sm:space-y-2">
-              <p className="text-lg sm:text-xl font-semibold text-primary-300">
+            <div className="space-y-2">
+              <p className="text-xl font-semibold text-theme">
                 {isDragAccept ? "释放文件以上传" : "文件格式不支持"}
               </p>
             </div>
           ) : (
-            <div className="space-y-2 sm:space-y-3">
-              <p className="text-lg sm:text-xl font-semibold text-white px-2">
+            <div className="space-y-3">
+              <p className="text-xl font-semibold text-theme">
                 {title || defaultTitle}
               </p>
-              <p className="text-sm sm:text-base text-foreground-muted">
+              <p className="text-base text-theme-muted">
                 {description || defaultDescription}
               </p>
             </div>
           )}
 
-          <div className="mt-4 sm:mt-6 flex items-center justify-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-foreground-muted flex-wrap px-2">
+          <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-theme-muted flex-wrap">
             <span className="flex items-center whitespace-nowrap">
-              <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+              <FileText className="w-4 h-4 mr-1" />
               最大 {Math.round(maxSize / 1024 / 1024)}MB
             </span>
-            <span className="w-0.5 h-3 sm:w-1 sm:h-1 bg-primary/30 rounded-full hidden sm:inline-block"></span>
+            <span className="w-1 h-1 bg-theme rounded-full"></span>
             <span>{multiple ? "支持多文件" : "支持单文件"}</span>
           </div>
         </div>
       </div>
 
       {error && (
-        <div className="mt-3 sm:mt-4 error-container flex items-start space-x-2 sm:space-x-3 animate-slide-down">
-          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+        <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl flex items-start space-x-3 animate-slide-down">
+          <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
-            <p className="text-sm sm:text-base text-red-400 font-medium break-words">{error}</p>
-            <p className="text-xs sm:text-sm text-red-400/70 mt-1">请检查文件格式和大小后重试</p>
+            <p className="text-base text-red-600 dark:text-red-400 font-medium break-words">{error}</p>
+            <p className="text-sm text-red-500 dark:text-red-300/70 mt-1">请检查文件格式和大小后重试</p>
           </div>
           <button 
             onClick={() => setError(null)}
-            className="text-red-400/50 hover:text-red-400 transition-colors flex-shrink-0"
+            className="text-red-400 hover:text-red-500 transition-colors flex-shrink-0"
           >
-            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <XCircle className="w-5 h-5" />
           </button>
         </div>
       )}

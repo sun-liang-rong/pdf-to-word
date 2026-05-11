@@ -1,48 +1,38 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
+import { Sun, Moon } from "lucide-react";
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // 使用 resolvedTheme 避免 hydration 闪烁
-  const currentTheme = resolvedTheme || theme || "dark";
+  // 避免 hydration 不匹配
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <button className="w-10 h-10 rounded-xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+        <div className="w-5 h-5" />
+      </button>
+    );
+  }
+
+  const isDark = theme === "dark";
 
   return (
     <button
-      onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
-      className="p-2 rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center"
-      aria-label={currentTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
-      title={currentTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="w-10 h-10 rounded-xl bg-theme-secondary border border-theme theme-transition flex items-center justify-center hover:border-theme-hover hover:scale-105 active:scale-95"
+      aria-label="切换主题"
     >
-      {currentTheme === "dark" ? (
-        <svg
-          className="w-5 h-5 text-yellow-400 transition-colors duration-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-          />
-        </svg>
+      {isDark ? (
+        <Sun className="w-5 h-5 text-yellow-500" />
       ) : (
-        <svg
-          className="w-5 h-5 text-primary transition-colors duration-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-          />
-        </svg>
+        <Moon className="w-5 h-5 text-gray-600" />
       )}
     </button>
   );

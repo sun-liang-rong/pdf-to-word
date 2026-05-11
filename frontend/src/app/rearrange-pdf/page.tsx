@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { Metadata } from "next";
 import RearrangePdfClient from "./client-page";
 import { siteUrl, generateMetadata } from "@/lib/seo-config";
