@@ -51,28 +51,28 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 // 简单的 Markdown 渲染函数
 function renderMarkdown(content: string): string {
-  // 转换标题
+  // 转换标题 — 使用语义化颜色，适配亮/暗色模式
   let html = content
-    .replace(/^# (.+)$/gm, '<h1 class="text-3xl font-bold mt-8 mb-4 text-white">$1</h1>')
-    .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold mt-8 mb-4 text-white border-b border-primary/20 pb-2">$1</h2>')
-    .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold mt-6 mb-3 text-primary-300">$1</h3>')
-    .replace(/^#### (.+)$/gm, '<h4 class="text-lg font-bold mt-4 mb-2 text-white">$1</h4>');
+    .replace(/^# (.+)$/gm, '<h1 class="text-3xl font-bold mt-8 mb-4 text-foreground">$1</h1>')
+    .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold mt-8 mb-4 text-foreground border-b border-primary/20 pb-2">$1</h2>')
+    .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold mt-6 mb-3 text-primary">$1</h3>')
+    .replace(/^#### (.+)$/gm, '<h4 class="text-lg font-bold mt-4 mb-2 text-foreground">$1</h4>');
 
   // 转换粗体和斜体
   html = html
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white">$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-foreground font-bold">$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>');
 
   // 转换链接
   html = html.replace(/\[([^\\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary-400 hover:text-primary-300 underline underline-offset-2">$1</a>');
 
   // 转换代码
-  html = html.replace(/`([^`]+)`/g, '<code class="bg-primary/10 text-primary-300 px-2 py-1 rounded text-sm font-mono">$1</code>');
+  html = html.replace(/`([^`]+)`/g, '<code class="bg-primary/10 text-foreground px-2 py-1 rounded text-sm font-mono">$1</code>');
 
   // 转换代码块
   html = html.replace(/```[\s\S]*?```/g, (match) => {
     const code = match.slice(3, -3).trim();
-    return `<pre class="bg-black/30 p-4 rounded-xl overflow-x-auto my-6 border border-primary/10"><code class="text-sm font-mono text-foreground-muted">${code}</code></pre>`;
+    return `<pre class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl overflow-x-auto my-6 border border-primary/10"><code class="text-sm font-mono text-foreground">${code}</code></pre>`;
   });
 
   // 转换引用
@@ -200,7 +200,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               )}
 
               {/* 标题 */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
                 {post.title}
               </h1>
 
