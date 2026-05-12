@@ -47,11 +47,12 @@ function generateExcerpt(content: string, maxLength: number = 150): string {
   // 移除 Markdown 标记
   const plainText = content
     .replace(/#+ /g, '')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/\*\*|__/g, '')
+    .replace(/\[([^\\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/\*\*/g, '')
+    .replace(/\*/g, '')
     .replace(/\n/g, ' ')
     .trim();
-  
+
   if (plainText.length <= maxLength) return plainText;
   return plainText.slice(0, maxLength) + '...';
 }
@@ -72,14 +73,22 @@ export function getAllPosts(): BlogPostMeta[] {
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
 
+      // Ensure tags is always an array of strings
+      let tags = [];
+      if (Array.isArray(data.tags)) {
+        tags = data.tags.filter(tag => typeof tag === 'string' && tag.trim() !== '');
+      } else if (typeof data.tags === 'string') {
+        tags = data.tags.split(',').map(tag => tag.trim()).filter(Boolean);
+      }
+
       return {
         slug,
         title: data.title || '无标题',
         description: data.description || '',
-        date: data.date || new Date().toISOString(),
-        formattedDate: format(parseISO(data.date || new Date().toISOString()), 'yyyy年MM月dd日', { locale: zhCN }),
+        date: typeof data.date === 'string' ? data.date : new Date().toISOString(),
+        formattedDate: format(parseISO(typeof data.date === 'string' ? data.date : new Date().toISOString()), 'yyyy年MM月dd日', { locale: zhCN }),
         author: data.author || 'PDF转换器团队',
-        tags: data.tags || [],
+        tags,
         coverImage: data.coverImage,
         readingTime: calculateReadingTime(content),
         excerpt: generateExcerpt(content),
@@ -94,7 +103,7 @@ export function getAllPosts(): BlogPostMeta[] {
 export function getPostBySlug(slug: string): BlogPost | null {
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   const mdxPath = path.join(postsDirectory, `${slug}.mdx`);
-  
+
   let filePath = '';
   if (fs.existsSync(fullPath)) {
     filePath = fullPath;
@@ -107,14 +116,22 @@ export function getPostBySlug(slug: string): BlogPost | null {
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
 
+  // Ensure tags is always an array of strings
+  let tags = [];
+  if (Array.isArray(data.tags)) {
+    tags = data.tags.filter(tag => typeof tag === 'string' && tag.trim() !== '');
+  } else if (typeof data.tags === 'string') {
+    tags = data.tags.split(',').map(tag => tag.trim()).filter(Boolean);
+  }
+
   return {
     slug,
     title: data.title || '无标题',
     description: data.description || '',
-    date: data.date || new Date().toISOString(),
-    formattedDate: format(parseISO(data.date || new Date().toISOString()), 'yyyy年MM月dd日', { locale: zhCN }),
+    date: typeof data.date === 'string' ? data.date : new Date().toISOString(),
+    formattedDate: format(parseISO(typeof data.date === 'string' ? data.date : new Date().toISOString()), 'yyyy年MM月dd日', { locale: zhCN }),
     author: data.author || 'PDF转换器团队',
-    tags: data.tags || [],
+    tags,
     coverImage: data.coverImage,
     readingTime: calculateReadingTime(content),
     content,
@@ -125,13 +142,14 @@ export function getPostBySlug(slug: string): BlogPost | null {
 // 获取相关文章
 export function getRelatedPosts(currentSlug: string, tags: string[], limit: number = 3): BlogPostMeta[] {
   const allPosts = getAllPosts().filter(post => post.slug !== currentSlug);
-  
+
   // 根据标签匹配度排序
   const scoredPosts = allPosts.map(post => {
-    const matchingTags = post.tags.filter(tag => tags.includes(tag));
+    const postTags = Array.isArray(post.tags) ? post.tags : [];
+    const matchingTags = postTags.filter(tag => tags.includes(tag));
     return { ...post, score: matchingTags.length };
   });
-  
+
   return scoredPosts
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);

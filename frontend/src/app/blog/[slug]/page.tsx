@@ -22,17 +22,20 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  
+
   if (!post) {
     return {
       title: '文章未找到',
     };
   }
 
+  // Ensure tags is always an array for join operation
+  const tagsArray = Array.isArray(post.tags) ? post.tags : [];
+
   return {
     title: `${post.title} - PDF转换器博客`,
     description: post.description,
-    keywords: post.tags.join(','),
+    keywords: tagsArray.join(','),
     alternates: {
       canonical: `https://sunsunblog.top/blog/${post.slug}`,
     },
@@ -61,7 +64,7 @@ function renderMarkdown(content: string): string {
     .replace(/\*(.+?)\*/g, '<em>$1</em>');
 
   // 转换链接
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary-400 hover:text-primary-300 underline underline-offset-2">$1</a>');
+  html = html.replace(/\[([^\\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary-400 hover:text-primary-300 underline underline-offset-2">$1</a>');
 
   // 转换代码
   html = html.replace(/`([^`]+)`/g, '<code class="bg-primary/10 text-primary-300 px-2 py-1 rounded text-sm font-mono">$1</code>');
@@ -80,7 +83,7 @@ function renderMarkdown(content: string): string {
 
   // 转换列表项（先标记）
   html = html.replace(/^- (.+)$/gm, '___LISTITEM___$1___ENDLISTITEM___');
-  
+
   // 处理列表
   const listRegex = /(___LISTITEM___.+?___ENDLISTITEM___\n?)+/g;
   html = html.replace(listRegex, (match) => {
@@ -98,13 +101,13 @@ function renderMarkdown(content: string): string {
   html = html.replace(tableRegex, (match, header, rows) => {
     const headers = header.split('|').map((h: string) => h.trim()).filter(Boolean);
     const headerHtml = headers.map((h: string) => `<th class="border border-primary/20 px-4 py-3 bg-primary/10 text-left font-semibold">${h}</th>`).join('');
-    
+
     const rowLines = rows.trim().split('\n');
     const rowsHtml = rowLines.map((line: string) => {
       const cells = line.split('|').map((c: string) => c.trim()).filter(Boolean);
       return `<tr>${cells.map((c: string) => `<td class="border border-primary/20 px-4 py-3 text-foreground-muted">${c}</td>`).join('')}</tr>`;
     }).join('');
-    
+
     return `<div class="overflow-x-auto my-6"><table class="w-full border-collapse border border-primary/20"><thead><tr>${headerHtml}</tr></thead><tbody>${rowsHtml}</tbody></table></div>`;
   });
 
@@ -115,7 +118,7 @@ function renderMarkdown(content: string): string {
 
   for (const line of lines) {
     const trimmedLine = line.trim();
-    
+
     // 如果已经是 HTML 标签，直接添加
     if (trimmedLine.startsWith('<') && !trimmedLine.startsWith('<li')) {
       if (inParagraph) {
@@ -137,7 +140,7 @@ function renderMarkdown(content: string): string {
       result += trimmedLine + ' ';
     }
   }
-  
+
   if (inParagraph) {
     result += '</p>';
   }
@@ -153,7 +156,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const relatedPosts = getRelatedPosts(slug, post.tags);
+  const relatedPosts = getRelatedPosts(slug, Array.isArray(post.tags) ? post.tags : []);
   const renderedContent = renderMarkdown(post.content);
 
   return (
@@ -183,7 +186,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* 文章头部 */}
             <header className="mb-12">
               {/* 标签 */}
-              {post.tags.length > 0 && (
+              {Array.isArray(post.tags) && post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-4">
                   {post.tags.map((tag) => (
                     <span
@@ -238,14 +241,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex items-center gap-2">
                   <span className="text-foreground-muted">标签：</span>
-                  {post.tags.map((tag) => (
+                  {Array.isArray(post.tags) ? post.tags.map((tag) => (
                     <span
                       key={tag}
                       className="px-3 py-1 bg-primary/10 text-primary-300 text-sm rounded-full"
                     >
                       {tag}
                     </span>
-                  ))}
+                  )) : null}
                 </div>
                 
                 {/* 分享按钮 */}
