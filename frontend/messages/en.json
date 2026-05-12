@@ -1,141 +1,441 @@
 {
-  "metadata": {
-    "title": "PDF Converter - Free Online PDF to Word, Word to PDF Tool",
-    "description": "Free online PDF conversion tool, supporting PDF to Word, Word to PDF, PDF to JPG, JPG to PDF and more. Fast, secure, no registration required.",
-    "keywords": "PDF converter,PDF to Word,Word to PDF,online PDF conversion,free PDF conversion"
-  },
-  "nav": {
-    "home": "Home",
-    "tools": "Tools",
+  "header": {
     "blog": "Blog",
-    "about": "About",
-    "contact": "Contact Us"
-  },
-  "hero": {
-    "title": "Free Online PDF Conversion Tool",
-    "subtitle": "Support PDF and Word, image format conversion, fast, secure, no registration required",
-    "cta": "Get Started"
-  },
-  "tools": {
-    "title": "PDF Tools",
-    "subtitle": "Professional PDF processing tools to meet all your needs",
-    "popular": "🔥 Popular Tools",
-    "categories": {
-      "pdf": "📄 PDF Tools",
-      "image": "🖼️ Image Tools",
-      "edit": "PDF Editing"
-    },
-    "items": {
-      "pdfToWord": {
-        "title": "PDF to Word",
-        "description": "Convert PDF files to editable Word documents, preserving original formatting and layout"
-      },
-      "wordToPdf": {
-        "title": "Word to PDF",
-        "description": "Convert Word documents to PDF format, ensuring document formatting is not altered"
-      },
-      "pdfToJpg": {
-        "title": "PDF to JPG",
-        "description": "Convert each page of PDF files to high-definition JPG images"
-      },
-      "jpgToPdf": {
-        "title": "JPG to PDF",
-        "description": "Merge multiple JPG/PNG images into a single PDF file"
-      },
-      "mergePdf": {
-        "title": "Merge PDF",
-        "description": "Merge multiple PDF files into one, with drag-and-drop sorting"
-      },
-      "compressPdf": {
-        "title": "Compress PDF",
-        "description": "Intelligently compress PDF file size while maintaining clarity for easy sharing"
-      },
-      "removePages": {
-        "title": "Remove PDF Pages",
-        "description": "Visually delete specified pages from PDF, simple and intuitive operation"
-      },
-      "rearrangePdf": {
-        "title": "Rearrange PDF",
-        "description": "Drag to adjust PDF page order, preview adjustments in real-time"
-      },
-      "splitPdf": {
-        "title": "Split PDF",
-        "description": "Split PDF files into multiple independent files"
-      },
-      "imageCompress": {
-        "title": "Image Compress",
-        "description": "Intelligently compress image size, supporting JPG, PNG, WebP formats"
-      },
-      "imageWatermark": {
-        "title": "Image Watermark",
-        "description": "Add text or image watermarks to images, protect copyright"
-      }
+    "allTools": "All Tools",
+    "pdfTools": "PDF Tools",
+    "imageTools": "Image Tools",
+    "useNow": "Try Now",
+    "startUsing": "Get Started",
+    "tools": {
+      "pdfToWord": { "title": "PDF to Word", "desc": "Editable Word" },
+      "wordToPdf": { "title": "Word to PDF", "desc": "One-click convert" },
+      "pdfToJpg": { "title": "PDF to JPG", "desc": "HD images" },
+      "jpgToPdf": { "title": "JPG to PDF", "desc": "Merge images" },
+      "mergePdf": { "title": "Merge PDF", "desc": "Combine files" },
+      "compressPdf": { "title": "Compress PDF", "desc": "Reduce size" },
+      "removePages": { "title": "Remove Pages", "desc": "Page trimming" },
+      "splitPdf": { "title": "Split PDF", "desc": "File splitting" },
+      "rearrangePdf": { "title": "Rearrange", "desc": "Reorder pages" },
+      "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
+      "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
     }
-  },
-  "features": {
-    "title": "Why Choose Us",
-    "items": {
-      "free": {
-        "title": "Completely Free",
-        "description": "All features are free to use, no paid subscription required"
-      },
-      "security": {
-        "title": "Safe & Secure",
-        "description": "Files are processed locally and automatically deleted after upload, protecting privacy"
-      },
-      "fast": {
-        "title": "Fast & Efficient",
-        "description": "Using advanced technology, fast conversion speed, no waiting"
-      },
-      "easy": {
-        "title": "Simple & Easy",
-        "description": "Intuitive operation interface, complete conversion in three steps"
-      }
-    }
-  },
-  "upload": {
-    "title": "Upload File",
-    "dragDrop": "Drag and drop files here, or click to upload",
-    "supportedFormats": "Supported formats",
-    "maxSize": "Maximum file size",
-    "selectFile": "Select File",
-    "processing": "Processing...",
-    "converting": "Converting...",
-    "uploading": "Uploading..."
-  },
-  "common": {
-    "convert": "Convert",
-    "download": "Download",
-    "preview": "Preview",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "back": "Back",
-    "next": "Next",
-    "finish": "Finish",
-    "close": "Close",
-    "success": "Success",
-    "error": "Error",
-    "warning": "Warning",
-    "info": "Info",
-    "loading": "Loading...",
-    "empty": "No data",
-    "retry": "Retry",
-    "copy": "Copy",
-    "copied": "Copied"
   },
   "footer": {
-    "copyright": "All rights reserved.",
+    "copyright": "All rights reserved",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "contact": "Contact Us",
-    "toPdf": "Convert to PDF",
-    "fromPdf": "Convert from PDF",
-    "pdfTools": "PDF Tools"
+    "about": "About Us",
+    "sslEncrypted": "SSL Encrypted",
+    "autoDelete": "Auto-delete in 30 min"
   },
   "language": {
     "title": "Language",
     "zh": "中文",
     "en": "English"
+  },
+  "home": {
+    "badge": "Completely Free · No Registration",
+    "title1": "PDF Conversion",
+    "title2": "Never Been Easier",
+    "subtitle": "Support multiple format conversions, fast, secure, completely free",
+    "dragDrop": "Drag files here or click to select",
+    "supportedFormats": "Supports PDF, DOC, DOCX, JPG, PNG and more",
+    "allTools": "All Tools",
+    "whyChooseUs": "Why Choose Us",
+    "whyChooseUsDesc": "A trusted online document processing platform",
+    "readyTitle": "Ready to Start Converting?",
+    "readyDesc": "Completely free, no registration required, start using now",
+    "convertNow": "Convert Now",
+    "stats": {
+      "users": "Total Users",
+      "files": "Files Converted",
+      "free": "Completely Free",
+      "security": "Secure & Safe"
+    },
+    "advantages": {
+      "free": { "title": "Completely Free", "desc": "All features are free to use, no registration required, no hidden fees" },
+      "security": { "title": "Safe & Secure", "desc": "SSL encrypted transfer, files auto-deleted after 30 minutes" },
+      "fast": { "title": "Lightning Fast", "desc": "High-performance conversion engine, format conversion in seconds" },
+      "accurate": { "title": "Precise Restoration", "desc": "Smart format recognition, preserves original layout to the fullest" }
+    },
+    "tools": {
+      "pdfToWord": { "title": "PDF to Word", "desc": "Editable document" },
+      "wordToPdf": { "title": "Word to PDF", "desc": "One-click convert" },
+      "pdfToJpg": { "title": "PDF to JPG", "desc": "HD images" },
+      "jpgToPdf": { "title": "JPG to PDF", "desc": "Merge images" },
+      "mergePdf": { "title": "Merge PDF", "desc": "Combine files" },
+      "compressPdf": { "title": "Compress PDF", "desc": "Reduce size" },
+      "removePages": { "title": "Remove Pages", "desc": "Page trimming" },
+      "splitPdf": { "title": "Split PDF", "desc": "File splitting" },
+      "rearrangePdf": { "title": "Rearrange", "desc": "Reorder pages" },
+      "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
+      "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
+    }
+  },
+  "conversion": {
+    "home": "Home",
+    "formatConversion": "Format Conversion",
+    "startConversion": "Start Conversion",
+    "uploadAndConvert": "Upload file, one-click convert",
+    "features": "Features",
+    "howToUse": "How to Use",
+    "howToUseDesc": "Three simple steps to complete conversion",
+    "faq": "FAQ",
+    "faqDesc": "Common questions about conversion",
+    "otherFormats": "Need to convert other formats?",
+    "otherFormatsDesc": "We support multiple file format conversions, all free to use",
+    "viewAllTools": "View All Tools",
+    "steps": {
+      "upload": { "title": "Upload File", "description": "Click or drag to upload your file" },
+      "convert": { "title": "Auto Convert", "description": "System automatically recognizes and starts converting" },
+      "download": { "title": "Download File", "description": "Click download to get your file after conversion" }
+    },
+    "commonFeatures": {
+      "fast": { "label": "Lightning Fast", "desc": "Done in 15 seconds" },
+      "secure": { "label": "Secure & Safe", "desc": "Deleted in 30 min" }
+    },
+    "conversionFailed": "Conversion Failed",
+    "retryOrCheck": "Please check the file format and try again"
+  },
+  "upload": {
+    "title": "Upload File",
+    "titleMultiple": "Upload Multiple Files",
+    "dragDrop": "Drag and drop files here, or click to select",
+    "dragDropMultiple": "Supports batch upload, drag files here or click to select",
+    "releaseToUpload": "Release to upload",
+    "formatNotSupported": "File format not supported",
+    "maxSize": "Max {size}MB",
+    "singleFile": "Single file supported",
+    "multipleFiles": "Multiple files supported",
+    "uploading": "Uploading file...",
+    "pleaseWait": "Please wait, processing your file",
+    "fileTooLarge": "File size exceeds limit (max {size}MB)",
+    "invalidType": "File type not supported, please upload the correct format",
+    "uploadFailed": "File upload failed, please try again",
+    "checkFormat": "Please check file format and size, then try again"
+  },
+  "progress": {
+    "initializing": "Initializing...",
+    "upload": "Upload",
+    "processing": "Converting",
+    "complete": "Complete",
+    "waiting": "Waiting in queue...",
+    "converting": "Converting file...",
+    "done": "Conversion complete!",
+    "failed": "Conversion failed",
+    "processingStatus": "Processing...",
+    "waitingDesc": "System is preparing to process your file",
+    "convertingDesc": "Please wait, conversion in progress",
+    "doneDesc": "File converted successfully, preparing download",
+    "failedDesc": "An error occurred during conversion",
+    "progressLabel": "Conversion Progress",
+    "processingDots": "Processing...",
+    "waitTip": "Conversion time depends on file size and pages. Please wait patiently and don't close the page"
+  },
+  "download": {
+    "success": "Conversion Successful!",
+    "successDesc": "Your file has been converted successfully, click the button below to download",
+    "converted": "Conversion complete",
+    "downloadFile": "Download File",
+    "downloading": "Downloading...",
+    "convertOther": "Convert Another File",
+    "autoDelete": "File will be automatically deleted in 30 minutes",
+    "expired": "File has expired or does not exist, please re-upload and convert",
+    "downloadFailed": "Download failed, please try again later"
+  },
+  "about": {
+    "badge": "About Us",
+    "title": "Making PDF Processing Simpler",
+    "subtitle": "We are committed to providing the best online PDF conversion service, completely free, no registration required, safe and reliable.",
+    "mission": "Our Mission",
+    "features": {
+      "easy": { "title": "Easy to Use", "desc": "No complex learning process needed. Drag, upload, and convert. Works on all major browsers, anytime, anywhere." },
+      "secure": { "title": "Safe & Secure", "desc": "All uploaded files are automatically deleted after 30 minutes. SSL encrypted transfer. We never store or share your files." },
+      "free": { "title": "Completely Free", "desc": "All conversion features are completely free. No registration required, no hidden fees, no watermarks." },
+      "fast": { "title": "Lightning Fast", "desc": "High-performance conversion engine. Convert a 10MB file in 15 seconds. Supports multiple format conversions." }
+    },
+    "techStack": "Tech Stack",
+    "techStackTitle": "Powerful Technical Support",
+    "openSource": "Open Source",
+    "openSourceTitle": "Thanks to Open Source",
+    "openSourceDesc": "We appreciate the following open source projects that are an important part of our service",
+    "readyTitle": "Ready to Get Started?",
+    "readyDesc": "Experience free, fast, and secure PDF conversion service now",
+    "startUsing": "Get Started"
+  },
+  "contact": {
+    "badge": "Contact Us",
+    "title": "We'd Love to Hear from You",
+    "subtitle": "If you have any questions, suggestions, or feedback, please don't hesitate to contact us. We'll respond as soon as possible.",
+    "contactMethods": "Contact Methods",
+    "email": "Email",
+    "emailDesc": "Send an email to the address below, we'll reply within 24 hours:",
+    "github": "GitHub",
+    "githubDesc": "View our projects on GitHub, submit Issues or Pull Requests:",
+    "faq": "FAQ",
+    "faqItems": {
+      "feedback": { "q": "How to submit feature suggestions?", "a": "You can send your feature suggestions via email or GitHub. We carefully consider every suggestion and try to include them in future development plans." },
+      "bug": { "q": "How to report a bug?", "a": "Please submit an Issue on GitHub with detailed information about the problem, including your browser, file type, and error message. We'll fix it as soon as possible." },
+      "replyTime": { "q": "How long does it take to get a reply?", "a": "We usually reply to your email within 24 hours. Urgent issues will be prioritized." },
+      "api": { "q": "Can I apply for API access?", "a": "We currently don't provide a public API. For business cooperation needs, please contact us via email to discuss specific plans." }
+    },
+    "startNow": "Start Using Now",
+    "startNowDesc": "Experience free, fast, and secure PDF conversion service",
+    "startConvert": "Start Converting"
+  },
+  "privacy": {
+    "badge": "Privacy Policy",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: January 1, 2024",
+    "features": {
+      "ssl": { "title": "SSL Encrypted Transfer", "desc": "All data transfers are encrypted with SSL/TLS to ensure data security." },
+      "autoDelete": { "title": "Auto-delete in 30 Minutes", "desc": "All uploaded files are automatically deleted from the server within 30 minutes after processing." },
+      "noStore": { "title": "No Sensitive Data Stored", "desc": "We do not store your account information, passwords, or other sensitive personal data." }
+    },
+    "sections": {
+      "intro": { "title": "Introduction", "content": "PDF Converter (hereinafter referred to as \"we\") is committed to protecting user privacy and data security. This privacy policy explains how we collect, use, store, and protect your personal information. By using our services, you agree to the terms of this privacy policy." },
+      "collection": {
+        "title": "Data Collection",
+        "content": "The information we collect is only used to provide and improve services. Specifically:",
+        "items": [
+          "Uploaded files: Your PDF, Word, or image files are only used for conversion processing and not for other purposes.",
+          "Technical information: Browser type, device type, etc. are used to optimize the service experience.",
+          "Usage data: Access time, features used, etc. are used to improve service quality."
+        ]
+      },
+      "usage": {
+        "title": "Data Usage",
+        "content": "The data we collect is only used for the following purposes:",
+        "items": [
+          "Provide PDF conversion services",
+          "Improve and optimize service performance",
+          "Ensure service security and prevent abuse",
+          "Provide technical support (only when you proactively contact us)"
+        ]
+      },
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "content": "We do not share your file data with any third parties. We may use the following third-party services to operate the website, but these services do not access your file content:",
+        "items": [
+          "Website analytics tools (to understand website usage)",
+          "CDN services (to accelerate content delivery)"
+        ]
+      },
+      "cookies": {
+        "title": "Cookie Usage",
+        "content": "We use cookies to:",
+        "items": [
+          "Remember your theme preferences (light/dark mode)",
+          "Analyze website usage to improve services"
+        ],
+        "extra": "You can manage cookies through your browser settings. Disabling cookies may affect the experience of some features."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You have the right to:",
+        "items": [
+          "Know what data we have collected",
+          "Request deletion of your data (files are automatically deleted within 30 minutes)",
+          "Stop using our services",
+          "Contact us with privacy-related questions"
+        ]
+      },
+      "children": { "title": "Children's Privacy", "content": "Our services are not directed to children under 13. If you are a parent and discover your child has used our services, please contact us and we will take appropriate measures." },
+      "changes": { "title": "Policy Changes", "content": "We may update this privacy policy from time to time. Significant changes will be announced on this page. We recommend you regularly review this policy to stay informed." },
+      "contact": { "title": "Contact Us", "content": "If you have any privacy-related questions, please contact us through the following methods:" }
+    },
+    "email": "Email",
+    "github": "GitHub"
+  },
+  "terms": {
+    "badge": "Terms of Service",
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: January 1, 2024",
+    "services": [
+      "PDF to Word Document",
+      "Word to PDF",
+      "PDF to JPG Image",
+      "JPG/PNG to PDF",
+      "PDF Merge",
+      "PDF Compress",
+      "PDF Page Removal",
+      "PDF Page Sorting",
+      "PDF Split",
+      "Image Compress",
+      "Image Watermark"
+    ],
+    "usageRules": [
+      "Only upload files you have the right to process",
+      "Do not upload files containing illegal, harmful, or infringing content",
+      "Do not attempt todisrupt, interfere with, or abuse this service",
+      "Do not use automated tools to call this service on a large scale",
+      "Comply with the laws and regulations of your jurisdiction"
+    ],
+    "sections": {
+      "accept": { "title": "Acceptance of Terms", "content": "By using PDF Converter (hereinafter referred to as \"we\" or \"this service\"), you agree to comply with these terms of service. If you do not agree to these terms, please do not use this service. We reserve the right to modify these terms at any time, and modified terms take effect immediately upon publication on this page." },
+      "description": { "title": "Service Description", "content": "PDF Converter provides the following online document processing services:" },
+      "rules": { "title": "Usage Rules", "content": "When using this service, you agree to:", "warning": "⚠️ Note: Single file size limit is 20MB. Files exceeding this limit cannot be processed." },
+      "ip": { "title": "Intellectual Property", "content": "The intellectual property of the files you upload and the content in the conversion results belongs to the original owners. This service does not acquire, claim, or transfer any intellectual property. We only provide technical conversion services and do not have any rights to the file content.", "extra": "The design, code, trademarks, etc. of this website belong to us and may not be copied or used without authorization." },
+      "privacy": {
+        "title": "Privacy Protection",
+        "content": "We value your privacy. Please refer to our privacy policy for detailed information.",
+        "items": [
+          "All uploaded files are automatically deleted after 30 minutes",
+          "SSL encrypted transfer",
+          "No personal information stored"
+        ]
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "This service is provided \"as is\" without any express or implied warranties, including but not limited to:",
+        "items": [
+          "Accuracy and completeness of conversion results",
+          "Continuous availability of the service",
+          "Format preservationdegree of conversion results",
+          "Fitness for a particular purpose"
+        ],
+        "extra": "For scanned PDFs, the conversionresult depends on the clarity of the original document and may not be perfectlyrestored. We are not responsible for any consequences of using the conversion results."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "content": "To the maximum extent permitted by applicable law, we are not liable for:",
+        "items": [
+          "Service interruption or unavailability",
+          "Data loss or corruption",
+          "Any direct or indirect losses caused by using this service",
+          "Damages caused by third-party actions"
+        ]
+      },
+      "termination": {
+        "title": "Service Termination",
+        "content": "We reserve the right to terminate or restrict your use of this service in the following cases:",
+        "items": [
+          "You violate these terms of service",
+          "Your behavior harms other users or this service",
+          "Legal and regulatory requirements"
+        ]
+      },
+      "changes": { "title": "Terms Changes", "content": "We may modify these terms of service at any time. Modified terms will be published on this page. Continued use of this service constitutes acceptance of the modified terms. We recommend you regularly check this page for the latest terms." },
+      "law": { "title": "Applicable Law", "content": "These terms of service are governed by the laws of the People's Republic of China. In case of disputes, both parties should resolve them through friendly negotiation; if negotiation fails, they may file a lawsuit with a court of competent jurisdiction." },
+      "contact": { "title": "Contact Us", "content": "If you have any questions about these terms of service, please contact us through the following methods:" }
+    },
+    "email": "Email",
+    "github": "GitHub"
+  },
+  "blog": {
+    "title": "PDF Conversion Guide",
+    "subtitle": "Learn PDF processing tips, format conversion tutorials, and document optimization methods",
+    "readingTime": "{minutes} min read",
+    "comingSoon": "Blog articles coming soon",
+    "comingSoonDesc": "We are preparing high-quality PDF conversion tutorials, stay tuned!",
+    "readyTitle": "Ready to Convert Your Documents?",
+    "readyDesc": "Use our free online tools to quickly and securely convert between PDF and Word",
+    "wordToPdf": "Word to PDF",
+    "pdfToWord": "PDF to Word"
+  },
+  "tools_detail": {
+    "pdfToWord": {
+      "title": "PDF to Word Online Converter",
+      "description": "Convert PDF files to editable Word documents (.doc/.docx) for free, preserving original formatting and layout",
+      "faq": [
+        { "q": "Will the format be messed up after converting PDF to Word?", "a": "Our conversion engine uses advanced OCR technology and format recognition algorithms to preserve the original document's layout, images, and tables to the greatest extent." },
+        { "q": "Can scanned PDFs be converted?", "a": "Yes. Our system supports OCR recognition and can convert scanned PDFs to editable Word documents." }
+      ],
+      "features": { "accurate": { "label": "Precise", "desc": "Preserves format" } }
+    },
+    "wordToPdf": {
+      "title": "Word to PDF Online Converter",
+      "description": "Convert Word documents (.doc/.docx) to PDF format for free, perfectly preserving original layout and formatting",
+      "faq": [
+        { "q": "Will the format change after converting Word to PDF?", "a": "Our conversion engine perfectly preserves the Word document's format, images, tables, and layout." },
+        { "q": "What Word formats are supported?", "a": "Both .doc and .docx formats are supported. We recommend using .docx for the best conversion results." }
+      ],
+      "features": { "accurate": { "label": "Precise", "desc": "Preserves format" } }
+    },
+    "pdfToJpg": {
+      "title": "PDF to JPG Online Converter",
+      "description": "Convert PDF files to JPG/PNG image format for free, supporting single page or batch conversion",
+      "faq": [
+        { "q": "Will every page of the PDF be converted to an image?", "a": "Yes, every page of the PDF will be converted to a separate JPG image file." },
+        { "q": "How is the image quality after conversion?", "a": "We convert at high quality to ensure images are clear and readable." }
+      ],
+      "features": { "accurate": { "label": "HD Quality", "desc": "Preserves clarity" } }
+    },
+    "jpgToPdf": {
+      "title": "JPG to PDF Online Converter",
+      "description": "Merge and convert JPG/PNG images to PDF files for free, supporting multi-image merging",
+      "faq": [
+        { "q": "Can multiple images be merged?", "a": "Yes, you can upload multiple images and we will merge them into a single PDF file." },
+        { "q": "What image formats are supported?", "a": "Common image formats including JPG, JPEG, and PNG are supported." }
+      ],
+      "features": { "accurate": { "label": "Batch Merge", "desc": "Multi-image" } }
+    },
+    "mergePdf": {
+      "title": "Merge PDF Online Tool",
+      "description": "Merge multiple PDF files into one PDF document for free, preserving original formatting",
+      "faq": [
+        { "q": "Can I merge multiple PDF files?", "a": "Yes, you can upload multiple PDF files and we will merge them into one file." },
+        { "q": "Can the order be adjusted after merging?", "a": "Yes, you can adjust the order of PDF files after uploading." }
+      ],
+      "features": { "accurate": { "label": "Adjustable Order", "desc": "Custom sequence" } }
+    },
+    "compressPdf": {
+      "title": "Compress PDF Online Tool",
+      "description": "Compress PDF file size for free, reducing size while maintaining quality",
+      "faq": [
+        { "q": "Will quality be affected after compression?", "a": "We use intelligent compression algorithms to reduce file size while maintaining quality as much as possible." },
+        { "q": "How small can it be compressed?", "a": "Compressionresult depends on the original PDF content, typically reducing size by 30-70%." }
+      ],
+      "features": { "accurate": { "label": "High Ratio", "desc": "Reduce size" } }
+    },
+    "removePages": {
+      "title": "Remove PDF Pages Tool",
+      "description": "Delete specified pages from PDF files for free,preserving other pages",
+      "faq": [
+        { "q": "Can I delete multiple pages?", "a": "Yes, you can delete single or multiple PDF pages." },
+        { "q": "Can deleted pages be recovered?", "a": "Deletion is irreversible, please confirm before proceeding." }
+      ],
+      "features": { "accurate": { "label": "Precise", "desc": "Specific pages" } }
+    },
+    "splitPdf": {
+      "title": "Split PDF Online Tool",
+      "description": "Split PDF files into multiple documents for free, supporting page-by-page splitting",
+      "faq": [
+        { "q": "Can I split by page range?", "a": "Yes, you can split PDF files by page range or individual pages." },
+        { "q": "How is the quality of split files?", "a": "Split PDFs retain the original quality and formatting." }
+      ],
+      "features": { "accurate": { "label": "Flexible Split", "desc": "By pages" } }
+    },
+    "rearrangePdf": {
+      "title": "Rearrange PDF Pages Tool",
+      "description": "Adjust the order of pages in PDF files for free, supporting drag-and-drop sorting",
+      "faq": [
+        { "q": "How do I adjust page order?", "a": "After uploading, you can drag and drop to adjust the order of PDF pages." },
+        { "q": "Can I duplicate pages?", "a": "Yes, you can duplicate pages in the PDF to generate a new PDF with repeated pages." }
+      ],
+      "features": { "accurate": { "label": "Drag & Drop", "desc": "Easy reorder" } }
+    },
+    "imageCompress": {
+      "title": "Image Compress Online Tool",
+      "description": "Compress JPG/PNG image file sizes for free, reducing size while maintaining quality",
+      "faq": [
+        { "q": "How is image quality after compression?", "a": "We use intelligent compression algorithms to reduce file size while maintaining quality as much as possible." },
+        { "q": "Is batch compression supported?", "a": "Yes, batch compression of multiple images is supported for better efficiency." }
+      ],
+      "features": { "accurate": { "label": "High Ratio", "desc": "Reduce size" } }
+    },
+    "imageWatermark": {
+      "title": "Image Watermark Online Tool",
+      "description": "Add text or image watermarks to images for free, supporting custom watermark styles",
+      "faq": [
+        { "q": "Is text watermark supported?", "a": "Yes, you can add custom text watermarks with configurable font, color, and position." },
+        { "q": "Can I adjust watermark opacity?", "a": "Yes, you can adjust the watermark's opacity and rotation angle." }
+      ],
+      "features": { "accurate": { "label": "Custom Style", "desc": "Flexible settings" } }
+    }
+  },
+  "metadata": {
+    "siteTitle": "PDF Converter - Free Online PDF Conversion Tool",
+    "siteDescription": "Free online PDF conversion tool supporting PDF to Word, image, and other format conversions. Fast, secure, no registration required."
   }
 }

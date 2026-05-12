@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
+import { useI18n } from "@/lib/i18n";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import LanguageSwitcher from "@/components/i18n/LanguageSwitcher";
 import {
   FileText, FileUp, Image as ImageIcon, FileImage, Merge, Minimize2,
   Scissors, SplitSquareHorizontal, ArrowUpDown, Droplets, ChevronDown, Menu, X
@@ -14,25 +15,25 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const pathname = usePathname();
-  const { theme } = useTheme();
+  const { t } = useI18n();
 
-  const isActive = (href) => pathname === href;
+  const isActive = (href: string) => pathname === href;
 
   const pdfTools = [
-    { href: "/pdf-to-word", icon: <FileText className="w-5 h-5" />, title: "PDF转Word", desc: "转可编辑Word" },
-    { href: "/word-to-pdf", icon: <FileUp className="w-5 h-5" />, title: "Word转PDF", desc: "一键转换" },
-    { href: "/pdf-to-jpg", icon: <FileImage className="w-5 h-5" />, title: "PDF转JPG", desc: "高清图片" },
-    { href: "/jpg-to-pdf", icon: <ImageIcon className="w-5 h-5" />, title: "JPG转PDF", desc: "图片合并" },
-    { href: "/merge-pdf", icon: <Merge className="w-5 h-5" />, title: "PDF合并", desc: "多文件合一" },
-    { href: "/compress-pdf", icon: <Minimize2 className="w-5 h-5" />, title: "PDF压缩", desc: "减小体积" },
-    { href: "/remove-pages", icon: <Scissors className="w-5 h-5" />, title: "删除页面", desc: "页面裁剪" },
-    { href: "/split-pdf", icon: <SplitSquareHorizontal className="w-5 h-5" />, title: "拆分PDF", desc: "文件拆分" },
-    { href: "/rearrange-pdf", icon: <ArrowUpDown className="w-5 h-5" />, title: "重新排列", desc: "调整顺序" },
+    { href: "/pdf-to-word", icon: <FileText className="w-5 h-5" />, title: t("header.tools.pdfToWord.title"), desc: t("header.tools.pdfToWord.desc") },
+    { href: "/word-to-pdf", icon: <FileUp className="w-5 h-5" />, title: t("header.tools.wordToPdf.title"), desc: t("header.tools.wordToPdf.desc") },
+    { href: "/pdf-to-jpg", icon: <FileImage className="w-5 h-5" />, title: t("header.tools.pdfToJpg.title"), desc: t("header.tools.pdfToJpg.desc") },
+    { href: "/jpg-to-pdf", icon: <ImageIcon className="w-5 h-5" />, title: t("header.tools.jpgToPdf.title"), desc: t("header.tools.jpgToPdf.desc") },
+    { href: "/merge-pdf", icon: <Merge className="w-5 h-5" />, title: t("header.tools.mergePdf.title"), desc: t("header.tools.mergePdf.desc") },
+    { href: "/compress-pdf", icon: <Minimize2 className="w-5 h-5" />, title: t("header.tools.compressPdf.title"), desc: t("header.tools.compressPdf.desc") },
+    { href: "/remove-pages", icon: <Scissors className="w-5 h-5" />, title: t("header.tools.removePages.title"), desc: t("header.tools.removePages.desc") },
+    { href: "/split-pdf", icon: <SplitSquareHorizontal className="w-5 h-5" />, title: t("header.tools.splitPdf.title"), desc: t("header.tools.splitPdf.desc") },
+    { href: "/rearrange-pdf", icon: <ArrowUpDown className="w-5 h-5" />, title: t("header.tools.rearrangePdf.title"), desc: t("header.tools.rearrangePdf.desc") },
   ];
 
   const imageTools = [
-    { href: "/image-compress", icon: <ImageIcon className="w-5 h-5" />, title: "图片压缩", desc: "压缩图片" },
-    { href: "/image-watermark", icon: <Droplets className="w-5 h-5" />, title: "图片水印", desc: "添加水印" },
+    { href: "/image-compress", icon: <ImageIcon className="w-5 h-5" />, title: t("header.tools.imageCompress.title"), desc: t("header.tools.imageCompress.desc") },
+    { href: "/image-watermark", icon: <Droplets className="w-5 h-5" />, title: t("header.tools.imageWatermark.title"), desc: t("header.tools.imageWatermark.desc") },
   ];
 
   return (
@@ -59,10 +60,10 @@ export default function Header() {
                   : "text-theme-muted hover:text-theme hover:bg-theme-secondary"
               }`}
             >
-              博客
+              {t("header.blog")}
             </Link>
 
-            {/* 工具下拉 */}
+            {/* Tools dropdown */}
             <div className="relative">
               <button
                 onClick={() => setIsToolsOpen(!isToolsOpen)}
@@ -72,7 +73,7 @@ export default function Header() {
                     : "text-theme-muted hover:text-theme hover:bg-theme-secondary"
                 }`}
               >
-                全部工具
+                {t("header.allTools")}
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isToolsOpen ? "rotate-180" : ""}`} />
               </button>
 
@@ -84,7 +85,7 @@ export default function Header() {
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
                           <FileText className="w-4 h-4 text-white" />
                         </div>
-                        <h3 className="text-sm font-bold text-theme">PDF工具</h3>
+                        <h3 className="text-sm font-bold text-theme">{t("header.pdfTools")}</h3>
                       </div>
                       <div className="grid grid-cols-3 gap-2">
                         {pdfTools.map((tool) => (
@@ -115,7 +116,7 @@ export default function Header() {
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
                           <ImageIcon className="w-4 h-4 text-white" />
                         </div>
-                        <h3 className="text-sm font-bold text-theme">图片工具</h3>
+                        <h3 className="text-sm font-bold text-theme">{t("header.imageTools")}</h3>
                       </div>
                       <div className="space-y-2">
                         {imageTools.map((tool) => (
@@ -143,15 +144,17 @@ export default function Header() {
               )}
             </div>
 
+            <LanguageSwitcher />
             <ThemeToggle />
 
             <Link href="/pdf-to-word" className="ml-2 btn-primary px-6 py-2 text-sm">
-              立即使用
+              {t("header.useNow")}
             </Link>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex items-center gap-2 lg:hidden">
+            <LanguageSwitcher />
             <ThemeToggle />
             <button
               className="p-3 rounded-xl hover:bg-theme-secondary theme-transition"
@@ -175,11 +178,11 @@ export default function Header() {
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                博客
+                {t("header.blog")}
               </Link>
 
               <div>
-                <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-theme-muted">PDF工具</div>
+                <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-theme-muted">{t("header.pdfTools")}</div>
                 <div className="space-y-1">
                   {pdfTools.slice(0, 6).map((tool) => (
                     <Link
@@ -205,7 +208,7 @@ export default function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="block w-full btn-primary text-center py-3 text-base"
                 >
-                  开始使用
+                  {t("header.startUsing")}
                 </Link>
               </div>
             </div>

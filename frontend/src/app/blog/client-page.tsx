@@ -1,28 +1,9 @@
-import { Metadata } from 'next';
+"use client";
+
 import Link from 'next/link';
-import { getAllPosts, getAllTags } from '@/lib/blog';
-import { format, parseISO } from 'date-fns';
-import { zhCN } from 'date-fns/locale';
+import { BlogPostMeta } from '@/lib/blog';
 
-export const metadata: Metadata = {
-  title: 'PDF转换教程与指南 - 免费在线PDF转换器博客',
-  description: '学习PDF转换技巧、Word转PDF教程、PDF压缩方法等实用指南。免费在线PDF转换器提供专业的文档处理知识。',
-  keywords: 'PDF教程,PDF转换指南,Word转PDF教程,PDF压缩方法,PDF使用技巧',
-  alternates: {
-    canonical: 'https://sunsunblog.top/blog',
-  },
-  openGraph: {
-    title: 'PDF转换教程与指南 - 免费在线PDF转换器博客',
-    description: '学习PDF转换技巧、Word转PDF教程、PDF压缩方法等实用指南',
-    type: 'website',
-    url: 'https://sunsunblog.top/blog',
-  },
-};
-
-export default function BlogPage() {
-  const posts = getAllPosts();
-  const tags = getAllTags();
-
+export default function BlogClientPage({ posts }: { posts: BlogPostMeta[] }) {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -36,20 +17,6 @@ export default function BlogPage() {
             <p className="text-xl text-foreground-muted mb-8">
               学习 PDF 处理技巧、格式转换教程和文档优化方法
             </p>
-            
-            {/* 标签云 */}
-            {tags.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-2">
-                {tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-4 py-2 bg-primary/10 text-primary-300 rounded-full text-sm hover:bg-primary/20 transition-colors cursor-pointer"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -100,7 +67,7 @@ export default function BlogPage() {
                           {post.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-1 bg-primary/10 text-primary-300 text-xs rounded-md"
+                              className="px-2 py-1 bg-primary/10 dark:text-primary-300 text-primary-700 text-xs rounded-md"
                             >
                               {tag}
                             </span>

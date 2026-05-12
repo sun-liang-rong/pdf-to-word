@@ -1,19 +1,29 @@
 "use client";
 
 import ConversionPageTemplate from "@/components/conversion/ConversionPageTemplate";
+import { useI18n } from "@/lib/i18n";
 import { SplitSquareHorizontal } from "lucide-react";
 
-const faqItems = [{'question': '可以按页码范围拆分吗？', 'answer': '支持按页码范围或单页拆分PDF文件。'}, {'question': '拆分后的文件质量如何？', 'answer': '拆分后的PDF保留原有的质量和格式。'}];
+export default function SplitPdfClient() {
+  const { t } = useI18n();
 
-const features = [{'icon': '⚡', 'label': '极速转换', 'desc': '15秒内完成'}, {'icon': '🔒', 'label': '安全保障', 'desc': '30分钟删除'}, {'icon': '🎯', 'label': '灵活拆分', 'desc': '按页拆分'}];
+  const faqItems = [
+    { question: t("tools_detail.splitPdf.faq.0.q"), answer: t("tools_detail.splitPdf.faq.0.a") },
+    { question: t("tools_detail.splitPdf.faq.1.q"), answer: t("tools_detail.splitPdf.faq.1.a") },
+  ];
 
-export default function ClientPage() {
+  const features = [
+    { icon: "⚡", label: t("conversion.commonFeatures.fast.label"), desc: t("conversion.commonFeatures.fast.desc") },
+    { icon: "🔒", label: t("conversion.commonFeatures.secure.label"), desc: t("conversion.commonFeatures.secure.desc") },
+    { icon: "🎯", label: t("tools_detail.splitPdf.features.accurate.label"), desc: t("tools_detail.splitPdf.features.accurate.desc") },
+  ];
+
   return (
     <ConversionPageTemplate
-      title="PDF拆分在线工具"
-      description="免费将PDF文件拆分为多个文档，支持按页拆分"
+      title={t("tools_detail.splitPdf.title")}
+      description={t("tools_detail.splitPdf.description")}
       conversionType="split-pdf"
-      accept={{"application/pdf": ['.pdf']}}
+      accept={{ "application/pdf": ['.pdf'] }}
       icon={<SplitSquareHorizontal className="w-8 h-8" />}
       gradient="bg-gradient-to-r from-cyan-500 to-blue-500"
       outputExtension=".pdf"

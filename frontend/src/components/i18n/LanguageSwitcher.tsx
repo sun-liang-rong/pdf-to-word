@@ -1,78 +1,56 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { Globe, Check } from "lucide-react";
-import { locales, type Locale } from "@/i18n";
+import { useState } from "react";
+import { Globe, Check, ChevronDown } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
+
+const localeOptions: { value: Locale; label: string; flag: string }[] = [
+  { value: "zh", label: "中文", flag: "🇨🇳" },
+  { value: "en", label: "English", flag: "🇺🇸" },
+];
 
 export default function LanguageSwitcher() {
-  const t = useTranslations("language");
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { locale, setLocale } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
 
-  const handleLocaleChange = (newLocale: Locale) => {
-    if (newLocale === locale) {
-      setIsOpen(false);
-      return;
-    }
-
-    startTransition(() => {
-      // 替换当前路径中的语言前缀
-      const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
-      router.push(newPathname);
-      setIsOpen(false);
-    });
-  };
-
-  const localeNames: Record<Locale, string> = {
-    zh: t("zh"),
-    en: t("en"),
-  };
+  const currentOption = localeOptions.find((o) => o.value === locale) || localeOptions[0];
 
   return (
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        disabled={isPending}
-        className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium text-foreground-muted hover:text-foreground hover:bg-primary/10 transition-all duration-200 disabled:opacity-50"
-        aria-label={t("title")}
+        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium text-theme-muted hover:text-theme hover:bg-theme-secondary theme-transition"
+        aria-label="Switch language"
       >
         <Globe className="w-4 h-4" />
-        <span className="uppercase">{locale}</span>
-        <svg
-          className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <span className="hidden sm:inline">{currentOption.label}</span>
+        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {isOpen && (
         <>
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setIsOpen(false)}
-          />
-          <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 z-50 overflow-hidden animate-slide-down">
+          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+          <div className="absolute right-0 mt-2 w-36 glass-card rounded-xl overflow-hidden z-50 shadow-lg animate-slide-down">
             <div className="py-1">
-              {locales.map((l) => (
+              {localeOptions.map((option) => (
                 <button
-                  key={l}
-                  onClick={() => handleLocaleChange(l)}
+                  key={option.value}
+                  onClick={() => {
+                    setLocale(option.value);
+                    setIsOpen(false);
+                  }}
                   className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-colors ${
-                    locale === l
-                      ? "bg-primary/10 text-primary-600 dark:text-primary-400"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    locale === option.value
+                      ? "text-indigo-500 bg-indigo-50 dark:bg-indigo-900/20"
+                      : "text-theme hover:bg-theme-secondary"
                   }`}
                 >
-                  <span>{localeNames[l]}</span>
-                  {locale === l && <Check className="w-4 h-4" />}
+                  <span className="flex items-center gap-2">
+                    <span>{option.flag}</span>
+                    <span>{option.label}</span>
+                  </span>
+                  {locale === option.value && <Check className="w-4 h-4" />}
                 </button>
               ))}
             </div>

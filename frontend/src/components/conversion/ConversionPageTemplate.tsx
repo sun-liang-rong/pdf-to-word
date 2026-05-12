@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Upload, CheckCircle, ArrowRight, FileText, FileUp, Image, FileImage, Merge, Minimize2, Scissors, SplitSquareHorizontal, ArrowUpDown, Droplets, XCircle } from "lucide-react";
+import { ArrowRight, FileText, XCircle } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 import FileUploader from "@/components/upload/FileUploader";
 import ConversionProgress from "@/components/conversion/ConversionProgress";
 import DownloadButton from "@/components/conversion/DownloadButton";
@@ -16,8 +17,8 @@ interface ConversionPageProps {
   icon: React.ReactNode;
   gradient: string;
   outputExtension: string;
-  faqItems: any[];
-  features: any[];
+  faqItems: { question: string; answer: string }[];
+  features: { icon: string; label: string; desc: string }[];
 }
 
 export default function ConversionPageTemplate({
@@ -31,6 +32,7 @@ export default function ConversionPageTemplate({
   faqItems,
   features,
 }: ConversionPageProps) {
+  const { t } = useI18n();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [taskId, setTaskId] = useState<string | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
@@ -38,9 +40,9 @@ export default function ConversionPageTemplate({
   const [isUploading, setIsUploading] = useState(false);
 
   const steps = [
-    { step: 1, title: "上传文件", description: "点击或拖拽上传您的文件", icon: "📤" },
-    { step: 2, title: "自动转换", description: "系统自动识别并开始转换", icon: "⚙️" },
-    { step: 3, title: "下载文件", description: "转换完成后点击下载获取文件", icon: "📥" },
+    { step: 1, title: t("conversion.steps.upload.title"), description: t("conversion.steps.upload.description"), icon: "📤" },
+    { step: 2, title: t("conversion.steps.convert.title"), description: t("conversion.steps.convert.description"), icon: "⚙️" },
+    { step: 3, title: t("conversion.steps.download.title"), description: t("conversion.steps.download.description"), icon: "📥" },
   ];
 
   const handleFileSelect = async (file: File) => {
@@ -54,7 +56,7 @@ export default function ConversionPageTemplate({
       const formData = new FormData();
       formData.append("file", file);
       formData.append("type", conversionType);
-      
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/convert`,
         formData,
@@ -64,9 +66,9 @@ export default function ConversionPageTemplate({
       setTaskId(response.data.taskId);
     } catch (err: any) {
       if (err.response?.status === 429) {
-        setError(err.response?.data?.message || "今日转换次数已用完，请明日再来");
+        setError(err.response?.data?.message || t("conversion.conversionFailed"));
       } else {
-        setError(err.response?.data?.message || "上传失败，请检查文件格式后重试");
+        setError(err.response?.data?.message || t("conversion.retryOrCheck"));
       }
     } finally {
       setIsUploading(false);
@@ -90,30 +92,30 @@ export default function ConversionPageTemplate({
 
   return (
     <div className="min-h-screen bg-theme">
-      {/* 背景装饰 */}
+      {/* Background decorations */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
         <div className="absolute top-1/2 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-500/10 to-rose-500/10 rounded-full blur-3xl" />
       </div>
 
-      {/* Hero区域 */}
+      {/* Hero section */}
       <section className="relative pt-12 pb-8">
         <div className="max-w-5xl mx-auto px-4">
-          {/* 面包屑 */}
+          {/* Breadcrumb */}
           <nav className="flex items-center space-x-2 text-sm text-theme-muted mb-8">
-            <Link href="/" className="hover:text-indigo-500 transition-colors">首页</Link>
+            <Link href="/" className="hover:text-indigo-500 transition-colors">{t("conversion.home")}</Link>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             <span className="text-theme font-medium">{title}</span>
           </nav>
 
-          {/* 标题区域 */}
+          {/* Title */}
           <div className="text-center mb-10">
             <div className="inline-flex items-center px-4 py-2 bg-theme-card border border-theme rounded-full text-sm font-medium mb-6">
               <span className="mr-2">🔄</span>
-              <span className="text-theme-muted">格式转换</span>
+              <span className="text-theme-muted">{t("conversion.formatConversion")}</span>
             </div>
             <h1 className="text-3xl md:text-5xl font-bold text-theme mb-4">
               {title}
@@ -123,7 +125,7 @@ export default function ConversionPageTemplate({
             </p>
           </div>
 
-          {/* 转换卡片 */}
+          {/* Conversion card */}
           <div className="glass-card rounded-3xl overflow-hidden max-w-3xl mx-auto">
             <div className={`${gradient} px-8 py-6`}>
               <div className="flex items-center space-x-4">
@@ -131,8 +133,8 @@ export default function ConversionPageTemplate({
                   {icon}
                 </div>
                 <div>
-                  <h2 className="text-white font-bold text-xl">开始转换</h2>
-                  <p className="text-white/80 text-sm">上传文件，一键转换</p>
+                  <h2 className="text-white font-bold text-xl">{t("conversion.startConversion")}</h2>
+                  <p className="text-white/80 text-sm">{t("conversion.uploadAndConvert")}</p>
                 </div>
               </div>
             </div>
@@ -191,7 +193,7 @@ export default function ConversionPageTemplate({
                 <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl flex items-start space-x-3 animate-slide-down">
                   <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <p className="text-red-600 dark:text-red-400 font-medium">转换失败</p>
+                    <p className="text-red-600 dark:text-red-400 font-medium">{t("conversion.conversionFailed")}</p>
                     <p className="text-red-500 dark:text-red-300/70 text-sm mt-1">{error}</p>
                   </div>
                   <button
@@ -205,7 +207,7 @@ export default function ConversionPageTemplate({
             </div>
           </div>
 
-          {/* 特色功能 */}
+          {/* Features */}
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
             {features.map((feature, index) => (
               <div key={index} className="glass-card p-6 text-center hover-lift">
@@ -218,12 +220,12 @@ export default function ConversionPageTemplate({
         </div>
       </section>
 
-      {/* 步骤说明 */}
+      {/* Steps */}
       <section className="py-16 bg-theme-secondary">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-theme mb-3">如何使用</h2>
-            <p className="text-theme-muted">简单三步，轻松完成转换</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-theme mb-3">{t("conversion.howToUse")}</h2>
+            <p className="text-theme-muted">{t("conversion.howToUseDesc")}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
@@ -249,8 +251,8 @@ export default function ConversionPageTemplate({
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-theme mb-3">常见问题</h2>
-            <p className="text-theme-muted">关于转换的常见疑问解答</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-theme mb-3">{t("conversion.faq")}</h2>
+            <p className="text-theme-muted">{t("conversion.faqDesc")}</p>
           </div>
 
           <div className="space-y-4">
@@ -267,10 +269,10 @@ export default function ConversionPageTemplate({
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-10 text-center text-white shadow-2xl">
             <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
             <div className="relative z-10">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">需要转换其他格式？</h2>
-              <p className="text-white/80 mb-8 text-lg">我们支持多种文件格式转换，全部免费使用</p>
+              <h2 className="text-2xl md:text-4xl font-bold mb-4">{t("conversion.otherFormats")}</h2>
+              <p className="text-white/80 mb-8 text-lg">{t("conversion.otherFormatsDesc")}</p>
               <Link href="/" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                查看所有工具
+                {t("conversion.viewAllTools")}
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

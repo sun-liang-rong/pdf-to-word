@@ -1,19 +1,29 @@
 "use client";
 
 import ConversionPageTemplate from "@/components/conversion/ConversionPageTemplate";
+import { useI18n } from "@/lib/i18n";
 import { FileImage } from "lucide-react";
 
-const faqItems = [{'question': 'PDF的每一页都会转换为图片吗？', 'answer': '是的，PDF的每一页都会被转换为单独的JPG图片文件。'}, {'question': '转换后的图片质量如何？', 'answer': '我们会以高质量进行转换，确保图片清晰可读。'}];
+export default function PdfToJpgClient() {
+  const { t } = useI18n();
 
-const features = [{'icon': '⚡', 'label': '极速转换', 'desc': '15秒内完成'}, {'icon': '🔒', 'label': '安全保障', 'desc': '30分钟删除'}, {'icon': '🎯', 'label': '高清画质', 'desc': '保留清晰度'}];
+  const faqItems = [
+    { question: t("tools_detail.pdfToJpg.faq.0.q"), answer: t("tools_detail.pdfToJpg.faq.0.a") },
+    { question: t("tools_detail.pdfToJpg.faq.1.q"), answer: t("tools_detail.pdfToJpg.faq.1.a") },
+  ];
 
-export default function ClientPage() {
+  const features = [
+    { icon: "⚡", label: t("conversion.commonFeatures.fast.label"), desc: t("conversion.commonFeatures.fast.desc") },
+    { icon: "🔒", label: t("conversion.commonFeatures.secure.label"), desc: t("conversion.commonFeatures.secure.desc") },
+    { icon: "🎯", label: t("tools_detail.pdfToJpg.features.accurate.label"), desc: t("tools_detail.pdfToJpg.features.accurate.desc") },
+  ];
+
   return (
     <ConversionPageTemplate
-      title="PDF转JPG在线转换器"
-      description="免费将PDF文件转换为JPG/PNG图片格式，支持单页或批量转换"
+      title={t("tools_detail.pdfToJpg.title")}
+      description={t("tools_detail.pdfToJpg.description")}
       conversionType="pdf-to-jpg"
-      accept={{"application/pdf": ['.pdf']}}
+      accept={{ "application/pdf": ['.pdf'] }}
       icon={<FileImage className="w-8 h-8" />}
       gradient="bg-gradient-to-r from-orange-500 to-red-500"
       outputExtension=".jpg"

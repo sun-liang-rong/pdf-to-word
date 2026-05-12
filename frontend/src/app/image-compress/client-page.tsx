@@ -1,19 +1,29 @@
 "use client";
 
 import ConversionPageTemplate from "@/components/conversion/ConversionPageTemplate";
+import { useI18n } from "@/lib/i18n";
 import { Image } from "lucide-react";
 
-const faqItems = [{'question': '压缩后图片质量如何？', 'answer': '我们采用智能压缩算法，在减小文件大小的同时尽可能保持画质。'}, {'question': '支持批量压缩吗？', 'answer': '支持多张图片批量压缩，提高效率。'}];
+export default function ImageCompressClient() {
+  const { t } = useI18n();
 
-const features = [{'icon': '⚡', 'label': '极速转换', 'desc': '15秒内完成'}, {'icon': '🔒', 'label': '安全保障', 'desc': '30分钟删除'}, {'icon': '🎯', 'label': '高压缩比', 'desc': '减小体积'}];
+  const faqItems = [
+    { question: t("tools_detail.imageCompress.faq.0.q"), answer: t("tools_detail.imageCompress.faq.0.a") },
+    { question: t("tools_detail.imageCompress.faq.1.q"), answer: t("tools_detail.imageCompress.faq.1.a") },
+  ];
 
-export default function ClientPage() {
+  const features = [
+    { icon: "⚡", label: t("conversion.commonFeatures.fast.label"), desc: t("conversion.commonFeatures.fast.desc") },
+    { icon: "🔒", label: t("conversion.commonFeatures.secure.label"), desc: t("conversion.commonFeatures.secure.desc") },
+    { icon: "🎯", label: t("tools_detail.imageCompress.features.accurate.label"), desc: t("tools_detail.imageCompress.features.accurate.desc") },
+  ];
+
   return (
     <ConversionPageTemplate
-      title="图片压缩在线工具"
-      description="免费压缩JPG/PNG图片文件大小，减小体积的同时保持画质"
+      title={t("tools_detail.imageCompress.title")}
+      description={t("tools_detail.imageCompress.description")}
       conversionType="image-compress"
-      accept={{"image/jpeg": ['.jpg', '.jpeg'], "image/png": ['.png']}}
+      accept={{ "image/jpeg": ['.jpg', '.jpeg'], "image/png": ['.png'] }}
       icon={<Image className="w-8 h-8" />}
       gradient="bg-gradient-to-r from-emerald-500 to-teal-500"
       outputExtension=".jpg"

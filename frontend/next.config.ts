@@ -1,7 +1,4 @@
 import type { NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
-
-const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -14,7 +11,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',        // 前端请求 /api/xxx
-        destination: 'http://localhost:3333/api/:path*', // 代理到后端 NestJS
+        destination: 'http://110.42.244.187:3001/api/:path*', // 代理到后端 NestJS
       },
     ];
   },
@@ -55,4 +52,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;

@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import clsx from "clsx";
 import { Upload, CheckCircle, XCircle, FileText } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 interface FileUploaderProps {
   accept: Record<string, string[]>;
@@ -24,6 +25,7 @@ export default function FileUploader({
   title,
   description,
 }: FileUploaderProps) {
+  const { t } = useI18n();
   const [error, setError] = useState<string | null>(null);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -48,13 +50,13 @@ export default function FileUploader({
     multiple,
     disabled: isUploading,
     onDropRejected: (rejections) => {
-      const error = rejections[0]?.errors[0];
-      if (error?.code === "file-too-large") {
-        setError(`文件大小超过限制 (最大 ${Math.round(maxSize / 1024 / 1024)}MB)`);
-      } else if (error?.code === "file-invalid-type") {
-        setError("文件类型不支持，请上传正确的文件格式");
+      const err = rejections[0]?.errors[0];
+      if (err?.code === "file-too-large") {
+        setError(t("upload.fileTooLarge").replace("{size}", String(Math.round(maxSize / 1024 / 1024))));
+      } else if (err?.code === "file-invalid-type") {
+        setError(t("upload.invalidType"));
       } else {
-        setError("文件上传失败，请重试");
+        setError(t("upload.uploadFailed"));
       }
     },
   });
@@ -67,10 +69,10 @@ export default function FileUploader({
     return "border-theme hover:border-indigo-400 hover:bg-theme-secondary";
   };
 
-  const defaultTitle = multiple ? "上传多个文件" : "上传文件";
-  const defaultDescription = multiple 
-    ? "支持批量上传，拖拽文件到此处或点击选择" 
-    : "拖拽文件到此处，或点击选择文件";
+  const defaultTitle = multiple ? t("upload.titleMultiple") : t("upload.title");
+  const defaultDescription = multiple
+    ? t("upload.dragDropMultiple")
+    : t("upload.dragDrop");
 
   return (
     <div className="w-full">
@@ -85,7 +87,7 @@ export default function FileUploader({
         onBlur={() => setIsFocused(false)}
       >
         <input {...getInputProps()} disabled={isUploading} />
-        
+
         {isUploading && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-theme/95 backdrop-blur rounded-3xl z-10">
             <div className="relative">
@@ -94,11 +96,11 @@ export default function FileUploader({
                 <Upload className="w-6 h-6 text-indigo-500" />
               </div>
             </div>
-            <p className="mt-4 text-indigo-600 dark:text-indigo-400 font-semibold text-lg">正在上传文件...</p>
-            <p className="text-sm text-theme-muted mt-1">请稍候，正在处理您的文件</p>
+            <p className="mt-4 text-indigo-600 dark:text-indigo-400 font-semibold text-lg">{t("upload.uploading")}</p>
+            <p className="text-sm text-theme-muted mt-1">{t("upload.pleaseWait")}</p>
           </div>
         )}
-        
+
         <div className={clsx("flex flex-col items-center", isUploading && "invisible")}>
           <div className={clsx(
             "w-20 h-20 rounded-3xl flex items-center justify-center mb-6 transition-all duration-300",
@@ -119,7 +121,7 @@ export default function FileUploader({
           {isDragActive ? (
             <div className="space-y-2">
               <p className="text-xl font-semibold text-theme">
-                {isDragAccept ? "释放文件以上传" : "文件格式不支持"}
+                {isDragAccept ? t("upload.releaseToUpload") : t("upload.formatNotSupported")}
               </p>
             </div>
           ) : (
@@ -136,10 +138,10 @@ export default function FileUploader({
           <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-theme-muted flex-wrap">
             <span className="flex items-center whitespace-nowrap">
               <FileText className="w-4 h-4 mr-1" />
-              最大 {Math.round(maxSize / 1024 / 1024)}MB
+              {t("upload.maxSize").replace("{size}", String(Math.round(maxSize / 1024 / 1024)))}
             </span>
             <span className="w-1 h-1 bg-theme rounded-full"></span>
-            <span>{multiple ? "支持多文件" : "支持单文件"}</span>
+            <span>{multiple ? t("upload.multipleFiles") : t("upload.singleFile")}</span>
           </div>
         </div>
       </div>
@@ -149,9 +151,9 @@ export default function FileUploader({
           <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
             <p className="text-base text-red-600 dark:text-red-400 font-medium break-words">{error}</p>
-            <p className="text-sm text-red-500 dark:text-red-300/70 mt-1">请检查文件格式和大小后重试</p>
+            <p className="text-sm text-red-500 dark:text-red-300/70 mt-1">{t("upload.checkFormat")}</p>
           </div>
-          <button 
+          <button
             onClick={() => setError(null)}
             className="text-red-400 hover:text-red-500 transition-colors flex-shrink-0"
           >

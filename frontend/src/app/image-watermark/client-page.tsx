@@ -1,19 +1,29 @@
 "use client";
 
 import ConversionPageTemplate from "@/components/conversion/ConversionPageTemplate";
+import { useI18n } from "@/lib/i18n";
 import { Droplets } from "lucide-react";
 
-const faqItems = [{'question': '支持文字水印吗？', 'answer': '支持添加自定义文字水印，可以设置字体、颜色和位置。'}, {'question': '可以调整水印透明度吗？', 'answer': '支持调整水印的透明度和旋转角度。'}];
+export default function ImageWatermarkClient() {
+  const { t } = useI18n();
 
-const features = [{'icon': '⚡', 'label': '极速转换', 'desc': '15秒内完成'}, {'icon': '🔒', 'label': '安全保障', 'desc': '30分钟删除'}, {'icon': '🎯', 'label': '自定义样式', 'desc': '灵活设置'}];
+  const faqItems = [
+    { question: t("tools_detail.imageWatermark.faq.0.q"), answer: t("tools_detail.imageWatermark.faq.0.a") },
+    { question: t("tools_detail.imageWatermark.faq.1.q"), answer: t("tools_detail.imageWatermark.faq.1.a") },
+  ];
 
-export default function ClientPage() {
+  const features = [
+    { icon: "⚡", label: t("conversion.commonFeatures.fast.label"), desc: t("conversion.commonFeatures.fast.desc") },
+    { icon: "🔒", label: t("conversion.commonFeatures.secure.label"), desc: t("conversion.commonFeatures.secure.desc") },
+    { icon: "🎯", label: t("tools_detail.imageWatermark.features.accurate.label"), desc: t("tools_detail.imageWatermark.features.accurate.desc") },
+  ];
+
   return (
     <ConversionPageTemplate
-      title="图片水印在线工具"
-      description="免费为图片添加文字或图片水印，支持自定义水印样式"
+      title={t("tools_detail.imageWatermark.title")}
+      description={t("tools_detail.imageWatermark.description")}
       conversionType="image-watermark"
-      accept={{"image/jpeg": ['.jpg', '.jpeg'], "image/png": ['.png']}}
+      accept={{ "image/jpeg": ['.jpg', '.jpeg'], "image/png": ['.png'] }}
       icon={<Droplets className="w-8 h-8" />}
       gradient="bg-gradient-to-r from-sky-500 to-indigo-500"
       outputExtension=".jpg"

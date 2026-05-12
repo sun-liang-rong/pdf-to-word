@@ -1,141 +1,441 @@
 {
-  "metadata": {
-    "title": "PDF转换器 - 免费在线PDF转Word、Word转PDF工具",
-    "description": "免费在线PDF转换工具，支持PDF转Word、Word转PDF、PDF转JPG、JPG转PDF等多种格式转换，快速、安全、无需注册。",
-    "keywords": "PDF转换器,PDF转Word,Word转PDF,在线PDF转换,免费PDF转换"
-  },
-  "nav": {
-    "home": "首页",
-    "tools": "工具",
+  "header": {
     "blog": "博客",
-    "about": "关于",
-    "contact": "联系我们"
-  },
-  "hero": {
-    "title": "免费在线PDF转换工具",
-    "subtitle": "支持PDF与Word、图片等多种格式互转，快速、安全、无需注册",
-    "cta": "开始使用"
-  },
-  "tools": {
-    "title": "PDF工具",
-    "subtitle": "专业的PDF处理工具，满足您的各种需求",
-    "popular": "🔥 热门工具",
-    "categories": {
-      "pdf": "📄 PDF工具",
-      "image": "🖼️ 图片工具",
-      "edit": "PDF编辑"
-    },
-    "items": {
-      "pdfToWord": {
-        "title": "PDF转Word",
-        "description": "将PDF文件转换为可编辑的Word文档，保留原有格式和排版"
-      },
-      "wordToPdf": {
-        "title": "Word转PDF",
-        "description": "将Word文档转换为PDF格式，确保文档格式不被篡改"
-      },
-      "pdfToJpg": {
-        "title": "PDF转JPG",
-        "description": "将PDF文件的每一页转换为高清JPG图片"
-      },
-      "jpgToPdf": {
-        "title": "JPG转PDF",
-        "description": "将多张JPG/PNG图片合并转换为单个PDF文件"
-      },
-      "mergePdf": {
-        "title": "PDF合并",
-        "description": "将多个PDF文件合并为一个，支持拖拽排序"
-      },
-      "compressPdf": {
-        "title": "PDF压缩",
-        "description": "智能压缩PDF文件大小，保持清晰度便于分享"
-      },
-      "removePages": {
-        "title": "PDF删除页面",
-        "description": "可视化删除PDF中的指定页面，操作简单直观"
-      },
-      "rearrangePdf": {
-        "title": "PDF排序",
-        "description": "拖拽调整PDF页面顺序，实时预览调整结果"
-      },
-      "splitPdf": {
-        "title": "PDF拆分",
-        "description": "将PDF文件拆分为多个独立文件"
-      },
-      "imageCompress": {
-        "title": "图片压缩",
-        "description": "智能压缩图片大小，支持JPG、PNG、WebP格式"
-      },
-      "imageWatermark": {
-        "title": "图片水印",
-        "description": "为图片添加文字或图片水印，保护版权"
-      }
+    "allTools": "全部工具",
+    "pdfTools": "PDF工具",
+    "imageTools": "图片工具",
+    "useNow": "立即使用",
+    "startUsing": "开始使用",
+    "tools": {
+      "pdfToWord": { "title": "PDF转Word", "desc": "转可编辑Word" },
+      "wordToPdf": { "title": "Word转PDF", "desc": "一键转换" },
+      "pdfToJpg": { "title": "PDF转JPG", "desc": "高清图片" },
+      "jpgToPdf": { "title": "JPG转PDF", "desc": "图片合并" },
+      "mergePdf": { "title": "PDF合并", "desc": "多文件合一" },
+      "compressPdf": { "title": "PDF压缩", "desc": "减小体积" },
+      "removePages": { "title": "删除页面", "desc": "页面裁剪" },
+      "splitPdf": { "title": "拆分PDF", "desc": "文件拆分" },
+      "rearrangePdf": { "title": "重新排列", "desc": "调整顺序" },
+      "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
+      "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
     }
-  },
-  "features": {
-    "title": "为什么选择我们",
-    "items": {
-      "free": {
-        "title": "完全免费",
-        "description": "所有功能均可免费使用，无需付费订阅"
-      },
-      "security": {
-        "title": "安全可靠",
-        "description": "文件在本地处理，上传后自动删除，保护隐私"
-      },
-      "fast": {
-        "title": "快速高效",
-        "description": "采用先进技术，转换速度快，无需等待"
-      },
-      "easy": {
-        "title": "简单易用",
-        "description": "直观的操作界面，三步完成转换"
-      }
-    }
-  },
-  "upload": {
-    "title": "上传文件",
-    "dragDrop": "拖拽文件到这里，或点击上传",
-    "supportedFormats": "支持格式",
-    "maxSize": "最大文件大小",
-    "selectFile": "选择文件",
-    "processing": "处理中...",
-    "converting": "转换中...",
-    "uploading": "上传中..."
-  },
-  "common": {
-    "convert": "转换",
-    "download": "下载",
-    "preview": "预览",
-    "delete": "删除",
-    "cancel": "取消",
-    "confirm": "确认",
-    "back": "返回",
-    "next": "下一步",
-    "finish": "完成",
-    "close": "关闭",
-    "success": "成功",
-    "error": "错误",
-    "warning": "警告",
-    "info": "提示",
-    "loading": "加载中...",
-    "empty": "暂无数据",
-    "retry": "重试",
-    "copy": "复制",
-    "copied": "已复制"
   },
   "footer": {
-    "copyright": "保留所有权利.",
+    "copyright": "保留所有权利",
     "privacy": "隐私政策",
-    "terms": "服务条款",
-    "contact": "联系我们",
-    "toPdf": "转换为 PDF",
-    "fromPdf": "从 PDF 转换",
-    "pdfTools": "PDF 工具"
+    "terms": "使用条款",
+    "about": "关于我们",
+    "sslEncrypted": "SSL加密",
+    "autoDelete": "30分钟自动删除"
   },
   "language": {
     "title": "语言",
     "zh": "中文",
     "en": "English"
+  },
+  "home": {
+    "badge": "完全免费 · 无需注册",
+    "title1": "PDF转换",
+    "title2": "从未如此简单",
+    "subtitle": "支持多种格式转换，极速、安全、完全免费",
+    "dragDrop": "拖拽文件至此 或 点击选择",
+    "supportedFormats": "支持 PDF, DOC, DOCX, JPG, PNG 等格式",
+    "allTools": "全部工具",
+    "whyChooseUs": "为什么选择我们",
+    "whyChooseUsDesc": "值得信赖的在线文档处理平台",
+    "readyTitle": "准备好开始转换了吗？",
+    "readyDesc": "完全免费，无需注册，立即开始使用",
+    "convertNow": "立即转换",
+    "stats": {
+      "users": "累计用户",
+      "files": "转换文件",
+      "free": "完全免费",
+      "security": "安全保障"
+    },
+    "advantages": {
+      "free": { "title": "完全免费", "desc": "所有功能免费使用，无需注册，无隐藏收费" },
+      "security": { "title": "安全可靠", "desc": "SSL加密传输，文件处理后30分钟自动删除" },
+      "fast": { "title": "极速转换", "desc": "高效转换引擎，秒级完成文档格式转换" },
+      "accurate": { "title": "精准还原", "desc": "智能格式识别，最大程度保留原始排版" }
+    },
+    "tools": {
+      "pdfToWord": { "title": "PDF转Word", "desc": "转可编辑文档" },
+      "wordToPdf": { "title": "Word转PDF", "desc": "一键转换" },
+      "pdfToJpg": { "title": "PDF转JPG", "desc": "高清图片" },
+      "jpgToPdf": { "title": "JPG转PDF", "desc": "图片合并" },
+      "mergePdf": { "title": "PDF合并", "desc": "多文件合一" },
+      "compressPdf": { "title": "PDF压缩", "desc": "减小体积" },
+      "removePages": { "title": "删除页面", "desc": "页面裁剪" },
+      "splitPdf": { "title": "拆分PDF", "desc": "文件拆分" },
+      "rearrangePdf": { "title": "重新排列", "desc": "调整顺序" },
+      "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
+      "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
+    }
+  },
+  "conversion": {
+    "home": "首页",
+    "formatConversion": "格式转换",
+    "startConversion": "开始转换",
+    "uploadAndConvert": "上传文件，一键转换",
+    "features": "特色功能",
+    "howToUse": "如何使用",
+    "howToUseDesc": "简单三步，轻松完成转换",
+    "faq": "常见问题",
+    "faqDesc": "关于转换的常见疑问解答",
+    "otherFormats": "需要转换其他格式？",
+    "otherFormatsDesc": "我们支持多种文件格式转换，全部免费使用",
+    "viewAllTools": "查看所有工具",
+    "steps": {
+      "upload": { "title": "上传文件", "description": "点击或拖拽上传您的文件" },
+      "convert": { "title": "自动转换", "description": "系统自动识别并开始转换" },
+      "download": { "title": "下载文件", "description": "转换完成后点击下载获取文件" }
+    },
+    "commonFeatures": {
+      "fast": { "label": "极速转换", "desc": "15秒内完成" },
+      "secure": { "label": "安全保障", "desc": "30分钟删除" }
+    },
+    "conversionFailed": "转换失败",
+    "retryOrCheck": "请检查文件格式后重试"
+  },
+  "upload": {
+    "title": "上传文件",
+    "titleMultiple": "上传多个文件",
+    "dragDrop": "拖拽文件到此处，或点击选择文件",
+    "dragDropMultiple": "支持批量上传，拖拽文件到此处或点击选择",
+    "releaseToUpload": "释放文件以上传",
+    "formatNotSupported": "文件格式不支持",
+    "maxSize": "最大 {size}MB",
+    "singleFile": "支持单文件",
+    "multipleFiles": "支持多文件",
+    "uploading": "正在上传文件...",
+    "pleaseWait": "请稍候，正在处理您的文件",
+    "fileTooLarge": "文件大小超过限制 (最大 {size}MB)",
+    "invalidType": "文件类型不支持，请上传正确的文件格式",
+    "uploadFailed": "文件上传失败，请重试",
+    "checkFormat": "请检查文件格式和大小后重试"
+  },
+  "progress": {
+    "initializing": "正在初始化...",
+    "upload": "上传文件",
+    "processing": "转换中",
+    "complete": "完成",
+    "waiting": "正在排队等待处理...",
+    "converting": "正在转换文件中...",
+    "done": "转换完成！",
+    "failed": "转换失败",
+    "processingStatus": "处理中...",
+    "waitingDesc": "系统正在准备处理您的文件",
+    "convertingDesc": "请稍候，正在努力转换中",
+    "doneDesc": "文件已成功转换，正在准备下载",
+    "failedDesc": "转换过程中出现错误",
+    "progressLabel": "转换进度",
+    "processingDots": "正在处理中...",
+    "waitTip": "转换时间取决于文件大小和页数，请耐心等待，不要关闭页面"
+  },
+  "download": {
+    "success": "转换成功！",
+    "successDesc": "您的文件已成功转换，点击下方按钮下载",
+    "converted": "转换完成",
+    "downloadFile": "下载文件",
+    "downloading": "下载中...",
+    "convertOther": "转换其他文件",
+    "autoDelete": "文件将在 30 分钟后自动删除",
+    "expired": "文件已过期或不存在，请重新上传转换",
+    "downloadFailed": "下载失败，请稍后重试"
+  },
+  "about": {
+    "badge": "关于我们",
+    "title": "让 PDF 处理更简单",
+    "subtitle": "我们致力于为用户提供最优质的在线 PDF 转换服务，完全免费、无需注册、安全可靠。",
+    "mission": "我们的使命",
+    "features": {
+      "easy": { "title": "简单易用", "desc": "无需复杂的学习过程，拖拽上传即可完成转换。支持所有主流浏览器，随时随地使用。" },
+      "secure": { "title": "安全可靠", "desc": "所有上传的文件会在 30 分钟后自动删除，采用 SSL 加密传输，我们不会存储或分享您的任何文件。" },
+      "free": { "title": "完全免费", "desc": "所有转换功能完全免费使用，无需注册账号，无隐藏费用，无水印。" },
+      "fast": { "title": "极速转换", "desc": "采用高性能转换引擎，10MB 文件 15 秒内完成转换。支持多种格式互转。" }
+    },
+    "techStack": "技术栈",
+    "techStackTitle": "强大的技术支持",
+    "openSource": "开源项目",
+    "openSourceTitle": "感谢开源社区",
+    "openSourceDesc": "我们感谢以下开源项目，它们是我们服务的重要组成部分",
+    "readyTitle": "准备好开始了吗？",
+    "readyDesc": "立即体验免费、快速、安全的 PDF 转换服务",
+    "startUsing": "开始使用"
+  },
+  "contact": {
+    "badge": "联系我们",
+    "title": "我们很高兴听到您的声音",
+    "subtitle": "如果您有任何问题、建议或反馈，请随时与我们联系。我们会尽快回复您。",
+    "contactMethods": "联系方式",
+    "email": "电子邮件",
+    "emailDesc": "发送邮件至以下地址，我们会在 24 小时内回复：",
+    "github": "GitHub",
+    "githubDesc": "在 GitHub 上查看我们的项目，提交 Issue 或 Pull Request：",
+    "faq": "常见问题",
+    "faqItems": {
+      "feedback": { "q": "如何反馈功能建议？", "a": "您可以通过电子邮件或 GitHub 发送您的功能建议。我们会认真考虑每一个建议，并尽可能将其纳入未来的开发计划。" },
+      "bug": { "q": "发现 Bug 怎么报告？", "a": "请在 GitHub 上提交 Issue，描述问题的详细信息，包括您使用的浏览器、文件类型和错误信息。我们会尽快修复。" },
+      "replyTime": { "q": "回复时间需要多久？", "a": "我们通常会在 24 小时内回复您的邮件。紧急问题会优先处理。" },
+      "api": { "q": "可以申请 API 接入吗？", "a": "目前我们暂不提供公开 API。如有商业合作需求，请通过邮件联系我们讨论具体方案。" }
+    },
+    "startNow": "立即开始使用",
+    "startNowDesc": "体验免费、快速、安全的 PDF 转换服务",
+    "startConvert": "开始转换"
+  },
+  "privacy": {
+    "badge": "隐私政策",
+    "title": "隐私政策",
+    "lastUpdated": "最后更新日期：2024年1月1日",
+    "features": {
+      "ssl": { "title": "SSL 加密传输", "desc": "所有数据传输均采用 SSL/TLS 加密，确保数据安全。" },
+      "autoDelete": { "title": "30 分钟自动删除", "desc": "所有上传的文件在处理完成后 30 分钟内自动从服务器删除。" },
+      "noStore": { "title": "不存储敏感信息", "desc": "我们不会存储您的账户信息、密码或其他敏感个人数据。" }
+    },
+    "sections": {
+      "intro": { "title": "引言", "content": "PDF转换器（以下简称\"我们\"）致力于保护用户的隐私和数据安全。本隐私政策旨在向您说明我们如何收集、使用、存储和保护您的个人信息。使用我们的服务即表示您同意本隐私政策的条款。" },
+      "collection": {
+        "title": "数据收集",
+        "content": "我们收集的信息仅用于提供和改进服务。具体包括：",
+        "items": [
+          "上传的文件：您上传的 PDF、Word 或图片文件仅用于转换处理，不用于其他目的。",
+          "技术信息：浏览器类型、设备类型等用于优化服务体验。",
+          "使用数据：访问时间、使用的功能等用于改进服务质量。"
+        ]
+      },
+      "usage": {
+        "title": "数据使用",
+        "content": "我们收集的数据仅用于以下目的：",
+        "items": [
+          "提供 PDF 转换服务",
+          "改进和优化服务性能",
+          "保障服务安全，防止滥用",
+          "提供技术支持（仅在您主动联系我们时）"
+        ]
+      },
+      "thirdParty": {
+        "title": "第三方服务",
+        "content": "我们不与任何第三方分享您的文件数据。我们可能使用以下第三方服务来运营网站，但这些服务不会访问您的文件内容：",
+        "items": [
+          "网站分析工具（用于了解网站使用情况）",
+          "CDN 服务（用于加速内容分发）"
+        ]
+      },
+      "cookies": {
+        "title": "Cookie 使用",
+        "content": "我们使用 Cookie 来：",
+        "items": [
+          "记住您的主题偏好（亮色/暗色模式）",
+          "分析网站使用情况以改进服务"
+        ],
+        "extra": "您可以通过浏览器设置管理 Cookie。禁用 Cookie 可能会影响部分功能的使用体验。"
+      },
+      "rights": {
+        "title": "您的权利",
+        "content": "您有权：",
+        "items": [
+          "了解我们收集了哪些数据",
+          "要求删除您的数据（文件会在 30 分钟内自动删除）",
+          "停止使用我们的服务",
+          "联系我们询问隐私相关问题"
+        ]
+      },
+      "children": { "title": "儿童隐私", "content": "我们的服务不面向 13 岁以下的儿童。如果您是家长并发现您的孩子使用了我们的服务，请联系我们，我们会采取相应措施。" },
+      "changes": { "title": "政策变更", "content": "我们可能会不时更新本隐私政策。重大变更会在本页面公布。建议您定期查看本政策以了解最新信息。" },
+      "contact": { "title": "联系我们", "content": "如有任何隐私相关问题，请通过以下方式联系我们：" }
+    },
+    "email": "电子邮件",
+    "github": "GitHub"
+  },
+  "terms": {
+    "badge": "服务条款",
+    "title": "服务条款",
+    "lastUpdated": "最后更新日期：2024年1月1日",
+    "services": [
+      "PDF 转 Word 文档",
+      "Word 转 PDF",
+      "PDF 转 JPG 图片",
+      "JPG/PNG 转 PDF",
+      "PDF 合并",
+      "PDF 压缩",
+      "PDF 页面删除",
+      "PDF 页面排序",
+      "PDF 拆分",
+      "图片压缩",
+      "图片加水印"
+    ],
+    "usageRules": [
+      "仅上传您有权处理的文件",
+      "不上传包含非法、有害或侵权内容的文件",
+      "不尝试破坏、干扰或滥用本服务",
+      "不使用自动化工具大规模调用本服务",
+      "遵守所在地区的法律法规"
+    ],
+    "sections": {
+      "accept": { "title": "接受条款", "content": "使用 PDF转换器（以下简称\"我们\"或\"本服务\"）即表示您同意遵守本服务条款。如果您不同意这些条款，请勿使用本服务。我们保留随时修改这些条款的权利，修改后的条款在本页面公布后立即生效。" },
+      "description": { "title": "服务描述", "content": "PDF转换器提供以下在线文档处理服务：" },
+      "rules": { "title": "使用规则", "content": "使用本服务时，您同意：", "warning": "⚠️ 注意：单个文件大小限制为 20MB。超过此限制的文件无法处理。" },
+      "ip": { "title": "知识产权", "content": "您上传的文件和转换结果中包含的内容的知识产权归原所有者所有。本服务不获取、不主张、不转移任何知识产权。我们仅提供技术转换服务，对文件内容不拥有任何权利。", "extra": "本网站的设计、代码、商标等归我们所有，未经授权不得复制或使用。" },
+      "privacy": {
+        "title": "隐私保护",
+        "content": "我们重视您的隐私。请参阅我们的隐私政策了解详细信息。",
+        "items": [
+          "所有上传的文件在 30 分钟后自动删除",
+          "采用 SSL 加密传输",
+          "不存储用户个人信息"
+        ]
+      },
+      "disclaimer": {
+        "title": "免责声明",
+        "content": "本服务按\"现状\"提供，不提供任何明示或暗示的保证，包括但不限于：",
+        "items": [
+          "转换结果的准确性和完整性",
+          "服务的持续可用性",
+          "转换结果的格式保持程度",
+          "特定用途的适用性"
+        ],
+        "extra": "对于扫描版 PDF，转换效果取决于原始文档的清晰度，可能无法完美还原。我们不对转换结果的使用后果承担任何责任。"
+      },
+      "liability": {
+        "title": "责任限制",
+        "content": "在适用法律允许的最大范围内，我们不对以下情况承担责任：",
+        "items": [
+          "服务中断或不可用",
+          "数据丢失或损坏",
+          "因使用本服务导致的任何直接或间接损失",
+          "第三方行为造成的损害"
+        ]
+      },
+      "termination": {
+        "title": "服务终止",
+        "content": "我们保留在以下情况下终止或限制您使用本服务的权利：",
+        "items": [
+          "您违反本服务条款",
+          "您的行为损害其他用户或本服务",
+          "法律法规要求"
+        ]
+      },
+      "changes": { "title": "条款变更", "content": "我们可能随时修改本服务条款。修改后的条款将在本页面公布。继续使用本服务即表示您接受修改后的条款。建议您定期查看本页面以了解最新条款。" },
+      "law": { "title": "适用法律", "content": "本服务条款受中华人民共和国法律管辖。如有争议，双方应友好协商解决；协商不成的，可向有管辖权的人民法院提起诉讼。" },
+      "contact": { "title": "联系我们", "content": "如有任何关于本服务条款的问题，请通过以下方式联系我们：" }
+    },
+    "email": "电子邮件",
+    "github": "GitHub"
+  },
+  "blog": {
+    "title": "PDF 转换指南",
+    "subtitle": "学习 PDF 处理技巧、格式转换教程和文档优化方法",
+    "readingTime": "{minutes} 分钟阅读",
+    "comingSoon": "博客文章即将上线",
+    "comingSoonDesc": "我们正在准备高质量的 PDF 转换教程，敬请期待！",
+    "readyTitle": "准备好转换您的文档了吗？",
+    "readyDesc": "使用我们的免费在线工具，快速、安全地完成 PDF 与 Word 之间的转换",
+    "wordToPdf": "Word 转 PDF",
+    "pdfToWord": "PDF 转 Word"
+  },
+  "tools_detail": {
+    "pdfToWord": {
+      "title": "PDF转Word在线转换器",
+      "description": "免费将PDF文件转换为可编辑的Word文档(.doc/.docx)，保留原有格式和排版",
+      "faq": [
+        { "q": "PDF转Word后格式会乱吗？", "a": "我们的转换引擎采用先进的OCR技术和格式识别算法，能够最大程度保留原文档的排版、图片和表格。" },
+        { "q": "扫描版PDF能转换吗？", "a": "可以。我们的系统支持OCR识别，能够将扫描版PDF转换为可编辑的Word文档。" }
+      ],
+      "features": { "accurate": { "label": "精准还原", "desc": "保留原格式" } }
+    },
+    "wordToPdf": {
+      "title": "Word转PDF在线转换器",
+      "description": "免费将Word文档(.doc/.docx)转换为PDF格式，完美保留原有排版和格式",
+      "faq": [
+        { "q": "Word转PDF后格式会变化吗？", "a": "我们的转换引擎能够完美保留Word文档的格式、图片、表格和排版。" },
+        { "q": "支持哪些Word格式？", "a": "支持.doc和.docx两种Word格式，推荐使用.docx格式以获得最佳转换效果。" }
+      ],
+      "features": { "accurate": { "label": "精准还原", "desc": "保留原格式" } }
+    },
+    "pdfToJpg": {
+      "title": "PDF转JPG在线转换器",
+      "description": "免费将PDF文件转换为JPG/PNG图片格式，支持单页或批量转换",
+      "faq": [
+        { "q": "PDF的每一页都会转换为图片吗？", "a": "是的，PDF的每一页都会被转换为单独的JPG图片文件。" },
+        { "q": "转换后的图片质量如何？", "a": "我们会以高质量进行转换，确保图片清晰可读。" }
+      ],
+      "features": { "accurate": { "label": "高清画质", "desc": "保留清晰度" } }
+    },
+    "jpgToPdf": {
+      "title": "JPG转PDF在线转换器",
+      "description": "免费将JPG/PNG图片合并转换为PDF文件，支持多图片合并",
+      "faq": [
+        { "q": "支持多张图片合并吗？", "a": "可以，您可以上传多张图片，我们会将它们合并为一个PDF文件。" },
+        { "q": "支持哪些图片格式？", "a": "支持JPG、JPEG、PNG等常见图片格式。" }
+      ],
+      "features": { "accurate": { "label": "批量合并", "desc": "多图合一" } }
+    },
+    "mergePdf": {
+      "title": "PDF合并在线工具",
+      "description": "免费将多个PDF文件合并为一个PDF文档，保留原有格式",
+      "faq": [
+        { "q": "可以合并多个PDF文件吗？", "a": "可以，您可以上传多个PDF文件，我们会将它们合并为一个文件。" },
+        { "q": "合并后的顺序可以调整吗？", "a": "是的，上传后可以调整PDF文件的顺序。" }
+      ],
+      "features": { "accurate": { "label": "顺序可调", "desc": "自定义顺序" } }
+    },
+    "compressPdf": {
+      "title": "PDF压缩在线工具",
+      "description": "免费压缩PDF文件大小，减小体积的同时保持画质",
+      "faq": [
+        { "q": "压缩后画质会受影响吗？", "a": "我们采用智能压缩算法，在减小文件大小的同时尽可能保持画质。" },
+        { "q": "可以压缩到多小？", "a": "压缩效果取决于原PDF的内容，通常可减小30-70%的体积。" }
+      ],
+      "features": { "accurate": { "label": "高压缩比", "desc": "减小体积" } }
+    },
+    "removePages": {
+      "title": "PDF删除页面工具",
+      "description": "免费删除PDF文件中的指定页面，保留其他页面",
+      "faq": [
+        { "q": "可以删除多个页面吗？", "a": "可以，支持删除单个或多个PDF页面。" },
+        { "q": "删除后的页面可以恢复吗？", "a": "删除操作不可恢复，请确认后再进行操作。" }
+      ],
+      "features": { "accurate": { "label": "精准删除", "desc": "指定页面" } }
+    },
+    "splitPdf": {
+      "title": "PDF拆分在线工具",
+      "description": "免费将PDF文件拆分为多个文档，支持按页拆分",
+      "faq": [
+        { "q": "可以按页码范围拆分吗？", "a": "支持按页码范围或单页拆分PDF文件。" },
+        { "q": "拆分后的文件质量如何？", "a": "拆分后的PDF保留原有的质量和格式。" }
+      ],
+      "features": { "accurate": { "label": "灵活拆分", "desc": "按页拆分" } }
+    },
+    "rearrangePdf": {
+      "title": "PDF页面排序工具",
+      "description": "免费调整PDF文件中页面的顺序，支持拖拽排序",
+      "faq": [
+        { "q": "如何调整页面顺序？", "a": "上传后可以通过拖拽方式调整PDF页面的顺序。" },
+        { "q": "可以复制页面吗？", "a": "支持复制PDF中的页面，生成包含重复页面的新PDF。" }
+      ],
+      "features": { "accurate": { "label": "拖拽排序", "desc": "轻松调整" } }
+    },
+    "imageCompress": {
+      "title": "图片压缩在线工具",
+      "description": "免费压缩JPG/PNG图片文件大小，减小体积的同时保持画质",
+      "faq": [
+        { "q": "压缩后图片质量如何？", "a": "我们采用智能压缩算法，在减小文件大小的同时尽可能保持画质。" },
+        { "q": "支持批量压缩吗？", "a": "支持多张图片批量压缩，提高效率。" }
+      ],
+      "features": { "accurate": { "label": "高压缩比", "desc": "减小体积" } }
+    },
+    "imageWatermark": {
+      "title": "图片水印在线工具",
+      "description": "免费为图片添加文字或图片水印，支持自定义水印样式",
+      "faq": [
+        { "q": "支持文字水印吗？", "a": "支持添加自定义文字水印，可以设置字体、颜色和位置。" },
+        { "q": "可以调整水印透明度吗？", "a": "支持调整水印的透明度和旋转角度。" }
+      ],
+      "features": { "accurate": { "label": "自定义样式", "desc": "灵活设置" } }
+    }
+  },
+  "metadata": {
+    "siteTitle": "PDF转换器 - 免费在线PDF转换工具",
+    "siteDescription": "免费在线PDF转换工具，支持PDF与Word、图片等多种格式互转。快速、安全、无需注册，让文档处理更简单。"
   }
 }

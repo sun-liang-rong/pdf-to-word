@@ -2,7 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Loader, CheckCircle, FileText } from "lucide-react";
+import { Loader, FileText } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 interface ConversionProgressProps {
   taskId: string;
@@ -18,17 +19,19 @@ interface TaskStatus {
   error?: string;
 }
 
-const steps = [
-  { id: "upload", label: "上传文件", icon: "📤" },
-  { id: "process", label: "转换中", icon: "⚙️" },
-  { id: "complete", label: "完成", icon: "✅" },
-];
-
 export default function ConversionProgress({
   taskId,
   onComplete,
   onError,
 }: ConversionProgressProps) {
+  const { t } = useI18n();
+
+  const steps = [
+    { id: "upload", label: t("progress.upload"), icon: "📤" },
+    { id: "process", label: t("progress.processing"), icon: "⚙️" },
+    { id: "complete", label: t("progress.complete"), icon: "✅" },
+  ];
+
   const { data, isLoading } = useQuery({
     queryKey: ["task", taskId],
     queryFn: async () => {
@@ -54,7 +57,7 @@ export default function ConversionProgress({
           <div className="relative">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-200 dark:border-indigo-900 border-t-indigo-500"></div>
           </div>
-          <span className="mt-4 text-theme-muted font-medium">正在初始化...</span>
+          <span className="mt-4 text-theme-muted font-medium">{t("progress.initializing")}</span>
         </div>
       </div>
     );
@@ -68,19 +71,15 @@ export default function ConversionProgress({
   }
 
   if (status === "failed") {
-    setTimeout(() => onError(data.error || "转换失败"), 0);
+    setTimeout(() => onError(data.error || t("progress.failed")), 0);
   }
 
   const getCurrentStep = () => {
     switch (status) {
-      case "waiting":
-        return 0;
-      case "processing":
-        return 1;
-      case "completed":
-        return 2;
-      default:
-        return 0;
+      case "waiting": return 0;
+      case "processing": return 1;
+      case "completed": return 2;
+      default: return 0;
     }
   };
 
@@ -88,31 +87,21 @@ export default function ConversionProgress({
 
   const getStatusText = () => {
     switch (status) {
-      case "waiting":
-        return "正在排队等待处理...";
-      case "processing":
-        return "正在转换文件中...";
-      case "completed":
-        return "转换完成！";
-      case "failed":
-        return "转换失败";
-      default:
-        return "处理中...";
+      case "waiting": return t("progress.waiting");
+      case "processing": return t("progress.converting");
+      case "completed": return t("progress.done");
+      case "failed": return t("progress.failed");
+      default: return t("progress.processingStatus");
     }
   };
 
   const getStatusDescription = () => {
     switch (status) {
-      case "waiting":
-        return "系统正在准备处理您的文件";
-      case "processing":
-        return "请稍候，正在努力转换中";
-      case "completed":
-        return "文件已成功转换，正在准备下载";
-      case "failed":
-        return "转换过程中出现错误";
-      default:
-        return "";
+      case "waiting": return t("progress.waitingDesc");
+      case "processing": return t("progress.convertingDesc");
+      case "completed": return t("progress.doneDesc");
+      case "failed": return t("progress.failedDesc");
+      default: return "";
     }
   };
 
@@ -121,7 +110,7 @@ export default function ConversionProgress({
       <div className="mb-8">
         <div className="flex items-center justify-between relative">
           <div className="absolute left-0 right-0 top-1/2 h-1.5 bg-theme-secondary -translate-y-1/2 rounded-full">
-            <div 
+            <div
               className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-500"
               style={{ width: `${Math.min(((currentStep) / (steps.length - 1)) * 100 + (status === "processing" ? (progress / steps.length) : 0), 100)}%` }}
             />
@@ -178,7 +167,7 @@ export default function ConversionProgress({
           </div>
 
           <div className="flex justify-between items-center mt-3">
-            <span className="text-sm text-theme-muted">转换进度</span>
+            <span className="text-sm text-theme-muted">{t("progress.progressLabel")}</span>
             <span className="text-2xl font-bold gradient-text">{progress}%</span>
           </div>
         </div>
@@ -194,7 +183,7 @@ export default function ConversionProgress({
                 />
               ))}
             </div>
-            <span className="text-sm text-theme-muted">正在处理中...</span>
+            <span className="text-sm text-theme-muted">{t("progress.processingDots")}</span>
           </div>
         )}
 
@@ -202,7 +191,7 @@ export default function ConversionProgress({
           <div className="flex items-start space-x-3">
             <FileText className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
             <p className="text-sm text-theme-muted">
-              转换时间取决于文件大小和页数，请耐心等待，不要关闭页面
+              {t("progress.waitTip")}
             </p>
           </div>
         </div>

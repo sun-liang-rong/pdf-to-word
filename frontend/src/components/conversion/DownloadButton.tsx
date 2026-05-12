@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Download, RefreshCw, Lock, FileText, CheckCircle } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 interface DownloadButtonProps {
   downloadUrl: string;
@@ -15,6 +16,7 @@ export default function DownloadButton({
   fileName,
   onReset,
 }: DownloadButtonProps) {
+  const { t } = useI18n();
   const [error, setError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -38,9 +40,9 @@ export default function DownloadButton({
       window.URL.revokeObjectURL(url);
     } catch (err: any) {
       if (err.response?.status === 404) {
-        setError("文件已过期或不存在，请重新上传转换");
+        setError(t("download.expired"));
       } else {
-        setError("下载失败，请稍后重试");
+        setError(t("download.downloadFailed"));
       }
     } finally {
       setIsDownloading(false);
@@ -54,7 +56,7 @@ export default function DownloadButton({
           <div className="relative">
             <div className="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-20" />
             <div className="absolute inset-0 bg-emerald-400 rounded-full animate-pulse opacity-10" style={{ animationDelay: '0.5s' }} />
-            
+
             <div className="relative w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg animate-pulse-glow">
               <CheckCircle className="w-10 h-10 text-white" />
             </div>
@@ -63,10 +65,10 @@ export default function DownloadButton({
 
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-theme mb-2">
-            转换成功！
+            {t("download.success")}
           </h3>
           <p className="text-base text-theme-muted">
-            您的文件已成功转换，点击下方按钮下载
+            {t("download.successDesc")}
           </p>
         </div>
 
@@ -78,7 +80,7 @@ export default function DownloadButton({
             <p className="text-sm font-medium text-theme truncate">
               {fileName}
             </p>
-            <p className="text-xs text-emerald-600 dark:text-emerald-400">转换完成</p>
+            <p className="text-xs text-emerald-600 dark:text-emerald-400">{t("download.converted")}</p>
           </div>
         </div>
 
@@ -98,12 +100,12 @@ export default function DownloadButton({
             {isDownloading ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2" />
-                下载中...
+                {t("download.downloading")}
               </>
             ) : (
               <>
                 <Download className="w-5 h-5 mr-2" />
-                下载文件
+                {t("download.downloadFile")}
               </>
             )}
           </button>
@@ -113,13 +115,13 @@ export default function DownloadButton({
             className="w-full inline-flex items-center justify-center px-6 py-4 bg-theme-card hover:bg-theme-secondary text-theme font-semibold rounded-2xl transition-all duration-300 border border-theme hover:border-indigo-300 text-base"
           >
             <RefreshCw className="w-5 h-5 mr-2" />
-            转换其他文件
+            {t("download.convertOther")}
           </button>
         </div>
 
         <div className="mt-6 flex items-center justify-center space-x-2 text-sm text-theme-muted">
           <Lock className="w-4 h-4" />
-          <span>文件将在 30 分钟后自动删除</span>
+          <span>{t("download.autoDelete")}</span>
         </div>
       </div>
     </div>

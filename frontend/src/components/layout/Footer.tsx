@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Shield, Clock, Lock } from "lucide-react";
+import { Shield, Clock } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useI18n();
 
   return (
     <footer className="bg-theme-card border-t border-theme theme-transition">
@@ -19,23 +21,23 @@ export default function Footer() {
               </div>
               <span className="text-lg font-bold gradient-text">PDF转换器</span>
             </div>
-            <span className="text-sm text-theme-muted">© {currentYear} 保留所有权利</span>
+            <span className="text-sm text-theme-muted">&copy; {currentYear} {t("footer.copyright")}</span>
           </div>
 
           <div className="flex items-center gap-6 text-sm text-theme-muted">
-            <Link href="/privacy" className="hover:text-indigo-500 transition-colors">隐私政策</Link>
-            <Link href="/terms" className="hover:text-indigo-500 transition-colors">使用条款</Link>
-            <Link href="/about" className="hover:text-indigo-500 transition-colors">关于我们</Link>
+            <Link href="/privacy" className="hover:text-indigo-500 transition-colors">{t("footer.privacy")}</Link>
+            <Link href="/terms" className="hover:text-indigo-500 transition-colors">{t("footer.terms")}</Link>
+            <Link href="/about" className="hover:text-indigo-500 transition-colors">{t("footer.about")}</Link>
           </div>
 
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2 text-sm text-theme-muted">
               <Shield className="w-4 h-4 text-emerald-500" />
-              SSL加密
+              {t("footer.sslEncrypted")}
             </span>
             <span className="flex items-center gap-2 text-sm text-theme-muted">
               <Clock className="w-4 h-4 text-indigo-500" />
-              30分钟自动删除
+              {t("footer.autoDelete")}
             </span>
           </div>
         </div>
