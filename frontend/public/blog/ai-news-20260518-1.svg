@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- 深色渐变背景 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a"/>
+      <stop offset="50%" style="stop-color:#1a1a3a"/>
+      <stop offset="100%" style="stop-color:#0d1b2a"/>
+    </linearGradient>
+    
+    <!-- 科技蓝渐变 -->
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    
+    <!-- 发光效果 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 节点发光 -->
+    <filter id="nodeGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- 网格线（科技感） -->
+  <g stroke="#1e3a5f" stroke-width="0.5" opacity="0.3">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  
+  <!-- 神经网络节点连线 -->
+  <g stroke="#00d4ff" stroke-width="1" opacity="0.4">
+    <!-- 左侧网络 -->
+    <line x1="100" y1="150" x2="200" y2="200"/>
+    <line x1="100" y1="150" x2="180" y2="280"/>
+    <line x1="200" y1="200" x2="300" y2="250"/>
+    <line x1="180" y1="280" x2="280" y2="320"/>
+    <line x1="300" y1="250" x2="400" y2="280"/>
+    <line x1="280" y1="320" x2="380" y2="350"/>
+    
+    <!-- 右侧网络 -->
+    <line x1="1100" y1="150" x2="1000" y2="200"/>
+    <line x1="1100" y1="150" x2="1020" y2="280"/>
+    <line x1="1000" y1="200" x2="900" y2="250"/>
+    <line x1="1020" y1="280" x2="920" y2="320"/>
+    <line x1="900" y1="250" x2="800" y2="280"/>
+    <line x1="920" y1="320" x2="820" y2="350"/>
+    
+    <!-- 中间连线 -->
+    <line x1="400" y1="280" x2="800" y2="280"/>
+    <line x1="380" y1="350" x2="820" y2="350"/>
+  </g>
+  
+  <!-- 节点 -->
+  <g fill="url(#techGradient)" filter="url(#nodeGlow)">
+    <circle cx="100" cy="150" r="6"/>
+    <circle cx="200" cy="200" r="5"/>
+    <circle cx="180" cy="280" r="5"/>
+    <circle cx="300" cy="250" r="5"/>
+    <circle cx="280" cy="320" r="4"/>
+    <circle cx="400" cy="280" r="5"/>
+    <circle cx="380" cy="350" r="4"/>
+    
+    <circle cx="1100" cy="150" r="6"/>
+    <circle cx="1000" cy="200" r="5"/>
+    <circle cx="1020" cy="280" r="5"/>
+    <circle cx="900" cy="250" r="5"/>
+    <circle cx="920" cy="320" r="4"/>
+    <circle cx="800" cy="280" r="5"/>
+    <circle cx="820" cy="350" r="4"/>
+    
+    <!-- 中心节点 -->
+    <circle cx="600" cy="315" r="8" fill="#00d4ff"/>
+  </g>
+  
+  <!-- 装饰几何图形 -->
+  <g stroke="#7c3aed" stroke-width="1.5" fill="none" opacity="0.5">
+    <polygon points="150,500 200,550 250,500 200,450" transform="rotate(15, 200, 500)"/>
+    <polygon points="950,500 1000,550 1050,500 1000,450" transform="rotate(-15, 1000, 500)"/>
+    <rect x="50" y="50" width="30" height="30" transform="rotate(45, 65, 65)" opacity="0.3"/>
+    <rect x="1120" y="50" width="30" height="30" transform="rotate(-45, 1135, 65)" opacity="0.3"/>
+  </g>
+  
+  <!-- 标题背景框 -->
+  <rect x="200" y="180" width="800" height="280" rx="20" fill="#0a0a1a" fill-opacity="0.7" filter="url(#glow)"/>
+  <rect x="200" y="180" width="800" height="280" rx="20" fill="none" stroke="url(#techGradient)" stroke-width="2" opacity="0.6"/>
+  
+  <!-- 主标题 -->
+  <text x="600" y="280" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="52" font-weight="bold" fill="white" text-anchor="middle" filter="url(#glow)">
+    AI大模型技术突破
+  </text>
+  <text x="600" y="340" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="32" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">
+    多模态与长上下文革命
+  </text>
+  
+  <!-- 装饰线 -->
+  <line x1="400" y1="380" x2="800" y2="380" stroke="url(#techGradient)" stroke-width="3" opacity="0.8"/>
+  
+  <!-- 底部信息 -->
+  <text x="600" y="520" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="20" fill="#8892b0" text-anchor="middle">
+    2026年5月18日
+  </text>
+  
+  <!-- 标签 -->
+  <g transform="translate(350, 560)">
+    <rect x="0" y="0" width="120" height="36" rx="18" fill="#00d4ff" fill-opacity="0.2" stroke="#00d4ff" stroke-width="1"/>
+    <text x="60" y="24" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="14" fill="#00d4ff" text-anchor="middle">多模态AI</text>
+  </g>
+  <g transform="translate(500, 560)">
+    <rect x="0" y="0" width="120" height="36" rx="18" fill="#7c3aed" fill-opacity="0.2" stroke="#7c3aed" stroke-width="1"/>
+    <text x="60" y="24" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="14" fill="#7c3aed" text-anchor="middle">长上下文</text>
+  </g>
+  <g transform="translate(650, 560)">
+    <rect x="0" y="0" width="120" height="36" rx="18" fill="#00d4ff" fill-opacity="0.2" stroke="#00d4ff" stroke-width="1"/>
+    <text x="60" y="24" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="14" fill="#00d4ff" text-anchor="middle">AI Agent</text>
+  </g>
+</svg>
