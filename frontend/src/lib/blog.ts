@@ -81,12 +81,17 @@ export function getAllPosts(): BlogPostMeta[] {
         tags = data.tags.split(',').map(tag => tag.trim()).filter(Boolean);
       }
 
+      // 处理日期：可能是字符串或 Date 对象
+      const dateValue = data.date instanceof Date ? data.date.toISOString() : 
+                        typeof data.date === 'string' ? data.date : 
+                        new Date().toISOString();
+
       return {
         slug,
         title: data.title || '无标题',
         description: data.description || '',
-        date: typeof data.date === 'string' ? data.date : new Date().toISOString(),
-        formattedDate: format(parseISO(typeof data.date === 'string' ? data.date : new Date().toISOString()), 'yyyy年MM月dd日', { locale: zhCN }),
+        date: dateValue,
+        formattedDate: format(parseISO(dateValue), 'yyyy年MM月dd日', { locale: zhCN }),
         author: data.author || 'PDF转换器团队',
         tags,
         coverImage: data.coverImage,
