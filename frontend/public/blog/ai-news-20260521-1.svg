@@ -1,0 +1,130 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- 深色渐变背景 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1a4e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d1b69;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 发光效果 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 节点发光 -->
+    <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- 网格线 -->
+  <g stroke="rgba(100, 150, 255, 0.1)" stroke-width="1">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  
+  <!-- 网络节点装饰 -->
+  <g filter="url(#nodeGlow)">
+    <!-- 左上节点 -->
+    <circle cx="150" cy="120" r="8" fill="#00d4ff"/>
+    <circle cx="200" cy="180" r="6" fill="#7b2cbf"/>
+    <circle cx="280" cy="100" r="5" fill="#00d4ff"/>
+    <circle cx="120" cy="200" r="4" fill="#7b2cbf"/>
+    
+    <!-- 右上节点 -->
+    <circle cx="1050" cy="100" r="7" fill="#00d4ff"/>
+    <circle cx="1100" cy="160" r="5" fill="#7b2cbf"/>
+    <circle cx="980" cy="140" r="6" fill="#00d4ff"/>
+    <circle cx="1080" cy="200" r="4" fill="#7b2cbf"/>
+    
+    <!-- 左下节点 -->
+    <circle cx="100" cy="500" r="6" fill="#00d4ff"/>
+    <circle cx="180" cy="540" r="5" fill="#7b2cbf"/>
+    <circle cx="220" cy="480" r="4" fill="#00d4ff"/>
+    
+    <!-- 右下节点 -->
+    <circle cx="1100" cy="480" r="7" fill="#00d4ff"/>
+    <circle cx="1020" cy="530" r="5" fill="#7b2cbf"/>
+    <circle cx="1080" cy="560" r="4" fill="#00d4ff"/>
+    
+    <!-- 连线 -->
+    <line x1="150" y1="120" x2="200" y2="180" stroke="rgba(0, 212, 255, 0.4)" stroke-width="2"/>
+    <line x1="200" y1="180" x2="280" y2="100" stroke="rgba(123, 44, 191, 0.4)" stroke-width="2"/>
+    <line x1="280" y1="100" x2="150" y2="120" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1"/>
+    <line x1="1050" y1="100" x2="1100" y2="160" stroke="rgba(0, 212, 255, 0.4)" stroke-width="2"/>
+    <line x1="1100" y1="160" x2="980" y2="140" stroke="rgba(123, 44, 191, 0.4)" stroke-width="2"/>
+    <line x1="100" y1="500" x2="180" y2="540" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1"/>
+    <line x1="1100" y1="480" x2="1020" y2="530" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1"/>
+  </g>
+  
+  <!-- 中央几何装饰 - AI神经网络示意 -->
+  <g transform="translate(600, 280)" filter="url(#glow)">
+    <!-- 中心发光圆 -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="rgba(0, 212, 255, 0.3)" stroke-width="2"/>
+    <circle cx="0" cy="0" r="60" fill="none" stroke="rgba(123, 44, 191, 0.4)" stroke-width="2"/>
+    <circle cx="0" cy="0" r="40" fill="rgba(0, 212, 255, 0.1)" stroke="rgba(0, 212, 255, 0.6)" stroke-width="2"/>
+    
+    <!-- 神经网络节点 -->
+    <circle cx="-60" cy="-40" r="12" fill="#00d4ff"/>
+    <circle cx="60" cy="-40" r="12" fill="#00d4ff"/>
+    <circle cx="-60" cy="40" r="12" fill="#7b2cbf"/>
+    <circle cx="60" cy="40" r="12" fill="#7b2cbf"/>
+    <circle cx="0" cy="-70" r="10" fill="#00d4ff"/>
+    <circle cx="0" cy="70" r="10" fill="#7b2cbf"/>
+    <circle cx="-80" cy="0" r="8" fill="#00d4ff"/>
+    <circle cx="80" cy="0" r="8" fill="#7b2cbf"/>
+    
+    <!-- 连线 -->
+    <line x1="-60" y1="-40" x2="0" y2="-70" stroke="rgba(0, 212, 255, 0.5)" stroke-width="2"/>
+    <line x1="60" y1="-40" x2="0" y2="-70" stroke="rgba(0, 212, 255, 0.5)" stroke-width="2"/>
+    <line x1="-60" y1="40" x2="0" y2="70" stroke="rgba(123, 44, 191, 0.5)" stroke-width="2"/>
+    <line x1="60" y1="40" x2="0" y2="70" stroke="rgba(123, 44, 191, 0.5)" stroke-width="2"/>
+    <line x1="-60" y1="-40" x2="-60" y2="40" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1"/>
+    <line x1="60" y1="-40" x2="60" y2="40" stroke="rgba(123, 44, 191, 0.3)" stroke-width="1"/>
+    <line x1="-60" y1="-40" x2="60" y2="-40" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1"/>
+    <line x1="-60" y1="40" x2="60" y2="40" stroke="rgba(123, 44, 191, 0.3)" stroke-width="1"/>
+    <line x1="-80" y1="0" x2="0" y2="-70" stroke="rgba(0, 212, 255, 0.3)" stroke-width="1"/>
+    <line x1="80" y1="0" x2="0" y2="70" stroke="rgba(123, 44, 191, 0.3)" stroke-width="1"/>
+  </g>
+  
+  <!-- 标题 -->
+  <text x="600" y="460" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="42" font-weight="bold" fill="#ffffff" text-anchor="middle" filter="url(#glow)">
+    RAG 2.0：检索增强生成的
+  </text>
+  <text x="600" y="510" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="42" font-weight="bold" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">
+    技术革命与文档处理新范式
+  </text>
+  
+  <!-- 底部信息 -->
+  <text x="600" y="570" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="16" fill="rgba(255, 255, 255, 0.6)" text-anchor="middle">
+    2026.05.21 | AI 技术前沿
+  </text>
+  
+  <!-- 装饰角标 -->
+  <g stroke="rgba(0, 212, 255, 0.5)" stroke-width="2" fill="none">
+    <path d="M 20 20 L 60 20 M 20 20 L 20 60"/>
+    <path d="M 1180 20 L 1140 20 M 1180 20 L 1180 60"/>
+    <path d="M 20 610 L 60 610 M 20 610 L 20 570"/>
+    <path d="M 1180 610 L 1140 610 M 1180 610 L 1180 570"/>
+  </g>
+</svg>
