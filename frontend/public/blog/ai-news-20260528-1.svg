@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- 深色渐变背景 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 科技蓝渐变 -->
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0099ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0066ff;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 紫色点缀 -->
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7b2cbf;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9d4edd;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 安全盾牌渐变 -->
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00cc6a;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 发光效果 -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 节点发光 -->
+    <filter id="nodeGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- 装饰网格线 -->
+  <g stroke="rgba(0, 212, 255, 0.06)" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="240" y1="0" x2="240" y2="630"/>
+    <line x1="480" y1="0" x2="480" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/>
+    <line x1="960" y1="0" x2="960" y2="630"/>
+  </g>
+  
+  <!-- 左侧安全盾牌网络 -->
+  <g id="leftShieldNetwork">
+    <!-- 主盾牌 -->
+    <path d="M100,200 L100,150 Q100,100 150,100 L150,100 Q200,100 200,150 L200,200 Q150,230 100,200 Z" 
+          fill="url(#shieldGradient)" opacity="0.2"/>
+    <!-- 盾牌内的对勾 -->
+    <path d="M120,180 L140,160 L160,190" 
+          stroke="url(#shieldGradient)" stroke-width="3" fill="none" opacity="0.6"/>
+    
+    <!-- 连接到其他节点 -->
+    <g stroke="rgba(0, 255, 136, 0.25)" stroke-width="1.5">
+      <line x1="200" y1="180" x2="280" y2="150"/>
+      <line x1="200" y1="200" x2="280" y2="250"/>
+      <line x1="280" y1="150" x2="380" y2="180"/>
+      <line x1="280" y1="250" x2="380" y2="300"/>
+      <line x1="380" y1="180" x2="480" y2="220"/>
+      <line x1="380" y1="300" x2="480" y2="260"/>
+    </g>
+    
+    <!-- 小节点 -->
+    <circle cx="280" cy="150" r="5" fill="url(#shieldGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="280" cy="250" r="6" fill="url(#techGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="380" cy="180" r="5" fill="url(#purpleGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="380" cy="300" r="6" fill="url(#shieldGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="480" cy="220" r="5" fill="url(#techGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="480" cy="260" r="6" fill="url(#purpleGradient)" filter="url(#nodeGlow)"/>
+  </g>
+  
+  <!-- 右侧对齐网络 -->
+  <g id="rightAlignmentNetwork">
+    <!-- 对齐符号 -->
+    <circle cx="1100" cy="200" r="30" fill="none" stroke="url(#techGradient)" stroke-width="2" filter="url(#glow)"/>
+    <circle cx="1100" cy="200" r="20" fill="rgba(0, 212, 255, 0.15)"/>
+    <path d="M1080,200 L1120,200 M1100,180 L1100,220" 
+          stroke="url(#techGradient)" stroke-width="2"/>
+    
+    <!-- 连接到其他节点 -->
+    <g stroke="rgba(0, 212, 255, 0.25)" stroke-width="1.5">
+      <line x1="1070" y1="200" x2="990" y2="150"/>
+      <line x1="1070" y1="200" x2="990" y2="250"/>
+      <line x1="990" y1="150" x2="900" y2="180"/>
+      <line x1="990" y1="250" x2="900" y2="300"/>
+      <line x1="900" y1="180" x2="800" y2="220"/>
+      <line x1="900" y1="300" x2="800" y2="260"/>
+    </g>
+    
+    <!-- 小节点 -->
+    <circle cx="990" cy="150" r="5" fill="url(#techGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="990" cy="250" r="6" fill="url(#purpleGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="900" cy="180" r="5" fill="url(#techGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="900" cy="300" r="6" fill="url(#purpleGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="800" cy="220" r="5" fill="url(#techGradient)" filter="url(#nodeGlow)"/>
+    <circle cx="800" cy="260" r="6" fill="url(#purpleGradient)" filter="url(#nodeGlow)"/>
+  </g>
+  
+  <!-- 中央装饰图形 - 盾牌形状 -->
+  <g id="centerShield" transform="translate(600, 315)">
+    <!-- 外层六边形 -->
+    <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60" 
+             fill="none" stroke="url(#shieldGradient)" stroke-width="2" filter="url(#glow)" opacity="0.6"/>
+    <!-- 内层六边形 -->
+    <polygon points="0,-80 70,-40 70,40 0,80 -70,40 -70,-40" 
+             fill="none" stroke="url(#techGradient)" stroke-width="1.5" opacity="0.8"/>
+    
+    <!-- 中央盾牌 -->
+    <path d="M0,-60 L40,-40 L40,20 Q0,50 -40,20 L-40,-40 Z" 
+          fill="none" stroke="url(#shieldGradient)" stroke-width="2" filter="url(#glow)"/>
+    <path d="M-20,0 L-5,-15 L15,5" 
+          stroke="url(#shieldGradient)" stroke-width="3" fill="none"/>
+    
+    <!-- 连接线 -->
+    <g stroke="rgba(0, 255, 136, 0.4)" stroke-width="1">
+      <line x1="0" y1="-120" x2="0" y2="-60"/>
+      <line x1="104" y1="-60" x2="40" y2="-40"/>
+      <line x1="104" y1="60" x2="40" y2="20"/>
+      <line x1="0" y1="120" x2="0" y2="50"/>
+      <line x1="-104" y1="60" x2="-40" y2="20"/>
+      <line x1="-104" y1="-60" x2="-40" y2="-40"/>
+    </g>
+  </g>
+  
+  <!-- 漂浮的几何图形 -->
+  <g opacity="0.15">
+    <polygon points="150,500 180,520 150,540 120,520" fill="url(#shieldGradient)"/>
+    <polygon points="1050,500 1080,520 1050,540 1020,520" fill="url(#techGradient)"/>
+    <circle cx="200" cy="550" r="15" fill="none" stroke="url(#shieldGradient)" stroke-width="2"/>
+    <circle cx="1000" cy="550" r="15" fill="none" stroke="url(#techGradient)" stroke-width="2"/>
+    <rect x="300" y="80" width="30" height="30" fill="none" stroke="url(#purpleGradient)" stroke-width="1" transform="rotate(45 315 95)"/>
+    <rect x="870" y="80" width="30" height="30" fill="none" stroke="url(#purpleGradient)" stroke-width="1" transform="rotate(45 885 95)"/>
+  </g>
+  
+  <!-- 标题文字 -->
+  <text x="600" y="280" 
+        font-family="'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif" 
+        font-size="42" 
+        font-weight="bold" 
+        fill="#ffffff" 
+        text-anchor="middle"
+        filter="url(#glow)">
+    AI安全与对齐技术突破
+  </text>
+  
+  <!-- 副标题 -->
+  <text x="600" y="330" 
+        font-family="'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif" 
+        font-size="22" 
+        fill="rgba(255, 255, 255, 0.8)" 
+        text-anchor="middle">
+    Constitutional AI与RLHF的最新进展
+  </text>
+  
+  <!-- 底部信息栏 -->
+  <rect x="0" y="560" width="1200" height="70" fill="rgba(26, 10, 46, 0.85)" opacity="0.9"/>
+  
+  <!-- 日期 -->
+  <text x="60" y="595" 
+        font-family="'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif" 
+        font-size="16" 
+        fill="rgba(0, 255, 136, 0.9)"
+        font-weight="bold">
+    2026.05.28
+  </text>
+  
+  <!-- 标签 -->
+  <g font-family="'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif" font-size="14" fill="#ffffff">
+    <rect x="200" y="578" width="90" height="28" rx="14" fill="rgba(0, 255, 136, 0.2)" stroke="url(#shieldGradient)" stroke-width="1"/>
+    <text x="245" y="597" text-anchor="middle">AI安全</text>
+    
+    <rect x="310" y="578" width="100" height="28" rx="14" fill="rgba(0, 212, 255, 0.2)" stroke="url(#techGradient)" stroke-width="1"/>
+    <text x="360" y="597" text-anchor="middle">对齐技术</text>
+    
+    <rect x="430" y="578" width="110" height="28" rx="14" fill="rgba(123, 44, 191, 0.2)" stroke="url(#purpleGradient)" stroke-width="1"/>
+    <text x="485" y="597" text-anchor="middle">Constitutional AI</text>
+    
+    <rect x="560" y="578" width="70" height="28" rx="14" fill="rgba(0, 153, 255, 0.2)" stroke="url(#techGradient)" stroke-width="1"/>
+    <text x="595" y="597" text-anchor="middle">RLHF</text>
+    
+    <rect x="650" y="578" width="100" height="28" rx="14" fill="rgba(157, 78, 221, 0.2)" stroke="url(#purpleGradient)" stroke-width="1"/>
+    <text x="700" y="597" text-anchor="middle">文档安全</text>
+  </g>
+  
+  <!-- 装饰点 -->
+  <g fill="url(#shieldGradient)" filter="url(#nodeGlow)">
+    <circle cx="50" cy="80" r="3"/>
+    <circle cx="1150" cy="80" r="3"/>
+    <circle cx="50" cy="500" r="3"/>
+    <circle cx="1150" cy="500" r="3"/>
+  </g>
+</svg>
