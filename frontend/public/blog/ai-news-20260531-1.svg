@@ -1,0 +1,105 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#302b63;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#24243e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00dbde;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fc00ff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Network nodes and lines -->
+  <g stroke="rgba(255,255,255,0.1)" stroke-width="1">
+    <!-- Lines connecting nodes -->
+    <line x1="150" y1="120" x2="350" y2="180"/>
+    <line x1="350" y1="180" x2="550" y2="100"/>
+    <line x1="550" y1="100" x2="750" y2="150"/>
+    <line x1="750" y1="150" x2="950" y2="90"/>
+    <line x1="950" y1="90" x2="1100" y2="130"/>
+    
+    <line x1="200" y1="350" x2="400" y2="400"/>
+    <line x1="400" y1="400" x2="600" y2="320"/>
+    <line x1="600" y1="320" x2="800" y2="370"/>
+    <line x1="800" y1="370" x2="1000" y2="310"/>
+    <line x1="1000" y1="310" x2="1100" y2="350"/>
+    
+    <line x1="250" y1="530" x2="450" y2="560"/>
+    <line x1="450" y1="560" x2="650" y2="520"/>
+    <line x1="650" y1="520" x2="850" y2="550"/>
+    <line x1="850" y1="550" x2="1050" y2="510"/>
+    
+    <!-- Cross connections -->
+    <line x1="350" y1="180" x2="400" y2="400"/>
+    <line x1="550" y1="100" x2="600" y2="320"/>
+    <line x1="750" y1="150" x2="800" y2="370"/>
+    <line x1="950" y1="90" x2="1000" y2="310"/>
+    
+    <line x1="400" y1="400" x2="450" y2="560"/>
+    <line x1="600" y1="320" x2="650" y2="520"/>
+    <line x1="800" y1="370" x2="850" y2="550"/>
+    <line x1="1000" y1="310" x2="1050" y2="510"/>
+  </g>
+  
+  <!-- Nodes -->
+  <g fill="url(#accentGrad)" filter="url(#glow)">
+    <circle cx="150" cy="120" r="5"/>
+    <circle cx="350" cy="180" r="7"/>
+    <circle cx="550" cy="100" r="6"/>
+    <circle cx="750" cy="150" r="8"/>
+    <circle cx="950" cy="90" r="5"/>
+    <circle cx="1100" cy="130" r="7"/>
+    
+    <circle cx="200" cy="350" r="6"/>
+    <circle cx="400" cy="400" r="9"/>
+    <circle cx="600" cy="320" r="7"/>
+    <circle cx="800" cy="370" r="6"/>
+    <circle cx="1000" cy="310" r="8"/>
+    <circle cx="1100" cy="350" r="5"/>
+    
+    <circle cx="250" cy="530" r="5"/>
+    <circle cx="450" cy="560" r="7"/>
+    <circle cx="650" cy="520" r="6"/>
+    <circle cx="850" cy="550" r="9"/>
+    <circle cx="1050" cy="510" r="7"/>
+  </g>
+  
+  <!-- Geometric shapes -->
+  <polygon points="300,200 330,220 315,250 285,250 270,220" fill="none" stroke="rgba(0,219,222,0.3)" stroke-width="2"/>
+  <polygon points="900,200 930,220 915,250 885,250 870,220" fill="none" stroke="rgba(252,0,255,0.3)" stroke-width="2"/>
+  <polygon points="600,450 630,470 615,500 585,500 570,470" fill="none" stroke="rgba(0,219,222,0.3)" stroke-width="2"/>
+  
+  <!-- Main title -->
+  <text x="600" y="250" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="white" filter="url(#glow)">
+    视觉语言模型新突破
+  </text>
+  <text x="600" y="310" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="white" filter="url(#glow)">
+    多模态AI革新PDF智能解析
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="380" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="rgba(255,255,255,0.8)">
+    2026年5月视觉语言模型技术深度解析
+  </text>
+  
+  <!-- Bottom info -->
+  <rect x="0" y="580" width="1200" height="50" fill="rgba(0,0,0,0.3)"/>
+  <text x="100" y="610" font-family="Arial, sans-serif" font-size="18" fill="white">
+    2026-05-31 | AI技术博客
+  </text>
+  <text x="1100" y="610" font-family="Arial, sans-serif" font-size="16" text-anchor="end" fill="rgba(255,255,255,0.7)">
+    #多模态AI #视觉语言模型 #PDF解析 #文档智能
+  </text>
+</svg>
