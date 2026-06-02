@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1040;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1b3e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7b61ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#7b61ff;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:0.05" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Decorative grid lines -->
+  <g opacity="0.06" stroke="#00d4ff" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Network nodes and connections - top left cluster -->
+  <g opacity="0.4">
+    <circle cx="80" cy="80" r="3" fill="#00d4ff" filter="url(#glow)"/>
+    <circle cx="150" cy="120" r="2" fill="#7b61ff" filter="url(#glow)"/>
+    <circle cx="50" cy="160" r="2.5" fill="#00d4ff" filter="url(#glow)"/>
+    <circle cx="120" cy="50" r="2" fill="#7b61ff" filter="url(#glow)"/>
+    <line x1="80" y1="80" x2="150" y2="120" stroke="#00d4ff" stroke-width="0.8" opacity="0.5"/>
+    <line x1="80" y1="80" x2="50" y2="160" stroke="#7b61ff" stroke-width="0.6" opacity="0.4"/>
+    <line x1="80" y1="80" x2="120" y2="50" stroke="#00d4ff" stroke-width="0.6" opacity="0.4"/>
+    <line x1="150" y1="120" x2="50" y2="160" stroke="#7b61ff" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <!-- Network nodes - bottom right cluster -->
+  <g opacity="0.4">
+    <circle cx="1050" cy="500" r="3" fill="#7b61ff" filter="url(#glow)"/>
+    <circle cx="1120" cy="540" r="2" fill="#00d4ff" filter="url(#glow)"/>
+    <circle cx="1080" cy="460" r="2.5" fill="#7b61ff" filter="url(#glow)"/>
+    <circle cx="1150" cy="480" r="2" fill="#00d4ff" filter="url(#glow)"/>
+    <circle cx="1020" cy="550" r="2" fill="#7b61ff" filter="url(#glow)"/>
+    <line x1="1050" y1="500" x2="1120" y2="540" stroke="#7b61ff" stroke-width="0.8" opacity="0.5"/>
+    <line x1="1050" y1="500" x2="1080" y2="460" stroke="#00d4ff" stroke-width="0.6" opacity="0.4"/>
+    <line x1="1120" y1="540" x2="1150" y2="480" stroke="#00d4ff" stroke-width="0.5" opacity="0.3"/>
+    <line x1="1080" y1="460" x2="1150" y2="480" stroke="#7b61ff" stroke-width="0.5" opacity="0.3"/>
+    <line x1="1050" y1="500" x2="1020" y2="550" stroke="#7b61ff" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <!-- Scattered nodes -->
+  <g opacity="0.3">
+    <circle cx="300" cy="80" r="1.5" fill="#00d4ff"/>
+    <circle cx="900" cy="100" r="1.5" fill="#7b61ff"/>
+    <circle cx="1100" cy="200" r="1.5" fill="#00d4ff"/>
+    <circle cx="100" cy="400" r="1.5" fill="#7b61ff"/>
+    <circle cx="950" cy="550" r="1.5" fill="#00d4ff"/>
+    <circle cx="200" cy="500" r="1.5" fill="#7b61ff"/>
+  </g>
+
+  <!-- Geometric decorations - hexagons -->
+  <g opacity="0.08" stroke="#00d4ff" stroke-width="1" fill="none">
+    <polygon points="1000,80 1030,65 1060,80 1060,110 1030,125 1000,110"/>
+    <polygon points="90,500 120,485 150,500 150,530 120,545 90,530"/>
+    <polygon points="1100,350 1120,340 1140,350 1140,370 1120,380 1100,370"/>
+  </g>
+
+  <!-- Geometric decorations - triangles -->
+  <g opacity="0.06" stroke="#7b61ff" stroke-width="1" fill="none">
+    <polygon points="250,550 280,520 310,550"/>
+    <polygon points="900,50 920,30 940,50"/>
+  </g>
+
+  <!-- Central glow orb -->
+  <circle cx="600" cy="280" r="180" fill="url(#glowGrad)" filter="url(#softGlow)" opacity="0.4"/>
+
+  <!-- Accent line top -->
+  <rect x="300" y="160" width="600" height="2" rx="1" fill="url(#accentGrad)" opacity="0.6"/>
+
+  <!-- Title -->
+  <text x="600" y="240" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="48" font-weight="bold" fill="#ffffff" filter="url(#glow)">
+    MiniMax M3：百万Token上下文
+  </text>
+  <text x="600" y="300" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="48" font-weight="bold" fill="#ffffff" filter="url(#glow)">
+    开源模型挑战闭源巨头
+  </text>
+
+  <!-- Accent line bottom -->
+  <rect x="350" y="330" width="500" height="2" rx="1" fill="url(#accentGrad)" opacity="0.6"/>
+
+  <!-- Subtitle -->
+  <text x="600" y="375" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="22" fill="#b8c4e0" opacity="0.9">
+    MiniMax Sparse Attention · SWE-Bench 59% · 自主Agent能力
+  </text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="540" width="1200" height="90" fill="#000000" opacity="0.4"/>
+
+  <!-- Date and tags -->
+  <text x="60" y="580" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" fill="#7b8aaa" opacity="0.8">
+    2026-06-02
+  </text>
+
+  <!-- Tags -->
+  <rect x="200" y="563" width="100" height="28" rx="14" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
+  <text x="250" y="582" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#00d4ff" opacity="0.8">MiniMax M3</text>
+
+  <rect x="320" y="563" width="120" height="28" rx="14" fill="none" stroke="#7b61ff" stroke-width="1" opacity="0.5"/>
+  <text x="380" y="582" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#7b61ff" opacity="0.8">开源大模型</text>
+
+  <rect x="460" y="563" width="100" height="28" rx="14" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
+  <text x="510" y="582" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#00d4ff" opacity="0.8">Attention</text>
+
+  <rect x="580" y="563" width="100" height="28" rx="14" fill="none" stroke="#7b61ff" stroke-width="1" opacity="0.5"/>
+  <text x="630" y="582" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#7b61ff" opacity="0.8">Agent</text>
+
+  <rect x="700" y="563" width="100" height="28" rx="14" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
+  <text x="750" y="582" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#00d4ff" opacity="0.8">多模态</text>
+
+  <!-- Author -->
+  <text x="1140" y="580" text-anchor="end" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14" fill="#7b8aaa" opacity="0.7">
+    Al磊
+  </text>
+</svg>
