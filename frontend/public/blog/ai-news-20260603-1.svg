@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27"/>
+      <stop offset="50%" style="stop-color:#1a1f4e"/>
+      <stop offset="100%" style="stop-color:#2d1b69"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative grid pattern -->
+  <g opacity="0.1" stroke="#00d4ff" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  
+  <!-- Network nodes and connections -->
+  <g filter="url(#glow)">
+    <!-- Nodes -->
+    <circle cx="150" cy="120" r="6" fill="#00d4ff" opacity="0.8"/>
+    <circle cx="280" cy="80" r="4" fill="#7c3aed" opacity="0.7"/>
+    <circle cx="400" cy="150" r="8" fill="#00d4ff" opacity="0.6"/>
+    <circle cx="180" cy="200" r="5" fill="#00d4ff" opacity="0.5"/>
+    <circle cx="320" cy="250" r="3" fill="#7c3aed" opacity="0.8"/>
+    <circle cx="500" cy="100" r="5" fill="#00d4ff" opacity="0.7"/>
+    <circle cx="700" cy="180" r="6" fill="#7c3aed" opacity="0.6"/>
+    <circle cx="850" cy="120" r="4" fill="#00d4ff" opacity="0.8"/>
+    <circle cx="1000" cy="150" r="7" fill="#7c3aed" opacity="0.5"/>
+    <circle cx="1100" cy="100" r="5" fill="#00d4ff" opacity="0.7"/>
+    <circle cx="950" cy="220" r="4" fill="#00d4ff" opacity="0.6"/>
+    <circle cx="1050" cy="280" r="6" fill="#7c3aed" opacity="0.7"/>
+    <circle cx="150" cy="350" r="5" fill="#00d4ff" opacity="0.6"/>
+    <circle cx="250" cy="420" r="4" fill="#7c3aed" opacity="0.8"/>
+    <circle cx="100" cy="480" r="6" fill="#00d4ff" opacity="0.5"/>
+    <circle cx="900" cy="450" r="5" fill="#00d4ff" opacity="0.7"/>
+    <circle cx="1050" cy="400" r="4" fill="#7c3aed" opacity="0.6"/>
+    <circle cx="1150" cy="350" r="7" fill="#00d4ff" opacity="0.8"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="url(#accentGradient)" stroke-width="1" opacity="0.3">
+    <line x1="150" y1="120" x2="280" y2="80"/>
+    <line x1="280" y1="80" x2="400" y2="150"/>
+    <line x1="400" y1="150" x2="500" y2="100"/>
+    <line x1="180" y1="200" x2="320" y2="250"/>
+    <line x1="150" y1="120" x2="180" y2="200"/>
+    <line x1="700" y1="180" x2="850" y2="120"/>
+    <line x1="850" y1="120" x2="1000" y2="150"/>
+    <line x1="1000" y1="150" x2="1100" y2="100"/>
+    <line x1="950" y1="220" x2="1050" y2="280"/>
+    <line x1="150" y1="350" x2="250" y2="420"/>
+    <line x1="250" y1="420" x2="100" y2="480"/>
+    <line x1="900" y1="450" x2="1050" y2="400"/>
+    <line x1="1050" y1="400" x2="1150" y2="350"/>
+  </g>
+  
+  <!-- Code bracket decorations -->
+  <g stroke="#00d4ff" stroke-width="2" fill="none" opacity="0.2">
+    <path d="M80 300 Q60 315 80 330"/>
+    <path d="M1120 300 Q1140 315 1120 330"/>
+    <path d="M100 320 L90 320"/>
+    <path d="M1100 320 L1110 320"/>
+  </g>
+  
+  <!-- Floating code symbols -->
+  <g font-family="'Courier New', monospace" font-size="14" fill="#00d4ff" opacity="0.15">
+    <text x="50" y="250">&lt;code&gt;</text>
+    <text x="1050" y="180">{...}</text>
+    <text x="950" y="520">def ai()</text>
+    <text x="80" y="550">import</text>
+    <text x="1120" y="480">class</text>
+  </g>
+  
+  <!-- Main content area with glow effect -->
+  <rect x="250" y="180" width="700" height="280" rx="15" fill="url(#glowGradient)" opacity="0.3"/>
+  
+  <!-- Title -->
+  <text x="600" y="280" text-anchor="middle" font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="42" font-weight="bold" fill="white" filter="url(#glow)">
+    AI代码生成革命
+  </text>
+  <text x="600" y="340" text-anchor="middle" font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="36" font-weight="bold" fill="white" filter="url(#glow)">
+    大模型如何重塑软件开发
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="400" text-anchor="middle" font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="18" fill="#a0aec0">
+    从Copilot到自主编程Agent的技术演进与PDF处理应用
+  </text>
+  
+  <!-- Bottom bar -->
+  <rect x="0" y="580" width="1200" height="50" fill="rgba(0,0,0,0.3)"/>
+  
+  <!-- Date and tags -->
+  <text x="50" y="610" font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="14" fill="#64748b">
+    2026年06月03日
+  </text>
+  
+  <g font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="12">
+    <rect x="200" y="595" width="80" height="22" rx="11" fill="#00d4ff" opacity="0.2"/>
+    <text x="240" y="611" text-anchor="middle" fill="#00d4ff">AI代码生成</text>
+    
+    <rect x="290" y="595" width="80" height="22" rx="11" fill="#7c3aed" opacity="0.2"/>
+    <text x="330" y="611" text-anchor="middle" fill="#7c3aed">大语言模型</text>
+    
+    <rect x="380" y="595" width="80" height="22" rx="11" fill="#00d4ff" opacity="0.2"/>
+    <text x="420" y="611" text-anchor="middle" fill="#00d4ff">软件工程</text>
+    
+    <rect x="470" y="595" width="80" height="22" rx="11" fill="#7c3aed" opacity="0.2"/>
+    <text x="510" y="611" text-anchor="middle" fill="#7c3aed">PDF处理</text>
+    
+    <rect x="560" y="595" width="60" height="22" rx="11" fill="#00d4ff" opacity="0.2"/>
+    <text x="590" y="611" text-anchor="middle" fill="#00d4ff">Copilot</text>
+    
+    <rect x="630" y="595" width="80" height="22" rx="11" fill="#7c3aed" opacity="0.2"/>
+    <text x="670" y="611" text-anchor="middle" fill="#7c3aed">编程助手</text>
+  </g>
+  
+  <!-- Author -->
+  <text x="1150" y="610" text-anchor="end" font-family="'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="14" fill="#64748b">
+    Al磊 | AI技术博客
+  </text>
+  
+  <!-- Decorative corner elements -->
+  <g stroke="#00d4ff" stroke-width="2" fill="none" opacity="0.4">
+    <path d="M30 30 L30 60 M30 30 L60 30"/>
+    <path d="M1170 30 L1170 60 M1170 30 L1140 30"/>
+    <path d="M30 600 L30 570 M30 600 L60 600"/>
+    <path d="M1170 600 L1170 570 M1170 600 L1140 600"/>
+  </g>
+</svg>
