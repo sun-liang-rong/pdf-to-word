@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1040;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1f3c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#7b2ffc;stop-opacity:0.1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7b2ffc;stop-opacity:1" />
+    </linearGradient>
+    <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="60" />
+    </filter>
+    <filter id="blur2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Ambient glow orbs -->
+  <circle cx="200" cy="150" r="180" fill="#00d4ff" opacity="0.06" filter="url(#blur1)"/>
+  <circle cx="1000" cy="500" r="200" fill="#7b2ffc" opacity="0.08" filter="url(#blur1)"/>
+  <circle cx="600" cy="100" r="120" fill="#00d4ff" opacity="0.04" filter="url(#blur2)"/>
+  
+  <!-- Network nodes and connections -->
+  <!-- Node cluster top-left -->
+  <circle cx="80" cy="80" r="3" fill="#00d4ff" opacity="0.6"/>
+  <circle cx="160" cy="50" r="2.5" fill="#00d4ff" opacity="0.5"/>
+  <circle cx="120" cy="120" r="2" fill="#7b2ffc" opacity="0.5"/>
+  <line x1="80" y1="80" x2="160" y2="50" stroke="#00d4ff" stroke-width="0.8" opacity="0.3"/>
+  <line x1="80" y1="80" x2="120" y2="120" stroke="#7b2ffc" stroke-width="0.8" opacity="0.25"/>
+  <line x1="160" y1="50" x2="120" y2="120" stroke="#00d4ff" stroke-width="0.5" opacity="0.2"/>
+  
+  <!-- Node cluster top-right -->
+  <circle cx="1050" cy="70" r="3" fill="#7b2ffc" opacity="0.6"/>
+  <circle cx="1120" cy="110" r="2" fill="#00d4ff" opacity="0.5"/>
+  <circle cx="1080" cy="140" r="2.5" fill="#7b2ffc" opacity="0.4"/>
+  <line x1="1050" y1="70" x2="1120" y2="110" stroke="#7b2ffc" stroke-width="0.8" opacity="0.3"/>
+  <line x1="1050" y1="70" x2="1080" y2="140" stroke="#00d4ff" stroke-width="0.8" opacity="0.25"/>
+  <line x1="1120" y1="110" x2="1080" y2="140" stroke="#7b2ffc" stroke-width="0.5" opacity="0.2"/>
+  
+  <!-- Node cluster bottom-left -->
+  <circle cx="100" cy="520" r="2.5" fill="#00d4ff" opacity="0.5"/>
+  <circle cx="50" cy="480" r="2" fill="#7b2ffc" opacity="0.4"/>
+  <circle cx="150" cy="560" r="3" fill="#00d4ff" opacity="0.5"/>
+  <line x1="100" y1="520" x2="50" y2="480" stroke="#00d4ff" stroke-width="0.8" opacity="0.25"/>
+  <line x1="100" y1="520" x2="150" y2="560" stroke="#7b2ffc" stroke-width="0.8" opacity="0.3"/>
+  <line x1="50" y1="480" x2="150" y2="560" stroke="#00d4ff" stroke-width="0.5" opacity="0.15"/>
+  
+  <!-- Node cluster bottom-right -->
+  <circle cx="1100" cy="540" r="2.5" fill="#7b2ffc" opacity="0.5"/>
+  <circle cx="1150" cy="490" r="2" fill="#00d4ff" opacity="0.4"/>
+  <circle cx="1060" cy="580" r="3" fill="#7b2ffc" opacity="0.5"/>
+  <line x1="1100" y1="540" x2="1150" y2="490" stroke="#7b2ffc" stroke-width="0.8" opacity="0.25"/>
+  <line x1="1100" y1="540" x2="1060" y2="580" stroke="#00d4ff" stroke-width="0.8" opacity="0.3"/>
+  
+  <!-- Scattered small dots (starfield) -->
+  <circle cx="300" cy="60" r="1.5" fill="#fff" opacity="0.3"/>
+  <circle cx="450" cy="40" r="1" fill="#00d4ff" opacity="0.4"/>
+  <circle cx="700" cy="55" r="1.5" fill="#fff" opacity="0.25"/>
+  <circle cx="850" cy="80" r="1" fill="#7b2ffc" opacity="0.35"/>
+  <circle cx="350" cy="580" r="1.5" fill="#fff" opacity="0.3"/>
+  <circle cx="550" cy="600" r="1" fill="#00d4ff" opacity="0.3"/>
+  <circle cx="750" cy="570" r="1.5" fill="#fff" opacity="0.25"/>
+  <circle cx="900" cy="590" r="1" fill="#7b2ffc" opacity="0.35"/>
+  <circle cx="200" cy="300" r="1" fill="#00d4ff" opacity="0.2"/>
+  <circle cx="1000" cy="320" r="1.5" fill="#7b2ffc" opacity="0.25"/>
+  
+  <!-- Geometric accent lines -->
+  <line x1="50" y1="315" x2="200" y2="315" stroke="url(#accent)" stroke-width="1" opacity="0.15"/>
+  <line x1="1000" y1="315" x2="1150" y2="315" stroke="url(#accent)" stroke-width="1" opacity="0.15"/>
+  
+  <!-- Hexagon decorations -->
+  <polygon points="60,310 80,300 100,310 100,330 80,340 60,330" fill="none" stroke="#00d4ff" stroke-width="0.8" opacity="0.15"/>
+  <polygon points="1100,290 1120,280 1140,290 1140,310 1120,320 1100,310" fill="none" stroke="#7b2ffc" stroke-width="0.8" opacity="0.15"/>
+  
+  <!-- Robot/Bot icon (simplified) -->
+  <g transform="translate(560, 160)" opacity="0.12">
+    <rect x="0" y="0" width="80" height="60" rx="10" fill="none" stroke="#00d4ff" stroke-width="2"/>
+    <circle cx="25" cy="25" r="8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="55" cy="25" r="8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="25" cy="25" r="3" fill="#00d4ff"/>
+    <circle cx="55" cy="25" r="3" fill="#00d4ff"/>
+    <line x1="30" y1="45" x2="50" y2="45" stroke="#00d4ff" stroke-width="1.5"/>
+    <line x1="40" y1="60" x2="40" y2="75" stroke="#00d4ff" stroke-width="1.5"/>
+    <line x1="20" y1="60" x2="20" y2="70" stroke="#00d4ff" stroke-width="1.5"/>
+    <line x1="60" y1="60" x2="60" y2="70" stroke="#00d4ff" stroke-width="1.5"/>
+    <line x1="40" y1="0" x2="40" y2="-15" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="40" cy="-18" r="4" fill="none" stroke="#00d4ff" stroke-width="1"/>
+  </g>
+  
+  <!-- Title text -->
+  <text x="600" y="250" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="48" font-weight="bold" fill="white" letter-spacing="1">
+    机器人流量首次超越人类
+  </text>
+  <text x="600" y="310" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="36" font-weight="600" fill="white" opacity="0.95" letter-spacing="0.5">
+    Agent时代的互联网正在改写规则
+  </text>
+  
+  <!-- Accent line under title -->
+  <rect x="400" y="330" width="400" height="2" rx="1" fill="url(#accent)" opacity="0.5"/>
+  
+  <!-- Subtitle -->
+  <text x="600" y="375" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="18" fill="#00d4ff" opacity="0.8" letter-spacing="2">
+    Cloudflare Radar · 57.5% Bot Traffic · AI Agent · 互联网重构
+  </text>
+  
+  <!-- Bottom bar -->
+  <rect x="0" y="570" width="1200" height="60" fill="#000" opacity="0.3"/>
+  <line x1="0" y1="570" x2="1200" y2="570" stroke="url(#accent)" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Date and author -->
+  <text x="60" y="605" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="16" fill="white" opacity="0.7">
+    2026-06-06 · Al磊
+  </text>
+  
+  <!-- Tags -->
+  <rect x="900" y="585" width="80" height="26" rx="13" fill="#00d4ff" opacity="0.15" stroke="#00d4ff" stroke-width="0.8"/>
+  <text x="940" y="603" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="12" fill="#00d4ff" opacity="0.9">AI Agent</text>
+  
+  <rect x="990" y="585" width="80" height="26" rx="13" fill="#7b2ffc" opacity="0.15" stroke="#7b2ffc" stroke-width="0.8"/>
+  <text x="1030" y="603" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="12" fill="#7b2ffc" opacity="0.9">Cloudflare</text>
+  
+  <rect x="1080" y="585" width="60" height="26" rx="13" fill="#00d4ff" opacity="0.15" stroke="#00d4ff" stroke-width="0.8"/>
+  <text x="1110" y="603" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="12" fill="#00d4ff" opacity="0.9">Bot</text>
+</svg>
