@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f1729;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a0a3e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a1628;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00e5a0;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00e5a0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="60" />
+    </filter>
+    <filter id="blur2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="40" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Ambient glow orbs -->
+  <circle cx="250" cy="180" r="200" fill="#00e5a0" opacity="0.05" filter="url(#blur1)"/>
+  <circle cx="950" cy="450" r="180" fill="#6366f1" opacity="0.07" filter="url(#blur1)"/>
+  <circle cx="600" cy="80" r="100" fill="#00e5a0" opacity="0.03" filter="url(#blur2)"/>
+  
+  <!-- Network nodes and connections -->
+  <!-- Node cluster top-left -->
+  <circle cx="90" cy="70" r="3" fill="#00e5a0" opacity="0.6"/>
+  <circle cx="170" cy="45" r="2.5" fill="#6366f1" opacity="0.5"/>
+  <circle cx="130" cy="110" r="2" fill="#00e5a0" opacity="0.5"/>
+  <line x1="90" y1="70" x2="170" y2="45" stroke="#00e5a0" stroke-width="0.8" opacity="0.3"/>
+  <line x1="90" y1="70" x2="130" y2="110" stroke="#6366f1" stroke-width="0.8" opacity="0.25"/>
+  <line x1="170" y1="45" x2="130" y2="110" stroke="#00e5a0" stroke-width="0.5" opacity="0.2"/>
+  
+  <!-- Node cluster top-right -->
+  <circle cx="1060" cy="65" r="3" fill="#6366f1" opacity="0.6"/>
+  <circle cx="1130" cy="100" r="2" fill="#00e5a0" opacity="0.5"/>
+  <circle cx="1090" cy="130" r="2.5" fill="#6366f1" opacity="0.4"/>
+  <line x1="1060" y1="65" x2="1130" y2="100" stroke="#6366f1" stroke-width="0.8" opacity="0.3"/>
+  <line x1="1060" y1="65" x2="1090" y2="130" stroke="#00e5a0" stroke-width="0.8" opacity="0.25"/>
+  <line x1="1130" y1="100" x2="1090" y2="130" stroke="#6366f1" stroke-width="0.5" opacity="0.2"/>
+  
+  <!-- Node cluster bottom-left -->
+  <circle cx="110" cy="510" r="2.5" fill="#00e5a0" opacity="0.5"/>
+  <circle cx="60" cy="470" r="2" fill="#6366f1" opacity="0.4"/>
+  <circle cx="160" cy="550" r="3" fill="#00e5a0" opacity="0.5"/>
+  <line x1="110" y1="510" x2="60" y2="470" stroke="#00e5a0" stroke-width="0.8" opacity="0.25"/>
+  <line x1="110" y1="510" x2="160" y2="550" stroke="#6366f1" stroke-width="0.8" opacity="0.3"/>
+  <line x1="60" y1="470" x2="160" y2="550" stroke="#00e5a0" stroke-width="0.5" opacity="0.15"/>
+  
+  <!-- Node cluster bottom-right -->
+  <circle cx="1090" cy="530" r="2.5" fill="#6366f1" opacity="0.5"/>
+  <circle cx="1140" cy="480" r="2" fill="#00e5a0" opacity="0.4"/>
+  <circle cx="1050" cy="570" r="3" fill="#6366f1" opacity="0.5"/>
+  <line x1="1090" y1="530" x2="1140" y2="480" stroke="#6366f1" stroke-width="0.8" opacity="0.25"/>
+  <line x1="1090" y1="530" x2="1050" y2="570" stroke="#00e5a0" stroke-width="0.8" opacity="0.3"/>
+  
+  <!-- Scattered small dots (starfield) -->
+  <circle cx="320" cy="55" r="1.5" fill="#fff" opacity="0.3"/>
+  <circle cx="470" cy="35" r="1" fill="#00e5a0" opacity="0.4"/>
+  <circle cx="720" cy="50" r="1.5" fill="#fff" opacity="0.25"/>
+  <circle cx="870" cy="75" r="1" fill="#6366f1" opacity="0.35"/>
+  <circle cx="370" cy="575" r="1.5" fill="#fff" opacity="0.3"/>
+  <circle cx="570" cy="595" r="1" fill="#00e5a0" opacity="0.3"/>
+  <circle cx="770" cy="565" r="1.5" fill="#fff" opacity="0.25"/>
+  <circle cx="920" cy="585" r="1" fill="#6366f1" opacity="0.35"/>
+  <circle cx="220" cy="290" r="1" fill="#00e5a0" opacity="0.2"/>
+  <circle cx="1020" cy="310" r="1.5" fill="#6366f1" opacity="0.25"/>
+  
+  <!-- Geometric accent lines -->
+  <line x1="50" y1="315" x2="200" y2="315" stroke="url(#accent)" stroke-width="1" opacity="0.15"/>
+  <line x1="1000" y1="315" x2="1150" y2="315" stroke="url(#accent)" stroke-width="1" opacity="0.15"/>
+  
+  <!-- Hexagon decorations -->
+  <polygon points="70,305 90,295 110,305 110,325 90,335 70,325" fill="none" stroke="#00e5a0" stroke-width="0.8" opacity="0.15"/>
+  <polygon points="1090,285 1110,275 1130,285 1130,305 1110,315 1090,305" fill="none" stroke="#6366f1" stroke-width="0.8" opacity="0.15"/>
+  
+  <!-- Document/Multimodal icon (simplified) -->
+  <g transform="translate(540, 140)" opacity="0.12">
+    <rect x="0" y="0" width="120" height="80" rx="8" fill="none" stroke="#00e5a0" stroke-width="2"/>
+    <rect x="10" y="10" width="40" height="30" rx="4" fill="none" stroke="#00e5a0" stroke-width="1.5"/>
+    <rect x="55" y="10" width="55" height="8" rx="2" fill="#00e5a0" opacity="0.5"/>
+    <rect x="55" y="22" width="45" height="6" rx="2" fill="#00e5a0" opacity="0.3"/>
+    <rect x="55" y="32" width="50" height="6" rx="2" fill="#00e5a0" opacity="0.3"/>
+    <line x1="10" y1="50" x2="110" y2="50" stroke="#00e5a0" stroke-width="1"/>
+    <rect x="10" y="55" width="90" height="5" rx="2" fill="#00e5a0" opacity="0.3"/>
+    <rect x="10" y="65" width="70" height="5" rx="2" fill="#00e5a0" opacity="0.2"/>
+  </g>
+  
+  <!-- Title text -->
+  <text x="600" y="240" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="44" font-weight="bold" fill="white" letter-spacing="1">
+    多模态AI重塑文档理解
+  </text>
+  <text x="600" y="300" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="34" font-weight="600" fill="white" opacity="0.95" letter-spacing="0.5">
+    从PDF解析到智能文档处理的技术革命
+  </text>
+  
+  <!-- Accent line under title -->
+  <rect x="380" y="320" width="440" height="2" rx="1" fill="url(#accent)" opacity="0.5"/>
+  
+  <!-- Subtitle -->
+  <text x="600" y="365" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="16" fill="#00e5a0" opacity="0.8" letter-spacing="2">
+    Multimodal · Document AI · Layout Understanding · Vision-Language Model
+  </text>
+  
+  <!-- Bottom bar -->
+  <rect x="0" y="570" width="1200" height="60" fill="#000" opacity="0.3"/>
+  <line x1="0" y1="570" x2="1200" y2="570" stroke="url(#accent)" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Date and author -->
+  <text x="60" y="605" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="16" fill="white" opacity="0.7">
+    2026-06-07 · Al磊
+  </text>
+  
+  <!-- Tags -->
+  <rect x="820" y="585" width="90" height="26" rx="13" fill="#00e5a0" opacity="0.15" stroke="#00e5a0" stroke-width="0.8"/>
+  <text x="865" y="603" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="11" fill="#00e5a0" opacity="0.9">多模态AI</text>
+  
+  <rect x="920" y="585" width="100" height="26" rx="13" fill="#6366f1" opacity="0.15" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="970" y="603" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="11" fill="#6366f1" opacity="0.9">Document AI</text>
+  
+  <rect x="1030" y="585" width="70" height="26" rx="13" fill="#00e5a0" opacity="0.15" stroke="#00e5a0" stroke-width="0.8"/>
+  <text x="1065" y="603" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="11" fill="#00e5a0" opacity="0.9">PDF解析</text>
+  
+  <rect x="1110" y="585" width="60" height="26" rx="13" fill="#6366f1" opacity="0.15" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="1140" y="603" text-anchor="middle" font-family="'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif" font-size="11" fill="#6366f1" opacity="0.9">VLM</text>
+</svg>
