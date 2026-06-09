@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1040;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1b3e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:0.1" />
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="60" />
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="40" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Ambient glow orbs -->
+  <circle cx="200" cy="150" r="200" fill="#6366f1" opacity="0.08" filter="url(#blur1)" />
+  <circle cx="1000" cy="500" r="250" fill="#ec4899" opacity="0.06" filter="url(#blur1)" />
+  <circle cx="600" cy="300" r="180" fill="#8b5cf6" opacity="0.05" filter="url(#blur2)" />
+
+  <!-- Grid pattern -->
+  <g opacity="0.06" stroke="#6366f1" stroke-width="0.5" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100" />
+    <line x1="0" y1="200" x2="1200" y2="200" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="0" y1="500" x2="1200" y2="500" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+  </g>
+
+  <!-- Network nodes and connections -->
+  <g opacity="0.15">
+    <!-- Connection lines -->
+    <line x1="100" y1="120" x2="250" y2="200" stroke="#6366f1" stroke-width="1" />
+    <line x1="250" y1="200" x2="180" y2="350" stroke="#6366f1" stroke-width="1" />
+    <line x1="180" y1="350" x2="320" y2="420" stroke="#8b5cf6" stroke-width="1" />
+    <line x1="900" y1="100" x2="1050" y2="180" stroke="#6366f1" stroke-width="1" />
+    <line x1="1050" y1="180" x2="980" y2="320" stroke="#8b5cf6" stroke-width="1" />
+    <line x1="980" y1="320" x2="1100" y2="400" stroke="#ec4899" stroke-width="1" />
+    <line x1="1100" y1="400" x2="1020" y2="520" stroke="#6366f1" stroke-width="1" />
+    <line x1="100" y1="500" x2="220" y2="550" stroke="#8b5cf6" stroke-width="1" />
+    <line x1="220" y1="550" x2="350" y2="480" stroke="#ec4899" stroke-width="1" />
+
+    <!-- Nodes -->
+    <circle cx="100" cy="120" r="4" fill="#6366f1" />
+    <circle cx="250" cy="200" r="5" fill="#8b5cf6" />
+    <circle cx="180" cy="350" r="3" fill="#6366f1" />
+    <circle cx="320" cy="420" r="4" fill="#ec4899" />
+    <circle cx="900" cy="100" r="4" fill="#8b5cf6" />
+    <circle cx="1050" cy="180" r="5" fill="#6366f1" />
+    <circle cx="980" cy="320" r="3" fill="#ec4899" />
+    <circle cx="1100" cy="400" r="4" fill="#8b5cf6" />
+    <circle cx="1020" cy="520" r="3" fill="#6366f1" />
+    <circle cx="100" cy="500" r="4" fill="#ec4899" />
+    <circle cx="220" cy="550" r="3" fill="#8b5cf6" />
+    <circle cx="350" cy="480" r="4" fill="#6366f1" />
+  </g>
+
+  <!-- Decorative geometric shapes -->
+  <g opacity="0.08">
+    <polygon points="80,80 120,80 100,50" fill="none" stroke="#6366f1" stroke-width="1.5" />
+    <polygon points="1080,480 1120,480 1100,450" fill="none" stroke="#ec4899" stroke-width="1.5" />
+    <rect x="150" y="450" width="30" height="30" fill="none" stroke="#8b5cf6" stroke-width="1" transform="rotate(45 165 465)" />
+    <rect x="1020" y="80" width="25" height="25" fill="none" stroke="#6366f1" stroke-width="1" transform="rotate(30 1032 92)" />
+    <circle cx="350" cy="120" r="15" fill="none" stroke="#8b5cf6" stroke-width="0.8" />
+    <circle cx="850" cy="520" r="12" fill="none" stroke="#ec4899" stroke-width="0.8" />
+  </g>
+
+  <!-- Accent line -->
+  <rect x="100" y="230" width="80" height="3" rx="1.5" fill="url(#accent)" opacity="0.8" />
+
+  <!-- Main title -->
+  <text x="600" y="200" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="48" font-weight="800" fill="white" letter-spacing="-1">
+    OpenAI提交S-1：AI行业
+  </text>
+  <text x="600" y="260" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="48" font-weight="800" fill="white" letter-spacing="-1">
+    正式迈入资本市场时代
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="310" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" fill="#a5b4fc" font-weight="400" letter-spacing="0.5">
+    Anthropic估值9650亿美元 · OpenAI估值8520亿美元 · AI IPO竞赛全面开启
+  </text>
+
+  <!-- Divider -->
+  <rect x="480" y="340" width="240" height="1" rx="0.5" fill="#6366f1" opacity="0.4" />
+
+  <!-- Bottom info -->
+  <text x="100" y="580" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#64748b" font-weight="400">
+    2026-06-09 · Al磊 · AI技术深度解读
+  </text>
+
+  <!-- Tags -->
+  <g transform="translate(600, 560)">
+    <rect x="0" y="0" width="90" height="28" rx="14" fill="#6366f1" opacity="0.2" />
+    <text x="45" y="18" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11" fill="#a5b4fc" font-weight="500">OpenAI IPO</text>
+
+    <rect x="100" y="0" width="100" height="28" rx="14" fill="#8b5cf6" opacity="0.2" />
+    <text x="150" y="18" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11" fill="#c4b5fd" font-weight="500">Anthropic</text>
+
+    <rect x="210" y="0" width="90" height="28" rx="14" fill="#ec4899" opacity="0.2" />
+    <text x="255" y="18" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11" fill="#f9a8d4" font-weight="500">AI芯片战争</text>
+
+    <rect x="310" y="0" width="90" height="28" rx="14" fill="#6366f1" opacity="0.2" />
+    <text x="355" y="18" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11" fill="#a5b4fc" font-weight="500">超级智能</text>
+  </g>
+
+  <!-- Floating dots animation hint -->
+  <g opacity="0.3">
+    <circle cx="500" cy="400" r="2" fill="#6366f1">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="700" cy="450" r="1.5" fill="#ec4899">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="400" cy="500" r="1.8" fill="#8b5cf6">
+      <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>
