@@ -8,7 +8,7 @@ module.exports = {
       exec_mode: 'cluster',
       env: {
         NODE_ENV: 'production',
-        PORT: 3333
+        PORT: 3336
       },
       error_file: './logs/backend-error.log',
       out_file: './logs/backend-out.log',
