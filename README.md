@@ -123,7 +123,7 @@ ALLOWED_FILE_TYPES=pdf,doc,docx,jpg,jpeg,png
 # ======================
 # 服务配置
 # ======================
-PORT=3000
+PORT=3456
 NODE_ENV=development
 LOG_LEVEL=info
 ```
@@ -190,7 +190,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - "3456:3456"
     environment:
       - NODE_ENV=production
     depends_on:
@@ -199,7 +199,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3001:3000"
+      - "3001:3001"
     environment:
       - NODE_ENV=production
     depends_on:
@@ -307,7 +307,7 @@ backend/
 ## 🔌 API 接口文档
 
 ### 基础信息
-- **Base URL**: `http://localhost:3000/api`
+- **Base URL**: `http://localhost:3456/api`
 - **Content-Type**: `application/json`
 - **认证方式**: 无（公开API）
 
@@ -355,7 +355,7 @@ GET /api/task/:id
     "id": "uuid-here",
     "status": "processing|completed|failed",
     "progress": 75,
-    "downloadUrl": "http://localhost:3000/api/download/uuid-here",
+    "downloadUrl": "http://localhost:3456/api/download/uuid-here",
     "createdAt": "2024-01-01T00:00:00Z",
     "completedAt": "2024-01-01T00:00:30Z"
   }
@@ -556,7 +556,7 @@ chore: 构建过程或辅助工具的变动
 ### 健康检查
 ```bash
 # 后端健康检查
-curl http://localhost:3000/api/health
+curl http://localhost:3456/api/health
 
 # 数据库连接检查
 mysqladmin ping -h localhost -u root -p

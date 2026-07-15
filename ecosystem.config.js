@@ -25,13 +25,13 @@ module.exports = {
     {
       name: 'pdf-to-word-frontend',
       script: './node_modules/next/dist/bin/next',
-      args: 'start -p 3000',
+      args: 'start -p 3456',
       cwd: './frontend',
       instances: 1,
       exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
-        PORT: '3000'
+        PORT: '3456'
       },
       error_file: './logs/frontend-error.log',
       out_file: './logs/frontend-out.log',
