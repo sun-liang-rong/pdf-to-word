@@ -6,12 +6,14 @@ const nextConfig: NextConfig = {
     // 暂时忽略类型错误，以便构建通过
     ignoreBuildErrors: true,
   },
-  // 代理到后端API
+  // 代理到本机后端 API，避免写死公网 IP
   async rewrites() {
+    const backendOrigin = process.env.NEXT_PUBLIC_API_PROXY_TARGET || 'http://127.0.0.1:3336';
+
     return [
       {
-        source: '/api/:path*',        // 前端请求 /api/xxx
-        destination: 'http://110.42.244.187:3001/api/:path*', // 代理到后端 NestJS
+        source: '/api/:path*',
+        destination: `${backendOrigin}/api/:path*`,
       },
     ];
   },
