@@ -46,6 +46,12 @@ export class UploadService {
         return `${baseName}_split.zip`;
       case 'rearrange-pages':
         return `${baseName}_rearranged.pdf`;
+      case 'rotate-pdf':
+        return `${baseName}-rotated.pdf`;
+      case 'extract-pages':
+        return `${baseName}-extracted.pdf`;
+      case 'pdf-text-watermark':
+        return `${baseName}-watermarked.pdf`;
       default:
         return `${baseName}.pdf`;
     }

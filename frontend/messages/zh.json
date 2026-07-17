@@ -16,6 +16,9 @@
       "removePages": { "title": "删除页面", "desc": "页面裁剪" },
       "splitPdf": { "title": "拆分PDF", "desc": "文件拆分" },
       "rearrangePdf": { "title": "重新排列", "desc": "调整顺序" },
+      "rotatePdf": { "title": "旋转PDF", "desc": "修正页面方向" },
+      "extractPages": { "title": "提取页面", "desc": "导出指定页面" },
+      "pdfWatermark": { "title": "PDF水印", "desc": "添加文字水印" },
       "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
       "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
     }
@@ -68,6 +71,9 @@
       "removePages": { "title": "删除页面", "desc": "页面裁剪" },
       "splitPdf": { "title": "拆分PDF", "desc": "文件拆分" },
       "rearrangePdf": { "title": "重新排列", "desc": "调整顺序" },
+      "rotatePdf": { "title": "旋转PDF", "desc": "修正页面方向" },
+      "extractPages": { "title": "提取页面", "desc": "导出指定页面" },
+      "pdfWatermark": { "title": "PDF水印", "desc": "添加文字水印" },
       "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
       "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
     }

@@ -150,3 +150,20 @@ export interface RearrangePagesOptions {
   /** 排列模式 */
   customMode: RearrangeMode;
 }
+
+export interface RotatePdfOptions {
+  angle: 90 | 180 | 270;
+}
+
+export interface ExtractPagesOptions {
+  pageNumbers: string;
+}
+
+export interface TextWatermarkOptions {
+  text: string;
+  fontSize: number;
+  rotation: number;
+  opacity: number;
+  spacing: number;
+  customColor: string;
+}

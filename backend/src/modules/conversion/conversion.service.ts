@@ -11,7 +11,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ConversionTask, TaskStatus, ConversionType, OUTPUT_EXTENSIONS } from '../task/task.entity';
 import { StirlingPdfService } from '../stirling-pdf/stirling-pdf.service';
-import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions } from '../stirling-pdf/stirling-pdf.interface';
+import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RotatePdfOptions, ExtractPagesOptions, TextWatermarkOptions } from '../stirling-pdf/stirling-pdf.interface';
 
 /**
  * 允许的文件类型映射
@@ -30,6 +30,9 @@ const ALLOWED_TYPES: Record<string, string[]> = {
   [ConversionType.COMPRESS_PDF]: ['application/pdf'],
   [ConversionType.REMOVE_PAGES]: ['application/pdf'],
   [ConversionType.SPLIT_PAGES]: ['application/pdf'],
+  [ConversionType.ROTATE_PDF]: ['application/pdf'],
+  [ConversionType.EXTRACT_PAGES]: ['application/pdf'],
+  [ConversionType.PDF_TEXT_WATERMARK]: ['application/pdf'],
 };
 
 @Injectable()
@@ -581,6 +584,54 @@ export class ConversionService {
       status: TaskStatus.COMPLETED,
       message: '合并完成',
     };
+  }
+
+  async createRotatePdfConversion(file: Express.Multer.File, options: RotatePdfOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.ROTATE_PDF, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.rotatePdf(buffer, filename, options.angle));
+  }
+
+  async createExtractPagesConversion(file: Express.Multer.File, options: ExtractPagesOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.EXTRACT_PAGES, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.extractPages(buffer, filename, options.pageNumbers));
+  }
+
+  async createTextWatermarkConversion(file: Express.Multer.File, options: TextWatermarkOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.PDF_TEXT_WATERMARK, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.addTextWatermark(buffer, filename, options));
+  }
+
+  private async createPdfOperation(
+    file: Express.Multer.File,
+    type: ConversionType,
+    ipAddress: string,
+    operation: (buffer: Buffer, filename: string) => Promise<Buffer>,
+  ) {
+    if (!file) throw new BadRequestException('请上传 PDF 文件');
+    if (file.size > this.maxFileSize) {
+      throw new BadRequestException(`文件大小超过限制 (最大 ${this.maxFileSize / 1024 / 1024}MB)`);
+    }
+    if (file.mimetype !== 'application/pdf') throw new BadRequestException('只支持 PDF 文件');
+
+    const taskId = uuidv4();
+    const originalName = this.normalizeOriginalName(file.originalname);
+    const expiresAt = new Date(Date.now() + parseInt(this.configService.get('FILE_EXPIRE_MINUTES') || '30', 10) * 60 * 1000);
+    const outputPath = path.join(this.uploadDir, `${taskId}.pdf`);
+    const outputBuffer = await operation(file.buffer, originalName);
+    fs.writeFileSync(outputPath, outputBuffer);
+
+    try {
+      const task = this.taskRepository.create({
+        id: taskId, originalName, inputPath: '', type, status: TaskStatus.COMPLETED,
+        fileSize: file.size, ipAddress, expiresAt, outputPath,
+      });
+      await this.taskRepository.save(task);
+    } catch (error) {
+      if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
+      throw error;
+    }
+
+    return { taskId, status: TaskStatus.COMPLETED, message: '处理完成' };
   }
 
   /**

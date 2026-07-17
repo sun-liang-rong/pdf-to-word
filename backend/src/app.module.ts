@@ -13,6 +13,7 @@ import { FileCleanupService } from './common/services/file-cleanup.service';
 import { ConversionTask } from './modules/task/task.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { HealthModule } from './health/health.module';
 console.log(join(process.cwd(), 'uploads/image'));
 @Module({
   imports: [
@@ -22,7 +23,7 @@ console.log(join(process.cwd(), 'uploads/image'));
     }),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: process.env.NODE_ENV === 'production' ? '.env.production' : '.env',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -34,7 +35,7 @@ console.log(join(process.cwd(), 'uploads/image'));
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
+        synchronize: configService.get('TYPEORM_SYNCHRONIZE', 'false') === 'true',
         logging: false,
       }),
       inject: [ConfigService],
@@ -48,6 +49,7 @@ console.log(join(process.cwd(), 'uploads/image'));
     StirlingPdfModule,
     ImageModule,
     ImageWatermarkModule,
+    HealthModule,
   ],
   providers: [FileCleanupService],
 })

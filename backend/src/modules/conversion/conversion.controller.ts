@@ -18,6 +18,9 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
 import { ConversionService } from './conversion.service';
 import { CreateConversionDto } from './dto/create-conversion.dto';
+import { RotatePdfDto } from './dto/rotate-pdf.dto';
+import { ExtractPagesDto } from './dto/extract-pages.dto';
+import { TextWatermarkDto } from './dto/text-watermark.dto';
 import { RateLimitGuard } from '../rate-limit/rate-limit.guard';
 import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RearrangeMode } from '../stirling-pdf/stirling-pdf.interface';
 
@@ -207,6 +210,39 @@ export class ConversionController {
     };
     
     return this.conversionService.createRearrangePagesConversion(file, options, ipAddress);
+  }
+
+  @Post('rotate')
+  @UseInterceptors(FileInterceptor('file'))
+  async rotatePdf(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: RotatePdfDto,
+    @Req() req: Request,
+  ) {
+    const ipAddress = req.ip || req.socket.remoteAddress || '';
+    return this.conversionService.createRotatePdfConversion(file, body, ipAddress);
+  }
+
+  @Post('extract-pages')
+  @UseInterceptors(FileInterceptor('file'))
+  async extractPages(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: ExtractPagesDto,
+    @Req() req: Request,
+  ) {
+    const ipAddress = req.ip || req.socket.remoteAddress || '';
+    return this.conversionService.createExtractPagesConversion(file, body, ipAddress);
+  }
+
+  @Post('watermark/text')
+  @UseInterceptors(FileInterceptor('file'))
+  async addTextWatermark(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: TextWatermarkDto,
+    @Req() req: Request,
+  ) {
+    const ipAddress = req.ip || req.socket.remoteAddress || '';
+    return this.conversionService.createTextWatermarkConversion(file, body, ipAddress);
   }
 
   /**

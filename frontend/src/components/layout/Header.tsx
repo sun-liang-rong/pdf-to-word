@@ -8,7 +8,8 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import LanguageSwitcher from "@/components/i18n/LanguageSwitcher";
 import {
   FileText, FileUp, Image as ImageIcon, FileImage, Merge, Minimize2,
-  Scissors, SplitSquareHorizontal, ArrowUpDown, Droplets, ChevronDown, Menu, X
+  Scissors, SplitSquareHorizontal, ArrowUpDown, Droplets, ChevronDown, Menu, X,
+  RotateCw, Files, Stamp
 } from "lucide-react";
 
 export default function Header() {
@@ -29,6 +30,9 @@ export default function Header() {
     { href: "/remove-pages", icon: <Scissors className="w-5 h-5" />, title: t("header.tools.removePages.title"), desc: t("header.tools.removePages.desc") },
     { href: "/split-pdf", icon: <SplitSquareHorizontal className="w-5 h-5" />, title: t("header.tools.splitPdf.title"), desc: t("header.tools.splitPdf.desc") },
     { href: "/rearrange-pdf", icon: <ArrowUpDown className="w-5 h-5" />, title: t("header.tools.rearrangePdf.title"), desc: t("header.tools.rearrangePdf.desc") },
+    { href: "/rotate-pdf", icon: <RotateCw className="w-5 h-5" />, title: t("header.tools.rotatePdf.title"), desc: t("header.tools.rotatePdf.desc") },
+    { href: "/extract-pages", icon: <Files className="w-5 h-5" />, title: t("header.tools.extractPages.title"), desc: t("header.tools.extractPages.desc") },
+    { href: "/pdf-watermark", icon: <Stamp className="w-5 h-5" />, title: t("header.tools.pdfWatermark.title"), desc: t("header.tools.pdfWatermark.desc") },
   ];
 
   const imageTools = [
@@ -184,7 +188,7 @@ export default function Header() {
               <div>
                 <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-theme-muted">{t("header.pdfTools")}</div>
                 <div className="space-y-1">
-                  {pdfTools.slice(0, 6).map((tool) => (
+                  {pdfTools.map((tool) => (
                     <Link
                       key={tool.href}
                       href={tool.href}

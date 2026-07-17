@@ -16,6 +16,9 @@
       "removePages": { "title": "Remove Pages", "desc": "Page trimming" },
       "splitPdf": { "title": "Split PDF", "desc": "File splitting" },
       "rearrangePdf": { "title": "Rearrange", "desc": "Reorder pages" },
+      "rotatePdf": { "title": "Rotate PDF", "desc": "Fix page orientation" },
+      "extractPages": { "title": "Extract Pages", "desc": "Export selected pages" },
+      "pdfWatermark": { "title": "PDF Watermark", "desc": "Add text watermark" },
       "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
       "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
     }
@@ -68,6 +71,9 @@
       "removePages": { "title": "Remove Pages", "desc": "Page trimming" },
       "splitPdf": { "title": "Split PDF", "desc": "File splitting" },
       "rearrangePdf": { "title": "Rearrange", "desc": "Reorder pages" },
+      "rotatePdf": { "title": "Rotate PDF", "desc": "Fix page orientation" },
+      "extractPages": { "title": "Extract Pages", "desc": "Export selected pages" },
+      "pdfWatermark": { "title": "PDF Watermark", "desc": "Add text watermark" },
       "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
       "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
     }

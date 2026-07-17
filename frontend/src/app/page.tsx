@@ -6,7 +6,8 @@ import { useI18n } from "@/lib/i18n";
 import {
   FileText, FileUp, Image, FileImage, Merge, Minimize2,
   Scissors, SplitSquareHorizontal, ArrowUpDown, Upload,
-  Shield, Zap, CheckCircle2, Users, Lock, Clock, Droplets
+  Shield, Zap, CheckCircle2, Users, Lock, Clock, Droplets,
+  RotateCw, Files, Stamp
 } from "lucide-react";
 
 export default function HomePage() {
@@ -28,6 +29,9 @@ export default function HomePage() {
     { href: "/remove-pages", icon: <Scissors className="w-7 h-7" />, title: t("home.tools.removePages.title"), desc: t("home.tools.removePages.desc"), color: "from-amber-500 to-orange-500", size: "normal" },
     { href: "/split-pdf", icon: <SplitSquareHorizontal className="w-7 h-7" />, title: t("home.tools.splitPdf.title"), desc: t("home.tools.splitPdf.desc"), color: "from-cyan-500 to-blue-500", size: "normal" },
     { href: "/rearrange-pdf", icon: <ArrowUpDown className="w-7 h-7" />, title: t("home.tools.rearrangePdf.title"), desc: t("home.tools.rearrangePdf.desc"), color: "from-violet-500 to-purple-500", size: "normal" },
+    { href: "/rotate-pdf", icon: <RotateCw className="w-7 h-7" />, title: t("home.tools.rotatePdf.title"), desc: t("home.tools.rotatePdf.desc"), color: "from-indigo-500 to-violet-500", size: "normal" },
+    { href: "/extract-pages", icon: <Files className="w-7 h-7" />, title: t("home.tools.extractPages.title"), desc: t("home.tools.extractPages.desc"), color: "from-cyan-500 to-blue-500", size: "normal" },
+    { href: "/pdf-watermark", icon: <Stamp className="w-7 h-7" />, title: t("home.tools.pdfWatermark.title"), desc: t("home.tools.pdfWatermark.desc"), color: "from-purple-500 to-fuchsia-500", size: "wide" },
   ];
 
   const imageTools = [

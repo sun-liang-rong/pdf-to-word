@@ -31,8 +31,10 @@ import {
   CompressPdfOptions,
   RemovePagesOptions,
   SplitPagesOptions,
-  RearrangePagesOptions
+  RearrangePagesOptions,
+  TextWatermarkOptions
 } from './stirling-pdf.interface';
+import { isValidPageExpression } from '../conversion/dto/page-expression';
 
 @Injectable()
 export class StirlingPdfService {
@@ -644,10 +646,9 @@ export class StirlingPdfService {
       pageNumbers: options.pageNumbers,
     };
 
-    // 如果启用合并，使用 remove-pages 接口提取指定页面并合并为一个文件
+    // mergeAll means extracting the selected pages into one PDF.
     if (options.mergeAll) {
-      this.logger.log(`Using remove-pages API to extract and merge pages`);
-      return this.makeMultipartRequest('/api/v1/general/remove-pages', fields, filename);
+      return this.extractPages(pdfBuffer, filename, options.pageNumbers);
     }
 
     // 否则使用 split-pages 接口拆分成多个文件
@@ -712,6 +713,42 @@ export class StirlingPdfService {
     return this.makeMultipartRequest('/api/v1/general/rearrange-pages', fields, filename);
   }
 
+  async rotatePdf(pdfBuffer: Buffer, filename: string, angle: 90 | 180 | 270): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/general/rotate-pdf', {
+      fileInput: pdfBuffer,
+      angle: String(angle),
+    }, filename);
+  }
+
+  async extractPages(pdfBuffer: Buffer, filename: string, pageNumbers: string): Promise<Buffer> {
+    this.validateRearrangePagesOptions({ pageNumbers, customMode: 'CUSTOM' });
+    return this.makeMultipartRequest('/api/v1/general/rearrange-pages', {
+      fileInput: pdfBuffer,
+      pageNumbers,
+      customMode: 'CUSTOM',
+    }, filename);
+  }
+
+  async addTextWatermark(
+    pdfBuffer: Buffer,
+    filename: string,
+    options: TextWatermarkOptions,
+  ): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/misc/add-watermark', {
+      fileInput: pdfBuffer,
+      watermarkType: 'text',
+      watermarkText: options.text,
+      alphabet: 'roman',
+      fontSize: String(options.fontSize),
+      rotation: String(options.rotation),
+      opacity: String(options.opacity),
+      widthSpacer: String(options.spacing),
+      heightSpacer: String(options.spacing),
+      customColor: options.customColor,
+      convertPDFToImage: 'false',
+    }, filename);
+  }
+
   /**
    * 验证重新排列页面参数
    * 
@@ -745,14 +782,7 @@ export class StirlingPdfService {
 
     // CUSTOM 模式需要验证 pageNumbers 格式
     if (options.customMode === 'CUSTOM') {
-      const validPatterns = [
-        /^(\d+,)*\d+$/,           // 单页：1,3,5
-        /^\d+-\d+$/,              // 范围：2-6
-        /^(\d+,)*(\d+-\d+,)*\d+$/, // 组合：1,3-5,8
-      ];
-
-      const isValid = validPatterns.some(pattern => pattern.test(options.pageNumbers.trim()));
-      if (!isValid) {
+      if (!isValidPageExpression(options.pageNumbers.trim())) {
         throw new Error(
           `CUSTOM 模式下无效的 pageNumbers 格式: ${options.pageNumbers}。` +
           `支持的格式: 单页(1,3,5)、范围(2-6)、组合(1,3-5,8)`
