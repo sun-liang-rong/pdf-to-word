@@ -1,212 +1,220 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import {
-  FileText, FileUp, Image, FileImage, Merge, Minimize2,
-  Scissors, SplitSquareHorizontal, ArrowUpDown, Upload,
-  Shield, Zap, CheckCircle2, Users, Lock, Clock, Droplets,
-  RotateCw, Files, Stamp
+  ArrowRight,
+  ArrowUpDown,
+  Check,
+  Clock3,
+  Droplets,
+  FileImage,
+  FileText,
+  FileUp,
+  Files,
+  Image,
+  LockKeyhole,
+  Merge,
+  Minimize2,
+  RotateCw,
+  Scissors,
+  ShieldCheck,
+  Sparkles,
+  SplitSquareHorizontal,
+  Stamp,
+  Upload,
+  Zap,
 } from "lucide-react";
+
+const toolAccents = [
+  "tool-accent-cyan",
+  "tool-accent-violet",
+  "tool-accent-coral",
+  "tool-accent-lime",
+] as const;
 
 export default function HomePage() {
   const [dragOver, setDragOver] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const { t } = useI18n();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const pdfTools = [
-    { href: "/pdf-to-word", icon: <FileText className="w-7 h-7" />, title: t("home.tools.pdfToWord.title"), desc: t("home.tools.pdfToWord.desc"), color: "from-blue-500 to-cyan-500", size: "normal" },
-    { href: "/word-to-pdf", icon: <FileUp className="w-7 h-7" />, title: t("home.tools.wordToPdf.title"), desc: t("home.tools.wordToPdf.desc"), color: "from-purple-500 to-pink-500", size: "normal" },
-    { href: "/pdf-to-jpg", icon: <FileImage className="w-7 h-7" />, title: t("home.tools.pdfToJpg.title"), desc: t("home.tools.pdfToJpg.desc"), color: "from-orange-500 to-red-500", size: "normal" },
-    { href: "/jpg-to-pdf", icon: <Image className="w-7 h-7" />, title: t("home.tools.jpgToPdf.title"), desc: t("home.tools.jpgToPdf.desc"), color: "from-green-500 to-teal-500", size: "normal" },
-    { href: "/merge-pdf", icon: <Merge className="w-7 h-7" />, title: t("home.tools.mergePdf.title"), desc: t("home.tools.mergePdf.desc"), color: "from-indigo-500 to-purple-500", size: "wide" },
-    { href: "/compress-pdf", icon: <Minimize2 className="w-7 h-7" />, title: t("home.tools.compressPdf.title"), desc: t("home.tools.compressPdf.desc"), color: "from-pink-500 to-rose-500", size: "normal" },
-    { href: "/remove-pages", icon: <Scissors className="w-7 h-7" />, title: t("home.tools.removePages.title"), desc: t("home.tools.removePages.desc"), color: "from-amber-500 to-orange-500", size: "normal" },
-    { href: "/split-pdf", icon: <SplitSquareHorizontal className="w-7 h-7" />, title: t("home.tools.splitPdf.title"), desc: t("home.tools.splitPdf.desc"), color: "from-cyan-500 to-blue-500", size: "normal" },
-    { href: "/rearrange-pdf", icon: <ArrowUpDown className="w-7 h-7" />, title: t("home.tools.rearrangePdf.title"), desc: t("home.tools.rearrangePdf.desc"), color: "from-violet-500 to-purple-500", size: "normal" },
-    { href: "/rotate-pdf", icon: <RotateCw className="w-7 h-7" />, title: t("home.tools.rotatePdf.title"), desc: t("home.tools.rotatePdf.desc"), color: "from-indigo-500 to-violet-500", size: "normal" },
-    { href: "/extract-pages", icon: <Files className="w-7 h-7" />, title: t("home.tools.extractPages.title"), desc: t("home.tools.extractPages.desc"), color: "from-cyan-500 to-blue-500", size: "normal" },
-    { href: "/pdf-watermark", icon: <Stamp className="w-7 h-7" />, title: t("home.tools.pdfWatermark.title"), desc: t("home.tools.pdfWatermark.desc"), color: "from-purple-500 to-fuchsia-500", size: "wide" },
+    { href: "/pdf-to-word", icon: FileText, title: t("home.tools.pdfToWord.title"), desc: t("home.tools.pdfToWord.desc"), featured: true },
+    { href: "/word-to-pdf", icon: FileUp, title: t("home.tools.wordToPdf.title"), desc: t("home.tools.wordToPdf.desc") },
+    { href: "/pdf-to-jpg", icon: FileImage, title: t("home.tools.pdfToJpg.title"), desc: t("home.tools.pdfToJpg.desc") },
+    { href: "/jpg-to-pdf", icon: Image, title: t("home.tools.jpgToPdf.title"), desc: t("home.tools.jpgToPdf.desc") },
+    { href: "/merge-pdf", icon: Merge, title: t("home.tools.mergePdf.title"), desc: t("home.tools.mergePdf.desc"), featured: true },
+    { href: "/compress-pdf", icon: Minimize2, title: t("home.tools.compressPdf.title"), desc: t("home.tools.compressPdf.desc") },
+    { href: "/remove-pages", icon: Scissors, title: t("home.tools.removePages.title"), desc: t("home.tools.removePages.desc") },
+    { href: "/split-pdf", icon: SplitSquareHorizontal, title: t("home.tools.splitPdf.title"), desc: t("home.tools.splitPdf.desc") },
+    { href: "/rearrange-pdf", icon: ArrowUpDown, title: t("home.tools.rearrangePdf.title"), desc: t("home.tools.rearrangePdf.desc") },
+    { href: "/rotate-pdf", icon: RotateCw, title: t("home.tools.rotatePdf.title"), desc: t("home.tools.rotatePdf.desc") },
+    { href: "/extract-pages", icon: Files, title: t("home.tools.extractPages.title"), desc: t("home.tools.extractPages.desc") },
+    { href: "/pdf-watermark", icon: Stamp, title: t("home.tools.pdfWatermark.title"), desc: t("home.tools.pdfWatermark.desc"), featured: true },
   ];
 
   const imageTools = [
-    { href: "/image-compress", icon: <Image className="w-7 h-7" />, title: t("home.tools.imageCompress.title"), desc: t("home.tools.imageCompress.desc"), color: "from-emerald-500 to-teal-500" },
-    { href: "/image-watermark", icon: <Droplets className="w-7 h-7" />, title: t("home.tools.imageWatermark.title"), desc: t("home.tools.imageWatermark.desc"), color: "from-sky-500 to-indigo-500" },
-  ];
-
-  const stats = [
-    { number: "12,500+", label: t("home.stats.users"), icon: <Users className="w-6 h-6" /> },
-    { number: "50,000+", label: t("home.stats.files"), icon: <FileText className="w-6 h-6" /> },
-    { number: "0", label: t("home.stats.free"), icon: <CheckCircle2 className="w-6 h-6" /> },
-    { number: "SSL", label: t("home.stats.security"), icon: <Shield className="w-6 h-6" /> },
+    { href: "/image-compress", icon: Image, title: t("home.tools.imageCompress.title"), desc: t("home.tools.imageCompress.desc") },
+    { href: "/image-watermark", icon: Droplets, title: t("home.tools.imageWatermark.title"), desc: t("home.tools.imageWatermark.desc") },
   ];
 
   const advantages = [
-    { icon: <CheckCircle2 className="w-8 h-8" />, title: t("home.advantages.free.title"), desc: t("home.advantages.free.desc"), color: "from-blue-500 to-cyan-500" },
-    { icon: <Lock className="w-8 h-8" />, title: t("home.advantages.security.title"), desc: t("home.advantages.security.desc"), color: "from-purple-500 to-pink-500" },
-    { icon: <Zap className="w-8 h-8" />, title: t("home.advantages.fast.title"), desc: t("home.advantages.fast.desc"), color: "from-orange-500 to-red-500" },
-    { icon: <Clock className="w-8 h-8" />, title: t("home.advantages.accurate.title"), desc: t("home.advantages.accurate.desc"), color: "from-green-500 to-teal-500" },
+    { icon: Check, index: "01", title: t("home.advantages.free.title"), desc: t("home.advantages.free.desc") },
+    { icon: LockKeyhole, index: "02", title: t("home.advantages.security.title"), desc: t("home.advantages.security.desc") },
+    { icon: Zap, index: "03", title: t("home.advantages.fast.title"), desc: t("home.advantages.fast.desc") },
+    { icon: Clock3, index: "04", title: t("home.advantages.accurate.title"), desc: t("home.advantages.accurate.desc") },
   ];
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setDragOver(false);
-    window.location.href = '/pdf-to-word';
+  const goToConverter = () => {
+    window.location.href = "/pdf-to-word";
   };
 
   return (
-    <div className="min-h-screen bg-theme">
-      {/* Background decorations */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-500/20 to-rose-500/20 rounded-full blur-3xl" />
-      </div>
+    <div className="studio-page min-h-screen overflow-hidden">
+      <section className="relative mx-auto max-w-[1440px] px-4 pb-20 pt-8 sm:px-6 lg:px-10 lg:pb-28 lg:pt-14">
+        <div className="hero-orbit hero-orbit-one" />
+        <div className="hero-orbit hero-orbit-two" />
 
-      {/* Hero section */}
-      <section className="relative pt-20 pb-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-theme-card border border-theme mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="text-sm text-theme-muted">{t("home.badge")}</span>
+        <div className="relative grid items-center gap-12 lg:grid-cols-[1.04fr_.96fr] lg:gap-16">
+          <div className="relative z-10">
+            <div className="mb-7 flex items-center gap-3">
+              <span className="studio-kicker"><Sparkles className="h-3.5 w-3.5" /> PDF LAB / 2026</span>
+              <span className="hidden h-px w-20 bg-current opacity-20 sm:block" />
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-theme-muted">{t("home.badge")}</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-theme mb-6 leading-tight">
-              <span className="gradient-text">{t("home.title1")}</span>{t("home.title2")}
+
+            <h1 className="studio-title max-w-4xl text-[clamp(3.6rem,8vw,7.6rem)] font-black leading-[0.82] tracking-[-0.075em] text-theme">
+              <span className="block">MAKE</span>
+              <span className="studio-outline-text block">FILES</span>
+              <span className="block pl-[0.55em]">FLOW.</span>
             </h1>
-            <p className="text-lg sm:text-xl text-theme-muted mb-10">
-              {t("home.subtitle")}
-            </p>
-          </div>
 
-          {/* Upload area */}
-          <div
-            className={`relative mx-auto w-full max-w-2xl rounded-3xl border-2 border-dashed border-theme p-10 sm:p-14 cursor-pointer transition-all duration-300 group ${
-              dragOver
-                ? 'border-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/20 scale-105'
-                : 'hover:border-indigo-400 hover:bg-theme-secondary'
-            } bg-theme-card/80 backdrop-blur-xl shadow-2xl`}
-            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={handleDrop}
-            onClick={() => window.location.href = '/pdf-to-word'}
-          >
-            <div className="flex flex-col items-center gap-6">
-              <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white shadow-2xl ${dragOver ? 'scale-110' : 'group-hover:scale-110'} transition-transform duration-300 animate-pulse-glow`}>
-                <Upload className="w-10 h-10" />
-              </div>
-              <div className="text-center">
-                <p className="text-xl font-semibold text-theme mb-2">
-                  {t("home.dragDrop")}
+            <div className="mt-9 grid max-w-2xl gap-7 border-l-2 border-[var(--studio-accent)] pl-5 sm:grid-cols-[1fr_auto] sm:items-end sm:pl-7">
+              <div>
+                <p className="mb-2 text-sm font-bold uppercase tracking-[0.18em] text-[var(--studio-accent)]">
+                  {t("home.title1")}{t("home.title2")}
                 </p>
-                <p className="text-theme-muted">
-                  {t("home.supportedFormats")}
-                </p>
+                <p className="max-w-xl text-base leading-7 text-theme-muted sm:text-lg">{t("home.subtitle")}</p>
               </div>
+              <Link href="#tools" className="studio-round-link" aria-label={t("home.allTools")}>
+                <ArrowRight className="h-6 w-6 rotate-45" />
+              </Link>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-xs font-bold uppercase tracking-[0.12em] text-theme-muted">
+              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-500" /> SSL</span>
+              <span className="flex items-center gap-2"><Check className="h-4 w-4 text-[var(--studio-accent)]" /> {t("home.stats.free")}</span>
+              <span className="flex items-center gap-2"><Clock3 className="h-4 w-4 text-amber-500" /> {t("footer.autoDelete")}</span>
             </div>
           </div>
 
-          {/* Quick buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-10">
-            {pdfTools.slice(0, 4).map((tool) => (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-theme-card border border-theme text-theme hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-300 hover-lift"
-              >
-                <span className={`text-lg bg-gradient-to-br ${tool.color} bg-clip-text text-transparent`}>{tool.icon}</span>
-                <span className="font-medium">{tool.title}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((stat, i) => (
-              <div key={i} className="glass-card p-6 text-center">
-                <div className="text-3xl font-bold gradient-text mb-1">{stat.number}</div>
-                <div className="text-sm text-theme-muted">{stat.label}</div>
+          <div className="relative z-10 lg:pl-4">
+            <div className="upload-stage">
+              <div className="upload-stage-topline">
+                <span>DROP ZONE_01</span>
+                <span className="flex items-center gap-2"><span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" /> ONLINE</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Bento tool grid */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-1 h-8 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full" />
-            <h2 className="text-2xl sm:text-3xl font-bold text-theme">{t("home.allTools")}</h2>
-          </div>
-
-          {/* PDF tools - Bento grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {pdfTools.map((tool) => (
-              <BentoCard key={tool.href} tool={tool} />
-            ))}
-          </div>
-
-          {/* Image tools */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {imageTools.map((tool) => (
-              <BentoCard key={tool.href} tool={tool} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Advantages */}
-      <section className="py-16 bg-theme-secondary">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-theme mb-3">{t("home.whyChooseUs")}</h2>
-            <p className="text-theme-muted">{t("home.whyChooseUsDesc")}</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {advantages.map((adv, i) => (
-              <div key={i} className="glass-card p-8 text-center">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${adv.color} flex items-center justify-center text-white shadow-lg mx-auto mb-6`}>
-                  {adv.icon}
-                </div>
-                <h3 className="text-lg font-bold text-theme mb-2">{adv.title}</h3>
-                <p className="text-sm text-theme-muted leading-relaxed">{adv.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-12 text-center text-white shadow-2xl">
-            <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
-            <div className="relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t("home.readyTitle")}</h2>
-              <p className="text-white/80 mb-8 text-lg">{t("home.readyDesc")}</p>
-              <Link
-                href="/pdf-to-word"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              <button
+                type="button"
+                onClick={goToConverter}
+                onDragOver={(event) => { event.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(event) => { event.preventDefault(); setDragOver(false); goToConverter(); }}
+                className={`upload-stage-inner group ${dragOver ? "is-dragging" : ""}`}
               >
-                {t("home.convertNow")}
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
+                <span className="upload-cross upload-cross-one" />
+                <span className="upload-cross upload-cross-two" />
+                <span className="upload-icon-shell">
+                  <Upload className="h-9 w-9 transition-transform duration-500 group-hover:-translate-y-1" />
+                </span>
+                <span className="mt-7 text-xl font-black tracking-[-0.03em] text-theme sm:text-2xl">{t("home.dragDrop")}</span>
+                <span className="mt-2 max-w-sm text-sm leading-6 text-theme-muted">{t("home.supportedFormats")}</span>
+                <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--studio-ink)] px-6 py-3 text-xs font-black uppercase tracking-[0.16em] text-[var(--studio-paper)] transition-transform duration-300 group-hover:scale-105">
+                  {t("home.convertNow")} <ArrowRight className="h-4 w-4" />
+                </span>
+              </button>
+              <div className="upload-stage-footer">
+                <span>PDF / DOCX / JPG</span>
+                <span>NO REGISTRATION</span>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="studio-marquee" aria-hidden="true">
+        <div className="studio-marquee-track">
+          <span>CONVERT</span><i /> <span>COMPRESS</span><i /> <span>MERGE</span><i /> <span>CREATE</span><i />
+          <span>CONVERT</span><i /> <span>COMPRESS</span><i /> <span>MERGE</span><i /> <span>CREATE</span><i />
+        </div>
+      </section>
+
+      <section id="tools" className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
+        <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <span className="studio-section-number">01 / TOOL INDEX</span>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.055em] text-theme sm:text-6xl">{t("home.allTools")}</h2>
+          </div>
+          <p className="max-w-md text-sm leading-6 text-theme-muted lg:text-right">{t("home.whyChooseUsDesc")}</p>
+        </div>
+
+        <div className="tool-index-grid">
+          {pdfTools.map((tool, index) => (
+            <ToolCard key={tool.href} tool={tool} index={index} />
+          ))}
+        </div>
+
+        <div className="mt-5 grid gap-5 sm:grid-cols-2">
+          {imageTools.map((tool, index) => (
+            <Link key={tool.href} href={tool.href} className={`image-tool-card group ${toolAccents[index + 2]}`}>
+              <span className="image-tool-icon"><tool.icon className="h-7 w-7" /></span>
+              <span className="min-w-0">
+                <strong className="block text-xl font-black tracking-[-0.035em] text-theme">{tool.title}</strong>
+                <span className="mt-1 block text-sm text-theme-muted">{tool.desc}</span>
+              </span>
+              <ArrowRight className="ml-auto h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="studio-dark-section">
+        <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr]">
+            <div>
+              <span className="studio-section-number text-white/50">02 / WHY US</span>
+              <h2 className="mt-5 max-w-md text-4xl font-black leading-[0.94] tracking-[-0.055em] text-white sm:text-6xl">
+                {t("home.whyChooseUs")}
+              </h2>
+              <div className="mt-10 h-1 w-24 bg-[var(--studio-accent)]" />
+            </div>
+            <div className="grid border-l border-t border-white/15 sm:grid-cols-2">
+              {advantages.map((item) => (
+                <article key={item.index} className="advantage-cell">
+                  <span className="flex items-center justify-between text-xs font-black tracking-[0.18em] text-white/40">
+                    {item.index}<item.icon className="h-5 w-5 text-[var(--studio-accent)]" />
+                  </span>
+                  <h3 className="mt-12 text-2xl font-black tracking-[-0.04em] text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-white/55">{item.desc}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
+        <div className="studio-cta">
+          <div className="studio-cta-sun" />
+          <span className="relative z-10 text-xs font-black uppercase tracking-[0.2em] text-[var(--studio-ink)]/60">READY WHEN YOU ARE</span>
+          <h2 className="relative z-10 mt-6 max-w-4xl text-5xl font-black leading-[0.88] tracking-[-0.07em] text-[var(--studio-ink)] sm:text-7xl lg:text-8xl">
+            {t("home.readyTitle")}
+          </h2>
+          <div className="relative z-10 mt-9 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-xl text-base leading-7 text-[var(--studio-ink)]/65">{t("home.readyDesc")}</p>
+            <Link href="/pdf-to-word" className="studio-cta-button">
+              {t("home.convertNow")} <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </section>
@@ -214,25 +222,29 @@ export default function HomePage() {
   );
 }
 
-function BentoCard({ tool, className = "" }: { tool: any; className?: string }) {
-  const isWide = tool.size === "wide";
+type Tool = {
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  desc: string;
+  featured?: boolean;
+};
+
+function ToolCard({ tool, index }: { tool: Tool; index: number }) {
+  const accent = toolAccents[index % toolAccents.length];
+  const number = String(index + 1).padStart(2, "0");
+
   return (
-    <Link href={tool.href} className={`group relative overflow-hidden rounded-3xl border border-theme bg-theme-card p-6 theme-transition hover-lift ${isWide ? 'md:col-span-2' : ''} ${className}`}>
-      <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-      <div className="relative z-10">
-        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300`}>
-          {tool.icon}
-        </div>
-        <h3 className="text-lg font-bold text-theme mb-1">{tool.title}</h3>
-        <p className="text-sm text-theme-muted">{tool.desc}</p>
+    <Link href={tool.href} className={`tool-index-card group ${accent} ${tool.featured ? "tool-index-card-featured" : ""}`}>
+      <div className="flex items-start justify-between gap-4">
+        <span className="tool-card-number">{number}</span>
+        <span className="tool-card-icon"><tool.icon className="h-6 w-6" /></span>
       </div>
-      <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
-          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
+      <div className="mt-auto pt-10">
+        <h3 className="text-xl font-black tracking-[-0.04em] text-theme sm:text-2xl">{tool.title}</h3>
+        <p className="mt-2 max-w-xs text-sm leading-6 text-theme-muted">{tool.desc}</p>
       </div>
+      <ArrowRight className="absolute bottom-6 right-6 h-5 w-5 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
     </Link>
   );
 }

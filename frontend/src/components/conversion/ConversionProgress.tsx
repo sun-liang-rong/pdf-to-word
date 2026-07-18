@@ -4,20 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader, FileText } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import type { ConversionTaskResult } from "@/types/task";
 
 interface ConversionProgressProps {
   taskId: string;
-  onComplete: (downloadUrl: string) => void;
+  onComplete: (task: ConversionTaskResult) => void;
   onError: (error: string) => void;
 }
 
-interface TaskStatus {
-  id: string;
-  status: "waiting" | "processing" | "completed" | "failed";
-  progress: number;
-  downloadUrl?: string;
-  error?: string;
-}
 
 export default function ConversionProgress({
   taskId,
@@ -35,7 +29,7 @@ export default function ConversionProgress({
   const { data, isLoading } = useQuery({
     queryKey: ["task", taskId],
     queryFn: async () => {
-      const response = await axios.get<TaskStatus>(
+      const response = await axios.get<ConversionTaskResult>(
         `${process.env.NEXT_PUBLIC_API_URL}/task/${taskId}`
       );
       return response.data;
@@ -66,8 +60,12 @@ export default function ConversionProgress({
   const status = data.status;
   const progress = data.progress || 0;
 
-  if (status === "completed" && data.downloadUrl) {
-    setTimeout(() => onComplete(data.downloadUrl!), 0);
+  if (status === "completed") {
+    if (data.canDownload && data.downloadUrl) {
+      setTimeout(() => onComplete(data), 0);
+    } else {
+      setTimeout(() => onError(t("download.expired")), 0);
+    }
   }
 
   if (status === "failed") {

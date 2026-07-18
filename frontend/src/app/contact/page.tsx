@@ -14,7 +14,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-theme">
+    <div className="content-studio-page min-h-screen">
       <section className="relative pt-24 pb-16">
         <div className="max-w-5xl mx-auto px-4">
           <div className="text-center">

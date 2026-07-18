@@ -7,6 +7,7 @@ import FileUploader from "@/components/upload/FileUploader";
 import ConversionProgress from "@/components/conversion/ConversionProgress";
 import DownloadButton from "@/components/conversion/DownloadButton";
 import { pdfToolError, submitPdfTool } from "@/lib/pdf-tool-request";
+import type { ConversionTaskResult } from "@/types/task";
 
 interface PdfOperationShellProps {
   title: string;
@@ -27,12 +28,12 @@ export default function PdfOperationShell({
 }: PdfOperationShellProps) {
   const [file, setFile] = useState<File | null>(null);
   const [taskId, setTaskId] = useState<string | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [completedTask, setCompletedTask] = useState<ConversionTaskResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const reset = () => {
-    setFile(null); setTaskId(null); setDownloadUrl(null); setError(null);
+    setFile(null); setTaskId(null); setCompletedTask(null); setError(null);
   };
 
   const submit = async () => {
@@ -47,29 +48,28 @@ export default function PdfOperationShell({
     }
   };
 
-  const baseName = file?.name.replace(/\.[^/.]+$/, "") || "document";
 
   return (
-    <div className="min-h-screen bg-theme relative overflow-hidden">
+    <div className="detail-studio-page min-h-screen relative overflow-hidden">
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute -top-40 -right-32 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl" />
         <div className="absolute bottom-0 -left-32 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl" />
       </div>
-      <section className="relative max-w-5xl mx-auto px-4 py-12">
-        <nav className="mb-8 flex items-center gap-2 text-sm text-theme-muted">
+      <section className="relative mx-auto max-w-[1240px] px-4 py-10 sm:px-6 lg:py-16">
+        <nav className="detail-breadcrumb mb-10 flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-theme-muted">
           <Link href="/" className="hover:text-indigo-500">首页</Link><span>/</span><span>{title}</span>
         </nav>
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-theme mb-4">{title}</h1>
-          <p className="text-lg text-theme-muted max-w-2xl mx-auto">{description}</p>
+        <div className="detail-hero mb-12 max-w-4xl">
+          <h1 className="detail-title mb-5 text-5xl font-black leading-[0.9] tracking-[-0.06em] text-theme md:text-7xl">{title}</h1>
+          <p className="max-w-2xl text-lg leading-8 text-theme-muted">{description}</p>
         </div>
-        <div className="glass-card rounded-3xl overflow-hidden max-w-3xl mx-auto">
-          <div className={`${gradient} px-8 py-6 text-white flex items-center gap-4`}>
-            <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">{icon}</div>
-            <div><h2 className="text-xl font-bold">配置处理选项</h2><p className="text-white/80 text-sm">文件只用于本次处理，30分钟后自动删除</p></div>
+        <div className="detail-workbench overflow-hidden">
+          <div className="detail-workbench-head flex items-center gap-4 px-6 py-5 md:px-8">
+            <div className="detail-tool-icon flex h-14 w-14 items-center justify-center">{icon}</div>
+            <div><h2 className="text-xl font-black tracking-[-0.03em] text-theme">配置处理选项</h2><p className="text-sm text-theme-muted">文件只用于本次处理，30分钟后自动删除</p></div>
           </div>
-          <div className="p-6 md:p-8 space-y-6">
-            {!taskId && !downloadUrl && (
+          <div className="space-y-6 p-5 md:p-8">
+            {!taskId && !completedTask && (
               <>
                 <FileUploader accept={{ "application/pdf": [".pdf"] }} maxSize={50 * 1024 * 1024} onFileSelect={(next) => { setFile(next); setError(null); }} />
                 {file && (
@@ -81,13 +81,13 @@ export default function PdfOperationShell({
                 )}
                 {children}
                 {validationMessage && <p className="text-sm text-amber-500">{validationMessage}</p>}
-                <button onClick={submit} disabled={!file || !canSubmit || submitting} className="w-full py-4 rounded-2xl text-white font-semibold bg-gradient-to-r from-indigo-500 to-purple-500 disabled:opacity-40 hover:scale-[1.01] transition">
+                <button onClick={submit} disabled={!file || !canSubmit || submitting} className="detail-primary-action w-full py-4 disabled:opacity-40">
                   {submitting ? "正在处理..." : "开始处理 PDF"}
                 </button>
               </>
             )}
-            {taskId && !downloadUrl && <ConversionProgress taskId={taskId} onComplete={setDownloadUrl} onError={setError} />}
-            {downloadUrl && <DownloadButton downloadUrl={downloadUrl} fileName={`${baseName}${outputSuffix}`} onReset={reset} />}
+            {taskId && !completedTask && <ConversionProgress taskId={taskId} onComplete={setCompletedTask} onError={setError} />}
+            {completedTask && <DownloadButton task={completedTask} onReset={reset} />}
             {error && <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500">{error}</div>}
           </div>
         </div>

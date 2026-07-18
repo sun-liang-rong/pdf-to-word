@@ -55,4 +55,14 @@ describe('ConversionService PDF operations', () => {
     expect(fs.writeFileSync).not.toHaveBeenCalled();
     expect(repository.save).not.toHaveBeenCalled();
   });
+
+  it('rejects unsupported conversion types instead of throwing a TypeError', async () => {
+    const image = {
+      buffer: Buffer.from('image'), originalname: 'photo.png', mimetype: 'image/png', size: 5,
+    } as Express.Multer.File;
+
+    await expect(
+      service.createConversion(image, 'image-compress' as ConversionType, 'ip'),
+    ).rejects.toBeInstanceOf(BadRequestException);
+  });
 });

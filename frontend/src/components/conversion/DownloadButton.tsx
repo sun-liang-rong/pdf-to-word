@@ -4,28 +4,37 @@ import { useState } from "react";
 import axios from "axios";
 import { Download, RefreshCw, Lock, FileText, CheckCircle } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import type { ConversionTaskResult } from "@/types/task";
 
-interface DownloadButtonProps {
+interface TaskDownloadProps {
+  task: ConversionTaskResult;
+  onReset: () => void;
+}
+
+interface LegacyDownloadProps {
   downloadUrl: string;
   fileName: string;
   onReset: () => void;
 }
 
+type DownloadButtonProps = TaskDownloadProps | LegacyDownloadProps;
+
 export default function DownloadButton({
-  downloadUrl,
-  fileName,
-  onReset,
+  ...props
 }: DownloadButtonProps) {
   const { t } = useI18n();
   const [error, setError] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const task = "task" in props ? props.task : null;
+  const downloadUrl = task?.downloadUrl ?? ("downloadUrl" in props ? props.downloadUrl : undefined);
+  const fileName = task?.outputFileName ?? ("fileName" in props ? props.fileName : "converted");
 
   const handleDownload = async () => {
     setIsDownloading(true);
     setError(null);
 
     try {
-      const response = await axios.get(downloadUrl, {
+      const response = await axios.get(downloadUrl!, {
         responseType: "blob",
       });
 
@@ -94,7 +103,7 @@ export default function DownloadButton({
         <div className="flex flex-col gap-3">
           <button
             onClick={handleDownload}
-            disabled={isDownloading}
+            disabled={isDownloading || !downloadUrl || (task ? !task.canDownload : false)}
             className="w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-teal-500 hover:to-emerald-500 disabled:from-emerald-500/50 disabled:to-teal-500/50 text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:hover:scale-100 text-base"
           >
             {isDownloading ? (
@@ -111,7 +120,7 @@ export default function DownloadButton({
           </button>
 
           <button
-            onClick={onReset}
+            onClick={props.onReset}
             className="w-full inline-flex items-center justify-center px-6 py-4 bg-theme-card hover:bg-theme-secondary text-theme font-semibold rounded-2xl transition-all duration-300 border border-theme hover:border-indigo-300 text-base"
           >
             <RefreshCw className="w-5 h-5 mr-2" />

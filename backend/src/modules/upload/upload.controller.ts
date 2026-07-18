@@ -3,7 +3,6 @@ import {
   Get,
   Param,
   Res,
-  NotFoundException,
 } from '@nestjs/common';
 import { Response } from 'express';
 import * as fs from 'fs';
@@ -17,9 +16,6 @@ export class UploadController {
   async downloadFile(@Param('id') id: string, @Res() res: Response) {
     const fileInfo = await this.uploadService.getDownloadFile(id);
     
-    if (!fileInfo) {
-      throw new NotFoundException('文件已过期或不存在，请重新上传转换');
-    }
 
     const fileName = fileInfo.fileName;
     const fallbackFileName = fileName.replace(/[^ -~]/g, '_') || 'download';
@@ -45,6 +41,10 @@ export class UploadController {
     res.setHeader('Content-Type', contentType);
     
     const fileStream = fs.createReadStream(fileInfo.path);
+    fileStream.on('error', (error) => {
+      // A file can disappear after availability was checked; terminate safely.
+      res.destroy(error);
+    });
     fileStream.pipe(res);
   }
 }

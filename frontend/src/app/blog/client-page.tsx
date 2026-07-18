@@ -1,129 +1,112 @@
 "use client";
 
-import Link from 'next/link';
-import { BlogPostMeta } from '@/lib/blog';
+import Link from "next/link";
+import { ArrowUpRight, Clock3, FileText, Sparkles } from "lucide-react";
+import { BlogPostMeta } from "@/lib/blog";
 
 export default function BlogClientPage({ posts }: { posts: BlogPostMeta[] }) {
+  const featuredPost = posts[0];
+  const remainingPosts = posts.slice(1);
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent-cyan/5" />
-        <div className="container mx-auto px-4 relative">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-300 via-primary-500 to-accent-cyan bg-clip-text text-transparent">
-              PDF 转换指南
-            </h1>
-            <p className="text-xl text-foreground-muted mb-8">
-              学习 PDF 处理技巧、格式转换教程和文档优化方法
-            </p>
+    <main className="blog-studio min-h-screen">
+      <section className="blog-index-hero">
+        <div className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 lg:py-20">
+          <div className="blog-index-masthead">
+            <div>
+              <div className="blog-eyebrow"><Sparkles className="h-4 w-4" /> PDF/LAB EDITORIAL</div>
+              <h1 className="blog-index-title">文档处理<br /><span>灵感档案</span></h1>
+            </div>
+            <div className="blog-index-intro">
+              <span className="blog-issue">ISSUE / {String(posts.length).padStart(2, "0")}</span>
+              <p>关于 PDF、效率工具与数字工作的实用观察。拒绝复杂术语，只提供可以立即使用的方法。</p>
+              <div className="blog-index-rule" />
+              <span>持续更新 · 免费阅读</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 博客列表 */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          {posts.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-4">📝</div>
-              <h2 className="text-2xl font-bold mb-2">博客文章即将上线</h2>
-              <p className="text-foreground-muted">
-                我们正在准备高质量的 PDF 转换教程，敬请期待！
-              </p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <article
-                  key={post.slug}
-                  className="group bg-card rounded-2xl overflow-hidden border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-glow"
-                >
-                  <Link href={`/blog/${post.slug}`}>
-                    {/* 封面图 */}
-                    <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent-cyan/20 relative overflow-hidden">
-                      {post.coverImage ? (
-                        <img
-                          src={post.coverImage}
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center text-6xl">
-                          📄
-                        </div>
-                      )}
-                      {/* 阅读时间标签 */}
-                      <div className="absolute top-4 right-4 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs text-white shadow-lg">
-                        {post.readingTime} 分钟阅读
-                      </div>
-                    </div>
-
-                    {/* 内容 */}
-                    <div className="p-6">
-                      {/* 标签 */}
-                      {post.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          {post.tags.slice(0, 3).map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-1 bg-primary/10 dark:text-primary-300 text-primary-700 text-xs rounded-md"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* 标题 */}
-                      <h2 className="text-xl font-bold mb-3 group-hover:text-primary-300 transition-colors line-clamp-2">
-                        {post.title}
-                      </h2>
-
-                      {/* 描述 */}
-                      <p className="text-foreground-muted text-sm mb-4 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-
-                      {/* 元信息 */}
-                      <div className="flex items-center justify-between text-xs text-foreground-muted">
-                        <span>{post.author}</span>
-                        <span>{post.formattedDate}</span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
+      {posts.length === 0 ? (
+        <section className="mx-auto max-w-[1400px] px-4 py-24 sm:px-6">
+          <div className="blog-empty">
+            <FileText className="h-12 w-12" />
+            <h2>新一期正在排版</h2>
+            <p>高质量的 PDF 转换教程即将发布。</p>
+          </div>
+        </section>
+      ) : (
+        <>
+          {featuredPost && (
+            <section className="mx-auto max-w-[1400px] px-4 pb-16 sm:px-6 lg:pb-24">
+              <Link href={`/blog/${featuredPost.slug}`} className="blog-feature group">
+                <div className="blog-feature-media">
+                  {featuredPost.coverImage ? (
+                    <img src={featuredPost.coverImage} alt={featuredPost.title} />
+                  ) : (
+                    <div className="blog-cover-placeholder">PDF<br />LAB</div>
+                  )}
+                  <span className="blog-feature-label">本期封面 / FEATURED</span>
+                </div>
+                <div className="blog-feature-copy">
+                  <div className="blog-card-meta">
+                    <span>{featuredPost.formattedDate}</span>
+                    <span><Clock3 className="h-4 w-4" /> {featuredPost.readingTime} MIN</span>
+                  </div>
+                  <div className="blog-tag-row">
+                    {featuredPost.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}
+                  </div>
+                  <h2>{featuredPost.title}</h2>
+                  <p>{featuredPost.excerpt}</p>
+                  <div className="blog-read-link">打开文章 <ArrowUpRight className="h-5 w-5" /></div>
+                </div>
+              </Link>
+            </section>
           )}
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-16 border-t border-primary/10">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-primary/10 to-accent-cyan/10 rounded-3xl p-8 md:p-12 text-center">
-            <h2 className="text-3xl font-bold mb-4">准备好转换您的文档了吗？</h2>
-            <p className="text-foreground-muted mb-8 max-w-2xl mx-auto">
-              使用我们的免费在线工具，快速、安全地完成 PDF 与 Word 之间的转换
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/word-to-pdf"
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-medium hover:from-primary-500 hover:to-primary-600 transition-all duration-300 shadow-primary hover:shadow-primary-lg"
-              >
-                Word 转 PDF
-              </Link>
-              <Link
-                href="/pdf-to-word"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-foreground rounded-xl font-medium hover:bg-white/20 transition-all duration-300 border border-primary/20"
-              >
-                PDF 转 Word
-              </Link>
-            </div>
+          {remainingPosts.length > 0 && (
+            <section className="blog-archive-section">
+              <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-6 lg:py-24">
+                <div className="blog-section-heading">
+                  <span>ARCHIVE / 文章索引</span>
+                  <span>{remainingPosts.length} STORIES</span>
+                </div>
+                <div className="blog-archive-grid">
+                  {remainingPosts.map((post, index) => (
+                    <article key={post.slug} className="blog-archive-card group">
+                      <Link href={`/blog/${post.slug}`}>
+                        <div className="blog-card-number">{String(index + 2).padStart(2, "0")}</div>
+                        <div className="blog-card-media">
+                          {post.coverImage ? <img src={post.coverImage} alt={post.title} /> : <FileText className="h-12 w-12" />}
+                          <span><Clock3 className="h-3.5 w-3.5" /> {post.readingTime} MIN</span>
+                        </div>
+                        <div className="blog-card-body">
+                          <div className="blog-tag-row">{post.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}</div>
+                          <h2>{post.title}</h2>
+                          <p>{post.excerpt}</p>
+                          <div className="blog-card-footer"><span>{post.formattedDate}</span><ArrowUpRight className="h-5 w-5" /></div>
+                        </div>
+                      </Link>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
+      <section className="mx-auto max-w-[1400px] px-4 py-20 sm:px-6 lg:py-28">
+        <div className="studio-cta blog-cta">
+          <span className="blog-cta-label">FROM READING TO MAKING</span>
+          <h2>读完了？<br />现在处理你的文档。</h2>
+          <p>快速、安全地完成 PDF 与 Word 之间的转换，无需安装任何软件。</p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/word-to-pdf" className="studio-cta-button">Word 转 PDF <ArrowUpRight className="h-5 w-5" /></Link>
+            <Link href="/pdf-to-word" className="blog-cta-secondary">PDF 转 Word</Link>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

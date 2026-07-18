@@ -28,7 +28,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-theme">
+    <div className="content-studio-page min-h-screen">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
         <div className="absolute top-1/2 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl" />

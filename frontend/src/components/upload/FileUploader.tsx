@@ -79,7 +79,7 @@ export default function FileUploader({
       <div
         {...getRootProps()}
         className={clsx(
-          "relative border-2 border-dashed rounded-3xl p-8 md:p-12 text-center cursor-pointer transition-all duration-300 min-h-[240px] md:min-h-[280px]",
+          "studio-file-uploader relative p-8 md:p-12 text-center cursor-pointer transition-all duration-300 min-h-[240px] md:min-h-[280px]",
           getBorderColor(),
           isUploading && "opacity-60 cursor-not-allowed"
         )}

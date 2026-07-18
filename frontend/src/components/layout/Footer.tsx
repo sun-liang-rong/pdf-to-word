@@ -1,45 +1,57 @@
 "use client";
 
 import Link from "next/link";
-import { Shield, Clock } from "lucide-react";
+import { ArrowUpRight, Clock3, ShieldCheck } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+
+const toolLinks = [
+  ["PDF 转 Word", "/pdf-to-word"],
+  ["Word 转 PDF", "/word-to-pdf"],
+  ["合并 PDF", "/merge-pdf"],
+  ["压缩 PDF", "/compress-pdf"],
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { t } = useI18n();
 
   return (
-    <footer className="bg-theme-card border-t border-theme theme-transition">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-white shadow-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <span className="text-lg font-bold gradient-text">PDF转换器</span>
-            </div>
-            <span className="text-sm text-theme-muted">&copy; {currentYear} {t("footer.copyright")}</span>
+    <footer className="studio-footer">
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+        <div className="studio-footer-grid">
+          <div className="studio-footer-brand">
+            <Link href="/" className="studio-footer-logo" aria-label="PDF LAB 首页">
+              <span>PDF</span><span>/LAB</span>
+            </Link>
+            <p>一个快速、直接、不制造麻烦的在线文档工作台。</p>
+            <div className="studio-footer-status"><span /> SYSTEM ONLINE</div>
           </div>
 
-          <div className="flex items-center gap-6 text-sm text-theme-muted">
-            <Link href="/privacy" className="hover:text-indigo-500 transition-colors">{t("footer.privacy")}</Link>
-            <Link href="/terms" className="hover:text-indigo-500 transition-colors">{t("footer.terms")}</Link>
-            <Link href="/about" className="hover:text-indigo-500 transition-colors">{t("footer.about")}</Link>
+          <div className="studio-footer-column">
+            <span className="studio-footer-label">TOOLS / 工具</span>
+            {toolLinks.map(([label, href]) => (
+              <Link key={href} href={href}>{label}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
+            ))}
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-2 text-sm text-theme-muted">
-              <Shield className="w-4 h-4 text-emerald-500" />
-              {t("footer.sslEncrypted")}
-            </span>
-            <span className="flex items-center gap-2 text-sm text-theme-muted">
-              <Clock className="w-4 h-4 text-indigo-500" />
-              {t("footer.autoDelete")}
-            </span>
+          <div className="studio-footer-column">
+            <span className="studio-footer-label">INFO / 信息</span>
+            <Link href="/blog">博客<ArrowUpRight className="h-3.5 w-3.5" /></Link>
+            <Link href="/about">{t("footer.about")}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
+            <Link href="/privacy">{t("footer.privacy")}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
+            <Link href="/terms">{t("footer.terms")}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
           </div>
+
+          <div className="studio-footer-trust">
+            <span className="studio-footer-label">SECURITY / 安全</span>
+            <div><ShieldCheck className="h-5 w-5" /><span>{t("footer.sslEncrypted")}<small>传输过程全程加密</small></span></div>
+            <div><Clock3 className="h-5 w-5" /><span>{t("footer.autoDelete")}<small>临时文件定时清理</small></span></div>
+          </div>
+        </div>
+
+        <div className="studio-footer-bottom">
+          <span>© {currentYear} PDF/LAB — {t("footer.copyright")}</span>
+          <span>BUILT FOR DOCUMENT PEOPLE</span>
         </div>
       </div>
     </footer>

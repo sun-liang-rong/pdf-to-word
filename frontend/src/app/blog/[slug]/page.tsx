@@ -160,11 +160,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const renderedContent = renderMarkdown(post.content);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="blog-studio blog-article-page min-h-screen">
       {/* 面包屑导航 */}
-      <div className="border-b border-primary/10">
-        <div className="container mx-auto px-4 py-4">
-          <nav className="flex items-center space-x-2 text-sm text-foreground-muted">
+      <div className="blog-article-breadcrumb">
+        <div className="mx-auto max-w-[1400px] px-4 py-5 sm:px-6">
+          <nav className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-foreground-muted">
             <Link href="/" className="hover:text-primary-300 transition-colors">
               首页
             </Link>
@@ -180,18 +180,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </div>
 
-      <article className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+      <article className="pb-20 pt-10 lg:pb-28 lg:pt-16">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+          <div className="mx-auto max-w-[1120px]">
             {/* 文章头部 */}
-            <header className="mb-12">
+            <header className="blog-article-header mb-12">
               {/* 标签 */}
               {Array.isArray(post.tags) && post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="blog-tag-row mb-6 flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-primary/10 text-primary-300 text-sm rounded-full"
+                      className="blog-article-tag"
                     >
                       {tag}
                     </span>
@@ -200,14 +200,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               )}
 
               {/* 标题 */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+              <h1 className="blog-article-title mb-8 text-5xl font-black leading-[0.92] tracking-[-0.055em] text-foreground md:text-7xl lg:text-8xl">
                 {post.title}
               </h1>
 
               {/* 元信息 */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-foreground-muted">
+              <div className="blog-byline flex flex-wrap items-center gap-4 text-sm text-foreground-muted">
                 <span className="flex items-center gap-2">
-                  <span className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white text-xs">
+                  <span className="blog-author-mark">
                     {post.author.charAt(0)}
                   </span>
                   {post.author}
@@ -221,7 +221,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* 封面图 */}
             {post.coverImage && (
-              <div className="aspect-video rounded-2xl overflow-hidden mb-12 bg-gradient-to-br from-primary/10 to-accent-cyan/10">
+              <div className="blog-article-cover mb-12 aspect-video overflow-hidden">
                 <img
                   src={post.coverImage}
                   alt={post.title}
@@ -232,19 +232,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* 文章内容 */}
             <div 
-              className="bg-card rounded-2xl p-6 md:p-10 border border-primary/10"
+              className="blog-article-content p-6 md:p-12 lg:p-16"
               dangerouslySetInnerHTML={{ __html: renderedContent }}
             />
 
             {/* 分享和标签 */}
-            <div className="mt-12 pt-8 border-t border-primary/10">
+            <div className="blog-article-actions mt-12 pt-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex items-center gap-2">
                   <span className="text-foreground-muted">标签：</span>
                   {Array.isArray(post.tags) ? post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-primary/10 text-primary-300 text-sm rounded-full"
+                      className="blog-article-tag"
                     >
                       {tag}
                     </span>
@@ -264,15 +264,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* 相关文章 */}
       {relatedPosts.length > 0 && (
-        <section className="py-16 border-t border-primary/10">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-8 text-center">相关文章</h2>
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <section className="blog-related-section py-20 lg:py-28">
+          <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+            <h2 className="mb-10 text-4xl font-black tracking-[-0.05em] text-white md:text-6xl">相关文章</h2>
+            <div className="blog-related-grid mx-auto grid max-w-6xl md:grid-cols-3">
               {relatedPosts.map((relatedPost) => (
                 <Link
                   key={relatedPost.slug}
                   href={`/blog/${relatedPost.slug}`}
-                  className="group bg-card rounded-xl p-6 border border-primary/10 hover:border-primary/30 transition-all duration-300"
+                  className="blog-related-card group p-6"
                 >
                   <h3 className="font-semibold mb-2 group-hover:text-primary-300 transition-colors line-clamp-2">
                     {relatedPost.title}
@@ -291,17 +291,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       )}
 
       {/* CTA */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-primary/10 to-accent-cyan/10 rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">需要转换文档？</h2>
+      <section className="py-20 lg:py-28">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+          <div className="studio-cta blog-cta mx-auto max-w-5xl p-8 md:p-12">
+            <h2 className="mb-4 text-4xl font-black tracking-[-0.05em] text-[#151515] md:text-6xl">需要转换文档？</h2>
             <p className="text-foreground-muted mb-8">
               使用我们的免费在线工具，快速完成 PDF 与 Word 之间的转换
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/word-to-pdf"
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-medium hover:from-primary-500 hover:to-primary-600 transition-all duration-300"
+                className="studio-cta-button"
               >
                 立即转换
               </Link>

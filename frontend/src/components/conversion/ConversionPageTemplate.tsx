@@ -8,6 +8,7 @@ import FileUploader from "@/components/upload/FileUploader";
 import ConversionProgress from "@/components/conversion/ConversionProgress";
 import DownloadButton from "@/components/conversion/DownloadButton";
 import axios from "axios";
+import type { ConversionTaskResult } from "@/types/task";
 
 interface ConversionPageProps {
   title: string;
@@ -35,7 +36,7 @@ export default function ConversionPageTemplate({
   const { t } = useI18n();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [taskId, setTaskId] = useState<string | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [completedTask, setCompletedTask] = useState<ConversionTaskResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -49,7 +50,7 @@ export default function ConversionPageTemplate({
     setSelectedFile(file);
     setError(null);
     setTaskId(null);
-    setDownloadUrl(null);
+    setCompletedTask(null);
     setIsUploading(true);
 
     try {
@@ -75,8 +76,8 @@ export default function ConversionPageTemplate({
     }
   };
 
-  const handleComplete = (url: string) => {
-    setDownloadUrl(url);
+  const handleComplete = (task: ConversionTaskResult) => {
+    setCompletedTask(task);
   };
 
   const handleError = (errorMsg: string) => {
@@ -86,12 +87,12 @@ export default function ConversionPageTemplate({
   const handleReset = () => {
     setSelectedFile(null);
     setTaskId(null);
-    setDownloadUrl(null);
+    setCompletedTask(null);
     setError(null);
   };
 
   return (
-    <div className="min-h-screen bg-theme">
+    <div className="detail-studio-page min-h-screen">
       {/* Background decorations */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
@@ -100,10 +101,10 @@ export default function ConversionPageTemplate({
       </div>
 
       {/* Hero section */}
-      <section className="relative pt-12 pb-8">
+      <section className="relative pb-20 pt-10 lg:pb-28 lg:pt-14">
         <div className="max-w-5xl mx-auto px-4">
           {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-sm text-theme-muted mb-8">
+          <nav className="detail-breadcrumb mb-10 flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-theme-muted">
             <Link href="/" className="hover:text-indigo-500 transition-colors">{t("conversion.home")}</Link>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -113,34 +114,34 @@ export default function ConversionPageTemplate({
 
           {/* Title */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center px-4 py-2 bg-theme-card border border-theme rounded-full text-sm font-medium mb-6">
+            <div className="detail-kicker mb-6 inline-flex items-center gap-2">
               <span className="mr-2">🔄</span>
               <span className="text-theme-muted">{t("conversion.formatConversion")}</span>
             </div>
-            <h1 className="text-3xl md:text-5xl font-bold text-theme mb-4">
+            <h1 className="detail-title mb-5 text-5xl font-black leading-[0.9] tracking-[-0.06em] text-theme md:text-7xl">
               {title}
             </h1>
-            <p className="text-lg text-theme-muted max-w-2xl mx-auto">
+            <p className="max-w-2xl text-lg leading-8 text-theme-muted">
               {description}
             </p>
           </div>
 
           {/* Conversion card */}
-          <div className="glass-card rounded-3xl overflow-hidden max-w-3xl mx-auto">
-            <div className={`${gradient} px-8 py-6`}>
+          <div className="detail-workbench overflow-hidden">
+            <div className="detail-workbench-head px-6 py-5 md:px-8">
               <div className="flex items-center space-x-4">
-                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-3xl backdrop-blur">
+                <div className="detail-tool-icon flex h-14 w-14 items-center justify-center">
                   {icon}
                 </div>
                 <div>
-                  <h2 className="text-white font-bold text-xl">{t("conversion.startConversion")}</h2>
-                  <p className="text-white/80 text-sm">{t("conversion.uploadAndConvert")}</p>
+                  <h2 className="text-xl font-black tracking-[-0.03em] text-theme">{t("conversion.startConversion")}</h2>
+                  <p className="text-sm text-theme-muted">{t("conversion.uploadAndConvert")}</p>
                 </div>
               </div>
             </div>
 
-            <div className="p-8">
-              {!taskId && !downloadUrl && (
+            <div className="p-5 md:p-8">
+              {!taskId && !completedTask && (
                 <div className="space-y-6">
                   <FileUploader
                     accept={accept}
@@ -173,7 +174,7 @@ export default function ConversionPageTemplate({
                 </div>
               )}
 
-              {taskId && !downloadUrl && (
+              {taskId && !completedTask && (
                 <ConversionProgress
                   taskId={taskId}
                   onComplete={handleComplete}
@@ -181,10 +182,9 @@ export default function ConversionPageTemplate({
                 />
               )}
 
-              {downloadUrl && (
+              {completedTask && (
                 <DownloadButton
-                  downloadUrl={downloadUrl}
-                  fileName={selectedFile?.name.replace(/\.[^/.]+$/, "") + outputExtension || "converted" + outputExtension}
+                  task={completedTask}
                   onReset={handleReset}
                 />
               )}
@@ -208,9 +208,9 @@ export default function ConversionPageTemplate({
           </div>
 
           {/* Features */}
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          <div className="detail-feature-grid mt-8 grid grid-cols-1 sm:grid-cols-3">
             {features.map((feature, index) => (
-              <div key={index} className="glass-card p-6 text-center hover-lift">
+              <div key={index} className="detail-feature-cell p-6">
                 <div className="text-3xl mb-3">{feature.icon}</div>
                 <div className="font-bold text-theme mb-1">{feature.label}</div>
                 <div className="text-sm text-theme-muted">{feature.desc}</div>
@@ -221,26 +221,24 @@ export default function ConversionPageTemplate({
       </section>
 
       {/* Steps */}
-      <section className="py-16 bg-theme-secondary">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-theme mb-3">{t("conversion.howToUse")}</h2>
-            <p className="text-theme-muted">{t("conversion.howToUseDesc")}</p>
+      <section className="detail-dark-band py-20 lg:py-28">
+        <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
+          <div className="mb-12">
+            <h2 className="text-4xl font-black tracking-[-0.05em] text-white md:text-6xl">{t("conversion.howToUse")}</h2>
+            <p className="mt-3 text-white/55">{t("conversion.howToUseDesc")}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-indigo-500/30 via-purple-500/50 to-pink-500/30" />
-
+          <div className="detail-steps-grid grid grid-cols-1 md:grid-cols-3">
             {steps.map((item, index) => (
               <div key={index} className="relative text-center">
-                <div className={`w-20 h-20 ${gradient} rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-lg relative z-10`}>
+                <div className="detail-step-icon relative z-10 mb-6 flex h-20 w-20 items-center justify-center text-3xl">
                   {item.icon}
                 </div>
                 <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4 shadow-lg">
                   {item.step}
                 </div>
-                <h3 className="text-lg font-bold text-theme mb-2">{item.title}</h3>
-                <p className="text-theme-muted text-sm">{item.description}</p>
+                <h3 className="text-lg font-black text-white mb-2">{item.title}</h3>
+                <p className="text-white/55 text-sm">{item.description}</p>
               </div>
             ))}
           </div>
@@ -248,14 +246,14 @@ export default function ConversionPageTemplate({
       </section>
 
       {/* FAQ */}
-      <section className="py-16">
-        <div className="max-w-3xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-theme mb-3">{t("conversion.faq")}</h2>
+      <section className="py-20 lg:py-28">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="detail-hero mb-10 max-w-3xl">
+            <h2 className="text-4xl font-black tracking-[-0.05em] text-theme md:text-6xl">{t("conversion.faq")}</h2>
             <p className="text-theme-muted">{t("conversion.faqDesc")}</p>
           </div>
 
-          <div className="space-y-4">
+          <div className="detail-faq-list">
             {faqItems.map((faq, index) => (
               <FAQItem key={index} question={faq.question} answer={faq.answer} index={index} />
             ))}
@@ -266,12 +264,12 @@ export default function ConversionPageTemplate({
       {/* CTA */}
       <section className="py-16 bg-theme-secondary">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-10 text-center text-white shadow-2xl">
+          <div className="studio-cta relative overflow-hidden p-10 text-left">
             <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
             <div className="relative z-10">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">{t("conversion.otherFormats")}</h2>
-              <p className="text-white/80 mb-8 text-lg">{t("conversion.otherFormatsDesc")}</p>
-              <Link href="/" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+              <h2 className="relative z-10 mb-4 text-4xl font-black tracking-[-0.05em] text-[#151515] md:text-6xl">{t("conversion.otherFormats")}</h2>
+              <p className="relative z-10 mb-8 max-w-2xl text-lg text-[#151515]/65">{t("conversion.otherFormatsDesc")}</p>
+              <Link href="/" className="studio-cta-button relative z-10">
                 {t("conversion.viewAllTools")}
                 <ArrowRight className="w-5 h-5" />
               </Link>
@@ -286,7 +284,7 @@ export default function ConversionPageTemplate({
 function FAQItem({ question, answer, index }: { question: string; answer: string; index: number }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="glass-card rounded-2xl overflow-hidden">
+    <div className="detail-faq-item overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-6 py-5 text-left group"

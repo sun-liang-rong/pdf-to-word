@@ -36,7 +36,7 @@ export function ShareButton({ title }: ShareButtonProps) {
   return (
     <button
       onClick={handleShare}
-      className="p-2 bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
+      className="blog-share-button"
       title={copied ? '已复制' : '分享'}
     >
       {copied ? '✅' : '🔗'}

@@ -89,6 +89,9 @@ export class ConversionService {
     }
 
     const allowedMimeTypes = ALLOWED_TYPES[type];
+    if (!allowedMimeTypes) {
+      throw new BadRequestException('不支持的转换类型');
+    }
     if (!allowedMimeTypes.includes(file.mimetype)) {
       throw new BadRequestException('文件类型不支持');
     }
