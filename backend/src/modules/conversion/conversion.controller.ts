@@ -14,13 +14,16 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor, FileFieldsInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
 import { ConversionService } from './conversion.service';
 import { CreateConversionDto } from './dto/create-conversion.dto';
 import { RotatePdfDto } from './dto/rotate-pdf.dto';
 import { ExtractPagesDto } from './dto/extract-pages.dto';
 import { TextWatermarkDto } from './dto/text-watermark.dto';
+import { OcrPdfDto } from './dto/ocr-pdf.dto';
+import { ProtectPdfDto, UnlockPdfDto } from './dto/pdf-security.dto';
+import { CropPdfDto, SignatureDto } from './dto/pdf-priority-tools.dto';
 import { RateLimitGuard } from '../rate-limit/rate-limit.guard';
 import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RearrangeMode } from '../stirling-pdf/stirling-pdf.interface';
 
@@ -243,6 +246,36 @@ export class ConversionController {
   ) {
     const ipAddress = req.ip || req.socket.remoteAddress || '';
     return this.conversionService.createTextWatermarkConversion(file, body, ipAddress);
+  }
+
+  @Post('ocr')
+  @UseInterceptors(FileInterceptor('file'))
+  async ocrPdf(@UploadedFile() file: Express.Multer.File, @Body() body: OcrPdfDto, @Req() req: Request) {
+    return this.conversionService.createOcrPdfConversion(file, body, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('protect')
+  @UseInterceptors(FileInterceptor('file'))
+  async protectPdf(@UploadedFile() file: Express.Multer.File, @Body() body: ProtectPdfDto, @Req() req: Request) {
+    return this.conversionService.createProtectPdfConversion(file, body, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('unlock')
+  @UseInterceptors(FileInterceptor('file'))
+  async unlockPdf(@UploadedFile() file: Express.Multer.File, @Body() body: UnlockPdfDto, @Req() req: Request) {
+    return this.conversionService.createUnlockPdfConversion(file, body, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('crop')
+  @UseInterceptors(FileInterceptor('file'))
+  async cropPdf(@UploadedFile() file: Express.Multer.File, @Body() body: CropPdfDto, @Req() req: Request) {
+    return this.conversionService.createCropPdfConversion(file, body, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('sign')
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }, { name: 'signature', maxCount: 1 }]))
+  async signPdf(@UploadedFiles() files: { file?: Express.Multer.File[]; signature?: Express.Multer.File[] }, @Body() body: SignatureDto, @Req() req: Request) {
+    return this.conversionService.createSignatureConversion(files?.file?.[0], files?.signature?.[0], body, req.ip || req.socket.remoteAddress || '');
   }
 
   /**

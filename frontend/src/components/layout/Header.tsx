@@ -23,6 +23,11 @@ import {
   Scissors,
   SplitSquareHorizontal,
   Stamp,
+  ScanText,
+  ShieldCheck,
+  UnlockKeyhole,
+  PenTool,
+  Crop,
   X,
 } from "lucide-react";
 
@@ -45,6 +50,11 @@ export default function Header() {
     { href: "/rotate-pdf", icon: RotateCw, title: t("header.tools.rotatePdf.title"), desc: t("header.tools.rotatePdf.desc") },
     { href: "/extract-pages", icon: Files, title: t("header.tools.extractPages.title"), desc: t("header.tools.extractPages.desc") },
     { href: "/pdf-watermark", icon: Stamp, title: t("header.tools.pdfWatermark.title"), desc: t("header.tools.pdfWatermark.desc") },
+    { href: "/ocr-pdf", icon: ScanText, title: t("header.tools.ocrPdf.title"), desc: t("header.tools.ocrPdf.desc") },
+    { href: "/protect-pdf", icon: ShieldCheck, title: t("header.tools.protectPdf.title"), desc: t("header.tools.protectPdf.desc") },
+    { href: "/unlock-pdf", icon: UnlockKeyhole, title: t("header.tools.unlockPdf.title"), desc: t("header.tools.unlockPdf.desc") },
+    { href: "/sign-pdf", icon: PenTool, title: t("header.tools.signPdf.title"), desc: t("header.tools.signPdf.desc") },
+    { href: "/crop-pdf", icon: Crop, title: t("header.tools.cropPdf.title"), desc: t("header.tools.cropPdf.desc") },
   ];
 
   const imageTools = [
@@ -73,7 +83,7 @@ export default function Header() {
               {isToolsOpen && (
                 <div className="studio-mega-menu">
                   <div className="mb-5 flex items-center justify-between border-b border-theme pb-4">
-                    <span className="text-xs font-black uppercase tracking-[0.18em] text-theme-muted">Tool directory / 14</span>
+                    <span className="text-xs font-black uppercase tracking-[0.18em] text-theme-muted">Tool directory / 19</span>
                     <button type="button" onClick={() => setIsToolsOpen(false)} className="text-theme-muted hover:text-theme"><X className="h-4 w-4" /></button>
                   </div>
                   <div className="grid grid-cols-3 gap-2">

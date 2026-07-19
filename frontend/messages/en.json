@@ -19,6 +19,11 @@
       "rotatePdf": { "title": "Rotate PDF", "desc": "Fix page orientation" },
       "extractPages": { "title": "Extract Pages", "desc": "Export selected pages" },
       "pdfWatermark": { "title": "PDF Watermark", "desc": "Add text watermark" },
+      "ocrPdf": { "title": "OCR PDF", "desc": "Make scans searchable" },
+      "protectPdf": { "title": "Protect PDF", "desc": "Add an open password" },
+      "unlockPdf": { "title": "Unlock PDF", "desc": "Remove a known password" },
+      "signPdf": { "title": "Sign PDF", "desc": "Add a signature image" },
+      "cropPdf": { "title": "Crop PDF", "desc": "Trim page margins" },
       "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
       "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
     }
@@ -74,6 +79,11 @@
       "rotatePdf": { "title": "Rotate PDF", "desc": "Fix page orientation" },
       "extractPages": { "title": "Extract Pages", "desc": "Export selected pages" },
       "pdfWatermark": { "title": "PDF Watermark", "desc": "Add text watermark" },
+      "ocrPdf": { "title": "OCR PDF", "desc": "Make scans searchable" },
+      "protectPdf": { "title": "Protect PDF", "desc": "Add an open password" },
+      "unlockPdf": { "title": "Unlock PDF", "desc": "Remove a known password" },
+      "signPdf": { "title": "Sign PDF", "desc": "Add a signature image" },
+      "cropPdf": { "title": "Crop PDF", "desc": "Trim page margins" },
       "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
       "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
     }

@@ -23,6 +23,11 @@ import {
   Sparkles,
   SplitSquareHorizontal,
   Stamp,
+  ScanText,
+  ShieldCheck as ProtectIcon,
+  UnlockKeyhole,
+  PenTool,
+  Crop,
   Upload,
   Zap,
 } from "lucide-react";
@@ -51,6 +56,11 @@ export default function HomePage() {
     { href: "/rotate-pdf", icon: RotateCw, title: t("home.tools.rotatePdf.title"), desc: t("home.tools.rotatePdf.desc") },
     { href: "/extract-pages", icon: Files, title: t("home.tools.extractPages.title"), desc: t("home.tools.extractPages.desc") },
     { href: "/pdf-watermark", icon: Stamp, title: t("home.tools.pdfWatermark.title"), desc: t("home.tools.pdfWatermark.desc"), featured: true },
+    { href: "/ocr-pdf", icon: ScanText, title: t("home.tools.ocrPdf.title"), desc: t("home.tools.ocrPdf.desc"), featured: true },
+    { href: "/protect-pdf", icon: ProtectIcon, title: t("home.tools.protectPdf.title"), desc: t("home.tools.protectPdf.desc") },
+    { href: "/unlock-pdf", icon: UnlockKeyhole, title: t("home.tools.unlockPdf.title"), desc: t("home.tools.unlockPdf.desc") },
+    { href: "/sign-pdf", icon: PenTool, title: t("home.tools.signPdf.title"), desc: t("home.tools.signPdf.desc"), featured: true },
+    { href: "/crop-pdf", icon: Crop, title: t("home.tools.cropPdf.title"), desc: t("home.tools.cropPdf.desc") },
   ];
 
   const imageTools = [

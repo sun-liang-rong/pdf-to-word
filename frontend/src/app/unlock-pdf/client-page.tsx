@@ -1,0 +1,3 @@
+"use client";
+import { useState } from "react"; import { UnlockKeyhole } from "lucide-react"; import PdfOperationShell from "@/components/pdf-tools/PdfOperationShell";
+export default function Client(){const [password,setPassword]=useState(""); return <PdfOperationShell title="PDF 解密" description="输入现有密码，移除 PDF 打开限制。" icon={<UnlockKeyhole className="w-8 h-8"/>} gradient="" endpoint="unlock" outputSuffix="-unlocked.pdf" fields={{password}} canSubmit={password.length>0}><input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="输入当前 PDF 密码" className="w-full rounded-xl border border-theme bg-theme-secondary p-3 text-theme"/></PdfOperationShell>}

@@ -32,7 +32,10 @@ import {
   RemovePagesOptions,
   SplitPagesOptions,
   RearrangePagesOptions,
-  TextWatermarkOptions
+  TextWatermarkOptions,
+  ProtectPdfOptions,
+  SignatureOptions,
+  CropPdfOptions
 } from './stirling-pdf.interface';
 import { isValidPageExpression } from '../conversion/dto/page-expression';
 
@@ -105,15 +108,18 @@ export class StirlingPdfService {
   ): Promise<Buffer> {
     const fields: Record<string, string | Buffer> = {
       fileInput: pdfBuffer,
-      languages: options.languages || 'chi_sim+eng',  // 默认中英文
+      languages: Array.isArray(options.languages)
+        ? options.languages.join(',')
+        : (options.languages || 'chi_sim,eng').replace(/\+/g, ','),
       sidecar: String(options.sidecar ?? false),       // 是否生成文本文件
       deskew: String(options.deskew ?? true),          // 自动校正倾斜
       clean: String(options.clean ?? false),           // 清理噪点
       cleanFinal: String(options.cleanFinal ?? true),
-      ocrType: options.ocrType || 'auto',              // OCR 类型：auto/force/skip
-      ocrRenderType: options.ocrRenderType || 'searchable', // 渲染类型
+      ocrType: options.ocrType || 'skip-text',
+      ocrRenderType: options.ocrRenderType || 'hocr',
+      removeImagesAfter: String(options.removeImagesAfter ?? false),
     };
-    return this.makeMultipartRequest('/api/v1/ocr/pdf', fields, filename);
+    return this.makeMultipartRequest('/api/v1/misc/ocr-pdf', fields, filename);
   }
 
   /**
@@ -749,6 +755,45 @@ export class StirlingPdfService {
     }, filename);
   }
 
+  async addPassword(pdfBuffer: Buffer, filename: string, options: ProtectPdfOptions): Promise<Buffer> {
+    const fields: Record<string, string | Buffer> = {
+      fileInput: pdfBuffer,
+      password: options.password,
+      ownerPassword: options.ownerPassword || options.password,
+      keyLength: String(options.keyLength || 256),
+    };
+    for (const key of ['preventAssembly', 'preventExtractContent', 'preventExtractForAccessibility', 'preventFillInForm', 'preventModify', 'preventModifyAnnotations', 'preventPrinting', 'preventPrintingFaithful'] as const) {
+      fields[key] = String(options[key] ?? false);
+    }
+    return this.makeMultipartRequest('/api/v1/security/add-password', fields, filename);
+  }
+
+  async removePassword(pdfBuffer: Buffer, filename: string, password: string): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/security/remove-password', { fileInput: pdfBuffer, password }, filename);
+  }
+
+  async addSignature(pdfBuffer: Buffer, filename: string, signatureBuffer: Buffer, signatureFilename: string, options: SignatureOptions): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/misc/add-image', {
+      fileInput: pdfBuffer,
+      imageFile: signatureBuffer,
+      x: String(options.x),
+      y: String(options.y),
+      everyPage: String(options.everyPage ?? false),
+    }, filename, { imageFile: signatureFilename });
+  }
+
+  async cropPdf(pdfBuffer: Buffer, filename: string, options: CropPdfOptions): Promise<Buffer> {
+    const fields: Record<string, string | Buffer> = {
+      fileInput: pdfBuffer,
+      autoCrop: String(options.autoCrop ?? false),
+      removeDataOutsideCrop: String(options.removeDataOutsideCrop ?? false),
+    };
+    for (const key of ['x', 'y', 'width', 'height'] as const) {
+      if (options[key] !== undefined) fields[key] = String(options[key]);
+    }
+    return this.makeMultipartRequest('/api/v1/general/crop', fields, filename);
+  }
+
   /**
    * 验证重新排列页面参数
    * 
@@ -821,6 +866,7 @@ export class StirlingPdfService {
     endpoint: string,
     fields: Record<string, string | Buffer>,
     filename: string,
+    fieldFilenames: Record<string, string> = {},
   ): Promise<Buffer> {
     return new Promise(async (resolve, reject) => {
       try {
@@ -834,7 +880,8 @@ export class StirlingPdfService {
           if (Buffer.isBuffer(value)) {
             // 文件字段：设置正确的 Content-Type
             hasFileField = true;
-            const ext = path.extname(filename).toLowerCase();
+            const fieldFilename = fieldFilenames[name] || filename;
+            const ext = path.extname(fieldFilename).toLowerCase();
             let contentType = 'application/octet-stream';
             if (ext === '.pdf') contentType = 'application/pdf';
             else if (['.jpg', '.jpeg', '.jpe'].includes(ext)) contentType = 'image/jpeg';
@@ -844,7 +891,7 @@ export class StirlingPdfService {
             else if (ext === '.doc') contentType = 'application/msword';
             
             // 处理中文文件名：替换非 ASCII 字符
-            const fallbackFilename = filename.replace(/[^ -~]/g, '_') || 'upload';
+            const fallbackFilename = fieldFilename.replace(/[^ -~]/g, '_') || 'upload';
             form.append(name, value, { filename: fallbackFilename, contentType });
             this.logger.debug(`Added file field: ${name}, filename: ${filename}, size: ${value.length} bytes, type: ${contentType}`);
           } else {

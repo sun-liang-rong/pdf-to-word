@@ -17,13 +17,14 @@ interface PdfOperationShellProps {
   endpoint: string;
   outputSuffix: string;
   fields: Record<string, string | number>;
+  extraFiles?: Record<string, File | null>;
   canSubmit?: boolean;
   validationMessage?: string;
   children: React.ReactNode;
 }
 
 export default function PdfOperationShell({
-  title, description, icon, gradient, endpoint, outputSuffix, fields,
+  title, description, icon, gradient, endpoint, outputSuffix, fields, extraFiles,
   canSubmit = true, validationMessage, children,
 }: PdfOperationShellProps) {
   const [file, setFile] = useState<File | null>(null);
@@ -40,7 +41,7 @@ export default function PdfOperationShell({
     if (!file || !canSubmit) return;
     setSubmitting(true); setError(null);
     try {
-      setTaskId(await submitPdfTool(endpoint, file, fields));
+      setTaskId(await submitPdfTool(endpoint, file, fields, extraFiles));
     } catch (err) {
       setError(pdfToolError(err, "处理失败，请稍后重试"));
     } finally {

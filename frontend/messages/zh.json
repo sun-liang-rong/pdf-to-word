@@ -19,6 +19,11 @@
       "rotatePdf": { "title": "旋转PDF", "desc": "修正页面方向" },
       "extractPages": { "title": "提取页面", "desc": "导出指定页面" },
       "pdfWatermark": { "title": "PDF水印", "desc": "添加文字水印" },
+      "ocrPdf": { "title": "OCR识别", "desc": "扫描件转可搜索PDF" },
+      "protectPdf": { "title": "PDF加密", "desc": "设置打开密码" },
+      "unlockPdf": { "title": "PDF解密", "desc": "移除已知密码" },
+      "signPdf": { "title": "PDF签名", "desc": "添加手写签名" },
+      "cropPdf": { "title": "裁剪PDF", "desc": "自动去白边" },
       "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
       "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
     }
@@ -74,6 +79,11 @@
       "rotatePdf": { "title": "旋转PDF", "desc": "修正页面方向" },
       "extractPages": { "title": "提取页面", "desc": "导出指定页面" },
       "pdfWatermark": { "title": "PDF水印", "desc": "添加文字水印" },
+      "ocrPdf": { "title": "OCR识别", "desc": "扫描件转可搜索PDF" },
+      "protectPdf": { "title": "PDF加密", "desc": "设置打开密码" },
+      "unlockPdf": { "title": "PDF解密", "desc": "移除已知密码" },
+      "signPdf": { "title": "PDF签名", "desc": "添加手写签名" },
+      "cropPdf": { "title": "裁剪PDF", "desc": "自动去白边" },
       "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
       "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
     }

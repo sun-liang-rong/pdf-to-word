@@ -50,6 +50,11 @@ export enum ConversionType {
   EXTRACT_PAGES = 'extract-pages',
   PDF_TEXT_WATERMARK = 'pdf-text-watermark',
   IMAGE_COMPRESS = 'image-compress',
+  OCR_PDF = 'ocr-pdf',
+  PROTECT_PDF = 'protect-pdf',
+  UNLOCK_PDF = 'unlock-pdf',
+  SIGN_PDF = 'sign-pdf',
+  CROP_PDF = 'crop-pdf',
 }
 
 /**
@@ -70,6 +75,11 @@ export const OUTPUT_EXTENSIONS: Record<ConversionType, string> = {
   [ConversionType.EXTRACT_PAGES]: '.pdf',
   [ConversionType.PDF_TEXT_WATERMARK]: '.pdf',
   [ConversionType.IMAGE_COMPRESS]: '.jpg',  // 图片压缩输出
+  [ConversionType.OCR_PDF]: '.pdf',
+  [ConversionType.PROTECT_PDF]: '.pdf',
+  [ConversionType.UNLOCK_PDF]: '.pdf',
+  [ConversionType.SIGN_PDF]: '.pdf',
+  [ConversionType.CROP_PDF]: '.pdf',
 };
 
 /**

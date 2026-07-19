@@ -11,7 +11,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ConversionTask, TaskStatus, ConversionType, OUTPUT_EXTENSIONS } from '../task/task.entity';
 import { StirlingPdfService } from '../stirling-pdf/stirling-pdf.service';
-import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RotatePdfOptions, ExtractPagesOptions, TextWatermarkOptions } from '../stirling-pdf/stirling-pdf.interface';
+import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RotatePdfOptions, ExtractPagesOptions, TextWatermarkOptions, OcrPdfOptions, ProtectPdfOptions, SignatureOptions, CropPdfOptions } from '../stirling-pdf/stirling-pdf.interface';
 
 /**
  * 允许的文件类型映射
@@ -602,6 +602,34 @@ export class ConversionService {
   async createTextWatermarkConversion(file: Express.Multer.File, options: TextWatermarkOptions, ipAddress: string) {
     return this.createPdfOperation(file, ConversionType.PDF_TEXT_WATERMARK, ipAddress, (buffer, filename) =>
       this.stirlingPdfService.addTextWatermark(buffer, filename, options));
+  }
+
+  async createOcrPdfConversion(file: Express.Multer.File, options: OcrPdfOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.OCR_PDF, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.ocrPdf(buffer, filename, options));
+  }
+
+  async createProtectPdfConversion(file: Express.Multer.File, options: ProtectPdfOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.PROTECT_PDF, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.addPassword(buffer, filename, options));
+  }
+
+  async createUnlockPdfConversion(file: Express.Multer.File, options: { password: string }, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.UNLOCK_PDF, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.removePassword(buffer, filename, options.password));
+  }
+
+  async createCropPdfConversion(file: Express.Multer.File, options: CropPdfOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.CROP_PDF, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.cropPdf(buffer, filename, options));
+  }
+
+  async createSignatureConversion(file: Express.Multer.File, signature: Express.Multer.File, options: SignatureOptions, ipAddress: string) {
+    if (!signature) throw new BadRequestException('请上传签名图片');
+    if (!['image/png', 'image/jpeg', 'image/svg+xml'].includes(signature.mimetype)) throw new BadRequestException('签名只支持 PNG、JPG 或 SVG');
+    if (signature.size > 5 * 1024 * 1024) throw new BadRequestException('签名图片不能超过 5MB');
+    return this.createPdfOperation(file, ConversionType.SIGN_PDF, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.addSignature(buffer, filename, signature.buffer, this.normalizeOriginalName(signature.originalname), options));
   }
 
   private async createPdfOperation(

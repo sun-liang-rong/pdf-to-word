@@ -9,13 +9,14 @@ export interface ConvertPdfToWordOptions {
 }
 
 export interface OcrPdfOptions {
-  languages?: string;
+  languages?: string | string[];
   sidecar?: boolean;
   deskew?: boolean;
   clean?: boolean;
   cleanFinal?: boolean;
-  ocrType?: 'auto' | 'force' | 'skip';
-  ocrRenderType?: 'hocr' | 'searchable' | 'sandwich';
+  ocrType?: 'skip-text' | 'force-ocr' | 'Normal';
+  ocrRenderType?: 'hocr' | 'sandwich';
+  removeImagesAfter?: boolean;
 }
 
 export interface SmartPdfToWordOptions {
@@ -166,4 +167,24 @@ export interface TextWatermarkOptions {
   opacity: number;
   spacing: number;
   customColor: string;
+}
+
+export interface ProtectPdfOptions {
+  password: string;
+  ownerPassword?: string;
+  keyLength?: 40 | 128 | 256;
+  preventAssembly?: boolean;
+  preventExtractContent?: boolean;
+  preventExtractForAccessibility?: boolean;
+  preventFillInForm?: boolean;
+  preventModify?: boolean;
+  preventModifyAnnotations?: boolean;
+  preventPrinting?: boolean;
+  preventPrintingFaithful?: boolean;
+}
+
+export interface SignatureOptions { x: number; y: number; everyPage?: boolean; }
+export interface CropPdfOptions {
+  x?: number; y?: number; width?: number; height?: number;
+  removeDataOutsideCrop?: boolean; autoCrop?: boolean;
 }

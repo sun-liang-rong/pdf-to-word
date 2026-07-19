@@ -8,6 +8,7 @@ describe('ConversionService PDF operations', () => {
   const repository = { create: jest.fn((value) => value), save: jest.fn(async (value) => value) };
   const stirling = {
     rotatePdf: jest.fn(), extractPages: jest.fn(), addTextWatermark: jest.fn(),
+    ocrPdf: jest.fn(), addPassword: jest.fn(), removePassword: jest.fn(), cropPdf: jest.fn(), addSignature: jest.fn(),
   };
   let service: ConversionService;
   const file = {
@@ -26,6 +27,11 @@ describe('ConversionService PDF operations', () => {
     stirling.rotatePdf.mockResolvedValue(Buffer.from('rotated'));
     stirling.extractPages.mockResolvedValue(Buffer.from('extracted'));
     stirling.addTextWatermark.mockResolvedValue(Buffer.from('watermarked'));
+    stirling.ocrPdf.mockResolvedValue(Buffer.from('ocr'));
+    stirling.addPassword.mockResolvedValue(Buffer.from('protected'));
+    stirling.removePassword.mockResolvedValue(Buffer.from('unlocked'));
+    stirling.cropPdf.mockResolvedValue(Buffer.from('cropped'));
+    stirling.addSignature.mockResolvedValue(Buffer.from('signed'));
   });
 
   afterEach(() => jest.restoreAllMocks());
@@ -34,6 +40,10 @@ describe('ConversionService PDF operations', () => {
     ['createRotatePdfConversion', { angle: 90 }, ConversionType.ROTATE_PDF, 'rotatePdf'],
     ['createExtractPagesConversion', { pageNumbers: '1,3-5' }, ConversionType.EXTRACT_PAGES, 'extractPages'],
     ['createTextWatermarkConversion', { text: 'mark', fontSize: 30, rotation: 0, opacity: 0.5, spacing: 50, customColor: '#abcdef' }, ConversionType.PDF_TEXT_WATERMARK, 'addTextWatermark'],
+    ['createOcrPdfConversion', { languages: ['chi_sim', 'eng'] }, ConversionType.OCR_PDF, 'ocrPdf'],
+    ['createProtectPdfConversion', { password: 'open1234' }, ConversionType.PROTECT_PDF, 'addPassword'],
+    ['createUnlockPdfConversion', { password: 'open1234' }, ConversionType.UNLOCK_PDF, 'removePassword'],
+    ['createCropPdfConversion', { autoCrop: true }, ConversionType.CROP_PDF, 'cropPdf'],
   ] as const)('creates completed PDF task through %s', async (method, options, type, adapter) => {
     const result = await (service as any)[method](file, options, '127.0.0.1');
     expect(stirling[adapter]).toHaveBeenCalled();
@@ -45,7 +55,14 @@ describe('ConversionService PDF operations', () => {
     expect(result).toEqual(expect.objectContaining({ status: TaskStatus.COMPLETED, taskId: expect.any(String) }));
   });
 
-  it.each(['createRotatePdfConversion', 'createExtractPagesConversion', 'createTextWatermarkConversion'])('rejects missing file in %s', async (method) => {
+  it('creates a completed signature task', async () => {
+    const signature = { buffer: Buffer.from('png'), originalname: 'sign.png', mimetype: 'image/png', size: 3 } as Express.Multer.File;
+    await service.createSignatureConversion(file, signature, { x: 10, y: 20 }, 'ip');
+    expect(stirling.addSignature).toHaveBeenCalledWith(file.buffer, 'report.pdf', signature.buffer, 'sign.png', { x: 10, y: 20 });
+    expect(repository.save).toHaveBeenCalledWith(expect.objectContaining({ type: ConversionType.SIGN_PDF }));
+  });
+
+  it.each(['createRotatePdfConversion', 'createExtractPagesConversion', 'createTextWatermarkConversion', 'createOcrPdfConversion', 'createProtectPdfConversion', 'createUnlockPdfConversion', 'createCropPdfConversion'])('rejects missing file in %s', async (method) => {
     await expect((service as any)[method](undefined, {}, 'ip')).rejects.toBeInstanceOf(BadRequestException);
   });
 

@@ -21,10 +21,12 @@ export async function submitPdfTool(
   endpoint: string,
   file: File,
   fields: Record<string, string | number>,
+  extraFiles?: Record<string, File | null>,
 ): Promise<string> {
   const formData = new FormData();
   formData.append('file', file);
   Object.entries(fields).forEach(([key, value]) => formData.append(key, String(value)));
+  Object.entries(extraFiles || {}).forEach(([key, value]) => { if (value) formData.append(key, value); });
 
   const response = await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}/convert/${endpoint}`,
