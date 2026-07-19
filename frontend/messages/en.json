@@ -24,6 +24,11 @@
       "unlockPdf": { "title": "Unlock PDF", "desc": "Remove a known password" },
       "signPdf": { "title": "Sign PDF", "desc": "Add a signature image" },
       "cropPdf": { "title": "Crop PDF", "desc": "Trim page margins" },
+      "pdfToExcel": { "title": "PDF to Excel", "desc": "Extract tables to XLSX" },
+      "pdfToPptx": { "title": "PDF to PowerPoint", "desc": "Create a PPTX deck" },
+      "pdfToHtml": { "title": "PDF to HTML", "desc": "Export web resources" },
+      "addPageNumbers": { "title": "Page numbers", "desc": "Add headers and footers" },
+      "scalePdf": { "title": "Scale PDF", "desc": "Resize pages and content" },
       "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
       "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
     }
@@ -84,6 +89,11 @@
       "unlockPdf": { "title": "Unlock PDF", "desc": "Remove a known password" },
       "signPdf": { "title": "Sign PDF", "desc": "Add a signature image" },
       "cropPdf": { "title": "Crop PDF", "desc": "Trim page margins" },
+      "pdfToExcel": { "title": "PDF to Excel", "desc": "Extract tables into editable XLSX" },
+      "pdfToPptx": { "title": "PDF to PowerPoint", "desc": "Convert into a PowerPoint deck" },
+      "pdfToHtml": { "title": "PDF to HTML", "desc": "Export an HTML web bundle" },
+      "addPageNumbers": { "title": "Page numbers", "desc": "Add page numbers, headers and footers" },
+      "scalePdf": { "title": "Scale PDF", "desc": "Resize content and paper dimensions" },
       "imageCompress": { "title": "Compress Image", "desc": "Compress images" },
       "imageWatermark": { "title": "Image Watermark", "desc": "Add watermark" }
     }

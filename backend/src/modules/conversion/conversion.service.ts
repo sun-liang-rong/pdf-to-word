@@ -11,7 +11,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ConversionTask, TaskStatus, ConversionType, OUTPUT_EXTENSIONS } from '../task/task.entity';
 import { StirlingPdfService } from '../stirling-pdf/stirling-pdf.service';
-import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RotatePdfOptions, ExtractPagesOptions, TextWatermarkOptions, OcrPdfOptions, ProtectPdfOptions, SignatureOptions, CropPdfOptions } from '../stirling-pdf/stirling-pdf.interface';
+import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RotatePdfOptions, ExtractPagesOptions, TextWatermarkOptions, OcrPdfOptions, ProtectPdfOptions, SignatureOptions, CropPdfOptions, AddPageNumbersOptions, ScalePagesOptions } from '../stirling-pdf/stirling-pdf.interface';
 
 /**
  * 允许的文件类型映射
@@ -624,6 +624,31 @@ export class ConversionService {
       this.stirlingPdfService.cropPdf(buffer, filename, options));
   }
 
+  async createPdfToExcelConversion(file: Express.Multer.File, options: { pageNumbers?: string }, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.PDF_TO_EXCEL, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.convertPdfToExcel(buffer, filename, options.pageNumbers || 'all'));
+  }
+
+  async createPdfToPptxConversion(file: Express.Multer.File, _options: object, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.PDF_TO_PPTX, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.convertPdfToPresentation(buffer, filename, 'pptx'));
+  }
+
+  async createPdfToHtmlConversion(file: Express.Multer.File, _options: object, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.PDF_TO_HTML, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.convertPdfToHtml(buffer, filename));
+  }
+
+  async createAddPageNumbersConversion(file: Express.Multer.File, options: AddPageNumbersOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.ADD_PAGE_NUMBERS, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.addPageNumbers(buffer, filename, options));
+  }
+
+  async createScalePdfConversion(file: Express.Multer.File, options: ScalePagesOptions, ipAddress: string) {
+    return this.createPdfOperation(file, ConversionType.SCALE_PDF, ipAddress, (buffer, filename) =>
+      this.stirlingPdfService.scalePages(buffer, filename, options));
+  }
+
   async createSignatureConversion(file: Express.Multer.File, signature: Express.Multer.File, options: SignatureOptions, ipAddress: string) {
     if (!signature) throw new BadRequestException('请上传签名图片');
     if (!['image/png', 'image/jpeg', 'image/svg+xml'].includes(signature.mimetype)) throw new BadRequestException('签名只支持 PNG、JPG 或 SVG');
@@ -647,8 +672,12 @@ export class ConversionService {
     const taskId = uuidv4();
     const originalName = this.normalizeOriginalName(file.originalname);
     const expiresAt = new Date(Date.now() + parseInt(this.configService.get('FILE_EXPIRE_MINUTES') || '30', 10) * 60 * 1000);
-    const outputPath = path.join(this.uploadDir, `${taskId}.pdf`);
+    const outputExt = OUTPUT_EXTENSIONS[type].replace('.', '');
+    const outputPath = path.join(this.uploadDir, `${taskId}.${outputExt}`);
     const outputBuffer = await operation(file.buffer, originalName);
+    if (!outputBuffer.length) {
+      throw new BadRequestException('转换未生成有效文件，请确认 PDF 包含可转换的内容');
+    }
     fs.writeFileSync(outputPath, outputBuffer);
 
     try {

@@ -188,3 +188,16 @@ export interface CropPdfOptions {
   x?: number; y?: number; width?: number; height?: number;
   removeDataOutsideCrop?: boolean; autoCrop?: boolean;
 }
+
+export interface AddPageNumbersOptions {
+  pageNumbers?: string; pagesToNumber?: string;
+  customMargin?: 'small' | 'medium' | 'large' | 'x-large';
+  fontSize?: number; fontType?: 'helvetica' | 'courier' | 'times'; fontColor?: string;
+  zeroPad?: number; position?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+  startingNumber?: number; customText?: string;
+}
+
+export interface ScalePagesOptions {
+  pageSize: 'A0' | 'A1' | 'A2' | 'A3' | 'A4' | 'A5' | 'A6' | 'LETTER' | 'LEGAL' | 'KEEP';
+  scaleFactor: number;
+}

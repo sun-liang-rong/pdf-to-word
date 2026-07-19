@@ -24,6 +24,7 @@ import { TextWatermarkDto } from './dto/text-watermark.dto';
 import { OcrPdfDto } from './dto/ocr-pdf.dto';
 import { ProtectPdfDto, UnlockPdfDto } from './dto/pdf-security.dto';
 import { CropPdfDto, SignatureDto } from './dto/pdf-priority-tools.dto';
+import { AddPageNumbersDto, PdfToExcelDto, ScalePdfDto } from './dto/pdf-second-priority.dto';
 import { RateLimitGuard } from '../rate-limit/rate-limit.guard';
 import { MergePdfOptions, CompressPdfOptions, RemovePagesOptions, SplitPagesOptions, RearrangePagesOptions, RearrangeMode } from '../stirling-pdf/stirling-pdf.interface';
 
@@ -276,6 +277,36 @@ export class ConversionController {
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }, { name: 'signature', maxCount: 1 }]))
   async signPdf(@UploadedFiles() files: { file?: Express.Multer.File[]; signature?: Express.Multer.File[] }, @Body() body: SignatureDto, @Req() req: Request) {
     return this.conversionService.createSignatureConversion(files?.file?.[0], files?.signature?.[0], body, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('pdf-to-excel')
+  @UseInterceptors(FileInterceptor('file'))
+  async pdfToExcel(@UploadedFile() file: Express.Multer.File, @Body() body: PdfToExcelDto, @Req() req: Request) {
+    return this.conversionService.createPdfToExcelConversion(file, body, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('pdf-to-pptx')
+  @UseInterceptors(FileInterceptor('file'))
+  async pdfToPptx(@UploadedFile() file: Express.Multer.File, @Req() req: Request) {
+    return this.conversionService.createPdfToPptxConversion(file, {}, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('pdf-to-html')
+  @UseInterceptors(FileInterceptor('file'))
+  async pdfToHtml(@UploadedFile() file: Express.Multer.File, @Req() req: Request) {
+    return this.conversionService.createPdfToHtmlConversion(file, {}, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('add-page-numbers')
+  @UseInterceptors(FileInterceptor('file'))
+  async addPageNumbers(@UploadedFile() file: Express.Multer.File, @Body() body: AddPageNumbersDto, @Req() req: Request) {
+    return this.conversionService.createAddPageNumbersConversion(file, body, req.ip || req.socket.remoteAddress || '');
+  }
+
+  @Post('scale-pdf')
+  @UseInterceptors(FileInterceptor('file'))
+  async scalePdf(@UploadedFile() file: Express.Multer.File, @Body() body: ScalePdfDto, @Req() req: Request) {
+    return this.conversionService.createScalePdfConversion(file, body, req.ip || req.socket.remoteAddress || '');
   }
 
   /**

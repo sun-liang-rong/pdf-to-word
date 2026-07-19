@@ -28,6 +28,11 @@ import {
   UnlockKeyhole,
   PenTool,
   Crop,
+  FileSpreadsheet,
+  Presentation,
+  FileCode2,
+  ListOrdered,
+  Scaling,
   Upload,
   Zap,
 } from "lucide-react";
@@ -61,6 +66,11 @@ export default function HomePage() {
     { href: "/unlock-pdf", icon: UnlockKeyhole, title: t("home.tools.unlockPdf.title"), desc: t("home.tools.unlockPdf.desc") },
     { href: "/sign-pdf", icon: PenTool, title: t("home.tools.signPdf.title"), desc: t("home.tools.signPdf.desc"), featured: true },
     { href: "/crop-pdf", icon: Crop, title: t("home.tools.cropPdf.title"), desc: t("home.tools.cropPdf.desc") },
+    { href: "/pdf-to-excel", icon: FileSpreadsheet, title: t("home.tools.pdfToExcel.title"), desc: t("home.tools.pdfToExcel.desc"), featured: true },
+    { href: "/pdf-to-pptx", icon: Presentation, title: t("home.tools.pdfToPptx.title"), desc: t("home.tools.pdfToPptx.desc") },
+    { href: "/pdf-to-html", icon: FileCode2, title: t("home.tools.pdfToHtml.title"), desc: t("home.tools.pdfToHtml.desc") },
+    { href: "/add-page-numbers", icon: ListOrdered, title: t("home.tools.addPageNumbers.title"), desc: t("home.tools.addPageNumbers.desc"), featured: true },
+    { href: "/scale-pdf", icon: Scaling, title: t("home.tools.scalePdf.title"), desc: t("home.tools.scalePdf.desc") },
   ];
 
   const imageTools = [

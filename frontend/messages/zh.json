@@ -24,6 +24,11 @@
       "unlockPdf": { "title": "PDF解密", "desc": "移除已知密码" },
       "signPdf": { "title": "PDF签名", "desc": "添加手写签名" },
       "cropPdf": { "title": "裁剪PDF", "desc": "自动去白边" },
+      "pdfToExcel": { "title": "PDF 转 Excel", "desc": "提取表格为 XLSX" },
+      "pdfToPptx": { "title": "PDF 转 PPT", "desc": "生成演示文稿" },
+      "pdfToHtml": { "title": "PDF 转 HTML", "desc": "导出网页资源" },
+      "addPageNumbers": { "title": "页码与页眉页脚", "desc": "添加自定义页面文字" },
+      "scalePdf": { "title": "调整页面尺寸", "desc": "缩放并统一纸张" },
       "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
       "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
     }
@@ -84,6 +89,11 @@
       "unlockPdf": { "title": "PDF解密", "desc": "移除已知密码" },
       "signPdf": { "title": "PDF签名", "desc": "添加手写签名" },
       "cropPdf": { "title": "裁剪PDF", "desc": "自动去白边" },
+      "pdfToExcel": { "title": "PDF 转 Excel", "desc": "提取表格为可编辑 XLSX" },
+      "pdfToPptx": { "title": "PDF 转 PPT", "desc": "转换为 PowerPoint 演示文稿" },
+      "pdfToHtml": { "title": "PDF 转 HTML", "desc": "导出 HTML 网页资源包" },
+      "addPageNumbers": { "title": "页码与页眉页脚", "desc": "添加页码和自定义页面文字" },
+      "scalePdf": { "title": "调整页面尺寸", "desc": "缩放内容并统一纸张尺寸" },
       "imageCompress": { "title": "图片压缩", "desc": "压缩图片" },
       "imageWatermark": { "title": "图片水印", "desc": "添加水印" }
     }

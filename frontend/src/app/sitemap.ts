@@ -64,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-    ...['rotate-pdf', 'extract-pages', 'pdf-watermark', 'ocr-pdf', 'protect-pdf', 'unlock-pdf', 'sign-pdf', 'crop-pdf'].map((path) => ({
+    ...['rotate-pdf', 'extract-pages', 'pdf-watermark', 'ocr-pdf', 'protect-pdf', 'unlock-pdf', 'sign-pdf', 'crop-pdf', 'pdf-to-excel', 'pdf-to-pptx', 'pdf-to-html', 'add-page-numbers', 'scale-pdf'].map((path) => ({
       url: `${baseUrl}/${path}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,

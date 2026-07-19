@@ -55,6 +55,11 @@ export enum ConversionType {
   UNLOCK_PDF = 'unlock-pdf',
   SIGN_PDF = 'sign-pdf',
   CROP_PDF = 'crop-pdf',
+  PDF_TO_EXCEL = 'pdf-to-excel',
+  PDF_TO_PPTX = 'pdf-to-pptx',
+  PDF_TO_HTML = 'pdf-to-html',
+  ADD_PAGE_NUMBERS = 'add-page-numbers',
+  SCALE_PDF = 'scale-pdf',
 }
 
 /**
@@ -80,6 +85,11 @@ export const OUTPUT_EXTENSIONS: Record<ConversionType, string> = {
   [ConversionType.UNLOCK_PDF]: '.pdf',
   [ConversionType.SIGN_PDF]: '.pdf',
   [ConversionType.CROP_PDF]: '.pdf',
+  [ConversionType.PDF_TO_EXCEL]: '.xlsx',
+  [ConversionType.PDF_TO_PPTX]: '.pptx',
+  [ConversionType.PDF_TO_HTML]: '.zip',
+  [ConversionType.ADD_PAGE_NUMBERS]: '.pdf',
+  [ConversionType.SCALE_PDF]: '.pdf',
 };
 
 /**

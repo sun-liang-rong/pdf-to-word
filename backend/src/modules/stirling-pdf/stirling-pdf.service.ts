@@ -35,7 +35,9 @@ import {
   TextWatermarkOptions,
   ProtectPdfOptions,
   SignatureOptions,
-  CropPdfOptions
+  CropPdfOptions,
+  AddPageNumbersOptions,
+  ScalePagesOptions
 } from './stirling-pdf.interface';
 import { isValidPageExpression } from '../conversion/dto/page-expression';
 
@@ -792,6 +794,35 @@ export class StirlingPdfService {
       if (options[key] !== undefined) fields[key] = String(options[key]);
     }
     return this.makeMultipartRequest('/api/v1/general/crop', fields, filename);
+  }
+
+  async convertPdfToExcel(pdfBuffer: Buffer, filename: string, pageNumbers = 'all'): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/convert/pdf/xlsx', { fileInput: pdfBuffer, pageNumbers }, filename);
+  }
+
+  async convertPdfToPresentation(pdfBuffer: Buffer, filename: string, outputFormat: 'ppt' | 'pptx' | 'odp' = 'pptx'): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/convert/pdf/presentation', { fileInput: pdfBuffer, outputFormat }, filename);
+  }
+
+  async convertPdfToHtml(pdfBuffer: Buffer, filename: string): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/convert/pdf/html', { fileInput: pdfBuffer }, filename);
+  }
+
+  async addPageNumbers(pdfBuffer: Buffer, filename: string, options: AddPageNumbersOptions): Promise<Buffer> {
+    const fields: Record<string, string | Buffer> = { fileInput: pdfBuffer };
+    const values = {
+      pageNumbers: 'all', pagesToNumber: 'all', customMargin: 'medium', fontSize: 12,
+      fontType: 'helvetica', fontColor: '#000000', zeroPad: 0, position: 8,
+      startingNumber: 1, customText: '{n}', ...options,
+    };
+    for (const [key, value] of Object.entries(values)) fields[key] = String(value);
+    return this.makeMultipartRequest('/api/v1/misc/add-page-numbers', fields, filename);
+  }
+
+  async scalePages(pdfBuffer: Buffer, filename: string, options: ScalePagesOptions): Promise<Buffer> {
+    return this.makeMultipartRequest('/api/v1/general/scale-pages', {
+      fileInput: pdfBuffer, pageSize: options.pageSize, scaleFactor: String(options.scaleFactor),
+    }, filename);
   }
 
   /**

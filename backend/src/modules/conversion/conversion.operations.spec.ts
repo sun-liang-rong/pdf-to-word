@@ -9,6 +9,7 @@ describe('ConversionService PDF operations', () => {
   const stirling = {
     rotatePdf: jest.fn(), extractPages: jest.fn(), addTextWatermark: jest.fn(),
     ocrPdf: jest.fn(), addPassword: jest.fn(), removePassword: jest.fn(), cropPdf: jest.fn(), addSignature: jest.fn(),
+    convertPdfToExcel: jest.fn(), convertPdfToPresentation: jest.fn(), convertPdfToHtml: jest.fn(), addPageNumbers: jest.fn(), scalePages: jest.fn(),
   };
   let service: ConversionService;
   const file = {
@@ -32,6 +33,11 @@ describe('ConversionService PDF operations', () => {
     stirling.removePassword.mockResolvedValue(Buffer.from('unlocked'));
     stirling.cropPdf.mockResolvedValue(Buffer.from('cropped'));
     stirling.addSignature.mockResolvedValue(Buffer.from('signed'));
+    stirling.convertPdfToExcel.mockResolvedValue(Buffer.from('xlsx'));
+    stirling.convertPdfToPresentation.mockResolvedValue(Buffer.from('pptx'));
+    stirling.convertPdfToHtml.mockResolvedValue(Buffer.from('html'));
+    stirling.addPageNumbers.mockResolvedValue(Buffer.from('numbered'));
+    stirling.scalePages.mockResolvedValue(Buffer.from('scaled'));
   });
 
   afterEach(() => jest.restoreAllMocks());
@@ -53,6 +59,21 @@ describe('ConversionService PDF operations', () => {
       outputPath: expect.stringMatching(/\.pdf$/), expiresAt: expect.any(Date),
     }));
     expect(result).toEqual(expect.objectContaining({ status: TaskStatus.COMPLETED, taskId: expect.any(String) }));
+  });
+
+  it.each([
+    ['createPdfToExcelConversion', { pageNumbers: 'all' }, ConversionType.PDF_TO_EXCEL, 'convertPdfToExcel', 'xlsx'],
+    ['createPdfToPptxConversion', {}, ConversionType.PDF_TO_PPTX, 'convertPdfToPresentation', 'pptx'],
+    ['createPdfToHtmlConversion', {}, ConversionType.PDF_TO_HTML, 'convertPdfToHtml', 'zip'],
+    ['createAddPageNumbersConversion', { customText: '{n}', position: 8 }, ConversionType.ADD_PAGE_NUMBERS, 'addPageNumbers', 'pdf'],
+    ['createScalePdfConversion', { pageSize: 'A4', scaleFactor: 0.9 }, ConversionType.SCALE_PDF, 'scalePages', 'pdf'],
+  ] as const)('creates second-priority task through %s', async (method, options, type, adapter, extension) => {
+    const result = await (service as any)[method](file, options, '127.0.0.1');
+    expect(stirling[adapter]).toHaveBeenCalled();
+    expect(repository.save).toHaveBeenCalledWith(expect.objectContaining({
+      type, status: TaskStatus.COMPLETED, outputPath: expect.stringMatching(new RegExp(`\\.${extension}$`)),
+    }));
+    expect(result).toEqual(expect.objectContaining({ status: TaskStatus.COMPLETED }));
   });
 
   it('creates a completed signature task', async () => {
