@@ -407,11 +407,20 @@ body {
   top: calc(100% + 1rem);
   right: -15rem;
   width: min(760px, calc(100vw - 3rem));
+  max-height: calc(100dvh - 7rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   border: 1px solid var(--studio-ink);
   background: var(--bg-card);
   padding: 1.25rem;
   box-shadow: 12px 12px 0 var(--studio-ink);
 }
+
+.studio-mega-menu::-webkit-scrollbar { width: 10px; }
+.studio-mega-menu::-webkit-scrollbar-track { background: var(--studio-paper); }
+.studio-mega-menu::-webkit-scrollbar-thumb { border: 2px solid var(--studio-paper); background: var(--studio-ink); }
 
 .studio-menu-item {
   display: flex;

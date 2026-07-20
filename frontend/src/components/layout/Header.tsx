@@ -93,8 +93,8 @@ export default function Header() {
               {isToolsOpen && (
                 <div className="studio-mega-menu">
                   <div className="mb-5 flex items-center justify-between border-b border-theme pb-4">
-                    <span className="text-xs font-black uppercase tracking-[0.18em] text-theme-muted">Tool directory / 19</span>
-                    <button type="button" onClick={() => setIsToolsOpen(false)} className="text-theme-muted hover:text-theme"><X className="h-4 w-4" /></button>
+                    <span className="text-xs font-black uppercase tracking-[0.18em] text-theme-muted">Tool directory / {pdfTools.length + imageTools.length}</span>
+                    <button type="button" onClick={() => setIsToolsOpen(false)} className="text-theme-muted hover:text-theme" aria-label="关闭工具菜单"><X className="h-4 w-4" /></button>
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     {pdfTools.map((tool, index) => (
@@ -143,6 +143,12 @@ export default function Header() {
               {pdfTools.map((tool) => (
                 <Link key={tool.href} href={tool.href} onClick={() => setIsMenuOpen(false)} className="studio-mobile-link">
                   <tool.icon className="h-4 w-4 text-[var(--studio-accent)]" />{tool.title}
+                </Link>
+              ))}
+              <div className="col-span-2 mt-2 border-t border-theme pt-3 text-[10px] font-black uppercase tracking-[0.18em] text-theme-muted">Image tools</div>
+              {imageTools.map((tool) => (
+                <Link key={tool.href} href={tool.href} onClick={() => setIsMenuOpen(false)} className="studio-mobile-link">
+                  <tool.icon className="h-4 w-4 text-emerald-500" />{tool.title}
                 </Link>
               ))}
             </div>

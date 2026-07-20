@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#071428"/>
+      <stop offset="45%" stop-color="#0E1B47"/>
+      <stop offset="100%" stop-color="#4A1F78"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(860 190) rotate(90) scale(280 320)">
+      <stop offset="0%" stop-color="#69D2FF" stop-opacity="0.36"/>
+      <stop offset="55%" stop-color="#69D2FF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#69D2FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="150" y1="120" x2="1040" y2="530" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8CE2FF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#C86BFF" stop-opacity="0.65"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1200" height="630" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g opacity="0.35">
+    <circle cx="118" cy="88" r="2.6" fill="#9BE7FF"/>
+    <circle cx="198" cy="132" r="1.8" fill="#C9A3FF"/>
+    <circle cx="280" cy="92" r="2.2" fill="#9BE7FF"/>
+    <circle cx="934" cy="88" r="2.6" fill="#9BE7FF"/>
+    <circle cx="1014" cy="132" r="1.8" fill="#C9A3FF"/>
+    <circle cx="1096" cy="92" r="2.2" fill="#9BE7FF"/>
+    <path d="M118 88L198 132L280 92" stroke="url(#line)" stroke-width="1.5"/>
+    <path d="M934 88L1014 132L1096 92" stroke="url(#line)" stroke-width="1.5"/>
+  </g>
+
+  <g opacity="0.26" stroke="#8CE2FF" stroke-width="1.2" fill="none">
+    <path d="M86 452 C 240 360, 340 360, 464 458 S 732 548, 930 438 S 1092 350, 1140 404"/>
+    <path d="M56 486 C 214 396, 332 392, 472 484 S 718 584, 906 472 S 1088 380, 1178 448"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <g opacity="0.9">
+      <rect x="78" y="70" width="112" height="112" rx="28" fill="#0B1A39" fill-opacity="0.88" stroke="#7DD9FF" stroke-opacity="0.36"/>
+      <path d="M106 124H162" stroke="#9BE7FF" stroke-width="4" stroke-linecap="round"/>
+      <path d="M124 106V162" stroke="#C7A2FF" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="106" cy="124" r="7" fill="#9BE7FF"/>
+      <circle cx="162" cy="124" r="7" fill="#C7A2FF"/>
+      <circle cx="124" cy="106" r="7" fill="#9BE7FF"/>
+      <circle cx="124" cy="162" r="7" fill="#C7A2FF"/>
+    </g>
+
+    <g opacity="0.9">
+      <rect x="990" y="438" width="120" height="120" rx="28" fill="#0B1A39" fill-opacity="0.84" stroke="#C7A2FF" stroke-opacity="0.35"/>
+      <path d="M1016 468L1084 468" stroke="#8CE2FF" stroke-width="3.8" stroke-linecap="round"/>
+      <path d="M1016 498L1084 498" stroke="#C7A2FF" stroke-width="3.8" stroke-linecap="round"/>
+      <path d="M1016 528L1066 528" stroke="#8CE2FF" stroke-width="3.8" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <g opacity="0.22">
+    <circle cx="174" cy="518" r="56" fill="#8CE2FF"/>
+    <circle cx="1028" cy="166" r="82" fill="#C7A2FF"/>
+  </g>
+
+  <g>
+    <text x="600" y="280" text-anchor="middle" font-size="54" font-weight="800" fill="#FFFFFF" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif">Seedance 2.0 统一多模态</text>
+    <text x="600" y="344" text-anchor="middle" font-size="54" font-weight="800" fill="#FFFFFF" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif">音视频架构的工作流启示</text>
+  </g>
+
+  <g>
+    <rect x="74" y="552" width="1052" height="1.5" fill="#FFFFFF" fill-opacity="0.18"/>
+    <text x="90" y="588" font-size="26" fill="#D8E6FF" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif">2026-07-20</text>
+    <text x="1110" y="588" text-anchor="end" font-size="24" fill="#BFD2FF" font-family="Inter, PingFang SC, Microsoft YaHei, sans-serif">Seedance 2.0 · Multimodal · Video Gen · PDF AI</text>
+  </g>
+</svg>
