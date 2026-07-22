@@ -10,29 +10,30 @@ import {
   ArrowRight,
   ArrowUpDown,
   ChevronDown,
+  Crop,
   Droplets,
+  FileCode2,
   FileImage,
+  FileSpreadsheet,
   FileText,
   FileUp,
   Files,
   Image as ImageIcon,
+  ListOrdered,
   Menu,
   Merge,
   Minimize2,
+  PenTool,
+  Presentation,
+  Radio,
   RotateCw,
+  Scaling,
+  ScanText,
   Scissors,
+  ShieldCheck,
   SplitSquareHorizontal,
   Stamp,
-  ScanText,
-  ShieldCheck,
   UnlockKeyhole,
-  PenTool,
-  Crop,
-  FileSpreadsheet,
-  Presentation,
-  FileCode2,
-  ListOrdered,
-  Scaling,
   X,
 } from "lucide-react";
 
@@ -73,56 +74,53 @@ export default function Header() {
   ];
 
   return (
-    <header className="studio-header sticky top-0 z-50">
-      <nav className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
-        <div className="flex h-[72px] items-center justify-between">
-          <Link href="/" className="group flex items-center gap-3">
-            <span className="studio-logo-mark"><FileText className="h-5 w-5" /></span>
-            <span>
-              <strong className="block text-base font-black leading-none tracking-[-0.04em] text-theme">PDF / LAB</strong>
-              <small className="mt-1 block text-[9px] font-bold uppercase tracking-[0.22em] text-theme-muted">File workshop</small>
+    <header className="void-header sticky top-0 z-50">
+      <nav className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
+        <div className="flex h-[74px] items-center justify-between">
+          <Link href="/" className="void-brand group">
+            <span className="void-brand-mark"><span>V</span></span>
+            <span className="void-brand-type">
+              <strong>PDF/VOID</strong>
+              <small><Radio className="h-2.5 w-2.5" /> DOCUMENT OS</small>
             </span>
           </Link>
 
           <div className="hidden items-center gap-1 lg:flex">
-            <Link href="/blog" className={`studio-nav-link ${pathname === "/blog" ? "is-active" : ""}`}>{t("header.blog")}</Link>
+            <span className="void-header-coordinate">N31.23 / E121.47</span>
+            <Link href="/blog" className={`void-nav-link ${pathname === "/blog" ? "is-active" : ""}`}>{t("header.blog")}</Link>
             <div className="relative">
-              <button type="button" onClick={() => setIsToolsOpen((open) => !open)} className={`studio-nav-link flex items-center gap-2 ${isToolsOpen ? "is-active" : ""}`}>
+              <button type="button" onClick={() => setIsToolsOpen((open) => !open)} className={`void-nav-link flex items-center gap-2 ${isToolsOpen ? "is-active" : ""}`}>
                 {t("header.allTools")}<ChevronDown className={`h-4 w-4 transition-transform ${isToolsOpen ? "rotate-180" : ""}`} />
               </button>
               {isToolsOpen && (
-                <div className="studio-mega-menu">
-                  <div className="mb-5 flex items-center justify-between border-b border-theme pb-4">
-                    <span className="text-xs font-black uppercase tracking-[0.18em] text-theme-muted">Tool directory / {pdfTools.length + imageTools.length}</span>
-                    <button type="button" onClick={() => setIsToolsOpen(false)} className="text-theme-muted hover:text-theme" aria-label="关闭工具菜单"><X className="h-4 w-4" /></button>
+                <div className="void-mega-menu">
+                  <div className="void-mega-head">
+                    <span>MODULE DIRECTORY / {pdfTools.length + imageTools.length}</span>
+                    <button type="button" onClick={() => setIsToolsOpen(false)} aria-label="关闭工具菜单"><X className="h-4 w-4" /></button>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="void-mega-grid">
                     {pdfTools.map((tool, index) => (
-                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="studio-menu-item group">
-                        <span className="text-[10px] font-black text-theme-muted">{String(index + 1).padStart(2, "0")}</span>
-                        <tool.icon className="h-5 w-5 text-[var(--studio-accent)]" />
-                        <span className="min-w-0">
-                          <strong className="block truncate text-sm text-theme">{tool.title}</strong>
-                          <small className="mt-0.5 block truncate text-[11px] text-theme-muted">{tool.desc}</small>
-                        </span>
+                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="void-menu-item group">
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <tool.icon className="h-5 w-5" />
+                        <span className="min-w-0"><strong>{tool.title}</strong><small>{tool.desc}</small></span>
                       </Link>
                     ))}
                   </div>
-                  <div className="mt-3 grid grid-cols-2 gap-2 border-t border-theme pt-3">
+                  <div className="void-mega-images">
                     {imageTools.map((tool) => (
-                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="studio-menu-item group">
-                        <tool.icon className="h-5 w-5 text-emerald-500" />
-                        <strong className="text-sm text-theme">{tool.title}</strong>
+                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="void-menu-item group">
+                        <tool.icon className="h-5 w-5" /><strong>{tool.title}</strong>
                       </Link>
                     ))}
                   </div>
                 </div>
               )}
             </div>
-            <span className="mx-3 h-5 w-px bg-[var(--border)]" />
+            <span className="void-header-rule" />
             <LanguageSwitcher />
             <ThemeToggle />
-            <Link href="/pdf-to-word" className="studio-header-cta">
+            <Link href="/pdf-to-word" className="void-header-cta">
               {t("header.useNow")}<ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -130,29 +128,28 @@ export default function Header() {
           <div className="flex items-center gap-1 lg:hidden">
             <LanguageSwitcher />
             <ThemeToggle />
-            <button type="button" className="p-3 text-theme" onClick={() => setIsMenuOpen((open) => !open)} aria-label="Toggle menu">
+            <button type="button" className="void-menu-toggle" onClick={() => setIsMenuOpen((open) => !open)} aria-label="Toggle menu">
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
         {isMenuOpen && (
-          <div className="border-t border-theme py-4 lg:hidden">
+          <div className="void-mobile-menu lg:hidden">
             <div className="grid max-h-[70vh] grid-cols-2 gap-2 overflow-y-auto pb-4">
-              <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="studio-mobile-link col-span-2">{t("header.blog")}</Link>
-              {pdfTools.map((tool) => (
-                <Link key={tool.href} href={tool.href} onClick={() => setIsMenuOpen(false)} className="studio-mobile-link">
-                  <tool.icon className="h-4 w-4 text-[var(--studio-accent)]" />{tool.title}
+              <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="void-mobile-link col-span-2">{t("header.blog")}</Link>
+              {pdfTools.map((tool, index) => (
+                <Link key={tool.href} href={tool.href} onClick={() => setIsMenuOpen(false)} className="void-mobile-link">
+                  <span>{String(index + 1).padStart(2, "0")}</span><tool.icon className="h-4 w-4" />{tool.title}
                 </Link>
               ))}
-              <div className="col-span-2 mt-2 border-t border-theme pt-3 text-[10px] font-black uppercase tracking-[0.18em] text-theme-muted">Image tools</div>
               {imageTools.map((tool) => (
-                <Link key={tool.href} href={tool.href} onClick={() => setIsMenuOpen(false)} className="studio-mobile-link">
-                  <tool.icon className="h-4 w-4 text-emerald-500" />{tool.title}
+                <Link key={tool.href} href={tool.href} onClick={() => setIsMenuOpen(false)} className="void-mobile-link">
+                  <tool.icon className="h-4 w-4" />{tool.title}
                 </Link>
               ))}
             </div>
-            <Link href="/pdf-to-word" onClick={() => setIsMenuOpen(false)} className="studio-header-cta flex w-full justify-center py-3">
+            <Link href="/pdf-to-word" onClick={() => setIsMenuOpen(false)} className="void-header-cta flex w-full justify-center py-3">
               {t("header.startUsing")}<ArrowRight className="h-4 w-4" />
             </Link>
           </div>

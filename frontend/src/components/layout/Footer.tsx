@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, Clock3, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Clock3, Radio, ShieldCheck } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 const toolLinks = [
@@ -16,42 +16,42 @@ export default function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer className="studio-footer">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
-        <div className="studio-footer-grid">
-          <div className="studio-footer-brand">
-            <Link href="/" className="studio-footer-logo" aria-label="PDF LAB 首页">
-              <span>PDF</span><span>/LAB</span>
-            </Link>
-            <p>一个快速、直接、不制造麻烦的在线文档工作台。</p>
-            <div className="studio-footer-status"><span /> SYSTEM ONLINE</div>
+    <footer className="void-footer">
+      <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
+        <div className="void-footer-marquee" aria-hidden="true">
+          <span>PDF / VOID</span><i>DOCUMENTS IN MOTION</i><span>PDF / VOID</span><i>DOCUMENTS IN MOTION</i>
+        </div>
+        <div className="void-footer-grid">
+          <div className="void-footer-brand">
+            <Link href="/" aria-label="PDF VOID 首页">PDF<span>/VOID</span></Link>
+            <p>不注册，不绕路。一个为高效文档工作而生的在线处理系统。</p>
+            <div><Radio className="h-3.5 w-3.5" /> ALL SYSTEMS NOMINAL</div>
           </div>
 
-          <div className="studio-footer-column">
-            <span className="studio-footer-label">TOOLS / 工具</span>
+          <div className="void-footer-column">
+            <span className="void-footer-label">01 / MODULES</span>
             {toolLinks.map(([label, href]) => (
               <Link key={href} href={href}>{label}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
             ))}
           </div>
 
-          <div className="studio-footer-column">
-            <span className="studio-footer-label">INFO / 信息</span>
+          <div className="void-footer-column">
+            <span className="void-footer-label">02 / INDEX</span>
             <Link href="/blog">博客<ArrowUpRight className="h-3.5 w-3.5" /></Link>
             <Link href="/about">{t("footer.about")}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
             <Link href="/privacy">{t("footer.privacy")}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
             <Link href="/terms">{t("footer.terms")}<ArrowUpRight className="h-3.5 w-3.5" /></Link>
           </div>
 
-          <div className="studio-footer-trust">
-            <span className="studio-footer-label">SECURITY / 安全</span>
-            <div><ShieldCheck className="h-5 w-5" /><span>{t("footer.sslEncrypted")}<small>传输过程全程加密</small></span></div>
-            <div><Clock3 className="h-5 w-5" /><span>{t("footer.autoDelete")}<small>临时文件定时清理</small></span></div>
+          <div className="void-footer-trust">
+            <span className="void-footer-label">03 / PROTOCOL</span>
+            <div><ShieldCheck className="h-5 w-5" /><span>{t("footer.sslEncrypted")}<small>256-BIT TRANSPORT</small></span></div>
+            <div><Clock3 className="h-5 w-5" /><span>{t("footer.autoDelete")}<small>EPHEMERAL STORAGE</small></span></div>
           </div>
         </div>
-
-        <div className="studio-footer-bottom">
-          <span>© {currentYear} PDF/LAB — {t("footer.copyright")}</span>
-          <span>BUILT FOR DOCUMENT PEOPLE</span>
+        <div className="void-footer-bottom">
+          <span>© {currentYear} PDF/VOID — {t("footer.copyright")}</span>
+          <span>BUILT FOR DOCUMENT PEOPLE / V.26.07</span>
         </div>
       </div>
     </footer>

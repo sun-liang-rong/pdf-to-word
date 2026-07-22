@@ -5,84 +5,81 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import {
   ArrowRight,
+  ArrowUpRight,
   ArrowUpDown,
   Check,
   Clock3,
+  Command,
+  Crop,
   Droplets,
+  FileCode2,
   FileImage,
+  FileSpreadsheet,
   FileText,
   FileUp,
   Files,
+  Fingerprint,
   Image,
+  ListOrdered,
   LockKeyhole,
   Merge,
   Minimize2,
+  PenTool,
+  Presentation,
+  Radio,
   RotateCw,
+  Scaling,
+  ScanText,
   Scissors,
   ShieldCheck,
   Sparkles,
   SplitSquareHorizontal,
   Stamp,
-  ScanText,
-  ShieldCheck as ProtectIcon,
   UnlockKeyhole,
-  PenTool,
-  Crop,
-  FileSpreadsheet,
-  Presentation,
-  FileCode2,
-  ListOrdered,
-  Scaling,
   Upload,
   Zap,
 } from "lucide-react";
 
-const toolAccents = [
-  "tool-accent-cyan",
-  "tool-accent-violet",
-  "tool-accent-coral",
-  "tool-accent-lime",
-] as const;
+const toolTones = ["acid", "cyan", "violet", "orange"] as const;
 
 export default function HomePage() {
   const [dragOver, setDragOver] = useState(false);
   const { t } = useI18n();
 
   const pdfTools = [
-    { href: "/pdf-to-word", icon: FileText, title: t("home.tools.pdfToWord.title"), desc: t("home.tools.pdfToWord.desc"), featured: true },
-    { href: "/word-to-pdf", icon: FileUp, title: t("home.tools.wordToPdf.title"), desc: t("home.tools.wordToPdf.desc") },
-    { href: "/pdf-to-jpg", icon: FileImage, title: t("home.tools.pdfToJpg.title"), desc: t("home.tools.pdfToJpg.desc") },
-    { href: "/jpg-to-pdf", icon: Image, title: t("home.tools.jpgToPdf.title"), desc: t("home.tools.jpgToPdf.desc") },
-    { href: "/merge-pdf", icon: Merge, title: t("home.tools.mergePdf.title"), desc: t("home.tools.mergePdf.desc"), featured: true },
-    { href: "/compress-pdf", icon: Minimize2, title: t("home.tools.compressPdf.title"), desc: t("home.tools.compressPdf.desc") },
-    { href: "/remove-pages", icon: Scissors, title: t("home.tools.removePages.title"), desc: t("home.tools.removePages.desc") },
-    { href: "/split-pdf", icon: SplitSquareHorizontal, title: t("home.tools.splitPdf.title"), desc: t("home.tools.splitPdf.desc") },
-    { href: "/rearrange-pdf", icon: ArrowUpDown, title: t("home.tools.rearrangePdf.title"), desc: t("home.tools.rearrangePdf.desc") },
-    { href: "/rotate-pdf", icon: RotateCw, title: t("home.tools.rotatePdf.title"), desc: t("home.tools.rotatePdf.desc") },
-    { href: "/extract-pages", icon: Files, title: t("home.tools.extractPages.title"), desc: t("home.tools.extractPages.desc") },
-    { href: "/pdf-watermark", icon: Stamp, title: t("home.tools.pdfWatermark.title"), desc: t("home.tools.pdfWatermark.desc"), featured: true },
-    { href: "/ocr-pdf", icon: ScanText, title: t("home.tools.ocrPdf.title"), desc: t("home.tools.ocrPdf.desc"), featured: true },
-    { href: "/protect-pdf", icon: ProtectIcon, title: t("home.tools.protectPdf.title"), desc: t("home.tools.protectPdf.desc") },
-    { href: "/unlock-pdf", icon: UnlockKeyhole, title: t("home.tools.unlockPdf.title"), desc: t("home.tools.unlockPdf.desc") },
-    { href: "/sign-pdf", icon: PenTool, title: t("home.tools.signPdf.title"), desc: t("home.tools.signPdf.desc"), featured: true },
-    { href: "/crop-pdf", icon: Crop, title: t("home.tools.cropPdf.title"), desc: t("home.tools.cropPdf.desc") },
-    { href: "/pdf-to-excel", icon: FileSpreadsheet, title: t("home.tools.pdfToExcel.title"), desc: t("home.tools.pdfToExcel.desc"), featured: true },
-    { href: "/pdf-to-pptx", icon: Presentation, title: t("home.tools.pdfToPptx.title"), desc: t("home.tools.pdfToPptx.desc") },
-    { href: "/pdf-to-html", icon: FileCode2, title: t("home.tools.pdfToHtml.title"), desc: t("home.tools.pdfToHtml.desc") },
-    { href: "/add-page-numbers", icon: ListOrdered, title: t("home.tools.addPageNumbers.title"), desc: t("home.tools.addPageNumbers.desc"), featured: true },
-    { href: "/scale-pdf", icon: Scaling, title: t("home.tools.scalePdf.title"), desc: t("home.tools.scalePdf.desc") },
+    { href: "/pdf-to-word", icon: FileText, title: t("home.tools.pdfToWord.title"), desc: t("home.tools.pdfToWord.desc"), code: "DOC.01" },
+    { href: "/word-to-pdf", icon: FileUp, title: t("home.tools.wordToPdf.title"), desc: t("home.tools.wordToPdf.desc"), code: "DOC.02" },
+    { href: "/pdf-to-jpg", icon: FileImage, title: t("home.tools.pdfToJpg.title"), desc: t("home.tools.pdfToJpg.desc"), code: "IMG.01" },
+    { href: "/jpg-to-pdf", icon: Image, title: t("home.tools.jpgToPdf.title"), desc: t("home.tools.jpgToPdf.desc"), code: "IMG.02" },
+    { href: "/merge-pdf", icon: Merge, title: t("home.tools.mergePdf.title"), desc: t("home.tools.mergePdf.desc"), code: "EDIT.01" },
+    { href: "/compress-pdf", icon: Minimize2, title: t("home.tools.compressPdf.title"), desc: t("home.tools.compressPdf.desc"), code: "EDIT.02" },
+    { href: "/remove-pages", icon: Scissors, title: t("home.tools.removePages.title"), desc: t("home.tools.removePages.desc"), code: "EDIT.03" },
+    { href: "/split-pdf", icon: SplitSquareHorizontal, title: t("home.tools.splitPdf.title"), desc: t("home.tools.splitPdf.desc"), code: "EDIT.04" },
+    { href: "/rearrange-pdf", icon: ArrowUpDown, title: t("home.tools.rearrangePdf.title"), desc: t("home.tools.rearrangePdf.desc"), code: "EDIT.05" },
+    { href: "/rotate-pdf", icon: RotateCw, title: t("home.tools.rotatePdf.title"), desc: t("home.tools.rotatePdf.desc"), code: "EDIT.06" },
+    { href: "/extract-pages", icon: Files, title: t("home.tools.extractPages.title"), desc: t("home.tools.extractPages.desc"), code: "EDIT.07" },
+    { href: "/pdf-watermark", icon: Stamp, title: t("home.tools.pdfWatermark.title"), desc: t("home.tools.pdfWatermark.desc"), code: "MARK.01" },
+    { href: "/ocr-pdf", icon: ScanText, title: t("home.tools.ocrPdf.title"), desc: t("home.tools.ocrPdf.desc"), code: "AI.01" },
+    { href: "/protect-pdf", icon: ShieldCheck, title: t("home.tools.protectPdf.title"), desc: t("home.tools.protectPdf.desc"), code: "SAFE.01" },
+    { href: "/unlock-pdf", icon: UnlockKeyhole, title: t("home.tools.unlockPdf.title"), desc: t("home.tools.unlockPdf.desc"), code: "SAFE.02" },
+    { href: "/sign-pdf", icon: PenTool, title: t("home.tools.signPdf.title"), desc: t("home.tools.signPdf.desc"), code: "SIGN.01" },
+    { href: "/crop-pdf", icon: Crop, title: t("home.tools.cropPdf.title"), desc: t("home.tools.cropPdf.desc"), code: "EDIT.08" },
+    { href: "/pdf-to-excel", icon: FileSpreadsheet, title: t("home.tools.pdfToExcel.title"), desc: t("home.tools.pdfToExcel.desc"), code: "DATA.01" },
+    { href: "/pdf-to-pptx", icon: Presentation, title: t("home.tools.pdfToPptx.title"), desc: t("home.tools.pdfToPptx.desc"), code: "DATA.02" },
+    { href: "/pdf-to-html", icon: FileCode2, title: t("home.tools.pdfToHtml.title"), desc: t("home.tools.pdfToHtml.desc"), code: "WEB.01" },
+    { href: "/add-page-numbers", icon: ListOrdered, title: t("home.tools.addPageNumbers.title"), desc: t("home.tools.addPageNumbers.desc"), code: "MARK.02" },
+    { href: "/scale-pdf", icon: Scaling, title: t("home.tools.scalePdf.title"), desc: t("home.tools.scalePdf.desc"), code: "EDIT.09" },
   ];
 
   const imageTools = [
-    { href: "/image-compress", icon: Image, title: t("home.tools.imageCompress.title"), desc: t("home.tools.imageCompress.desc") },
-    { href: "/image-watermark", icon: Droplets, title: t("home.tools.imageWatermark.title"), desc: t("home.tools.imageWatermark.desc") },
+    { href: "/image-compress", icon: Image, title: t("home.tools.imageCompress.title"), desc: t("home.tools.imageCompress.desc"), code: "PIX.01" },
+    { href: "/image-watermark", icon: Droplets, title: t("home.tools.imageWatermark.title"), desc: t("home.tools.imageWatermark.desc"), code: "PIX.02" },
   ];
 
-  const advantages = [
-    { icon: Check, index: "01", title: t("home.advantages.free.title"), desc: t("home.advantages.free.desc") },
-    { icon: LockKeyhole, index: "02", title: t("home.advantages.security.title"), desc: t("home.advantages.security.desc") },
-    { icon: Zap, index: "03", title: t("home.advantages.fast.title"), desc: t("home.advantages.fast.desc") },
-    { icon: Clock3, index: "04", title: t("home.advantages.accurate.title"), desc: t("home.advantages.accurate.desc") },
+  const stats = [
+    { value: "24", label: "ACTIVE MODULES" },
+    { value: "256", label: "BIT ENCRYPTION" },
+    { value: "00", label: "ACCOUNT REQUIRED" },
   ];
 
   const goToConverter = () => {
@@ -90,49 +87,57 @@ export default function HomePage() {
   };
 
   return (
-    <div className="studio-page min-h-screen overflow-hidden">
-      <section className="relative mx-auto max-w-[1440px] px-4 pb-20 pt-8 sm:px-6 lg:px-10 lg:pb-28 lg:pt-14">
-        <div className="hero-orbit hero-orbit-one" />
-        <div className="hero-orbit hero-orbit-two" />
+    <div className="void-page min-h-screen overflow-hidden">
+      <section className="void-hero">
+        <div className="void-noise" />
+        <div className="void-grid" />
+        <div className="void-glow void-glow-a" />
+        <div className="void-glow void-glow-b" />
 
-        <div className="relative grid items-center gap-12 lg:grid-cols-[1.04fr_.96fr] lg:gap-16">
-          <div className="relative z-10">
-            <div className="mb-7 flex items-center gap-3">
-              <span className="studio-kicker"><Sparkles className="h-3.5 w-3.5" /> PDF LAB / 2026</span>
-              <span className="hidden h-px w-20 bg-current opacity-20 sm:block" />
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-theme-muted">{t("home.badge")}</span>
+        <div className="void-hero-shell">
+          <div className="void-hero-copy">
+            <div className="void-system-line">
+              <span><Radio className="h-3.5 w-3.5" /> SYSTEM ONLINE</span>
+              <span>BUILD 26.07</span>
+              <span className="hidden sm:inline">SHANGHAI / CN</span>
             </div>
 
-            <h1 className="studio-title max-w-4xl text-[clamp(3.6rem,8vw,7.6rem)] font-black leading-[0.82] tracking-[-0.075em] text-theme">
-              <span className="block">MAKE</span>
-              <span className="studio-outline-text block">FILES</span>
-              <span className="block pl-[0.55em]">FLOW.</span>
-            </h1>
+            <div className="void-display-wrap">
+              <span className="void-vertical-label">DOCUMENT OPERATING SYSTEM</span>
+              <h1 className="void-display">
+                <span>PDF</span>
+                <span className="void-display-slash">/</span>
+                <span className="void-display-ghost">VOID</span>
+              </h1>
+              <div className="void-crosshair" aria-hidden="true"><span /><span /></div>
+            </div>
 
-            <div className="mt-9 grid max-w-2xl gap-7 border-l-2 border-[var(--studio-accent)] pl-5 sm:grid-cols-[1fr_auto] sm:items-end sm:pl-7">
-              <div>
-                <p className="mb-2 text-sm font-bold uppercase tracking-[0.18em] text-[var(--studio-accent)]">
-                  {t("home.title1")}{t("home.title2")}
-                </p>
-                <p className="max-w-xl text-base leading-7 text-theme-muted sm:text-lg">{t("home.subtitle")}</p>
+            <div className="void-hero-bottom">
+              <div className="void-intro">
+                <span className="void-index">[ 001 ]</span>
+                <div>
+                  <p className="void-intro-title">{t("home.title1")}{t("home.title2")}</p>
+                  <p>{t("home.subtitle")}</p>
+                </div>
               </div>
-              <Link href="#tools" className="studio-round-link" aria-label={t("home.allTools")}>
-                <ArrowRight className="h-6 w-6 rotate-45" />
-              </Link>
-            </div>
-
-            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-xs font-bold uppercase tracking-[0.12em] text-theme-muted">
-              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-500" /> SSL</span>
-              <span className="flex items-center gap-2"><Check className="h-4 w-4 text-[var(--studio-accent)]" /> {t("home.stats.free")}</span>
-              <span className="flex items-center gap-2"><Clock3 className="h-4 w-4 text-amber-500" /> {t("footer.autoDelete")}</span>
+              <div className="void-stat-row">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="void-stat">
+                    <strong>{stat.value}</strong>
+                    <span>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="relative z-10 lg:pl-4">
-            <div className="upload-stage">
-              <div className="upload-stage-topline">
-                <span>DROP ZONE_01</span>
-                <span className="flex items-center gap-2"><span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" /> ONLINE</span>
+          <div className="void-console-wrap">
+            <div className="void-orbit void-orbit-one" />
+            <div className="void-orbit void-orbit-two" />
+            <div className="void-console">
+              <div className="void-console-bar">
+                <span>INGEST_TERMINAL</span>
+                <div><i /><i /><i /></div>
               </div>
               <button
                 type="button"
@@ -140,102 +145,82 @@ export default function HomePage() {
                 onDragOver={(event) => { event.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
                 onDrop={(event) => { event.preventDefault(); setDragOver(false); goToConverter(); }}
-                className={`upload-stage-inner group ${dragOver ? "is-dragging" : ""}`}
+                className={`void-drop group ${dragOver ? "is-dragging" : ""}`}
               >
-                <span className="upload-cross upload-cross-one" />
-                <span className="upload-cross upload-cross-two" />
-                <span className="upload-icon-shell">
-                  <Upload className="h-9 w-9 transition-transform duration-500 group-hover:-translate-y-1" />
+                <span className="void-scanline" />
+                <span className="void-corner void-corner-tl" />
+                <span className="void-corner void-corner-tr" />
+                <span className="void-corner void-corner-bl" />
+                <span className="void-corner void-corner-br" />
+                <span className="void-file-stack" aria-hidden="true">
+                  <i /><i /><b><Upload className="h-8 w-8" /></b>
                 </span>
-                <span className="mt-7 text-xl font-black tracking-[-0.03em] text-theme sm:text-2xl">{t("home.dragDrop")}</span>
-                <span className="mt-2 max-w-sm text-sm leading-6 text-theme-muted">{t("home.supportedFormats")}</span>
-                <span className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--studio-ink)] px-6 py-3 text-xs font-black uppercase tracking-[0.16em] text-[var(--studio-paper)] transition-transform duration-300 group-hover:scale-105">
-                  {t("home.convertNow")} <ArrowRight className="h-4 w-4" />
-                </span>
+                <strong>{t("home.dragDrop")}</strong>
+                <small>{t("home.supportedFormats")}</small>
+                <span className="void-command"><Command className="h-4 w-4" /> {t("home.convertNow")} <ArrowRight className="h-4 w-4" /></span>
               </button>
-              <div className="upload-stage-footer">
+              <div className="void-console-foot">
+                <span><Fingerprint className="h-3.5 w-3.5" /> PRIVATE SESSION</span>
                 <span>PDF / DOCX / JPG</span>
-                <span>NO REGISTRATION</span>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <section className="studio-marquee" aria-hidden="true">
-        <div className="studio-marquee-track">
-          <span>CONVERT</span><i /> <span>COMPRESS</span><i /> <span>MERGE</span><i /> <span>CREATE</span><i />
-          <span>CONVERT</span><i /> <span>COMPRESS</span><i /> <span>MERGE</span><i /> <span>CREATE</span><i />
-        </div>
-      </section>
-
-      <section id="tools" className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-        <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="void-ticker" aria-hidden="true">
           <div>
-            <span className="studio-section-number">01 / TOOL INDEX</span>
-            <h2 className="mt-4 text-4xl font-black tracking-[-0.055em] text-theme sm:text-6xl">{t("home.allTools")}</h2>
+            <span>CONVERT WITHOUT LIMITS</span><i>✦</i><span>ZERO FRICTION</span><i>✦</i><span>FILES IN MOTION</span><i>✦</i>
+            <span>CONVERT WITHOUT LIMITS</span><i>✦</i><span>ZERO FRICTION</span><i>✦</i><span>FILES IN MOTION</span><i>✦</i>
           </div>
-          <p className="max-w-md text-sm leading-6 text-theme-muted lg:text-right">{t("home.whyChooseUsDesc")}</p>
+        </div>
+      </section>
+
+      <section id="tools" className="void-tools-section">
+        <div className="void-section-head">
+          <div>
+            <span className="void-eyebrow"><Sparkles className="h-4 w-4" /> MODULE DIRECTORY</span>
+            <h2>{t("home.allTools")}<sup>{pdfTools.length + imageTools.length}</sup></h2>
+          </div>
+          <p>选择模块，投入文件，让文档穿过我们的处理引擎。没有复杂设置，只有结果。</p>
         </div>
 
-        <div className="tool-index-grid">
+        <div className="void-tool-grid">
           {pdfTools.map((tool, index) => (
             <ToolCard key={tool.href} tool={tool} index={index} />
           ))}
-        </div>
-
-        <div className="mt-5 grid gap-5 sm:grid-cols-2">
           {imageTools.map((tool, index) => (
-            <Link key={tool.href} href={tool.href} className={`image-tool-card group ${toolAccents[index + 2]}`}>
-              <span className="image-tool-icon"><tool.icon className="h-7 w-7" /></span>
-              <span className="min-w-0">
-                <strong className="block text-xl font-black tracking-[-0.035em] text-theme">{tool.title}</strong>
-                <span className="mt-1 block text-sm text-theme-muted">{tool.desc}</span>
-              </span>
-              <ArrowRight className="ml-auto h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
-            </Link>
+            <ToolCard key={tool.href} tool={tool} index={pdfTools.length + index} />
           ))}
         </div>
       </section>
 
-      <section className="studio-dark-section">
-        <div className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[.72fr_1.28fr]">
-            <div>
-              <span className="studio-section-number text-white/50">02 / WHY US</span>
-              <h2 className="mt-5 max-w-md text-4xl font-black leading-[0.94] tracking-[-0.055em] text-white sm:text-6xl">
-                {t("home.whyChooseUs")}
-              </h2>
-              <div className="mt-10 h-1 w-24 bg-[var(--studio-accent)]" />
-            </div>
-            <div className="grid border-l border-t border-white/15 sm:grid-cols-2">
-              {advantages.map((item) => (
-                <article key={item.index} className="advantage-cell">
-                  <span className="flex items-center justify-between text-xs font-black tracking-[0.18em] text-white/40">
-                    {item.index}<item.icon className="h-5 w-5 text-[var(--studio-accent)]" />
-                  </span>
-                  <h3 className="mt-12 text-2xl font-black tracking-[-0.04em] text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/55">{item.desc}</p>
-                </article>
-              ))}
-            </div>
+      <section className="void-proof-section">
+        <div className="void-proof-shell">
+          <div className="void-proof-title">
+            <span>WHY / PDF VOID</span>
+            <h2>FAST.<br />PRIVATE.<br /><em>GONE.</em></h2>
+            <p>{t("home.whyChooseUsDesc")}</p>
+          </div>
+          <div className="void-proof-grid">
+            <Proof icon={Zap} index="01" title={t("home.advantages.fast.title")} desc={t("home.advantages.fast.desc")} />
+            <Proof icon={LockKeyhole} index="02" title={t("home.advantages.security.title")} desc={t("home.advantages.security.desc")} />
+            <Proof icon={Check} index="03" title={t("home.advantages.free.title")} desc={t("home.advantages.free.desc")} />
+            <Proof icon={Clock3} index="04" title={t("home.advantages.accurate.title")} desc={t("home.advantages.accurate.desc")} />
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-        <div className="studio-cta">
-          <div className="studio-cta-sun" />
-          <span className="relative z-10 text-xs font-black uppercase tracking-[0.2em] text-[var(--studio-ink)]/60">READY WHEN YOU ARE</span>
-          <h2 className="relative z-10 mt-6 max-w-4xl text-5xl font-black leading-[0.88] tracking-[-0.07em] text-[var(--studio-ink)] sm:text-7xl lg:text-8xl">
-            {t("home.readyTitle")}
-          </h2>
-          <div className="relative z-10 mt-9 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-xl text-base leading-7 text-[var(--studio-ink)]/65">{t("home.readyDesc")}</p>
-            <Link href="/pdf-to-word" className="studio-cta-button">
-              {t("home.convertNow")} <ArrowRight className="h-5 w-5" />
-            </Link>
+      <section className="void-final-section">
+        <div className="void-final-card">
+          <span className="void-final-code">ENDPOINT / 01</span>
+          <div className="void-final-copy">
+            <h2>{t("home.readyTitle")}</h2>
+            <p>{t("home.readyDesc")}</p>
           </div>
+          <Link href="/pdf-to-word" className="void-final-button">
+            <span>{t("home.convertNow")}</span><ArrowUpRight className="h-8 w-8" />
+          </Link>
+          <div className="void-final-orb" />
         </div>
       </section>
     </div>
@@ -247,24 +232,33 @@ type Tool = {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   desc: string;
-  featured?: boolean;
+  code: string;
 };
 
 function ToolCard({ tool, index }: { tool: Tool; index: number }) {
-  const accent = toolAccents[index % toolAccents.length];
-  const number = String(index + 1).padStart(2, "0");
-
+  const tone = toolTones[index % toolTones.length];
   return (
-    <Link href={tool.href} className={`tool-index-card group ${accent} ${tool.featured ? "tool-index-card-featured" : ""}`}>
-      <div className="flex items-start justify-between gap-4">
-        <span className="tool-card-number">{number}</span>
-        <span className="tool-card-icon"><tool.icon className="h-6 w-6" /></span>
+    <Link href={tool.href} className={`void-tool-card void-tone-${tone} group`}>
+      <div className="void-tool-top">
+        <span>{tool.code}</span>
+        <ArrowUpRight className="h-4 w-4" />
       </div>
-      <div className="mt-auto pt-10">
-        <h3 className="text-xl font-black tracking-[-0.04em] text-theme sm:text-2xl">{tool.title}</h3>
-        <p className="mt-2 max-w-xs text-sm leading-6 text-theme-muted">{tool.desc}</p>
+      <div className="void-tool-icon"><tool.icon className="h-7 w-7" /></div>
+      <div className="void-tool-copy">
+        <h3>{tool.title}</h3>
+        <p>{tool.desc}</p>
       </div>
-      <ArrowRight className="absolute bottom-6 right-6 h-5 w-5 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
+      <span className="void-tool-number">{String(index + 1).padStart(2, "0")}</span>
     </Link>
+  );
+}
+
+function Proof({ icon: Icon, index, title, desc }: { icon: React.ComponentType<{ className?: string }>; index: string; title: string; desc: string }) {
+  return (
+    <article className="void-proof-card">
+      <div><span>{index}</span><Icon className="h-6 w-6" /></div>
+      <h3>{title}</h3>
+      <p>{desc}</p>
+    </article>
   );
 }
