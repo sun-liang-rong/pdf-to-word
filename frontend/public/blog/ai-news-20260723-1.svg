@@ -1,0 +1,89 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">长上下文LLM的证据对齐封面图</title>
+  <desc id="desc">深色科技风AI技术博客封面，包含网络节点、几何线条和标题文字。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="0.48" stop-color="#10264a"/>
+      <stop offset="1" stop-color="#35185f"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="35%" cy="28%" r="55%">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="78%" cy="70%" r="50%">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <style>
+      .title { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: 800; fill: #f8fafc; letter-spacing: 0; }
+      .meta { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: 600; fill: #cbd5e1; letter-spacing: 0; }
+      .tag { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-weight: 700; fill: #dbeafe; letter-spacing: 0; }
+      .line { stroke: #7dd3fc; stroke-width: 1.4; opacity: 0.42; }
+      .line2 { stroke: #c4b5fd; stroke-width: 1.2; opacity: 0.32; }
+      .node { fill: #e0f2fe; opacity: 0.9; }
+      .node2 { fill: #c4b5fd; opacity: 0.9; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+
+  <g opacity="0.18">
+    <path d="M80 90H1120M80 170H1120M80 250H1120M80 330H1120M80 410H1120M80 490H1120" stroke="#93c5fd"/>
+    <path d="M140 50V580M260 50V580M380 50V580M500 50V580M620 50V580M740 50V580M860 50V580M980 50V580" stroke="#93c5fd"/>
+  </g>
+
+  <g>
+    <path class="line" d="M126 145L244 94L369 154L487 120L618 206L760 160L918 228L1054 178"/>
+    <path class="line2" d="M142 464L286 402L430 474L574 368L728 432L894 360L1044 436"/>
+    <path class="line" d="M172 256L310 314L452 250L606 310L752 264L900 316L1034 280"/>
+    <circle class="node" cx="126" cy="145" r="5"/>
+    <circle class="node2" cx="244" cy="94" r="7"/>
+    <circle class="node" cx="369" cy="154" r="5"/>
+    <circle class="node2" cx="487" cy="120" r="6"/>
+    <circle class="node" cx="618" cy="206" r="5"/>
+    <circle class="node2" cx="760" cy="160" r="7"/>
+    <circle class="node" cx="918" cy="228" r="5"/>
+    <circle class="node2" cx="1054" cy="178" r="6"/>
+    <circle class="node" cx="172" cy="256" r="5"/>
+    <circle class="node2" cx="310" cy="314" r="6"/>
+    <circle class="node" cx="452" cy="250" r="5"/>
+    <circle class="node2" cx="606" cy="310" r="6"/>
+    <circle class="node" cx="752" cy="264" r="5"/>
+    <circle class="node2" cx="900" cy="316" r="6"/>
+    <circle class="node" cx="1034" cy="280" r="5"/>
+  </g>
+
+  <g opacity="0.62">
+    <rect x="82" y="64" width="158" height="158" rx="20" fill="none" stroke="#60a5fa" stroke-width="2"/>
+    <rect x="95" y="77" width="132" height="132" rx="16" fill="none" stroke="#a78bfa" stroke-width="1.4"/>
+    <path d="M95 143H227M161 77V209" stroke="#67e8f9" stroke-opacity="0.45"/>
+    <rect x="960" y="386" width="158" height="158" rx="20" fill="none" stroke="#a78bfa" stroke-width="2"/>
+    <path d="M982 468H1096M1039 410V526" stroke="#93c5fd" stroke-opacity="0.45"/>
+  </g>
+
+  <g filter="url(#soft)" opacity="0.45">
+    <circle cx="548" cy="308" r="178" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <circle cx="650" cy="308" r="178" fill="none" stroke="#a78bfa" stroke-width="2"/>
+  </g>
+
+  <g text-anchor="middle">
+    <text class="title" x="600" y="274" font-size="58">长上下文LLM</text>
+    <text class="title" x="600" y="348" font-size="58">为什么会复制而不推理？</text>
+    <text class="meta" x="600" y="404" font-size="24">GEAR · Evidence-Aware Reinforcement Learning</text>
+  </g>
+
+  <g>
+    <rect x="86" y="540" width="1028" height="1" fill="#94a3b8" opacity="0.35"/>
+    <text class="meta" x="86" y="580" font-size="22">2026-07-23</text>
+    <text class="tag" x="262" y="580" font-size="20">#长上下文推理</text>
+    <text class="tag" x="452" y="580" font-size="20">#GEAR</text>
+    <text class="tag" x="560" y="580" font-size="20">#RAG</text>
+    <text class="tag" x="654" y="580" font-size="20">#PDF文档处理</text>
+  </g>
+</svg>
