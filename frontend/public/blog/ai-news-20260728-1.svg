@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06142b"/>
+      <stop offset="48%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="25%" cy="25%" r="55%"><stop offset="0" stop-color="#38bdf8" stop-opacity="0.55"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glow2" cx="78%" cy="35%" r="50%"><stop offset="0" stop-color="#a78bfa" stop-opacity="0.48"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1"/></pattern>
+    <style>
+      .title{font-family:'Noto Sans SC','Microsoft YaHei',Arial,sans-serif;font-weight:800;fill:#fff;letter-spacing:1px}
+      .sub{font-family:'Noto Sans SC','Microsoft YaHei',Arial,sans-serif;fill:#c7d2fe;font-weight:600}
+      .tag{font-family:Arial,'Noto Sans SC',sans-serif;fill:#e0f2fe;font-size:24px;font-weight:700}
+      .small{font-family:Arial,'Noto Sans SC',sans-serif;fill:#94a3b8;font-size:22px;font-weight:600}
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="245" cy="145" r="210" fill="url(#glow1)" filter="url(#blur)"/>
+  <circle cx="920" cy="210" r="260" fill="url(#glow2)" filter="url(#blur)"/>
+  <path d="M70 505 C235 385, 320 530, 470 420 S780 260, 1110 370" fill="none" stroke="#38bdf8" stroke-opacity="0.22" stroke-width="3"/>
+  <path d="M115 145 L245 92 L386 160 L525 116 L676 194 L815 138 L1035 215" fill="none" stroke="#a78bfa" stroke-opacity="0.5" stroke-width="2"/>
+  <g fill="#67e8f9" stroke="#ffffff" stroke-opacity="0.35">
+    <circle cx="115" cy="145" r="7"/><circle cx="245" cy="92" r="6"/><circle cx="386" cy="160" r="8"/><circle cx="525" cy="116" r="6"/><circle cx="676" cy="194" r="9"/><circle cx="815" cy="138" r="6"/><circle cx="1035" cy="215" r="8"/>
+  </g>
+  <g opacity="0.22" stroke="#fff" fill="none">
+    <rect x="870" y="410" width="165" height="96" rx="18" stroke-width="2"/>
+    <path d="M902 448h100M902 475h72" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="846" cy="384" r="42" stroke-width="2"/>
+    <path d="M846 342v84M804 384h84" stroke-width="2"/>
+  </g>
+  <g transform="translate(94 92)">
+    <rect x="0" y="0" width="1012" height="438" rx="34" fill="#020617" fill-opacity="0.42" stroke="#ffffff" stroke-opacity="0.12"/>
+    <text class="sub" x="55" y="76" font-size="32">AI NEWS · AGENTIC AI · 2026</text>
+    <text class="title" x="55" y="185" font-size="58">Agentic AI进入托管时代</text>
+    <text class="title" x="55" y="265" font-size="48">Gemini API Managed Agents</text>
+    <text class="sub" x="58" y="330" font-size="30">从工具调用到长流程文档自动化</text>
+  </g>
+  <g transform="translate(94 568)">
+    <text class="small" x="0" y="0">2026-07-28</text>
+    <text class="tag" x="220" y="0">#Gemini API</text>
+    <text class="tag" x="405" y="0">#Agentic AI</text>
+    <text class="tag" x="610" y="0">#PDF处理</text>
+    <text class="tag" x="790" y="0">#文档自动化</text>
+  </g>
+</svg>
