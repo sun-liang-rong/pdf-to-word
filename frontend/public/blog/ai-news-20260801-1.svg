@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">结构化输出与多模态文档AI</title>
+  <desc id="desc">AI技术博客封面：结构化输出、视觉语言模型、PDF文档处理</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="42%" stop-color="#10245a"/>
+      <stop offset="100%" stop-color="#4a1d7a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#48e6ff" stop-opacity="0.34"/>
+      <stop offset="60%" stop-color="#7c3aed" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g opacity="0.72" stroke="#67e8f9" stroke-width="2" fill="none">
+    <path d="M102 136 C220 78 310 188 410 126 S620 90 724 176 902 252 1058 130" opacity="0.35"/>
+    <path d="M140 474 C278 380 406 520 526 424 S734 304 846 414 1010 510 1124 404" opacity="0.28"/>
+    <path d="M780 90 L965 168 L1038 318 L950 474 L770 540 L620 426 L640 248 Z" opacity="0.22"/>
+  </g>
+
+  <g filter="url(#softGlow)">
+    <circle cx="145" cy="132" r="5" fill="#22d3ee"/>
+    <circle cx="302" cy="180" r="4" fill="#a78bfa"/>
+    <circle cx="412" cy="126" r="6" fill="#38bdf8"/>
+    <circle cx="724" cy="176" r="5" fill="#c084fc"/>
+    <circle cx="965" cy="168" r="6" fill="#22d3ee"/>
+    <circle cx="1038" cy="318" r="4" fill="#a78bfa"/>
+    <circle cx="950" cy="474" r="6" fill="#38bdf8"/>
+    <circle cx="770" cy="540" r="5" fill="#c084fc"/>
+    <circle cx="526" cy="424" r="5" fill="#22d3ee"/>
+    <circle cx="140" cy="474" r="4" fill="#a78bfa"/>
+  </g>
+
+  <g transform="translate(118 100)" opacity="0.26">
+    <rect x="0" y="0" width="214" height="278" rx="22" fill="#ffffff" opacity="0.08" stroke="#93c5fd"/>
+    <rect x="32" y="48" width="150" height="18" rx="9" fill="#67e8f9" opacity="0.55"/>
+    <rect x="32" y="92" width="118" height="12" rx="6" fill="#ffffff" opacity="0.55"/>
+    <rect x="32" y="122" width="152" height="12" rx="6" fill="#ffffff" opacity="0.35"/>
+    <rect x="32" y="164" width="152" height="58" rx="10" fill="#8b5cf6" opacity="0.35"/>
+  </g>
+
+  <g transform="translate(748 118)" opacity="0.24">
+    <path d="M110 0 L220 64 L220 192 L110 256 L0 192 L0 64 Z" fill="#ffffff" opacity="0.06" stroke="#c084fc" stroke-width="2"/>
+    <path d="M110 38 L188 83 L188 173 L110 218 L32 173 L32 83 Z" fill="none" stroke="#67e8f9" stroke-width="2"/>
+    <circle cx="110" cy="128" r="38" fill="none" stroke="#ffffff" stroke-opacity="0.5"/>
+  </g>
+
+  <g text-anchor="middle">
+    <text x="600" y="250" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="58" font-weight="800" fill="#ffffff" letter-spacing="1">
+      结构化输出与多模态文档AI
+    </text>
+    <text x="600" y="324" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="44" font-weight="760" fill="#dbeafe">
+      PDF转Word的可靠性新拐点
+    </text>
+    <text x="600" y="382" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="22" fill="#9ddcff" opacity="0.95">
+      VLM · JSON Schema · OCR · Layout Understanding
+    </text>
+  </g>
+
+  <g transform="translate(88 538)">
+    <rect x="0" y="0" width="1024" height="54" rx="27" fill="#020617" opacity="0.42" stroke="#60a5fa" stroke-opacity="0.32"/>
+    <text x="34" y="35" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#e0f2fe">2026-08-01</text>
+    <text x="222" y="35" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#c4b5fd">#多模态大模型</text>
+    <text x="410" y="35" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#c4b5fd">#结构化输出</text>
+    <text x="590" y="35" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#c4b5fd">#文档智能</text>
+    <text x="742" y="35" font-family="Inter, 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif" font-size="20" fill="#c4b5fd">#PDF转Word</text>
+  </g>
+</svg>
