@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Qwen-CUA：Computer Use Agent</title>
+  <desc id="desc">深色科技风AI技术博客封面，主题为阿里Qwen-CUA与计算机使用智能体。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="48%" stop-color="#10245a"/>
+      <stop offset="100%" stop-color="#4b1b75"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="30%" cy="25%" r="45%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="78%" cy="42%" r="42%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- circuit lines -->
+  <g fill="none" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="2" filter="url(#softGlow)">
+    <path d="M82 134 C210 58, 306 228, 438 156 S691 120, 810 218 S1008 286, 1118 166"/>
+    <path d="M108 482 C236 386, 350 522, 486 438 S705 374, 827 455 S1040 548, 1135 415"/>
+    <path d="M200 88 L286 184 L403 184 L492 276" stroke-opacity="0.32"/>
+    <path d="M1002 92 L934 183 L834 183 L760 260" stroke-opacity="0.32"/>
+  </g>
+
+  <!-- nodes -->
+  <g filter="url(#softGlow)">
+    <circle cx="82" cy="134" r="6" fill="#67e8f9"/>
+    <circle cx="438" cy="156" r="7" fill="#93c5fd"/>
+    <circle cx="810" cy="218" r="6" fill="#c084fc"/>
+    <circle cx="1118" cy="166" r="8" fill="#f0abfc"/>
+    <circle cx="108" cy="482" r="7" fill="#22d3ee"/>
+    <circle cx="486" cy="438" r="6" fill="#60a5fa"/>
+    <circle cx="827" cy="455" r="7" fill="#a78bfa"/>
+    <circle cx="1135" cy="415" r="6" fill="#e879f9"/>
+  </g>
+
+  <!-- geometric decorations -->
+  <g opacity="0.22" fill="none" stroke="#ffffff" stroke-width="2">
+    <rect x="70" y="70" width="112" height="112" rx="22" transform="rotate(12 126 126)"/>
+    <polygon points="1036,70 1128,118 1116,226 1008,212 976,122"/>
+    <circle cx="1030" cy="520" r="66"/>
+    <path d="M167 544 l78 -132 l78 132 z"/>
+  </g>
+
+  <!-- central panel -->
+  <rect x="130" y="165" width="940" height="300" rx="34" fill="#020617" fill-opacity="0.42" stroke="#ffffff" stroke-opacity="0.14"/>
+  <text x="600" y="260" text-anchor="middle" font-family="Inter, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="68" font-weight="800" fill="#ffffff" letter-spacing="1">
+    <tspan x="600" dy="0">Qwen-CUA</tspan>
+    <tspan x="600" dy="86">Computer Use Agent</tspan>
+  </text>
+  <text x="600" y="406" text-anchor="middle" font-family="Inter, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="600" fill="#bfdbfe">从聊天模型到可操作桌面的智能体</text>
+
+  <!-- bottom meta -->
+  <g font-family="Inter, PingFang SC, Microsoft YaHei, Arial, sans-serif" font-size="23" font-weight="600">
+    <text x="88" y="565" fill="#e0f2fe">2026-08-06</text>
+    <g transform="translate(320 536)">
+      <rect width="168" height="42" rx="21" fill="#0ea5e9" fill-opacity="0.22" stroke="#67e8f9" stroke-opacity="0.45"/>
+      <text x="84" y="28" text-anchor="middle" fill="#e0f2fe">Qwen-CUA</text>
+    </g>
+    <g transform="translate(510 536)">
+      <rect width="210" height="42" rx="21" fill="#8b5cf6" fill-opacity="0.22" stroke="#c4b5fd" stroke-opacity="0.45"/>
+      <text x="105" y="28" text-anchor="middle" fill="#ede9fe">Computer Use</text>
+    </g>
+    <g transform="translate(744 536)">
+      <rect width="132" height="42" rx="21" fill="#06b6d4" fill-opacity="0.18" stroke="#67e8f9" stroke-opacity="0.38"/>
+      <text x="66" y="28" text-anchor="middle" fill="#cffafe">Agent</text>
+    </g>
+    <text x="1112" y="565" text-anchor="end" fill="#f8fafc" opacity="0.72">AI Tech Blog</text>
+  </g>
+</svg>
