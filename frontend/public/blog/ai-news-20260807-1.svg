@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07111f"/>
+      <stop offset="45%" stop-color="#10235f"/>
+      <stop offset="100%" stop-color="#4b167d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="55%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#7c3aed" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="14"/></filter>
+    <style>
+      .title{font-family:Arial,'Microsoft YaHei',sans-serif;font-size:58px;font-weight:800;fill:#fff;letter-spacing:1px}
+      .sub{font-family:Arial,'Microsoft YaHei',sans-serif;font-size:24px;font-weight:600;fill:#c7d2fe}
+      .tag{font-family:Arial,'Microsoft YaHei',sans-serif;font-size:22px;font-weight:700;fill:#dbeafe}
+      .small{font-family:Arial,'Microsoft YaHei',sans-serif;font-size:20px;fill:#93c5fd}
+      .line{stroke:#38bdf8;stroke-opacity:.38;stroke-width:2}
+      .node{fill:#67e8f9;stroke:#ffffff;stroke-opacity:.8;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="1050" cy="95" r="170" fill="#8b5cf6" opacity="0.22" filter="url(#blur)"/>
+  <circle cx="155" cy="520" r="180" fill="#0ea5e9" opacity="0.18" filter="url(#blur)"/>
+
+  <g opacity="0.9">
+    <line class="line" x1="100" y1="115" x2="210" y2="190"/>
+    <line class="line" x1="210" y1="190" x2="330" y2="120"/>
+    <line class="line" x1="920" y1="115" x2="1035" y2="175"/>
+    <line class="line" x1="1035" y1="175" x2="1100" y2="300"/>
+    <line class="line" x1="150" y1="430" x2="260" y2="515"/>
+    <line class="line" x1="260" y1="515" x2="390" y2="462"/>
+    <line class="line" x1="810" y1="480" x2="935" y2="540"/>
+    <line class="line" x1="935" y1="540" x2="1070" y2="455"/>
+    <circle class="node" cx="100" cy="115" r="8"/><circle class="node" cx="210" cy="190" r="10"/><circle class="node" cx="330" cy="120" r="7"/>
+    <circle class="node" cx="920" cy="115" r="8"/><circle class="node" cx="1035" cy="175" r="10"/><circle class="node" cx="1100" cy="300" r="7"/>
+    <circle class="node" cx="150" cy="430" r="7"/><circle class="node" cx="260" cy="515" r="10"/><circle class="node" cx="390" cy="462" r="8"/>
+    <circle class="node" cx="810" cy="480" r="7"/><circle class="node" cx="935" cy="540" r="10"/><circle class="node" cx="1070" cy="455" r="8"/>
+  </g>
+
+  <g transform="translate(250 110)" opacity="0.18">
+    <path d="M0 40 L70 0 L140 40 L140 120 L70 160 L0 120 Z" fill="none" stroke="#bfdbfe" stroke-width="4"/>
+    <path d="M710 30 L770 0 L830 35 L830 105 L770 140 L710 105 Z" fill="none" stroke="#ddd6fe" stroke-width="4"/>
+    <path d="M140 310 L210 270 L280 310 L280 390 L210 430 L140 390 Z" fill="none" stroke="#67e8f9" stroke-width="4"/>
+  </g>
+
+  <g transform="translate(0 0)">
+    <rect x="130" y="170" width="940" height="260" rx="28" fill="#020617" opacity="0.36" stroke="#60a5fa" stroke-opacity="0.35"/>
+    <text x="600" y="265" text-anchor="middle" class="title">混元 Hy ASR 3.0</text>
+    <text x="600" y="335" text-anchor="middle" class="title">重新定义文档语音转写</text>
+    <text x="600" y="390" text-anchor="middle" class="sub">低延迟流式识别 · 多场景语音理解 · PDF知识沉淀</text>
+  </g>
+
+  <g transform="translate(95 548)">
+    <rect x="0" y="-32" width="1010" height="54" rx="27" fill="#0f172a" opacity="0.58" stroke="#38bdf8" stroke-opacity="0.25"/>
+    <text x="28" y="5" class="small">2026-08-07</text>
+    <text x="205" y="5" class="tag">#HyASR3.0</text>
+    <text x="365" y="5" class="tag">#语音识别</text>
+    <text x="525" y="5" class="tag">#多模态AI</text>
+    <text x="690" y="5" class="tag">#PDF文档处理</text>
+  </g>
+</svg>
