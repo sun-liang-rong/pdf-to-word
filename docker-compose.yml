@@ -6,7 +6,7 @@ services:
     container_name: pdf-converter-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: Slr123456
       MYSQL_DATABASE: pdf_converter
       MYSQL_USER: pdf_user
       MYSQL_PASSWORD: pdf_password
@@ -29,8 +29,9 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    command: redis-server --requirepass pdf_redis_password
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-a", "pdf_redis_password", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
