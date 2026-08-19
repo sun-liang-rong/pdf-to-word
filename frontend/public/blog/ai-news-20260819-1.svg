@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07152e"/><stop offset="0.52" stop-color="#152c59"/><stop offset="1" stop-color="#3b205c"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#52d8ff"/><stop offset="1" stop-color="#d28cff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity=".14" stroke="#a9d7ff" fill="none"><path d="M0 100H1200M0 210H1200M0 320H1200M0 430H1200M0 540H1200"/><path d="M100 0V630M280 0V630M460 0V630M640 0V630M820 0V630M1000 0V630"/></g>
+  <g stroke="url(#edge)" stroke-width="2" opacity=".78" fill="none">
+    <path d="M55 105L180 170L315 70L470 145L615 62L770 150L925 82L1145 175"/>
+    <path d="M30 500L170 425L305 535L450 435L600 545L755 450L900 525L1050 420L1170 485"/>
+    <path d="M55 105L170 425M315 70L450 435M615 62L600 545M925 82L900 525M1145 175L1050 420"/>
+  </g>
+  <g fill="#67ddff" filter="url(#glow"><circle cx="55" cy="105" r="6"/><circle cx="180" cy="170" r="5"/><circle cx="315" cy="70" r="7"/><circle cx="615" cy="62" r="6"/><circle cx="925" cy="82" r="6"/><circle cx="1145" cy="175" r="5"/></g>
+  <g fill="#d092ff" filter="url(#glow"><circle cx="170" cy="425" r="6"/><circle cx="305" cy="535" r="5"/><circle cx="600" cy="545" r="7"/><circle cx="900" cy="525" r="6"/><circle cx="1050" cy="420" r="5"/></g>
+  <rect x="82" y="158" width="1036" height="326" rx="18" fill="#061127" opacity=".68" stroke="#75b8ec" stroke-opacity=".4"/>
+  <text x="600" y="225" text-anchor="middle" fill="#8deaff" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="21" letter-spacing="4">AI SAFETY ROUTING · RAG · 2026.08.19</text>
+  <text x="600" y="315" text-anchor="middle" fill="#ffffff" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="45" font-weight="700">安全分类器与能力路由</text>
+  <text x="600" y="378" text-anchor="middle" fill="#ffffff" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="45" font-weight="700">让大模型输出可审计</text>
+  <line x1="390" y1="416" x2="810" y2="416" stroke="url(#edge)" stroke-width="3"/>
+  <text x="600" y="456" text-anchor="middle" fill="#c5d8f2" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="19">安全分类器  ·  能力降级  ·  页码引用</text>
+  <text x="600" y="585" text-anchor="middle" fill="#d8e6ff" font-family="Arial, 'Microsoft YaHei', sans-serif" font-size="18">2026年8月19日  |  大语言模型 · PDF文档处理</text>
+</svg>
