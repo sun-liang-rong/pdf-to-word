@@ -27,52 +27,32 @@ export default function MergeOptions({
   onGenerateTocChange,
 }: MergeOptionsProps) {
   return (
-    <div className="bg-surface rounded-xl p-6 space-y-4 border border-primary/10">
-      <h3 className="text-lg font-semibold text-foreground mb-4">合并选项</h3>
-      
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-foreground-muted mb-2">
-            排序方式
-          </label>
-          <select
-            value={sortType}
-            onChange={(e) => onSortTypeChange(e.target.value)}
-            className="w-full px-4 py-2 border border-primary/20 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-background text-foreground"
-          >
-            {sortOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
+    <div className="space-y-5 rounded-2xl border border-theme bg-theme-secondary p-5 md:p-6">
+      <div>
+        <h3 className="text-base font-bold text-theme">合并选项</h3>
+        <p className="mt-1 text-xs text-theme-muted">文件顺序和目录设置只影响合并后的文档。</p>
+      </div>
 
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="removeCertSign"
-            checked={removeCertSign}
-            onChange={(e) => onRemoveCertSignChange(e.target.checked)}
-            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-          />
-          <label htmlFor="removeCertSign" className="ml-3 text-sm text-gray-700">
-            去除证书签名
-          </label>
-        </div>
+      <label className="block text-sm font-semibold text-theme">
+        <span className="mb-2 block">排序方式</span>
+        <select
+          value={sortType}
+          onChange={(event) => onSortTypeChange(event.target.value)}
+          className="w-full rounded-xl border border-theme bg-theme-card px-4 py-3 text-theme outline-none transition-colors focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20"
+        >
+          {sortOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+        </select>
+      </label>
 
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="generateToc"
-            checked={generateToc}
-            onChange={(e) => onGenerateTocChange(e.target.checked)}
-            className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-          />
-          <label htmlFor="generateToc" className="ml-3 text-sm text-gray-700">
-            生成目录（使用文件名作为章节标题）
-          </label>
-        </div>
+      <div className="grid gap-3 md:grid-cols-2">
+        <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-theme bg-theme-card p-4 text-sm text-theme transition-colors hover:border-indigo-300">
+          <input type="checkbox" checked={removeCertSign} onChange={(event) => onRemoveCertSignChange(event.target.checked)} className="mt-0.5 h-4 w-4 flex-shrink-0 accent-indigo-500" />
+          <span><span className="block font-semibold">去除证书签名</span><span className="mt-1 block text-xs text-theme-muted">移除可能阻止编辑的证书签名。</span></span>
+        </label>
+        <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-theme bg-theme-card p-4 text-sm text-theme transition-colors hover:border-indigo-300">
+          <input type="checkbox" checked={generateToc} onChange={(event) => onGenerateTocChange(event.target.checked)} className="mt-0.5 h-4 w-4 flex-shrink-0 accent-indigo-500" />
+          <span><span className="block font-semibold">生成目录</span><span className="mt-1 block text-xs text-theme-muted">使用文件名作为章节标题。</span></span>
+        </label>
       </div>
     </div>
   );

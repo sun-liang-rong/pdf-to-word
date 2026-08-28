@@ -2,7 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, FileText, XCircle } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle,
+  ChevronDown,
+  ChevronRight,
+  Cog,
+  Download,
+  FileText,
+  LockKeyhole,
+  RefreshCw,
+  UploadCloud,
+  XCircle,
+} from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import FileUploader from "@/components/upload/FileUploader";
 import ConversionProgress from "@/components/conversion/ConversionProgress";
@@ -28,7 +41,6 @@ export default function ConversionPageTemplate({
   conversionType,
   accept,
   icon,
-  gradient,
   outputExtension,
   faqItems,
   features,
@@ -38,50 +50,64 @@ export default function ConversionPageTemplate({
   const [taskId, setTaskId] = useState<string | null>(null);
   const [completedTask, setCompletedTask] = useState<ConversionTaskResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const steps = [
-    { step: 1, title: t("conversion.steps.upload.title"), description: t("conversion.steps.upload.description"), icon: "📤" },
-    { step: 2, title: t("conversion.steps.convert.title"), description: t("conversion.steps.convert.description"), icon: "⚙️" },
-    { step: 3, title: t("conversion.steps.download.title"), description: t("conversion.steps.download.description"), icon: "📥" },
+  const workflowSteps = [
+    { title: t("conversion.steps.upload.title"), description: t("conversion.steps.upload.description"), icon: <UploadCloud className="h-4 w-4" /> },
+    { title: t("conversion.steps.convert.title"), description: t("conversion.steps.convert.description"), icon: <Cog className="h-4 w-4" /> },
+    { title: t("conversion.steps.download.title"), description: t("conversion.steps.download.description"), icon: <Download className="h-4 w-4" /> },
   ];
 
-  const handleFileSelect = async (file: File) => {
+  const acceptedFormats = Object.values(accept).flat().join(" / ").toUpperCase();
+  const outputLabel = outputExtension.replace(/^\./, "").toUpperCase();
+
+  const handleFileSelect = (file: File) => {
     setSelectedFile(file);
     setError(null);
     setTaskId(null);
     setCompletedTask(null);
-    setIsUploading(true);
+  };
 
+  const handleSubmit = async () => {
+    if (!selectedFile || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setError(null);
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", selectedFile);
       formData.append("type", conversionType);
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/convert`,
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { headers: { "Content-Type": "multipart/form-data" } },
       );
 
+      if (typeof response.data?.taskId !== "string" || !response.data.taskId.trim()) {
+        throw new Error("Invalid conversion response: missing taskId");
+      }
+
       setTaskId(response.data.taskId);
-    } catch (err: any) {
-      if (err.response?.status === 429) {
-        setError(err.response?.data?.message || t("conversion.conversionFailed"));
+    } catch (requestError: any) {
+      if (requestError.response?.status === 429) {
+        setError(requestError.response?.data?.message || t("conversion.conversionFailed"));
       } else {
-        setError(err.response?.data?.message || t("conversion.retryOrCheck"));
+        setError(requestError.response?.data?.message || t("conversion.retryOrCheck"));
       }
     } finally {
-      setIsUploading(false);
+      setIsSubmitting(false);
     }
   };
 
   const handleComplete = (task: ConversionTaskResult) => {
+    setTaskId(null);
     setCompletedTask(task);
   };
 
-  const handleError = (errorMsg: string) => {
-    setError(errorMsg);
+  const handleError = (errorMessage: string) => {
+    setTaskId(null);
+    setError(errorMessage);
   };
 
   const handleReset = () => {
@@ -91,169 +117,186 @@ export default function ConversionPageTemplate({
     setError(null);
   };
 
-  return (
-    <div className="detail-studio-page min-h-screen">
-      {/* Background decorations */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 right-1/4 w-96 h-96 bg-gradient-to-br from-pink-500/10 to-rose-500/10 rounded-full blur-3xl" />
-      </div>
+  const clearFile = () => {
+    if (isSubmitting) return;
+    setSelectedFile(null);
+    setError(null);
+  };
 
-      {/* Hero section */}
-      <section className="relative pb-20 pt-10 lg:pb-28 lg:pt-14">
-        <div className="max-w-5xl mx-auto px-4">
-          {/* Breadcrumb */}
-          <nav className="detail-breadcrumb mb-10 flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-theme-muted">
-            <Link href="/" className="hover:text-indigo-500 transition-colors">{t("conversion.home")}</Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-theme font-medium">{title}</span>
+  return (
+    <div className="operation-page min-h-screen">
+      <div className="operation-grid" aria-hidden="true" />
+
+      <section className="operation-hero">
+        <div className="operation-shell">
+          <nav className="operation-breadcrumb" aria-label={t("conversion.home")}>
+            <Link href="/">{t("conversion.home")}</Link>
+            <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+            <span>{title}</span>
           </nav>
 
-          {/* Title */}
-          <div className="text-center mb-10">
-            <div className="detail-kicker mb-6 inline-flex items-center gap-2">
-              <span className="mr-2">🔄</span>
-              <span className="text-theme-muted">{t("conversion.formatConversion")}</span>
+          <div className="operation-intro">
+            <div className="operation-intro-copy">
+              <div className="operation-kicker">
+                <span className="operation-status-dot" aria-hidden="true" />
+                <span>{t("conversion.formatConversion")}</span>
+                <span className="operation-kicker-code">{conversionType.toUpperCase()}</span>
+              </div>
+              <h1 className="operation-title">{title}</h1>
+              <p className="operation-description">{description}</p>
             </div>
-            <h1 className="detail-title mb-5 text-5xl font-black leading-[0.9] tracking-[-0.06em] text-theme md:text-7xl">
-              {title}
-            </h1>
-            <p className="max-w-2xl text-lg leading-8 text-theme-muted">
-              {description}
-            </p>
+
+            <div className="operation-intro-meta" aria-label="文件信息">
+              <div><span>INPUT</span><strong>{acceptedFormats || "FILE"}</strong></div>
+              <div><span>OUTPUT</span><strong>{outputLabel}</strong></div>
+              <div><span>LIMIT</span><strong>50 MB</strong></div>
+            </div>
           </div>
 
-          {/* Conversion card */}
-          <div className="detail-workbench overflow-hidden">
-            <div className="detail-workbench-head px-6 py-5 md:px-8">
-              <div className="flex items-center space-x-4">
-                <div className="detail-tool-icon flex h-14 w-14 items-center justify-center">
-                  {icon}
-                </div>
-                <div>
-                  <h2 className="text-xl font-black tracking-[-0.03em] text-theme">{t("conversion.startConversion")}</h2>
-                  <p className="text-sm text-theme-muted">{t("conversion.uploadAndConvert")}</p>
-                </div>
+          <div className="operation-workbench">
+            <div className="operation-workbench-head">
+              <div className="operation-tool-icon">{icon}</div>
+              <div className="min-w-0 flex-1">
+                <p className="operation-panel-kicker">01 / INPUT</p>
+                <h2>{t("conversion.startConversion")}</h2>
+                <p>{t("conversion.uploadAndConvert")}</p>
               </div>
+              <span className="operation-ready-chip"><span /> READY</span>
             </div>
 
-            <div className="p-5 md:p-8">
-              {!taskId && !completedTask && (
-                <div className="space-y-6">
-                  <FileUploader
-                    accept={accept}
-                    maxSize={50 * 1024 * 1024}
-                    onFileSelect={handleFileSelect}
-                    isUploading={isUploading}
-                  />
+            <div className="operation-workbench-body">
+              <div className="operation-workspace-main">
+                {!taskId && !completedTask && (
+                  <div className="space-y-5">
+                    <FileUploader
+                      accept={accept}
+                      maxSize={50 * 1024 * 1024}
+                      onFileSelect={handleFileSelect}
+                      isUploading={isSubmitting}
+                    />
 
-                  {selectedFile && !taskId && (
-                    <div className="p-4 bg-theme-secondary rounded-2xl border border-theme flex items-center space-x-4 animate-fade-in">
-                      <div className="w-12 h-12 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <FileText className="w-6 h-6 text-indigo-500" />
+                    {selectedFile && (
+                      <div className="operation-file-row">
+                        <div className="operation-file-icon"><FileText className="h-5 w-5" /></div>
+                        <div className="min-w-0 flex-1">
+                          <p className="operation-file-name" title={selectedFile.name}>{selectedFile.name}</p>
+                          <p className="operation-file-meta">{formatFileSize(selectedFile.size)} · {t("conversion.fileReady")}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={clearFile}
+                          disabled={isSubmitting}
+                          className="operation-icon-button"
+                          aria-label={t("conversion.removeFile")}
+                          title={t("conversion.removeFile")}
+                        >
+                          <XCircle className="h-5 w-5" />
+                        </button>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-theme truncate">
-                          {selectedFile.name}
-                        </p>
-                        <p className="text-xs text-theme-muted">
-                          {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                        </p>
-                      </div>
+                    )}
+
+                    <div className="operation-action-row">
+                      <p className="operation-ready-note">
+                        <CheckCircle className="h-4 w-4" />
+                        {selectedFile ? t("conversion.fileReady") : t("upload.title")}
+                      </p>
                       <button
-                        onClick={() => setSelectedFile(null)}
-                        className="p-2 hover:bg-theme rounded-xl transition-colors"
+                        type="button"
+                        onClick={handleSubmit}
+                        disabled={!selectedFile || isSubmitting}
+                        className="operation-primary-action"
                       >
-                        <XCircle className="w-5 h-5 text-theme-muted" />
+                        {isSubmitting ? <RefreshCw className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
+                        {isSubmitting ? t("conversion.submitting") : t("conversion.startNow")}
                       </button>
                     </div>
-                  )}
-                </div>
-              )}
-
-              {taskId && !completedTask && (
-                <ConversionProgress
-                  taskId={taskId}
-                  onComplete={handleComplete}
-                  onError={handleError}
-                />
-              )}
-
-              {completedTask && (
-                <DownloadButton
-                  task={completedTask}
-                  onReset={handleReset}
-                />
-              )}
-
-              {error && (
-                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl flex items-start space-x-3 animate-slide-down">
-                  <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <p className="text-red-600 dark:text-red-400 font-medium">{t("conversion.conversionFailed")}</p>
-                    <p className="text-red-500 dark:text-red-300/70 text-sm mt-1">{error}</p>
                   </div>
-                  <button
-                    onClick={() => setError(null)}
-                    className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
-                  >
-                    <XCircle className="w-4 h-4 text-red-500" />
-                  </button>
+                )}
+
+                {taskId && !completedTask && (
+                  <ConversionProgress taskId={taskId} onComplete={handleComplete} onError={handleError} />
+                )}
+
+                {completedTask && <DownloadButton task={completedTask} onReset={handleReset} />}
+
+                {error && (
+                  <div className="operation-error" role="alert">
+                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <p>{t("conversion.conversionFailed")}</p>
+                      <span>{error}</span>
+                    </div>
+                    {selectedFile && !taskId && !completedTask && (
+                      <button type="button" onClick={handleSubmit} disabled={isSubmitting} className="operation-error-retry">
+                        <RefreshCw className="h-4 w-4" /> {t("conversion.retry")}
+                      </button>
+                    )}
+                    <button type="button" onClick={() => setError(null)} className="operation-icon-button" aria-label={t("conversion.dismissError")} title={t("conversion.dismissError")}>
+                      <XCircle className="h-4 w-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <aside className="operation-workflow" aria-label={t("conversion.howToUse")}>
+                <div className="operation-workflow-head">
+                  <span>WORKFLOW</span>
+                  <span>03 STEPS</span>
                 </div>
-              )}
+                {workflowSteps.map((step, index) => (
+                  <div key={step.title} className={`operation-workflow-step ${index === 0 ? "is-active" : ""}`}>
+                    <span className="operation-workflow-index">0{index + 1}</span>
+                    <span className="operation-workflow-icon">{step.icon}</span>
+                    <div><strong>{step.title}</strong><small>{step.description}</small></div>
+                  </div>
+                ))}
+                <div className="operation-security-note">
+                  <LockKeyhole className="h-4 w-4" />
+                  <span>{t("pdfTool.autoDelete")}</span>
+                </div>
+              </aside>
             </div>
           </div>
 
-          {/* Features */}
-          <div className="detail-feature-grid mt-8 grid grid-cols-1 sm:grid-cols-3">
+          <div className="operation-feature-grid">
             {features.map((feature, index) => (
-              <div key={index} className="detail-feature-cell p-6">
-                <div className="text-3xl mb-3">{feature.icon}</div>
-                <div className="font-bold text-theme mb-1">{feature.label}</div>
-                <div className="text-sm text-theme-muted">{feature.desc}</div>
+              <div key={index} className="operation-feature-cell">
+                <span className="operation-feature-icon" aria-hidden="true">{feature.icon}</span>
+                <div><strong>{feature.label}</strong><p>{feature.desc}</p></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Steps */}
-      <section className="detail-dark-band py-20 lg:py-28">
-        <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
-          <div className="mb-12">
-            <h2 className="text-4xl font-black tracking-[-0.05em] text-white md:text-6xl">{t("conversion.howToUse")}</h2>
-            <p className="mt-3 text-white/55">{t("conversion.howToUseDesc")}</p>
+      <section className="operation-process-band">
+        <div className="operation-shell">
+          <div className="operation-section-heading">
+            <span>02 / PROCESS</span>
+            <h2>{t("conversion.howToUse")}</h2>
+            <p>{t("conversion.howToUseDesc")}</p>
           </div>
-
-          <div className="detail-steps-grid grid grid-cols-1 md:grid-cols-3">
-            {steps.map((item, index) => (
-              <div key={index} className="relative text-center">
-                <div className="detail-step-icon relative z-10 mb-6 flex h-20 w-20 items-center justify-center text-3xl">
-                  {item.icon}
-                </div>
-                <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mx-auto mb-4 shadow-lg">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-black text-white mb-2">{item.title}</h3>
-                <p className="text-white/55 text-sm">{item.description}</p>
+          <div className="operation-process-grid">
+            {workflowSteps.map((step, index) => (
+              <div key={step.title} className="operation-process-step">
+                <span className="operation-process-index">0{index + 1}</span>
+                <span className="operation-process-icon">{step.icon}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20 lg:py-28">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <div className="detail-hero mb-10 max-w-3xl">
-            <h2 className="text-4xl font-black tracking-[-0.05em] text-theme md:text-6xl">{t("conversion.faq")}</h2>
-            <p className="text-theme-muted">{t("conversion.faqDesc")}</p>
+      <section className="operation-faq-section">
+        <div className="operation-shell operation-faq-shell">
+          <div className="operation-section-heading">
+            <span>03 / FAQ</span>
+            <h2>{t("conversion.faq")}</h2>
+            <p>{t("conversion.faqDesc")}</p>
           </div>
-
-          <div className="detail-faq-list">
+          <div className="operation-faq-list">
             {faqItems.map((faq, index) => (
               <FAQItem key={index} question={faq.question} answer={faq.answer} index={index} />
             ))}
@@ -261,19 +304,18 @@ export default function ConversionPageTemplate({
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-theme-secondary">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="studio-cta relative overflow-hidden p-10 text-left">
-            <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
-            <div className="relative z-10">
-              <h2 className="relative z-10 mb-4 text-4xl font-black tracking-[-0.05em] text-[#151515] md:text-6xl">{t("conversion.otherFormats")}</h2>
-              <p className="relative z-10 mb-8 max-w-2xl text-lg text-[#151515]/65">{t("conversion.otherFormatsDesc")}</p>
-              <Link href="/" className="studio-cta-button relative z-10">
-                {t("conversion.viewAllTools")}
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+      <section className="operation-cta-section">
+        <div className="operation-shell">
+          <div className="operation-cta">
+            <div>
+              <span className="operation-cta-code">04 / NEXT MODULE</span>
+              <h2>{t("conversion.otherFormats")}</h2>
+              <p>{t("conversion.otherFormatsDesc")}</p>
             </div>
+            <Link href="/" className="operation-cta-button">
+              <span>{t("conversion.viewAllTools")}</span>
+              <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </section>
@@ -283,20 +325,29 @@ export default function ConversionPageTemplate({
 
 function FAQItem({ question, answer, index }: { question: string; answer: string; index: number }) {
   const [open, setOpen] = useState(false);
+  const answerId = `conversion-faq-${index}`;
+
   return (
-    <div className="detail-faq-item overflow-hidden">
+    <div className={`operation-faq-item ${open ? "is-open" : ""}`}>
       <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-5 text-left group"
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        className="operation-faq-question"
+        aria-expanded={open}
+        aria-controls={answerId}
       >
-        <span className="text-base font-medium text-theme group-hover:text-indigo-500 transition-colors pr-4">{question}</span>
-        <svg className={`w-5 h-5 text-theme-muted flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180 text-indigo-500" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <span className="operation-faq-number">0{index + 1}</span>
+        <span className="flex-1 text-left">{question}</span>
+        <ChevronDown className="h-5 w-5 shrink-0" aria-hidden="true" />
       </button>
-      <div className={`overflow-hidden transition-all duration-300 ${open ? "max-h-40" : "max-h-0"}`}>
-        <p className="px-6 pb-5 text-sm text-theme-muted leading-relaxed">{answer}</p>
+      <div id={answerId} className={`operation-faq-answer ${open ? "is-open" : ""}`}>
+        <div>{answer}</div>
       </div>
     </div>
   );
+}
+
+function formatFileSize(bytes: number) {
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 }

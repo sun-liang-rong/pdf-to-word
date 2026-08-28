@@ -2,12 +2,26 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { FileText, XCircle } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle,
+  ChevronRight,
+  Cog,
+  Download,
+  FileText,
+  LockKeyhole,
+  RefreshCw,
+  Settings2,
+  UploadCloud,
+  XCircle,
+} from "lucide-react";
 import FileUploader from "@/components/upload/FileUploader";
 import ConversionProgress from "@/components/conversion/ConversionProgress";
 import DownloadButton from "@/components/conversion/DownloadButton";
 import { pdfToolError, submitPdfTool } from "@/lib/pdf-tool-request";
 import type { ConversionTaskResult } from "@/types/task";
+import { useI18n } from "@/lib/i18n";
 
 interface PdfOperationShellProps {
   title: string;
@@ -18,81 +32,199 @@ interface PdfOperationShellProps {
   outputSuffix: string;
   fields: Record<string, string | number>;
   extraFiles?: Record<string, File | null>;
+  onFileChange?: (file: File | null) => void;
   canSubmit?: boolean;
   validationMessage?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default function PdfOperationShell({
-  title, description, icon, gradient, endpoint, outputSuffix, fields, extraFiles,
-  canSubmit = true, validationMessage, children,
+  title,
+  description,
+  icon,
+  endpoint,
+  outputSuffix,
+  fields,
+  extraFiles,
+  onFileChange,
+  canSubmit = true,
+  validationMessage,
+  children,
 }: PdfOperationShellProps) {
+  const { t } = useI18n();
   const [file, setFile] = useState<File | null>(null);
   const [taskId, setTaskId] = useState<string | null>(null);
   const [completedTask, setCompletedTask] = useState<ConversionTaskResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  const workflowSteps = [
+    { title: t("progress.upload"), description: t("pdfTool.selectFileFirst"), icon: <UploadCloud className="h-4 w-4" /> },
+    { title: t("pdfTool.configure"), description: t("pdfTool.readyToProcess"), icon: <Settings2 className="h-4 w-4" /> },
+    { title: t("progress.processing"), description: t("pdfTool.autoDelete"), icon: <Cog className="h-4 w-4" /> },
+  ];
+
   const reset = () => {
-    setFile(null); setTaskId(null); setCompletedTask(null); setError(null);
+    setFile(null);
+    setTaskId(null);
+    setCompletedTask(null);
+    setError(null);
+    onFileChange?.(null);
+  };
+
+  const clearFile = () => {
+    if (submitting) return;
+    setFile(null);
+    setError(null);
+    onFileChange?.(null);
   };
 
   const submit = async () => {
-    if (!file || !canSubmit) return;
-    setSubmitting(true); setError(null);
+    if (!file || !canSubmit || submitting) return;
+    setSubmitting(true);
+    setError(null);
     try {
-      setTaskId(await submitPdfTool(endpoint, file, fields, extraFiles));
-    } catch (err) {
-      setError(pdfToolError(err, "处理失败，请稍后重试"));
+      const nextTaskId = await submitPdfTool(endpoint, file, fields, extraFiles);
+      setTaskId(nextTaskId);
+    } catch (requestError) {
+      setError(pdfToolError(requestError, t("conversion.retryOrCheck")));
     } finally {
       setSubmitting(false);
     }
   };
 
+  const handleComplete = (task: ConversionTaskResult) => {
+    setTaskId(null);
+    setCompletedTask(task);
+  };
+
+  const handleProgressError = (message: string) => {
+    setTaskId(null);
+    setError(message);
+  };
 
   return (
-    <div className="detail-studio-page min-h-screen relative overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-32 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl" />
-        <div className="absolute bottom-0 -left-32 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl" />
-      </div>
-      <section className="relative mx-auto max-w-[1240px] px-4 py-10 sm:px-6 lg:py-16">
-        <nav className="detail-breadcrumb mb-10 flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-theme-muted">
-          <Link href="/" className="hover:text-indigo-500">首页</Link><span>/</span><span>{title}</span>
-        </nav>
-        <div className="detail-hero mb-12 max-w-4xl">
-          <h1 className="detail-title mb-5 text-5xl font-black leading-[0.9] tracking-[-0.06em] text-theme md:text-7xl">{title}</h1>
-          <p className="max-w-2xl text-lg leading-8 text-theme-muted">{description}</p>
-        </div>
-        <div className="detail-workbench overflow-hidden">
-          <div className="detail-workbench-head flex items-center gap-4 px-6 py-5 md:px-8">
-            <div className="detail-tool-icon flex h-14 w-14 items-center justify-center">{icon}</div>
-            <div><h2 className="text-xl font-black tracking-[-0.03em] text-theme">配置处理选项</h2><p className="text-sm text-theme-muted">文件只用于本次处理，30分钟后自动删除</p></div>
+    <div className="operation-page min-h-screen">
+      <div className="operation-grid" aria-hidden="true" />
+
+      <section className="operation-hero">
+        <div className="operation-shell">
+          <nav className="operation-breadcrumb" aria-label={t("conversion.home")}>
+            <Link href="/">{t("conversion.home")}</Link>
+            <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+            <span>{title}</span>
+          </nav>
+
+          <div className="operation-intro">
+            <div className="operation-intro-copy">
+              <div className="operation-kicker">
+                <span className="operation-status-dot" aria-hidden="true" />
+                <span>{t("pdfTool.configure")}</span>
+                <span className="operation-kicker-code">{endpoint.toUpperCase()}</span>
+              </div>
+              <h1 className="operation-title">{title}</h1>
+              <p className="operation-description">{description}</p>
+            </div>
+            <div className="operation-intro-meta" aria-label="工具信息">
+              <div><span>INPUT</span><strong>PDF</strong></div>
+              <div><span>OUTPUT</span><strong>{outputSuffix.split(".").pop()?.toUpperCase() || "PDF"}</strong></div>
+              <div><span>LIMIT</span><strong>50 MB</strong></div>
+            </div>
           </div>
-          <div className="space-y-6 p-5 md:p-8">
-            {!taskId && !completedTask && (
-              <>
-                <FileUploader accept={{ "application/pdf": [".pdf"] }} maxSize={50 * 1024 * 1024} onFileSelect={(next) => { setFile(next); setError(null); }} />
-                {file && (
-                  <div className="flex items-center gap-3 p-4 rounded-2xl bg-theme-secondary border border-theme">
-                    <FileText className="w-6 h-6 text-indigo-500" />
-                    <div className="flex-1 min-w-0"><p className="text-theme font-medium truncate">{file.name}</p><p className="text-xs text-theme-muted">{(file.size / 1024 / 1024).toFixed(2)} MB</p></div>
-                    <button onClick={() => setFile(null)}><XCircle className="w-5 h-5 text-theme-muted" /></button>
+
+          <div className="operation-workbench">
+            <div className="operation-workbench-head">
+              <div className="operation-tool-icon">{icon}</div>
+              <div className="min-w-0 flex-1">
+                <p className="operation-panel-kicker">01 / WORKBENCH</p>
+                <h2>{t("pdfTool.configure")}</h2>
+                <p>{t("pdfTool.autoDelete")}</p>
+              </div>
+              <span className="operation-ready-chip"><span /> READY</span>
+            </div>
+
+            <div className="operation-workbench-body">
+              <div className="operation-workspace-main">
+                {!taskId && !completedTask && (
+                  <>
+                    <FileUploader
+                      accept={{ "application/pdf": [".pdf"] }}
+                      maxSize={50 * 1024 * 1024}
+                      onFileSelect={(next) => {
+                        setFile(next);
+                        onFileChange?.(next);
+                        setError(null);
+                      }}
+                      isUploading={submitting}
+                    />
+
+                    {file && (
+                      <div className="operation-file-row">
+                        <div className="operation-file-icon"><FileText className="h-5 w-5" /></div>
+                        <div className="min-w-0 flex-1">
+                          <p className="operation-file-name" title={file.name}>{file.name}</p>
+                          <p className="operation-file-meta">{formatFileSize(file.size)} · {t("pdfTool.fileReady")}</p>
+                        </div>
+                        <button type="button" onClick={clearFile} disabled={submitting} className="operation-icon-button" aria-label={t("pdfTool.removeFile")} title={t("pdfTool.removeFile")}>
+                          <XCircle className="h-5 w-5" />
+                        </button>
+                      </div>
+                    )}
+
+                    <fieldset disabled={submitting} className="operation-options">
+                      {children}
+                    </fieldset>
+
+                    {validationMessage && (
+                      <p className="operation-validation"><AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />{validationMessage}</p>
+                    )}
+
+                    <div className="operation-action-row">
+                      <p className="operation-ready-note">
+                        <CheckCircle className="h-4 w-4" />
+                        {file ? t("pdfTool.readyToProcess") : t("pdfTool.selectFileFirst")}
+                      </p>
+                      <button type="button" onClick={submit} disabled={!file || !canSubmit || submitting} className="operation-primary-action">
+                        {submitting ? <RefreshCw className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
+                        {submitting ? t("pdfTool.processing") : t("pdfTool.start")}
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {taskId && !completedTask && <ConversionProgress taskId={taskId} onComplete={handleComplete} onError={handleProgressError} />}
+                {completedTask && <DownloadButton task={completedTask} onReset={reset} />}
+
+                {error && (
+                  <div className="operation-error" role="alert">
+                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+                    <div className="min-w-0 flex-1"><p>{t("pdfTool.failed")}</p><span>{error}</span></div>
+                    {file && !taskId && !completedTask && <button type="button" onClick={submit} disabled={submitting || !canSubmit} className="operation-error-retry"><RefreshCw className="h-4 w-4" /> {t("pdfTool.retry")}</button>}
+                    <button type="button" onClick={() => setError(null)} className="operation-icon-button" aria-label={t("pdfTool.dismissError")} title={t("pdfTool.dismissError")}><XCircle className="h-4 w-4" /></button>
                   </div>
                 )}
-                {children}
-                {validationMessage && <p className="text-sm text-amber-500">{validationMessage}</p>}
-                <button onClick={submit} disabled={!file || !canSubmit || submitting} className="detail-primary-action w-full py-4 disabled:opacity-40">
-                  {submitting ? "正在处理..." : "开始处理 PDF"}
-                </button>
-              </>
-            )}
-            {taskId && !completedTask && <ConversionProgress taskId={taskId} onComplete={setCompletedTask} onError={setError} />}
-            {completedTask && <DownloadButton task={completedTask} onReset={reset} />}
-            {error && <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500">{error}</div>}
+              </div>
+
+              <aside className="operation-workflow" aria-label={t("pdfTool.configure")}>
+                <div className="operation-workflow-head"><span>WORKFLOW</span><span>03 STEPS</span></div>
+                {workflowSteps.map((step, index) => (
+                  <div key={step.title} className={`operation-workflow-step ${index === 0 ? "is-active" : ""}`}>
+                    <span className="operation-workflow-index">0{index + 1}</span>
+                    <span className="operation-workflow-icon">{step.icon}</span>
+                    <div><strong>{step.title}</strong><small>{step.description}</small></div>
+                  </div>
+                ))}
+                <div className="operation-security-note"><LockKeyhole className="h-4 w-4" /><span>{t("pdfTool.autoDelete")}</span></div>
+              </aside>
+            </div>
           </div>
         </div>
       </section>
     </div>
   );
+}
+
+function formatFileSize(bytes: number) {
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
@@ -42,6 +42,35 @@ export default function Header() {
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const pathname = usePathname();
   const { t } = useI18n();
+  const toolsMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsToolsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isToolsOpen && !isMenuOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (isToolsOpen && toolsMenuRef.current && !toolsMenuRef.current.contains(event.target as Node)) {
+        setIsToolsOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsToolsOpen(false);
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMenuOpen, isToolsOpen]);
 
   const pdfTools = [
     { href: "/pdf-to-word", icon: FileText, title: t("header.tools.pdfToWord.title"), desc: t("header.tools.pdfToWord.desc") },
@@ -88,19 +117,19 @@ export default function Header() {
           <div className="hidden items-center gap-1 lg:flex">
             <span className="void-header-coordinate">N31.23 / E121.47</span>
             <Link href="/blog" className={`void-nav-link ${pathname === "/blog" ? "is-active" : ""}`}>{t("header.blog")}</Link>
-            <div className="relative">
-              <button type="button" onClick={() => setIsToolsOpen((open) => !open)} className={`void-nav-link flex items-center gap-2 ${isToolsOpen ? "is-active" : ""}`}>
+            <div ref={toolsMenuRef} className="relative">
+              <button type="button" onClick={() => setIsToolsOpen((open) => !open)} className={`void-nav-link flex items-center gap-2 ${isToolsOpen ? "is-active" : ""}`} aria-expanded={isToolsOpen} aria-haspopup="true" aria-controls="tools-menu">
                 {t("header.allTools")}<ChevronDown className={`h-4 w-4 transition-transform ${isToolsOpen ? "rotate-180" : ""}`} />
               </button>
               {isToolsOpen && (
-                <div className="void-mega-menu">
+                <div id="tools-menu" className="void-mega-menu" role="menu">
                   <div className="void-mega-head">
                     <span>MODULE DIRECTORY / {pdfTools.length + imageTools.length}</span>
                     <button type="button" onClick={() => setIsToolsOpen(false)} aria-label="关闭工具菜单"><X className="h-4 w-4" /></button>
                   </div>
                   <div className="void-mega-grid">
                     {pdfTools.map((tool, index) => (
-                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="void-menu-item group">
+                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="void-menu-item group" role="menuitem">
                         <span>{String(index + 1).padStart(2, "0")}</span>
                         <tool.icon className="h-5 w-5" />
                         <span className="min-w-0"><strong>{tool.title}</strong><small>{tool.desc}</small></span>
@@ -109,7 +138,7 @@ export default function Header() {
                   </div>
                   <div className="void-mega-images">
                     {imageTools.map((tool) => (
-                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="void-menu-item group">
+                      <Link key={tool.href} href={tool.href} onClick={() => setIsToolsOpen(false)} className="void-menu-item group" role="menuitem">
                         <tool.icon className="h-5 w-5" /><strong>{tool.title}</strong>
                       </Link>
                     ))}
@@ -128,14 +157,14 @@ export default function Header() {
           <div className="flex items-center gap-1 lg:hidden">
             <LanguageSwitcher />
             <ThemeToggle />
-            <button type="button" className="void-menu-toggle" onClick={() => setIsMenuOpen((open) => !open)} aria-label="Toggle menu">
+            <button type="button" className="void-menu-toggle" onClick={() => setIsMenuOpen((open) => !open)} aria-label="Toggle menu" aria-expanded={isMenuOpen} aria-controls="mobile-menu">
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
         {isMenuOpen && (
-          <div className="void-mobile-menu lg:hidden">
+          <div id="mobile-menu" className="void-mobile-menu lg:hidden">
             <div className="grid max-h-[70vh] grid-cols-2 gap-2 overflow-y-auto pb-4">
               <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="void-mobile-link col-span-2">{t("header.blog")}</Link>
               {pdfTools.map((tool, index) => (

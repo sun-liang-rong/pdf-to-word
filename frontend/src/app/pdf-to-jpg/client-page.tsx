@@ -26,7 +26,7 @@ export default function PdfToJpgClient() {
       accept={{ "application/pdf": ['.pdf'] }}
       icon={<FileImage className="w-8 h-8" />}
       gradient="bg-gradient-to-r from-orange-500 to-red-500"
-      outputExtension=".jpg"
+      outputExtension=".zip"
       faqItems={faqItems}
       features={features}
     />

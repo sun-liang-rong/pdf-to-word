@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, LessThan } from 'typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ConversionTask, ConversionType } from '../../modules/task/task.entity';
+import { ConversionTask } from '../../modules/task/task.entity';
 
 @Injectable()
 export class FileCleanupService {
@@ -35,13 +35,10 @@ export class FileCleanupService {
       // 1. 清理数据库中过期的转换任务文件（基于 expiresAt）
       const cleanedFromDb = await this.cleanupExpiredTasks();
 
-      // 2. 清理图片压缩目录中过期的文件（基于 createdAt 超过30分钟）
+      // 2. 清理图片目录中过期的文件（基于文件修改时间）
       const cleanedFromImageDir = await this.cleanupExpiredImageFiles();
 
-      // 3. 清理超过30分钟的图片压缩任务记录
-      const cleanedImageTasks = await this.cleanupExpiredImageCompressTasks();
-
-      const totalCleaned = cleanedFromDb + cleanedFromImageDir + cleanedImageTasks;
+      const totalCleaned = cleanedFromDb + cleanedFromImageDir;
       if (totalCleaned > 0) {
         this.logger.log(`Cleaned up ${totalCleaned} expired files/tasks`);
       }
@@ -129,53 +126,4 @@ export class FileCleanupService {
     return cleanedCount;
   }
 
-  /**
-   * 清理超过30分钟的图片压缩任务记录
-   * 根据 createdAt 时间判断，删除超过30分钟的记录
-   */
-  private async cleanupExpiredImageCompressTasks(): Promise<number> {
-    // 计算30分钟前的时间
-    const thirtyMinutesAgo = new Date();
-    thirtyMinutesAgo.setMinutes(thirtyMinutesAgo.getMinutes() - 30);
-
-    try {
-      // 查找超过30分钟的图片压缩任务
-      const expiredTasks = await this.taskRepository.find({
-        where: {
-          type: ConversionType.IMAGE_COMPRESS,
-          createdAt: LessThan(thirtyMinutesAgo),
-        },
-      });
-
-      if (expiredTasks.length === 0) {
-        return 0;
-      }
-
-      this.logger.log(`Found ${expiredTasks.length} expired image compress tasks (older than 30 minutes)`);
-
-      let deletedCount = 0;
-
-      for (const task of expiredTasks) {
-        try {
-          // 删除物理文件
-          if (task.outputPath && fs.existsSync(task.outputPath)) {
-            fs.unlinkSync(task.outputPath);
-            this.logger.debug(`Deleted file: ${task.outputPath}`);
-          }
-
-          // 删除数据库记录
-          await this.taskRepository.remove(task);
-          deletedCount++;
-        } catch (error) {
-          this.logger.error(`Failed to cleanup image task ${task.id}:`, error);
-        }
-      }
-
-      this.logger.log(`Cleaned ${deletedCount} expired image compress tasks`);
-      return deletedCount;
-    } catch (error) {
-      this.logger.error('Failed to cleanup expired image compress tasks:', error);
-      return 0;
-    }
-  }
 }

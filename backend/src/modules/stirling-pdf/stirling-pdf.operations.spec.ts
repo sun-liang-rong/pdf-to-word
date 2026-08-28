@@ -28,7 +28,7 @@ describe('StirlingPdfService PDF operations', () => {
       text: 'CONFIDENTIAL', fontSize: 30, rotation: -45, opacity: 0.35,
       spacing: 50, customColor: '#abcdef',
     });
-    expect(request).toHaveBeenCalledWith('/api/v1/misc/add-watermark', {
+    expect(request).toHaveBeenCalledWith('/api/v1/security/add-watermark', {
       fileInput: pdf, watermarkType: 'text', watermarkText: 'CONFIDENTIAL', alphabet: 'roman',
       fontSize: '30', rotation: '-45', opacity: '0.35', widthSpacer: '50', heightSpacer: '50',
       customColor: '#abcdef', convertPDFToImage: 'false',

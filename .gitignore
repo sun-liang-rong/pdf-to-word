@@ -8,7 +8,11 @@ coverage/
 
 # Next.js
 .next/
+.next-dev/
 out/
+
+# Agent workspace
+.zcode/
 
 # Production
 build/

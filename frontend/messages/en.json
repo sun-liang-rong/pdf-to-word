@@ -120,8 +120,27 @@
       "fast": { "label": "Lightning Fast", "desc": "Done in 15 seconds" },
       "secure": { "label": "Secure & Safe", "desc": "Deleted in 30 min" }
     },
+    "fileReady": "File is ready to convert",
+    "startNow": "Start conversion",
+    "submitting": "Submitting...",
+    "removeFile": "Remove file",
+    "retry": "Retry",
+    "dismissError": "Dismiss error",
     "conversionFailed": "Conversion Failed",
     "retryOrCheck": "Please check the file format and try again"
+  },
+  "pdfTool": {
+    "configure": "Configure processing",
+    "autoDelete": "Files are used only for this task and deleted after 30 minutes",
+    "fileReady": "File ready",
+    "removeFile": "Remove file",
+    "readyToProcess": "Review the options, then start processing",
+    "selectFileFirst": "Select a PDF file to get started",
+    "start": "Start processing",
+    "processing": "Processing...",
+    "failed": "Processing failed",
+    "retry": "Retry",
+    "dismissError": "Dismiss error"
   },
   "upload": {
     "title": "Upload File",
@@ -138,7 +157,15 @@
     "fileTooLarge": "File size exceeds limit (max {size}MB)",
     "invalidType": "File type not supported, please upload the correct format",
     "uploadFailed": "File upload failed, please try again",
-    "checkFormat": "Please check file format and size, then try again"
+    "checkFormat": "Please check file format and size, then try again",
+    "selectedCount": "{count} files selected",
+    "totalSize": "Total size:",
+    "reorderHint": "Drag files to change the merge order",
+    "dragToReorder": "Drag to reorder",
+    "removeFile": "Remove file",
+    "addFile": "Add files",
+    "clearAll": "Clear all",
+    "dismissError": "Dismiss error"
   },
   "progress": {
     "initializing": "Initializing...",
@@ -367,7 +394,36 @@
         { "q": "Will the format be messed up after converting PDF to Word?", "a": "Our conversion engine uses advanced OCR technology and format recognition algorithms to preserve the original document's layout, images, and tables to the greatest extent." },
         { "q": "Can scanned PDFs be converted?", "a": "Yes. Our system supports OCR recognition and can convert scanned PDFs to editable Word documents." }
       ],
-      "features": { "accurate": { "label": "Precise", "desc": "Preserves format" } }
+      "features": { "accurate": { "label": "Precise", "desc": "Preserves format" } },
+      "workflow": {
+        "eyebrow": "DOCUMENT WORKBENCH",
+        "toolLabel": "PDF / WORD CONVERTER",
+        "ready": "READY TO START",
+        "dropTitle": "Drop your PDF here",
+        "dropDescription": "Or choose a file and confirm it before converting",
+        "chooseFile": "Choose PDF file",
+        "fileRule": "PDF only · One file · Max 20MB",
+        "selected": "Selected",
+        "removeFile": "Remove file",
+        "start": "Start conversion",
+        "retry": "Try again",
+        "privacy": "Your file is used only for this conversion and deleted after 30 minutes",
+        "errorTitle": "Conversion did not complete",
+        "dismissError": "Dismiss error",
+        "formatNote": "OUTPUT / EDITABLE DOC",
+        "processing": "Building your editable document",
+        "processingDesc": "We are uploading and parsing the PDF text, tables, and layout.",
+        "processingTip": "Larger files can take a little longer. Keep this page open",
+        "sectionLabel": "WHY THIS WORKFLOW",
+        "flow": {
+          "input": "Upload PDF",
+          "inputDesc": "Choose the source document",
+          "recognize": "Parse layout",
+          "recognizeDesc": "Read text, images, and tables",
+          "output": "Download Word",
+          "outputDesc": "Get an editable DOC document"
+        }
+      }
     },
     "wordToPdf": {
       "title": "Word to PDF Online Converter",

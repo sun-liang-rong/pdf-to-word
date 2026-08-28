@@ -120,8 +120,27 @@
       "fast": { "label": "极速转换", "desc": "15秒内完成" },
       "secure": { "label": "安全保障", "desc": "30分钟删除" }
     },
+    "fileReady": "文件已就绪，可以开始转换",
+    "startNow": "开始转换",
+    "submitting": "正在提交...",
+    "removeFile": "移除文件",
+    "retry": "重试",
+    "dismissError": "关闭错误提示",
     "conversionFailed": "转换失败",
     "retryOrCheck": "请检查文件格式后重试"
+  },
+  "pdfTool": {
+    "configure": "配置处理选项",
+    "autoDelete": "文件只用于本次处理，30分钟后自动删除",
+    "fileReady": "文件已就绪",
+    "removeFile": "移除文件",
+    "readyToProcess": "确认参数后即可开始处理",
+    "selectFileFirst": "先选择一个 PDF 文件",
+    "start": "开始处理",
+    "processing": "正在处理...",
+    "failed": "处理失败",
+    "retry": "重试",
+    "dismissError": "关闭错误提示"
   },
   "upload": {
     "title": "上传文件",
@@ -138,7 +157,15 @@
     "fileTooLarge": "文件大小超过限制 (最大 {size}MB)",
     "invalidType": "文件类型不支持，请上传正确的文件格式",
     "uploadFailed": "文件上传失败，请重试",
-    "checkFormat": "请检查文件格式和大小后重试"
+    "checkFormat": "请检查文件格式和大小后重试",
+    "selectedCount": "已选择 {count} 个文件",
+    "totalSize": "总大小：",
+    "reorderHint": "拖拽文件可调整合并顺序",
+    "dragToReorder": "拖拽调整顺序",
+    "removeFile": "移除文件",
+    "addFile": "添加文件",
+    "clearAll": "清空全部",
+    "dismissError": "关闭错误提示"
   },
   "progress": {
     "initializing": "正在初始化...",
@@ -367,7 +394,36 @@
         { "q": "PDF转Word后格式会乱吗？", "a": "我们的转换引擎采用先进的OCR技术和格式识别算法，能够最大程度保留原文档的排版、图片和表格。" },
         { "q": "扫描版PDF能转换吗？", "a": "可以。我们的系统支持OCR识别，能够将扫描版PDF转换为可编辑的Word文档。" }
       ],
-      "features": { "accurate": { "label": "精准还原", "desc": "保留原格式" } }
+      "features": { "accurate": { "label": "精准还原", "desc": "保留原格式" } },
+      "workflow": {
+        "eyebrow": "文档转换工作台",
+        "toolLabel": "PDF / WORD CONVERTER",
+        "ready": "准备就绪",
+        "dropTitle": "拖拽 PDF 到这里",
+        "dropDescription": "或点击选择文件，转换前可先确认文件信息",
+        "chooseFile": "选择 PDF 文件",
+        "fileRule": "仅支持 PDF · 单文件 · 最大 20MB",
+        "selected": "已选择",
+        "removeFile": "移除文件",
+        "start": "开始转换",
+        "retry": "重新转换",
+        "privacy": "文件仅用于本次转换，30 分钟后自动删除",
+        "errorTitle": "转换没有完成",
+        "dismissError": "关闭错误提示",
+        "formatNote": "输出格式 / 可编辑 DOC",
+        "processing": "正在生成可编辑文档",
+        "processingDesc": "系统正在上传并解析 PDF 的文本、表格和版式。",
+        "processingTip": "文件较大时可能需要更长时间，请保持页面打开",
+        "sectionLabel": "WHY THIS WORKFLOW",
+        "flow": {
+          "input": "上传 PDF",
+          "inputDesc": "选择要转换的原始文件",
+          "recognize": "解析版式",
+          "recognizeDesc": "识别文本、图片和表格",
+          "output": "下载 Word",
+          "outputDesc": "获取可编辑的 DOC 文档"
+        }
+      }
     },
     "wordToPdf": {
       "title": "Word转PDF在线转换器",

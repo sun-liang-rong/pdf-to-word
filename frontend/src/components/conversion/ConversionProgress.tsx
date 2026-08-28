@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Loader, FileText } from "lucide-react";
+import { Check, FileText, LoaderCircle, UploadCloud, Cog, Download } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import type { ConversionTaskResult } from "@/types/task";
 
@@ -12,186 +13,101 @@ interface ConversionProgressProps {
   onError: (error: string) => void;
 }
 
-
-export default function ConversionProgress({
-  taskId,
-  onComplete,
-  onError,
-}: ConversionProgressProps) {
+export default function ConversionProgress({ taskId, onComplete, onError }: ConversionProgressProps) {
   const { t } = useI18n();
 
   const steps = [
-    { id: "upload", label: t("progress.upload"), icon: "📤" },
-    { id: "process", label: t("progress.processing"), icon: "⚙️" },
-    { id: "complete", label: t("progress.complete"), icon: "✅" },
+    { id: "upload", label: t("progress.upload"), icon: <UploadCloud className="h-4 w-4" /> },
+    { id: "process", label: t("progress.processing"), icon: <Cog className="h-4 w-4" /> },
+    { id: "complete", label: t("progress.complete"), icon: <Download className="h-4 w-4" /> },
   ];
 
   const { data, isLoading } = useQuery({
     queryKey: ["task", taskId],
     queryFn: async () => {
       const response = await axios.get<ConversionTaskResult>(
-        `${process.env.NEXT_PUBLIC_API_URL}/task/${taskId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/task/${taskId}`,
       );
       return response.data;
     },
     refetchInterval: (query) => {
       const status = query.state.data?.status;
-      if (status === "completed" || status === "failed") {
-        return false;
-      }
-      return 1000;
+      return status === "completed" || status === "failed" ? false : 1000;
     },
-    enabled: !!taskId,
+    enabled: Boolean(taskId),
   });
+
+  useEffect(() => {
+    if (!data) return;
+    if (data.status === "completed") {
+      if (data.canDownload && data.downloadUrl) {
+        onComplete(data);
+      } else {
+        onError(t("download.expired"));
+      }
+    }
+    if (data.status === "failed") onError(data.error || t("progress.failed"));
+  }, [data, onComplete, onError, t]);
 
   if (isLoading || !data) {
     return (
-      <div className="w-full p-8 glass-card rounded-2xl">
-        <div className="flex flex-col items-center justify-center">
-          <div className="relative">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-indigo-200 dark:border-indigo-900 border-t-indigo-500"></div>
-          </div>
-          <span className="mt-4 text-theme-muted font-medium">{t("progress.initializing")}</span>
+      <div className="operation-progress glass-card" aria-live="polite" aria-busy="true">
+        <div className="operation-progress-loading">
+          <LoaderCircle className="h-8 w-8 animate-spin" />
+          <span>{t("progress.initializing")}</span>
         </div>
       </div>
     );
   }
 
   const status = data.status;
-  const progress = data.progress || 0;
-
-  if (status === "completed") {
-    if (data.canDownload && data.downloadUrl) {
-      setTimeout(() => onComplete(data), 0);
-    } else {
-      setTimeout(() => onError(t("download.expired")), 0);
-    }
-  }
-
-  if (status === "failed") {
-    setTimeout(() => onError(data.error || t("progress.failed")), 0);
-  }
-
-  const getCurrentStep = () => {
-    switch (status) {
-      case "waiting": return 0;
-      case "processing": return 1;
-      case "completed": return 2;
-      default: return 0;
-    }
-  };
-
-  const currentStep = getCurrentStep();
-
-  const getStatusText = () => {
-    switch (status) {
-      case "waiting": return t("progress.waiting");
-      case "processing": return t("progress.converting");
-      case "completed": return t("progress.done");
-      case "failed": return t("progress.failed");
-      default: return t("progress.processingStatus");
-    }
-  };
-
-  const getStatusDescription = () => {
-    switch (status) {
-      case "waiting": return t("progress.waitingDesc");
-      case "processing": return t("progress.convertingDesc");
-      case "completed": return t("progress.doneDesc");
-      case "failed": return t("progress.failedDesc");
-      default: return "";
-    }
-  };
+  const progress = Math.max(0, Math.min(100, data.progress || 0));
+  const currentStep = status === "completed" ? 2 : status === "processing" ? 1 : 0;
+  const statusText = {
+    waiting: t("progress.waiting"),
+    processing: t("progress.converting"),
+    completed: t("progress.done"),
+    failed: t("progress.failed"),
+  }[status] || t("progress.processingStatus");
+  const statusDescription = {
+    waiting: t("progress.waitingDesc"),
+    processing: t("progress.convertingDesc"),
+    completed: t("progress.doneDesc"),
+    failed: t("progress.failedDesc"),
+  }[status] || "";
 
   return (
-    <div className="w-full">
-      <div className="mb-8">
-        <div className="flex items-center justify-between relative">
-          <div className="absolute left-0 right-0 top-1/2 h-1.5 bg-theme-secondary -translate-y-1/2 rounded-full">
-            <div
-              className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-500"
-              style={{ width: `${Math.min(((currentStep) / (steps.length - 1)) * 100 + (status === "processing" ? (progress / steps.length) : 0), 100)}%` }}
-            />
-          </div>
-
-          {steps.map((step, index) => {
-            const isActive = index <= currentStep;
-            const isCurrent = index === currentStep;
-
-            return (
-              <div key={step.id} className="relative flex flex-col items-center z-10">
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all duration-300 ${
-                    isCurrent
-                      ? "bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-lg scale-110 animate-pulse-glow"
-                      : isActive
-                      ? "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800"
-                      : "bg-theme-card text-theme-muted border border-theme"
-                  }`}
-                >
-                  {isCurrent && status === "processing" ? (
-                    <Loader className="w-5 h-5 animate-spin" />
-                  ) : (
-                    step.icon
-                  )}
-                </div>
-                <span
-                  className={`mt-2 text-sm font-medium transition-colors ${
-                    isActive ? "text-theme" : "text-theme-muted"
-                  }`}
-                >
-                  {step.label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+    <div className="operation-progress glass-card" aria-live="polite">
+      <div className="operation-progress-steps">
+        {steps.map((step, index) => {
+          const isCurrent = index === currentStep;
+          const isComplete = index < currentStep || status === "completed";
+          return (
+            <div key={step.id} className={`operation-progress-step ${isCurrent ? "is-current" : ""} ${isComplete ? "is-complete" : ""}`}>
+              <span className="operation-progress-step-icon">
+                {isComplete ? <Check className="h-4 w-4" /> : isCurrent && status === "processing" ? <LoaderCircle className="h-4 w-4 animate-spin" /> : step.icon}
+              </span>
+              <span>{step.label}</span>
+            </div>
+          );
+        })}
       </div>
 
-      <div className="glass-card rounded-2xl p-8">
-        <div className="text-center mb-6">
-          <h3 className="text-xl md:text-2xl font-bold text-theme mb-2">{getStatusText()}</h3>
-          <p className="text-sm text-theme-muted">{getStatusDescription()}</p>
+      <div className="operation-progress-panel">
+        <div className="operation-progress-status-icon"><Cog className="h-6 w-6" /></div>
+        <h3>{statusText}</h3>
+        <p>{statusDescription}</p>
+
+        <div className="operation-progress-track" role="progressbar" aria-label={t("progress.progressLabel")} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}>
+          <span style={{ width: `${progress}%` }} />
         </div>
+        <div className="operation-progress-meta"><span>{t("progress.progressLabel")}</span><strong>{progress}%</strong></div>
 
-        <div className="relative">
-          <div className="w-full bg-theme-secondary rounded-full h-4 overflow-hidden">
-            <div
-              className="h-full rounded-full transition-all duration-500 ease-out relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
-              style={{ width: `${progress}%` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-gradient" />
-            </div>
-          </div>
+        {status === "processing" && <div className="operation-progress-pulse"><i /><i /><i /><span>{t("progress.processingDots")}</span></div>}
 
-          <div className="flex justify-between items-center mt-3">
-            <span className="text-sm text-theme-muted">{t("progress.progressLabel")}</span>
-            <span className="text-2xl font-bold gradient-text">{progress}%</span>
-          </div>
-        </div>
-
-        {status === "processing" && (
-          <div className="mt-6 flex items-center justify-center space-x-2">
-            <div className="flex space-x-1">
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"
-                  style={{ animationDelay: `${i * 0.15}s` }}
-                />
-              ))}
-            </div>
-            <span className="text-sm text-theme-muted">{t("progress.processingDots")}</span>
-          </div>
-        )}
-
-        <div className="mt-6 p-4 bg-theme-secondary rounded-2xl">
-          <div className="flex items-start space-x-3">
-            <FileText className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-theme-muted">
-              {t("progress.waitTip")}
-            </p>
-          </div>
+        <div className="operation-progress-tip">
+          <FileText className="h-4 w-4" />
+          <span>{t("progress.waitTip")}</span>
         </div>
       </div>
     </div>

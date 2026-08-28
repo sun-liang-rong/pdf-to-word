@@ -2,6 +2,8 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Keep development output separate so it cannot overwrite the production build.
+  distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
   typescript: {
     // 暂时忽略类型错误，以便构建通过
     ignoreBuildErrors: true,
@@ -14,6 +16,10 @@ const nextConfig: NextConfig = {
       {
         source: '/api/:path*',
         destination: `${backendOrigin}/api/:path*`,
+      },
+      {
+        source: '/uploads/:path*',
+        destination: `${backendOrigin}/uploads/:path*`,
       },
     ];
   },

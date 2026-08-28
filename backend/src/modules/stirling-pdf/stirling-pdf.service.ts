@@ -742,7 +742,7 @@ export class StirlingPdfService {
     filename: string,
     options: TextWatermarkOptions,
   ): Promise<Buffer> {
-    return this.makeMultipartRequest('/api/v1/misc/add-watermark', {
+    return this.makeMultipartRequest('/api/v1/security/add-watermark', {
       fileInput: pdfBuffer,
       watermarkType: 'text',
       watermarkText: options.text,
